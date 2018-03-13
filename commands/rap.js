@@ -8,7 +8,7 @@ exports.run = (client, msg) => {
   const embed = new Discord.RichEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
-    .setDescription(`**Action:** Rape\n${msg.author.tag} just raped ` + user);
+    .setDescription(`**Action:** Rape\n@${msg.author.tag} just raped ` + user);
   return client.channels.get(nsfw.id).send({embed});
 
 };

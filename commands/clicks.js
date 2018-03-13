@@ -9,7 +9,7 @@ exports.run = (client, msg) => {
   const embed = new Discord.RichEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
-    .setDescription(`**Action:** Clit\n**Target:** ${user.tag}\n**Measurer:** ${msg.author.tag}\n **Length:** ` + size +  'inch(es)');
+    .setDescription(`**Action:** Clit\n**Target:** <@${user.id}>\n**Measurer:** <@${msg.author.id}>\n **Length:** ` + size +  'inch(es)');
   return client.channels.find('name','nsfw').send({embed});
 
 };

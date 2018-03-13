@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 exports.run = (client, msg) => {
 
-  let user = msg.mentions.users.first();
-  let nsfw = client.channels.find('name', 'nsfw');
+  const user = msg.mentions.users.first();
+  const nsfw = client.channels.find('name', 'nsfw');
   if (!nsfw) return msg.reply('I cannot find a nsfw channel');
   //var Willpen = Math.floor(Math.random() * 100) + 1;
   if (msg.mentions.users.first === '186620503123951617') return msg.channel.send(user + '\'s penis is" + size + "inches long.');
@@ -10,9 +10,9 @@ exports.run = (client, msg) => {
   var size = Math.floor(Math.random() * 15) + 1;
 
   const embed = new Discord.RichEmbed()
-      .setColor(0x00AE86)
-      .setTimestamp()
-      .setDescription(`**Action:** Penis\n**Target:** ${user.tag}\n**Measurer:** ${msg.author.tag}\n **Length:** ` + size + ' inch(es)');
+    .setColor(0x00AE86)
+    .setTimestamp()
+    .setDescription(`**Action:** Penis\n**Target:** <@${user.id}>\n**Measurer:** <@${msg.author.tag}>\n **Length:** ` + size + ' inch(es)');
   return client.channels.get(nsfw.id).send({embed});
 
 };
