@@ -90,7 +90,7 @@ client.on('message', async message => {
       .setColor(0x902B93)
       .addField('New Level', curlvl + 1);
 
-    message.channel.send(lvlup).then(msg => {msg.delete(5000);});
+    message.channel.send(lvlup);
   }
   fs.writeFile('./storage/xp.json', JSON.stringify(xp), (err) => {
     if (err) console.log(err);
