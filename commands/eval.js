@@ -1,5 +1,7 @@
 exports.run = async (client, message, args) => {
-  if (message.author.id !== '186620503123951617') return message.reply('Eval doesn\'t exist you pleb!');
+  const fs = require('fs');
+  const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+  if (message.author.id !== settings.ownerid) return message.reply('Eval doesn\'t exist you pleb!');
   var code = args.join(' ');
   if (code.length < 1) return message.reply('Please input code, master.');
   try {

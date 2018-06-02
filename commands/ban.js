@@ -5,10 +5,10 @@ const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
   const botlog = client.channels.find('name','bot-logs');
-  if (user.id == settings.ownerid) {
+  if (user.id === settings.ownerid) {
     return message.channel.send('You, ' + message.author + ' shall not ban my master!');
   }
-  if (user.id == settings.bot_client_id) {
+  if (user.id === settings.bot_client_id) {
     return message.channel.send('No! Don\'t ban me!');
   }
   parseUser(message, user);

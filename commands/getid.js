@@ -1,7 +1,7 @@
 exports.run = (client, message) => {
-  let user = message.mentions.users.first();
+  const user = message.mentions.users.first();
   if (message.mentions.users.size < 1) return message.reply('Which user?');
-  message.channel.send(user + `\'s ID is ${user.id}`);
+  message.channel.send(user + `'s ID is ${user.id}`);
 
 };
 
@@ -9,7 +9,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 1
+  permLevel: 0
 };
 
 exports.help = {

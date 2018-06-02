@@ -73,27 +73,27 @@ client.on('message', async message => {
     xp[message.author.id] = {
       xp: 0,
       level: 1,
-      messagesent: 0
     };
   }
 
-  const messagesent = xp[message.author.id].messagesent;
   const curxp = xp[message.author.id].xp;
   const curlvl = xp[message.author.id].level;
   const nxtLvl = xp[message.author.id].level * 250;
   xp[message.author.id].xp =  curxp + xpAdd;
-  xp[message.author.id].messagesent = messagesent + Number(1);
   if (nxtLvl <= xp[message.author.id].xp) {
     xp[message.author.id].level = curlvl + 1;
+    const lvlupnum = curlvl + Number(1);
     const lvlup = new Discord.RichEmbed()
-      .setTitle('Level Up!')
-      .setColor(0x902B93)
-      .addField('New Level', curlvl + 1);
+      .setTitle('Level up!')
+      .setColor(0x00AE86)
+      .setDescription(lvlupnum)
+      .setFooter(message.author.username, message.author.displayAvatarURL)
+      .setTimestamp();
 
     message.channel.send(lvlup);
   }
   fs.writeFile('./storage/xp.json', JSON.stringify(xp), (err) => {
-    if (err) console.log(err);
+    if (err) message.channel.send(err);
   });
 });
 

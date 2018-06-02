@@ -1,7 +1,7 @@
-//stop eslint
-
+const fs = require('fs');
+const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 exports.run = (client, message, args) => {
-  if (message.author.id !== '186620503123951617') return message.reply('You are not my master!');
+  if (message.author.id !== settings.ownerid) return message.reply('You are not my master!');
   let command;
   if (client.commands.has(args[0])) {
     command = args[0];
@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['r'],
+  aliases: [],
   permLevel: 4
 };
 

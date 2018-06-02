@@ -1,6 +1,7 @@
 exports.run = (client, message) => {
-
-  if (message.author.id !== '186620503123951617') return message.reply('No.......');
+  const fs = require('fs');
+  const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+  if (message.author.id !== settings.ownerid) return message.reply('No.......');
   message.channel.send('Goodbye! 💀');
   client.destroy();
 };
