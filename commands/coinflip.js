@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   const responses = [
-    'Heads', 'Tails'
+    'it\'s heads!', 'it\'s tails!'
   ];
   message.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
 };
@@ -13,7 +13,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'flip',
+  name: 'coinflip',
   description: 'Flips a coin.',
   usage: 'flip'
 };
