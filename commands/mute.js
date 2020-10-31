@@ -5,10 +5,10 @@ const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
   parseUser(message, user);
-  if (user.id == settings.ownerid) {
+  if (user.id === settings.ownerid) {
     return message.channel.send('Don\'t mute willeh!');
   }
-  if (user.id == settings.bot_client_id) {
+  if (user.id === client.user.id) {
     return message.channel.send('Don\'t mute me!');
   }
   const botlog = message.guild.channels.find(
