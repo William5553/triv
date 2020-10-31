@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = message => {
-  if (message.channel.type === 'text') return;
+  if (message.channel.type !== 'text') return;
   const logs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
     message.guild.channels.create('bot-logs', {
@@ -23,7 +23,6 @@ module.exports = message => {
     .setTitle('Message Deleted')
     .addField('Author', message.author.username)
     .addField('Message', message)
-    .addField('Deleted By', user)
     .setThumbnail(message.author.avatarURL())
     .setColor('0x00AAFF');
   logs.send({
