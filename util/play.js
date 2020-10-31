@@ -1,5 +1,5 @@
 const ytdlDiscord = require("ytdl-core-discord");
-const { canModifyQueue } = require("../util/EvobotUtil");
+const { canModifyQueue } = require("./queue");
 
 module.exports = {
   async play(song, message) {
