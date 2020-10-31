@@ -3,11 +3,11 @@ const { play } = require("../include/play");
 const YouTubeAPI = require("simple-youtube-api");
 const settings = require('../settings.json');
 
-let YOUTUBE_API_KEY, MAX_PLAYLIST_SIZE;
+let YOUTUBE_API_KEY;
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = {
+exports.run = (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -48,7 +48,7 @@ exports.run = {
     if (urlValid) {
       try {
         playlist = await youtube.getPlaylist(url, { part: "snippet" });
-        videos = await playlist.getVideos(MAX_PLAYLIST_SIZE || 10, { part: "snippet" });
+        videos = await playlist.getVideos(16, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
@@ -57,7 +57,7 @@ exports.run = {
       try {
         const results = await youtube.searchPlaylists(search, 1, { part: "snippet" });
         playlist = results[0];
-        videos = await playlist.getVideos(MAX_PLAYLIST_SIZE || 10, { part: "snippet" });
+        videos = await playlist.getVideos(16, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
@@ -85,12 +85,10 @@ exports.run = {
       .setColor("#F8AA2A")
       .setTimestamp();
 
-    if (!PRUNING) {
+   
       playlistEmbed.setDescription(queueConstruct.songs.map((song, index) => `${index + 1}. ${song.title}`));
-      if (playlistEmbed.description.length >= 2048)
-        playlistEmbed.description =
-          playlistEmbed.description.substr(0, 2007) + "\nPlaylist larger than character limit...";
-    }
+      if (playlistEmbed.description.length >= 2048) playlistEmbed.description = playlistEmbed.description.substr(0, 2007) + "\nPlaylist larger than character limit...";
+   
 
     message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
 
