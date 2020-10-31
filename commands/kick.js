@@ -9,9 +9,9 @@ exports.run = async (client, message, args) => {
     return message.channel.send('You cannot, fool!');
   }
   if (user.id == settings.ownerid) {
-    return message.channel.send('Not willeh!');
+    return message.reply('not willeh!');
   }
-  const botlog = message.guild.channels.find(
+  const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   const caseNum = await caseNumber(client, botlog);
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     .setTimestamp()
     .setDescription(`**Action:** Kick\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.id}`)
     .setFooter(`ID ${caseNum}`);
-  return client.channels.get(botlog.id).send({embed});
+  return client.channels.fetch(botlog.id).send({embed});
 };
 
 exports.conf = {
