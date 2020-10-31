@@ -13,11 +13,9 @@
   "license": "ISC",
   "description": "The best bot ever!",
   "dependencies": {
-    "bufferutil": "^4.0.1",
     "chalk": "^4.1.0",
     "discord.js": "^12.4.0",
     "discord.js-musicbot-addon": "^13.9.1",
-    "express": "^4.17.1",
     "fs": "0.0.2",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
