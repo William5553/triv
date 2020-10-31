@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
   const reason = args.slice(1).join(' ');
   const user = message.mentions.users.first();
-  const modlog = client.channels.find('name', 'bot-logs');
+  const modlog = message.guild.channels.find(
+      channel => channel.name === 'bot-logs'
+    );
   if (!modlog) return message.reply('I cannot find a bot-logs channel');
   if (reason.length < 1) return message.reply('You must supply a reason for the warning.');
   if (message.mentions.users.size < 1) return message.reply('You must mention someone to warn them.').catch(console.error);
