@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
     .setColor(0xEB5234)
     .setTimestamp()
     .setDescription(`**Bulk Delete in ${message.channel}, ${mgct} messages deleted**`);
-    return botlog.send({embed});
+    if (botlog) botlog.send({embed});
   }
   purge();
 };
