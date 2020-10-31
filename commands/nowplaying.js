@@ -1,7 +1,7 @@
 const createBar = require("string-progressbar");
 const { MessageEmbed } = require("discord.js");
 
-exports.run = {
+exports.run = (client, message, args) => {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.reply("There is nothing playing.").catch(console.error);
     const song = queue.songs[0];
