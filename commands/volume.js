@@ -16,7 +16,6 @@ exports.run = (client, message, args) => {
     queue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);
 
     return queue.textChannel.send(`Volume set to: **${args[0]}%**`).catch(console.error);
-  }
 };
 
 exports.conf = {
