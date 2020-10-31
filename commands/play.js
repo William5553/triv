@@ -57,6 +57,7 @@ exports.run = (client, message, args) => {
         console.error(error);
         return message.reply(error.message).catch(console.error);
       }
+      try {
         const results = youtube.searchVideos(search, 1);
         songInfo = ytdl.getInfo(results[0].url);
         song = {
@@ -81,13 +82,13 @@ exports.run = (client, message, args) => {
     message.client.queue.set(message.guild.id, queueConstruct);
 
     try {
-      queueConstruct.connection = await channel.join();
-      await queueConstruct.connection.voice.setSelfDeaf(true);
+      queueConstruct.connection = channel.join();
+      queueConstruct.connection.voice.setSelfDeaf(true);
       play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(error);
       message.client.queue.delete(message.guild.id);
-      await channel.leave();
+      channel.leave();
       return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
     }
 };
