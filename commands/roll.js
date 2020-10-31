@@ -1,6 +1,5 @@
 exports.run = (client, message) => {
-  let sides = Number(args.slice(0).join(' '));
-  if (!sides) let sides = 6;
+  let sides = Number(args.slice(0).join(' ')) || 6;
   var roll = Math.floor(Math.random() * sides) + 1;
   message.reply('You rolled a ' + roll);
 };
