@@ -3,12 +3,13 @@ const {caseNumber} = require('../util/caseNumber.js');
 const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
+  if (!message.member.permissions.has("BAN_MEMBERS")) return message.reply('you don\'t have the permission **BAN MEMBERS**');
   const user = message.mentions.users.first();
   const botlog = message.guild.channels.find(
       channel => channel.name === 'bot-logs'
     );
   if (user.id == settings.ownerid) {
-    return message.channel.send('You, ' + message.author + ' shall not ban my master!');
+    return message.reply('no!');
   }
   if (user.id == settings.bot_client_id) {
     return message.channel.send('No! Don\'t ban me!');
