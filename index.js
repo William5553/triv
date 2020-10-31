@@ -56,8 +56,6 @@ client.elevation = message => {
 
 
 client.on('message', async message => {
-
-
   // levelling system
   if (message.author.id === client.user.id || message.author.bot) return;
 
@@ -90,6 +88,23 @@ client.on('message', async message => {
   fs.writeFile('./xp.json', JSON.stringify(xp), (err) => {
     if (err) console.log(err);
   });
+});
+
+client.on('messageDelete', message => {
+  if (message.channel.type == 'text') {
+    var logger = message.guild.channels.find(
+      channel => channel.name === 'bot-logs'
+    );
+    if (logger) {
+      const msgDel = new Discord.RichEmbed()
+        .setTitle('Message Deleted')
+        .addField('Author', message.author.username)
+        .addField('Message', message.cleanContent)
+        .setThumbnail(message.author.avatarURL)
+        .setColor('0x00AAFF');
+      logger.send({ msgDel });
+    }
+  }
 });
 
 client.login(settings.token);
