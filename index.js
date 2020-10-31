@@ -33,7 +33,7 @@ client.on('message', async message => {
     xp[message.author.id] = {
       xp: 0,
       level: 1,
-      messagesent: 0
+      messagessent: 0
     };
   }
 
