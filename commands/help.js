@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
     message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, {code:'asciidoc'});
   } else {
-    let command = args
+    let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
       message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage::${command.help.usage}`, {code:'asciidoc'});
