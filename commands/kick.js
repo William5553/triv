@@ -18,9 +18,7 @@ exports.run = async (client, message, args) => {
   if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
   if (message.mentions.users.size < 1) return message.channel.send('You must mention someone to kick them.').catch(console.error);
   message.guild.member(user).kick();
-  var chnl = message.Channel ;
-  var gank = chnl.Guild.Name;
-  message.user.send('Seems like you have been kicked from ' + gank);
+  message.user.send(`Seems like you have been kicked from ${message.channel.guild.name}`);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
