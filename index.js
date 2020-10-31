@@ -4,7 +4,7 @@ const fs = require('fs');
 const request = require('request'); // eslint-disable-line no-unused-vars
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 const prefix = settings.prefix;
-const xp = require('./xp.json');
+const xp = require('./storage/xp.json');
 
 require('./util/eventLoader')(client);
 
