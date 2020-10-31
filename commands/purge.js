@@ -14,8 +14,9 @@ exports.run = (client, message, args) => {
     if (isNaN(mgct)) return message.channel.send('How many messages? That isn\'t a number');
     if (mgct > 99) mgct = 100;
     // Deleting the messages
-    message.channel.bulkDelete(mgct)
-      .catch(error => return message.channel.send(`Error: **${error}**`));
+    message.channel.bulkDelete(mgct).catch(error => {
+      message.channel.send(`Error: **${error}**`);
+    });
     const embed = new MessageEmbed()
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setColor(0xEB5234)
