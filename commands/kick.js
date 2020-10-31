@@ -1,4 +1,4 @@
-const {RichEmbed} = require('discord.js');
+const {MessageEmbed} = require('discord.js');
 const {caseNumber} = require('../util/caseNumber.js');
 const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
   var gank = chnl.Guild.Name;
   message.user.send('Seems like you have been kicked from ' + gank);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
-  const embed = new RichEmbed()
+  const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Kick\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.id}`)
