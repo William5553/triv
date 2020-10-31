@@ -57,8 +57,8 @@ exports.run = (client, message, args) => {
         console.error(error);
         return message.reply(error.message).catch(console.error);
       }
-        const results = await youtube.searchVideos(search, 1);
-        songInfo = await ytdl.getInfo(results[0].url);
+        const results = youtube.searchVideos(search, 1);
+        songInfo = ytdl.getInfo(results[0].url);
         song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
