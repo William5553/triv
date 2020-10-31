@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
   parseUser(message, user);
   if (user.id === settings.ownerid) {
-    return message.channel.send('Don\'t mute willeh!');
+    return message.reply('absolutely not.');
   }
   if (user.id === client.user.id) {
     return message.channel.send('Don\'t mute me!');
