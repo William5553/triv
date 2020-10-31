@@ -13,7 +13,7 @@ exports.run = (client, message) => {
 • Discord.js :: v${Discord.version}
 • Node       :: ${process.version}`, {code: 'asciidoc'});
 
-  const bicon = client.user.displayAvatarURL;
+  const bicon = client.user.displayAvatarURL();
   const botembed = new Discord.RichEmbed()
     .setDescription('Bot Information')
     .setColor('#15f153')
