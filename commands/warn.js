@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
   const reason = args.slice(1).join(' ');
   const user = message.mentions.users.first();
-  const modlog = message.guild.channels.find(
+  const modlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   if (!modlog) return message.reply('I cannot find a bot-logs channel');
@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Warning\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.tag}`);
-  return client.channels.get(modlog.id).send({embed});
+  return client.channels.cache.get(modlog.id).send({embed});
 };
 
 exports.conf = {
