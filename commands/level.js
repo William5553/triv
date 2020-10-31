@@ -17,12 +17,12 @@ module.exports.run = async (client, message) => {
   const difference = nxtLvlXp - curxp;
 
   const lvlEmbed = new Discord.MessageEmbed()
-    .setAuthor(message.author.username)
+    .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setColor(0x902B93)
     .addField('Level', curlvl, true)
     .addField('XP', curxp, true)
     .addField('Messages Sent', msgsent, true)
-    .setFooter(`${difference} XP til level up`, message.author.displayAvatarURL());
+    .setFooter(`${difference} XP til level up`);
 
   message.channel.send(lvlEmbed);
 
