@@ -6,7 +6,8 @@ module.exports.run = async (client, message) => {
   if (!xp[message.author.id]) {
     xp[message.author.id] = {
       xp: 0,
-      level: 1
+      level: 1,
+      messagessent: 0
     };
   }
   const curxp = xp[message.author.id].xp;
