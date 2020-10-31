@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (!modlog) return message.reply('I cannot find a bot-logs channel');
   if (reason.length < 1) return message.reply('You must supply a reason for the warning.');
   if (message.mentions.users.size < 1) return message.reply('You must mention someone to warn them.').catch(console.error);
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Warning\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.tag}`);
