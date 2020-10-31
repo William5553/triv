@@ -1,3 +1,5 @@
+const Discord = require ('discord.js');
+const fs = require('fs');
 const settings = require('../settings.json');
 const xp = require('../storage/xp.json');
 module.exports = message => {
