@@ -25,7 +25,5 @@ module.exports = message => {
     .addField('Message', message)
     .setThumbnail(message.author.avatarURL())
     .setColor('0x00AAFF');
-  logs.send({
-    msgDel
-  });
+  logs.send({ msgDel });
 };
