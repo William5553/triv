@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
   var gank = chnl.Guild.Name;
   message.user.send('Seems like you have been banned from ' + gank);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
-  message.guild.members.ban(user, {days: 0, reason: reason});
+  message.guild.members.ban(user, { days: 0, reason: reason });
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
