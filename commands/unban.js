@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
   client.unbanReason = reason;
   client.unbanAuth = message.author;
   let user = args[0];
-  let modlog = message.guild.channels.find(
+  let modlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   if (!modlog) return message.reply('I cannot find a bot-logs channel');
