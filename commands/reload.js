@@ -1,7 +1,6 @@
-//stop eslint
-
 exports.run = (client, message, args) => {
-  if (message.author.id !== '186620503123951617') return message.reply('You are not my master!');
+  const settings = require('../settings.json)
+  if (message.author.id !== settings.ownerid) return message.reply('you can\'t do that.');
   let command;
   if (client.commands.has(args[0])) {
     command = args[0];
