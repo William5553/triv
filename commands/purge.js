@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
       return message.channel.send('Please enter a number *higher* than 2');
     }
     if (isNaN(mgct)) return message.channel.send('How many messages? That isn\'t a number');
-    if (mgct > 99) let mgct = 100;
+    if (mgct > 99) mgct = 100;
     const fetched = await message.channel.fetchMessages({limit: mgct}); // This grabs the last number(args) of messages in the channel.
     message.channel.send(fetched.size + ' messages found.\nDeleting...').then(msg => {msg.delete(1000);
     })
