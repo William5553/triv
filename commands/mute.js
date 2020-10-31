@@ -11,11 +11,11 @@ exports.run = async (client, message, args) => {
   if (user.id === client.user.id) {
     return message.channel.send('Don\'t mute me!');
   }
-  const botlog = message.guild.channels.find(
+  const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   const caseNum = await caseNumber(client, botlog);
-  const muteRole = client.guilds.get(message.guild.id).roles.find(r => r.name === 'Muted');
+  const muteRole = client.guilds.cache.get(message.guild.id).roles.cache.find(r => r.name === 'Muted');
   if (!botlog) return message.reply('I cannot find a bot-logs channel').catch(console.error);
   if (!muteRole) return message.reply('I cannot find a role named **Muted**').catch(console.error);
   if (message.mentions.users.size < 1) return message.reply('You must mention someone to mute them.').catch(console.error);
@@ -29,13 +29,13 @@ exports.run = async (client, message, args) => {
 
   if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions.').catch(console.error);
 
-  if (message.guild.member(user).roles.has(muteRole.id)) {
-    message.guild.member(user).roles.remove(muteRole.id).then(() => {
-      client.channels.get(botlog.id).send({embed}).catch(console.error);
+  if (message.guild.member(user).roles.cache.has(muteRole.id)) {
+    message.guild.member(user).roles.remove(muteRole.id, reason).then(() => {
+      client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   } else {
     message.guild.member(user).roles.add(muteRole).then(() => {
-      client.channels.get(botlog.id).send({embed}).catch(console.error);
+      client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   }
 
