@@ -9,10 +9,10 @@ exports.run = async (client, message, args) => {
   const botlog = message.guild.channels.find(
       channel => channel.name === 'bot-logs'
     );
-  if (user.id == settings.ownerid) {
+  if (user.id === settings.ownerid) {
     return message.reply('no!');
   }
-  if (user.id == settings.bot_client_id) {
+  if (user.id === client.user.id) {
     return message.channel.send('No! Don\'t ban me!');
   }
   parseUser(message, user);
