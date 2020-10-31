@@ -9,7 +9,7 @@ exports.run = (client, message) => {
     },
     title: '** **',
     url: 'https://discordapp.com/oauth2/authorize?client_id=340942145051426828&scope=bot&permissions=536308991',
-    description:  `**${client.guilds.size} guild(s):**\n\n*${client.guilds.map(g => g.name).join('\n')}*`,
+    description:  `**${client.guilds.cache.size} guild(s):**\n\n*${client.guilds.cache.map(g => g.name).join('\n')}*`,
     footer: {
       text: client.user.username
     }
