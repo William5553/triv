@@ -9,9 +9,11 @@ exports.run = async (client, message, args) => {
     return message.channel.send('You cannot, fool!');
   }
   if (user.id == settings.ownerid) {
-    return message.channel.send('Not master!');
+    return message.channel.send('Not willeh!');
   }
-  const botlog = client.channels.find('name', 'bot-logs');
+  const botlog = message.guild.channels.find(
+      channel => channel.name === 'bot-logs'
+    );
   const caseNum = await caseNumber(client, botlog);
   if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
   if (message.mentions.users.size < 1) return message.channel.send('You must mention someone to kick them.').catch(console.error);
