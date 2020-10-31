@@ -13,7 +13,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'coinflip',
+  name: 'flip',
   description: 'Flips a coin.',
   usage: 'flip'
 };
