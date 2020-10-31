@@ -7,17 +7,14 @@ exports.run = async (client, message, args) => {
     if (err) message.channel.send(err);
 
     // We also want them to know if a place they enter is invalid.
-    if (result.length === 0) {
-      message.channel.send('**Please enter a valid location.**'); // This tells them in chat that the place they entered is invalid.
-      return;
-    }
+    if (result.length === 0) return message.channel.send('**Please enter a valid location.**'); // This tells them in chat that the place they entered is invalid.
 
     // Variables
     var current = result[0].current; // This is a variable for the current part of the JSON output
     var location = result[0].location; // This is a variable for the location part of the JSON output
 
     // Let's use an embed for this.
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like, remember you can find all of this on the weather-js npm page.
       .setAuthor(`Weather for ${current.observationpoint}`) // This shows the current location of the weather.
       .setThumbnail(current.imageUrl) // This sets the thumbnail of the embed
