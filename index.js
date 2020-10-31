@@ -59,7 +59,7 @@ client.on('message', async message => {
 
 
   // levelling system
-  if (message.author.id == settings.bot_client_id) return;
+  if (message.author.id === settings.bot_client_id || message.author.bot) return;
 
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
