@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const lyricsFinder = require("lyrics-finder");
 
-exports.run = {
+exports.run = (client, message, args) => {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("There is nothing playing.").catch(console.error);
 
