@@ -30,11 +30,11 @@ exports.run = async (client, message, args) => {
   if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions.').catch(console.error);
 
   if (message.guild.member(user).roles.has(muteRole.id)) {
-    message.guild.member(user).removeRole(muteRole).then(() => {
+    message.guild.member(user).roles.remove(muteRole.id).then(() => {
       client.channels.get(botlog.id).send({embed}).catch(console.error);
     });
   } else {
-    message.guild.member(user).addRole(muteRole).then(() => {
+    message.guild.member(user).roles.add(muteRole).then(() => {
       client.channels.get(botlog.id).send({embed}).catch(console.error);
     });
   }
