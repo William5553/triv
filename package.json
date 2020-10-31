@@ -1,4 +1,4 @@
- {
+{
   "name": "triv",
   "version": "1.0.0",
   "main": "index.js",
@@ -21,19 +21,19 @@
     "ms": "^2.1.2",
     "opusscript": "^0.0.7",
     "weather-js": "^2.0.0",
-   "@discordjs/opus": "^0.3.3",
-    "ffmpeg-static": "^4.2.3",
-    "lyrics-finder": "^21.0.5",
-    "simple-youtube-api": "^5.1.1",
+    "@discordjs/opus": "^0.3.3",
+    "ffmpeg-static": "^4.2.7",
+    "lyrics-finder": "^21.4.0",
+    "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
-    "ytdl-core": "^4.0.0",
+    "ytdl-core": "^4.0.1",
     "ytdl-core-discord": "^1.2.4"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/William5553/discord-bot.git"
   },
-    "devDependencies": {
+  "devDependencies": {
     "eslint": "^4.18.2"
   }
 }
