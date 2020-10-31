@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client({ disableMentions: 'everyone' });
 const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
-const xp = require('./storage/xp.json');
 
 require('./util/eventLoader')(client);
 client.logger = require('./util/Logger');
