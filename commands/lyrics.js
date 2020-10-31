@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
     let lyrics = null;
 
     try {
-      lyrics = await lyricsFinder(queue.songs[0].title, "");
+      lyrics = lyricsFinder(queue.songs[0].title, "");
       if (!lyrics) lyrics = `No lyrics found for ${queue.songs[0].title}.`;
     } catch (error) {
       lyrics = `No lyrics found for ${queue.songs[0].title}.`;
