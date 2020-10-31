@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
   const caseNumber = args.shift();
   const newReason = args.join(' ');
 
-  await botlog.fetchMessages({limit:100}).then((messages) => {
+  await botlog.messages.fetch({ limit:100 }).then((messages) => {
     const caseLog = messages.filter(m => m.author.id === client.user.id &&
       m.embeds[0] &&
       m.embeds[0].type === 'rich' &&
@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       m.embeds[0].footer.text.startsWith('ID') &&
       m.embeds[0].footer.text === `ID ${caseNumber}`
     ).first();
-    botlog.fetchMessage(caseLog.id).then(logMsg => {
+    botlog.messages.cache.fetch(caseLog.id).then(logMsg => {
       const embed = logMsg.embeds[0];
       embedSan(embed);
       embed.description = embed.description.replace(`Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`, newReason);
