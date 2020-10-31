@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = message => {
 if (message.channel.type === 'text') {
-    const botlog = message.guild.channels.find(
+    const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
     if (botlog) {
