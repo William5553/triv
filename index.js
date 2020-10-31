@@ -3,7 +3,6 @@ const client = new Discord.Client({ disableMentions: 'everyone' });
 const fs = require('fs');
 const request = require('request'); // eslint-disable-line no-unused-vars
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
-const prefix = settings.prefix;
 const xp = require('./storage/xp.json');
 
 require('./util/eventLoader')(client);
@@ -15,7 +14,7 @@ require('./util/functions.js')(client);
 const Music = require('discord.js-musicbot-addon');
 const music = Music.start(client, {  // eslint-disable-line no-unused-vars
   youtubeKey: settings.yt_api_key,
-  botPrefix: prefix,
+  botPrefix: settings.prefix,
   global: false,
   maxQueueSize: 50,
   anyoneCanSkip: true,
@@ -89,12 +88,12 @@ client.on('message', async message => {
 });
 
 client.on('messageDelete', message => {
-  if (message.channel.type == 'text') {
+  if (message.channel.type === 'text') {
     var logger = message.guild.channels.find(
       channel => channel.name === 'bot-logs'
     );
     if (logger) {
-      const msgDel = new Discord.RichEmbed()
+      const msgDel = new Discord.MessageEmbed()
         .setTitle('Message Deleted')
         .addField('Author', message.author.username)
         .addField('Message', message.cleanContent)
