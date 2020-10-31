@@ -8,6 +8,8 @@ require('./util/eventLoader')(client);
 client.logger = require('./util/Logger');
 require('./util/functions.js')(client);
 
+client.queue = new Map();
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 fs.readdir('./commands/', (err, files) => {
