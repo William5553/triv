@@ -1,6 +1,6 @@
 const { canModifyQueue } = require("../util/queue");
 
-exports.run = {
+exports.run = (client, message, args) => {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("There is no queue.").catch(console.error);
     if (!canModifyQueue(message.member)) return;
