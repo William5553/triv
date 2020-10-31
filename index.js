@@ -75,7 +75,7 @@ client.on('message', async message => {
   xp[message.author.id].messagesent = messagesent + Number(1);
   if (nxtLvl <= xp[message.author.id].xp) {
     xp[message.author.id].level = curlvl + 1;
-    const lvlup = new Discord.RichEmbed()
+    const lvlup = new Discord.MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL)
       .setTitle('Level Up!')
       .setColor(0x902B93)
