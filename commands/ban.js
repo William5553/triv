@@ -4,7 +4,9 @@ const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
-  const botlog = client.channels.find('name','bot-logs');
+  const botlog = message.guild.channels.find(
+      channel => channel.name === 'bot-logs'
+    );
   if (user.id == settings.ownerid) {
     return message.channel.send('You, ' + message.author + ' shall not ban my master!');
   }
