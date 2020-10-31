@@ -1,8 +1,8 @@
 exports.run = (client, message) => {
-  const user = message.mentions.users.first();
-  if (message.mentions.users.size < 1) return message.reply('try again but actually mention someone, nerd');
-  message.channel.send(user + `\'s ID is ${user.id}`);
-
+  const responses = [
+     'it\'s heads!', 'it\'s tails!'
+   ];
+   message.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
 };
 
 exports.conf = {
@@ -13,7 +13,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'getid',
-  description: 'Gets a user\'s ID',
-  usage: 'getid [user]'
+  name: 'flip',
+  description: 'Flips a coin.',
+  usage: 'flip'
 };
