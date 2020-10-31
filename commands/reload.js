@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-  const settings = require('../settings.json')
+  const settings = require('../settings.json');
   if (message.author.id !== settings.ownerid) return message.reply('you can\'t do that.');
   let command;
   if (client.commands.has(args[0])) {
