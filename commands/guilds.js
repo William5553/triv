@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   const settings = require('../settings.json');
-  if (message.author.id !== settings.ownerid) return message.reply('You\'re not willeh!');
+  if (message.author.id !== settings.ownerid) return message.reply('you\'re not willeh!');
   message.channel.send('', {embed: {
     color: 0x00FF5C,
     author: {
