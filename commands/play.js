@@ -47,7 +47,7 @@ exports.run = (client, message, args) => {
 
     if (urlValid) {
       try {
-        songInfo = await ytdl.getInfo(url);
+        songInfo = ytdl.getInfo(url);
         song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
