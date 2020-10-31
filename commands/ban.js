@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   if (!message.member.permissions.has("BAN_MEMBERS")) return message.reply('you don\'t have the permission **BAN MEMBERS**');
   const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
   if (user.permissions.has("BAN_MEMBERS")) return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
-  const botlog = message.guild.channels.find(
+  const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   if (user.id === settings.ownerid) {
