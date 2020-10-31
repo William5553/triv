@@ -1,11 +1,11 @@
 const { play } = require("../util/play");
-const settings = require('../settings.json')
+const settings = require('../settings.json');
 const ytdl = require("ytdl-core");
 const YouTubeAPI = require("simple-youtube-api");
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = {
+exports.run = (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
