@@ -5,9 +5,7 @@ const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 const xp = require('./storage/xp.json');
 
 require('./util/eventLoader')(client);
-
 client.logger = require('./util/Logger');
-
 require('./util/functions.js')(client);
 
 const Music = require('discord.js-musicbot-addon');
@@ -22,7 +20,6 @@ const music = Music.start(client, {  // eslint-disable-line no-unused-vars
   ownerOverMember: true,
   musicPresence: true
 });
-
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -39,7 +36,6 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
-
 client.elevation = message => {
   /* This function should resolve to an ELEVATION level which
      is then sent to the command handler for verification*/
@@ -49,42 +45,6 @@ client.elevation = message => {
   if (message.author.id === settings.ownerid) permlvl = 4;
   return permlvl;
 };
-
-
-client.on('message', async message => {
-  // levelling system
-  if (message.author.id === client.user.id || message.author.bot) return;
-
-  const xpAdd = Math.floor(Math.random() * 7) + 8;
-
-  if (!xp[message.author.id]) {
-    xp[message.author.id] = {
-      xp: 0,
-      level: 1,
-      messagesent: 0
-    };
-  }
-
-  const messagesent = xp[message.author.id].messagesent;
-  const curxp = xp[message.author.id].xp;
-  const curlvl = xp[message.author.id].level;
-  const nxtLvl = xp[message.author.id].level * 250;
-  xp[message.author.id].xp =  curxp + xpAdd;
-  xp[message.author.id].messagesent = messagesent + Number(1);
-  if (nxtLvl <= xp[message.author.id].xp) {
-    xp[message.author.id].level = curlvl + 1;
-    const lvlup = new Discord.MessageEmbed()
-      .setAuthor(message.author.username, message.author.avatarURL)
-      .setTitle('Level Up!')
-      .setColor(0x902B93)
-      .addField('New Level', curlvl + 1);
-
-    message.channel.send(lvlup);
-  }
-  fs.writeFile('./xp.json', JSON.stringify(xp), (err) => {
-    if (err) console.log(err);
-  });
-});
 
 client.on('messageDelete', message => {
   if (message.channel.type === 'text') {
