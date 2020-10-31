@@ -47,17 +47,17 @@ exports.run = (client, message, args) => {
 
     if (urlValid) {
       try {
-        playlist = await youtube.getPlaylist(url, { part: "snippet" });
-        videos = await playlist.getVideos(16, { part: "snippet" });
+        playlist = youtube.getPlaylist(url, { part: "snippet" });
+        videos = playlist.getVideos(16, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
       }
     } else {
       try {
-        const results = await youtube.searchPlaylists(search, 1, { part: "snippet" });
+        const results = youtube.searchPlaylists(search, 1, { part: "snippet" });
         playlist = results[0];
-        videos = await playlist.getVideos(16, { part: "snippet" });
+        videos = playlist.getVideos(16, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
@@ -96,13 +96,13 @@ exports.run = (client, message, args) => {
 
     if (!serverQueue) {
       try {
-        queueConstruct.connection = await channel.join();
-        await queueConstruct.connection.voice.setSelfDeaf(true);
+        queueConstruct.connection = channel.join();
+        queueConstruct.connection.voice.setSelfDeaf(true);
         play(queueConstruct.songs[0], message);
       } catch (error) {
         console.error(error);
         message.client.queue.delete(message.guild.id);
-        await channel.leave();
+        channel.leave();
         return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
       }
     }
