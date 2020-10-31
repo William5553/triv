@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   let user = message.mentions.users.first();
-  if (message.mentions.users.size < 1) return message.reply('Which user?');
+  if (message.mentions.users.size < 1) return message.reply('try again but mention a user next time');
   message.channel.send(user + `\'s ID is ${user.id}`);
 
 };
