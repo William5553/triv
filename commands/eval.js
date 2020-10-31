@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
-  if (message.author.id !== '186620503123951617') return message.reply('Eval doesn\'t exist you pleb!');
+  const settings = require('../settings.json');
+  if (message.author.id !== settings.ownerid) return message.reply('no');
   var code = args.join(' ');
   if (code.length < 1) return message.reply('Please input code, master.');
   try {
