@@ -1,5 +1,6 @@
 exports.run = (client, message, args) => {
-  if (message.author.id !== '186620503123951617') return message.reply('You are not my master!');
+  const settings = require('../settings.json');
+  if (message.author.id !== settings.ownerid) return message.reply('you can\'t do that!');
   message.delete();
   let Botmessage = args.slice(0).join(' ');
   if(Botmessage.length < 1) return message.reply('What do I say!?');
