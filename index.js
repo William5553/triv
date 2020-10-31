@@ -98,7 +98,7 @@ client.on('messageDelete', message => {
         .setTitle('Message Deleted')
         .addField('Author', message.author.username)
         .addField('Message', message.cleanContent)
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(message.author.avatarURL())
         .setColor('0x00AAFF');
       logger.send({ msgDel });
     }
