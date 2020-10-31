@@ -7,7 +7,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "9.2.0"
+    "node": "12.0.0"
   },
   "author": "william5553",
   "license": "ISC",
