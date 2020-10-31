@@ -1,7 +1,7 @@
 const Discord = require ('discord.js');
 const fs = require('fs');
 const settings = require('../settings.json');
-const xp = require('../storage/xp.json');
+const xp = require('../xp.json');
 module.exports = message => {
   const client = message.client;
   if (message.author.id === client.user.id || message.author.bot || message.channel.type !== 'text') return;
@@ -31,7 +31,7 @@ module.exports = message => {
 
     message.channel.send(lvlup);
   }
-  fs.writeFile('../storage/xp.json', JSON.stringify(xp), (err) => {
+  fs.writeFile('../xp.json', JSON.stringify(xp), (err) => {
     if (err) console.log(err);
   });
   
