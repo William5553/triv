@@ -14,7 +14,7 @@ exports.run = (client, message) => {
 • Node       :: ${process.version}`, {code: 'asciidoc'});
 
   const bicon = client.user.displayAvatarURL();
-  const botembed = new Discord.RichEmbed()
+  const botembed = new Discord.MessageEmbed()
     .setDescription('Bot Information')
     .setColor('#15f153')
     .setThumbnail(bicon)
