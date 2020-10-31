@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+module.exports = message => {
 if (message.channel.type === 'text') {
     var logger = message.guild.channels.find(
       channel => channel.name === 'bot-logs'
@@ -12,3 +14,4 @@ if (message.channel.type === 'text') {
       logger.send({ msgDel });
     }
   }
+};
