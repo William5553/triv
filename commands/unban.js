@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
   if (!modlog) return message.reply('I cannot find a bot-logs channel');
   if (!user) return message.reply('You must supply a User Resolvable, aka a user ID.').catch(console.error);
   if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
-  message.guild.unban(user);
+  message.guild.members.unban(user, {reason: reason});
 };
 
 exports.conf = {
