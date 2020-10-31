@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
 
   if (question.length < 1) return message.reply('How am I going to answer nothing?!');
   const response = `${responses[Math.floor(Math.random() * responses.length)]}`;
-  if (response === 'Explode') return client.channel.sendFile('image', '../assets/explode8ball.png'); // try changing image to message
+  if (response === 'Explode') return message.channel.send({files: ['../assets/explode8ball.png']});
   message.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
 };
 
