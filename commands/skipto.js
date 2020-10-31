@@ -1,6 +1,6 @@
 const { canModifyQueue } = require("../util/queue");
 
-exports.run = {
+exports.run = (client, message, args) => {
     if (!args.length)
       return message
         .reply(`Usage: ${message.client.prefix}skipto <Queue Number>`)
