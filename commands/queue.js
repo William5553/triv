@@ -6,13 +6,13 @@ exports.run = (client, message, args) => {
     try {
       let currentPage = 0;
       const embeds = generateQueueEmbed(message, serverQueue.songs);
-      const queueEmbed = await message.channel.send(
+      const queueEmbed = message.channel.send(
         `**Current Page - ${currentPage + 1}/${embeds.length}**`,
         embeds[currentPage]
       );
-      await queueEmbed.react("⬅️");
-      await queueEmbed.react("⏹");
-      await queueEmbed.react("➡️");
+      queueEmbed.react("⬅️");
+      queueEmbed.react("⏹");
+      queueEmbed.react("➡️");
 
       const filter = (reaction, user) =>
         ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
