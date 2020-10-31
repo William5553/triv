@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
     }
     if (isNaN(mgct)) return message.channel.send('How many messages? That isn\'t a number');
     if (mgct > 99) mgct = 100;
-    const fetched = await message.channel.fetchMessages({limit: mgct}); // This grabs the last number(args) of messages in the channel.
+    const fetched = await message.channel.messages.fetch( {limit: mgct} ); // This grabs the last number(args) of messages in the channel.
     message.channel.send(fetched.size + ' messages found.\nDeleting...').then(msg => {msg.delete(1000);
     })
       .catch(/*Your Error handling if the Message isn't returned, sent, etc.*/); // Lets post into console how many messages we are deleting
