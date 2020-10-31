@@ -12,7 +12,7 @@ async function embedSan(embed) {
 }
 
 exports.run = async (client, message, args) => {
-  const botlog = message.guild.channels.find(
+  const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
   const caseNumber = args.shift();
