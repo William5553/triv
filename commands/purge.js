@@ -1,6 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message, args) => {
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
+   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
+    message.guild.channels.create('bot-logs', {
+      type: 'text'
+    });
+  }
   async function purge() {
     message.delete(); // Let's delete the command message, so it doesn't interfere with the messages we are going to delete.
     let mgct = Number(args.slice(0).join(' '));
