@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
       client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   } else {
-    message.guild.member(user).roles.add(muteRole).then(() => {
+    message.guild.member(user).roles.add(muteRole.id, reason).then(() => {
       client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   }
