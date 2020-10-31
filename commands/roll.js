@@ -1,5 +1,7 @@
 exports.run = (client, message) => {
-  var roll = Math.floor(Math.random() * 6) + 1;
+  let sides = Number(args.slice(0).join(' '));
+  if (!sides) let sides = 6;
+  var roll = Math.floor(Math.random() * sides) + 1;
   message.reply('You rolled a ' + roll);
 };
 
@@ -14,6 +16,6 @@ exports.conf = {
 
 exports.help = {
   name: 'roll',
-  description: 'Rolls a 6-sided die.',
-  usage: 'roll'
+  description: 'Rolls a die (6 sides by default).',
+  usage: 'roll [dice sides]'
 };
