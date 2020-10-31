@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
-
-  if (message.author.id !== '186620503123951617') return message.reply('No.......');
+const settings = require('../settings.json');
+  if (message.author.id !== settings.ownerid) return message.reply('no');
   message.channel.send('Goodbye! 💀');
   client.destroy();
 };
