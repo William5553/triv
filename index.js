@@ -4,7 +4,7 @@ const fs = require('fs');
 const request = require('request'); // eslint-disable-line no-unused-vars
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 const prefix = settings.prefix;
-const xp = require('./storage/xp.json');
+const xp = require('./xp.json');
 
 require('./util/eventLoader')(client);
 
@@ -13,22 +13,16 @@ client.logger = require('./util/Logger');
 require('./util/functions.js')(client);
 
 const Music = require('discord.js-musicbot-addon');
-const music = new Music(client, {  // eslint-disable-line no-unused-vars
+const music = Music.start(client, {  // eslint-disable-line no-unused-vars
   youtubeKey: settings.yt_api_key,
   botPrefix: prefix,
   global: false,
-  maxQueueSize: 16,
+  maxQueueSize: 50,
   anyoneCanSkip: true,
-  clearInvoker: false,
   messageHelp: true,
-  botAdmins: settings.ownerid,
-  requesterName: true,
-  streamMode: 0,
-  helpCmd: 'help',
-  botOwner: settings.ownerid,
-  disabledLoop: true,
-  leaveCmd: 'leave',
-  enableQueueStat: true
+  ownerID: settings.ownerid,
+  ownerOverMember: true,
+  musicPresence: true
 });
 
 
@@ -86,13 +80,14 @@ client.on('message', async message => {
   if (nxtLvl <= xp[message.author.id].xp) {
     xp[message.author.id].level = curlvl + 1;
     const lvlup = new Discord.RichEmbed()
+      .setAuthor(message.author.username, message.author.avatarURL)
       .setTitle('Level Up!')
       .setColor(0x902B93)
       .addField('New Level', curlvl + 1);
 
     message.channel.send(lvlup).then(msg => {msg.delete(5000);});
   }
-  fs.writeFile('./storage/xp.json', JSON.stringify(xp), (err) => {
+  fs.writeFile('./xp.json', JSON.stringify(xp), (err) => {
     if (err) console.log(err);
   });
 });
