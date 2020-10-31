@@ -13,7 +13,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'getid',
+  name: 'id',
   description: 'Gets a user\'s ID',
-  usage: 'getid [user]'
+  usage: 'id [user]'
 };
