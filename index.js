@@ -37,12 +37,12 @@ client.on('message', async message => {
     };
   }
 
-  const messagesent = xp[message.author.id].messagesent;
+  const messagessent = xp[message.author.id].messagessent;
   const curxp = xp[message.author.id].xp;
   const curlvl = xp[message.author.id].level;
   const nxtLvl = xp[message.author.id].level * 250;
   xp[message.author.id].xp =  curxp + xpAdd;
-  xp[message.author.id].messagesent = messagesent + Number(1);
+  xp[message.author.id].messagesent = messagessent + Number(1);
   if (nxtLvl <= xp[message.author.id].xp) {
     xp[message.author.id].level = curlvl + 1;
     const lvlup = new Discord.MessageEmbed()
