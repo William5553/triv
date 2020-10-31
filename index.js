@@ -7,19 +7,6 @@ require('./util/eventLoader')(client);
 client.logger = require('./util/Logger');
 require('./util/functions.js')(client);
 
-const Music = require('discord.js-musicbot-addon');
-const music = Music.start(client, {  // eslint-disable-line no-unused-vars
-  youtubeKey: settings.yt_api_key,
-  botPrefix: settings.prefix,
-  global: false,
-  maxQueueSize: 50,
-  anyoneCanSkip: true,
-  messageHelp: true,
-  ownerID: settings.ownerid,
-  ownerOverMember: true,
-  musicPresence: true
-});
-
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 fs.readdir('./commands/', (err, files) => {
