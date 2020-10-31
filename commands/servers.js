@@ -1,10 +1,10 @@
 exports.run = (client, message) => {
   const settings = require('../settings.json');
-  if (message.author.id !== settings.ownerid) return message.reply('You are not my master!');
+  if (message.author.id !== settings.ownerid) return message.reply('You\'re not willeh!');
   message.channel.send('', {embed: {
     color: 0x00FF5C,
     author: {
-      name: 'Guild(s) (click me to invite)',
+      name: 'Guild(s)',
       icon_url: client.user.avatarURL
     },
     title: '** **',
