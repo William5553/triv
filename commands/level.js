@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const xp = require('../storage/xp.json');
+const xp = require('../xp.json');
 
 module.exports.run = async (client, message) => {
 
@@ -11,7 +11,8 @@ module.exports.run = async (client, message) => {
   }
   const curxp = xp[message.author.id].xp;
   const curlvl = xp[message.author.id].level;
-  const nxtLvlXp = curlvl * 250;
+  const msgsent = xp[message.author.id].messagessent;
+  const nxtLvlXp = curlvl * 200;
   const difference = nxtLvlXp - curxp;
 
   const lvlEmbed = new Discord.MessageEmbed()
@@ -19,6 +20,7 @@ module.exports.run = async (client, message) => {
     .setColor(0x902B93)
     .addField('Level', curlvl, true)
     .addField('XP', curxp, true)
+    .addField('Messages Sent', msgsent, true)
     .setFooter(`${difference} XP til level up`, message.author.displayAvatarURL());
 
   message.channel.send(lvlEmbed);
