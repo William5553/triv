@@ -4,7 +4,7 @@ const settings = require('../settings.json');
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = {
+exports.run = (client, message, args) => {
     if (!args.length)
       return message.reply(`Usage: ${message.client.prefix}search <Video Name>`).catch(console.error);
     if (message.channel.activeCollector)
