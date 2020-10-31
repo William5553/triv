@@ -5,18 +5,6 @@ const settings = require('../settings.json');
   client.destroy();
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 exports.conf = {
   enabled: true,
   guildOnly: false,
