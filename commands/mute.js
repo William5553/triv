@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
       channel => channel.name === 'bot-logs'
     );
   const caseNum = await caseNumber(client, botlog);
-  const muteRole = client.guilds.cache.get(message.guild.id).roles.cache.find(r => r.name === 'Muted');
+  const muteRole = message.guild.roles.cache.find(r => r.name === 'Muted') || message.guild.roles.cache.find(r => r.name === 'muted');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) 
