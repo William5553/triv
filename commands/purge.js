@@ -17,12 +17,12 @@ exports.run = (client, message, args) => {
     message.channel.bulkDelete(mgct).catch(error => {
       message.channel.send(`Error: **${error}**`);
     });
-    const embed = new MessageEmbed()
+ /*   const embed = new MessageEmbed()
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setColor(0xEB5234)
     .setTimestamp()
     .setDescription(`**Bulk Delete in ${message.channel}, ${mgct} messages deleted**`);
-    if (botlog) botlog.send({embed});
+    if (botlog) botlog.send({embed});*/
   }
   purge();
 };
