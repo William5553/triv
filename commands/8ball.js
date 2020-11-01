@@ -6,8 +6,8 @@ exports.run = (client, message, args) => {
 
   if (question.length < 1) return message.reply('ask me a question moron');
   const response = `${responses[Math.floor(Math.random() * responses.length)]}`;
-  if (response === 'Explode') return message.channel.send({ files: ['../assets/explode8ball.png'] }).catch(console.error);;
-  message.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
+  if (response === 'Explode') return message.channel.send({ files: ['../assets/explode8ball.png'] }).catch(console.error);
+  message.channel.send(response);
 };
 
 exports.conf = {
