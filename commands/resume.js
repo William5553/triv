@@ -23,6 +23,6 @@ exports.conf = {
 
 exports.help = {
   name: 'resume',
-  description: 'Resume currently playing music',
+  description: 'Resume currently paused music',
   usage: 'resume'
 };
