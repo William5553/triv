@@ -3,7 +3,7 @@ const {caseNumber} = require('../util/caseNumber.js');
 const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
-  const user = message.mentions.users.first();
+  const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
   parseUser(message, user);
   if (user.id === settings.ownerid) {
     return message.reply('absolutely not.');
@@ -24,17 +24,17 @@ exports.run = async (client, message, args) => {
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
-    .setDescription(`**Action:** Un/mute\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.tag}`)
+    .setDescription(`**Action:** Un/mute\n**Target:** ${user.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.user.tag}`)
     .setFooter(`ID ${caseNum}`);
 
   if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the **MANAGE_ROLES_OR_PERMISSIONS** permission').catch(console.error);
 
-  if (message.guild.member(user).roles.cache.has(muteRole.id)) {
-    message.guild.member(user).roles.remove(muteRole.id, reason).then(() => {
+  if (user.roles.cache.has(muteRole.id)) {
+    user.roles.remove(muteRole.id, reason).then(() => {
       client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   } else {
-    message.guild.member(user).roles.add(muteRole.id, reason).then(() => {
+    user.roles.add(muteRole.id, reason).then(() => {
       client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   }
