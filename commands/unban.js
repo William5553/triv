@@ -3,9 +3,9 @@ exports.run = (client, message, args) => {
   client.unbanReason = reason;
   client.unbanAuth = message.author;
   const user = args[0];
-  let botlog = message.guild.channels.cache.find(
-      channel => channel.name === 'bot-logs'
-    );
+  const botlog = message.guild.channels.cache.find(
+    channel => channel.name === 'bot-logs'
+  );
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog)
