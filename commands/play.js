@@ -17,9 +17,9 @@ exports.run = asy nc(client, message, args) => {
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
-      return message.reply("Cannot connect to voice channel, missing permissions");
+      return message.reply("Cannot connect to voice channel, missing the **CONNECT** permission");
     if (!permissions.has("SPEAK"))
-      return message.reply("I cannot speak in this voice channel, make sure I have the proper permissions!");
+      return message.reply("I cannot speak in this voice channel, make sure I have the **SPEAK** permission!");
 
     const search = args.join(" ");
     const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
@@ -56,19 +56,6 @@ if (urlValid) {
       } catch (error) {
         console.error(error);
         return message.reply(error.message).catch(console.error);
-      }
-    } else if (scRegex.test(url)) {
-      try {
-        const trackInfo = await scdl.getInfo(url, SOUNDCLOUD_CLIENT_ID);
-        song = {
-          title: trackInfo.title,
-          url: trackInfo.permalink_url,
-          duration: Math.ceil(trackInfo.duration / 1000)
-        };
-      } catch (error) {
-        if (error.statusCode === 404)
-          return message.reply("Could not find that Soundcloud track.").catch(console.error);
-        return message.reply("There was an error playing that Soundcloud track.").catch(console.error);
       }
     } else {
       try {
