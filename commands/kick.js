@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
   const caseNum = await caseNumber(client, botlog);
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
-  } else {
+  } elseif (!botlog) {
   return message.channel.send('I cannot find a channel named bot-logs');
   }
   userr.kick().catch(console.error);
