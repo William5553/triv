@@ -5,6 +5,8 @@ exports.run = async (client, message, args) => {
 
   const user = message.mentions.users.first() || message.author;
   
+  if (user.bot) return message.reply('that\'s a bot');
+  
   if (!xp[user.id]) {
     xp[user.id] = {
       xp: 0,
