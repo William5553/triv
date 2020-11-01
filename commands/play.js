@@ -5,7 +5,7 @@ const YouTubeAPI = require("simple-youtube-api");
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = asy nc(client, message, args) => {
+exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
