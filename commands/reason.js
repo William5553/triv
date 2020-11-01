@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       m.embeds[0].footer.text.startsWith('ID') &&
       m.embeds[0].footer.text === `ID ${caseNumber}`
     ).first();
-    botlog.messages.cache.fetch(caseLog.id).then(logMsg => {
+    botlog.messages.fetch(caseLog.id).then(logMsg => {
       const embed = logMsg.embeds[0];
       embedSan(embed);
       embed.description = embed.description.replace(`Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`, newReason);
