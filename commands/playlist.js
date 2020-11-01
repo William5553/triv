@@ -5,24 +5,20 @@ const settings = require('../settings.json');
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (serverQueue && channel !== message.guild.me.voice.channel)
-      return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
+    if (serverQueue && channel !== message.guild.me.voice.channel) return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
 
-    if (!args.length)
-      return message
-        .reply(`Usage: ${settings.prefix}playlist <YouTube Playlist URL | Playlist Name>`)
-        .catch(console.error);
-    if (!channel) return message.reply("You need to join a voice channel first!").catch(console.error);
+    if (!args.length) return message.reply(`Usage: ${message.client.prefix}playlist <YouTube Playlist URL | Playlist Name>`).catch(console.error);
+    if (!channel) return message.reply("you need to join a voice channel first!").catch(console.error);
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
-      return message.reply("Cannot connect to voice channel, missing permissions");
+      return message.reply("cannot connect to voice channel, missing **CONNECT** permission");
     if (!permissions.has("SPEAK"))
-      return message.reply("I cannot speak in this voice channel, make sure I have the proper permissions!");
+      return message.reply("I cannot speak in this voice channel, make sure I have the **SPEAK** permission");
 
     const search = args.join(" ");
     const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
@@ -45,17 +41,17 @@ exports.run = (client, message, args) => {
 
     if (urlValid) {
       try {
-        playlist = youtube.getPlaylist(url, { part: "snippet" });
-        videos = playlist.getVideos(16, { part: "snippet" });
+        playlist = await youtube.getPlaylist(url, { part: "snippet" });
+        videos = await playlist.getVideos(20, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
       }
     } else {
       try {
-        const results = youtube.searchPlaylists(search, 1, { part: "snippet" });
+        const results = await youtube.searchPlaylists(search, 1, { part: "snippet" });
         playlist = results[0];
-        videos = playlist.getVideos(16, { part: "snippet" });
+        videos = await playlist.getVideos(20, { part: "snippet" });
       } catch (error) {
         console.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
@@ -71,10 +67,9 @@ exports.run = (client, message, args) => {
 
       if (serverQueue) {
         serverQueue.songs.push(song);
-        message.channel.send(`✅ **${song.title}** has been added to the queue by ${message.author}`).catch(console.error);
-      } else {
-        queueConstruct.songs.push(song);
-      }
+          message.channel
+            .send(`✅ **${song.title}** has been added to the queue by ${message.author}`)
+            .catch(console.error);
     });
 
     let playlistEmbed = new MessageEmbed()
@@ -83,10 +78,10 @@ exports.run = (client, message, args) => {
       .setColor("#F8AA2A")
       .setTimestamp();
 
-   
+    
       playlistEmbed.setDescription(queueConstruct.songs.map((song, index) => `${index + 1}. ${song.title}`));
       if (playlistEmbed.description.length >= 2048) playlistEmbed.description = playlistEmbed.description.substr(0, 2007) + "\nPlaylist larger than character limit...";
-   
+    
 
     message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
 
@@ -94,17 +89,18 @@ exports.run = (client, message, args) => {
 
     if (!serverQueue) {
       try {
-        queueConstruct.connection = channel.join();
-        queueConstruct.connection.voice.setSelfDeaf(true);
+        queueConstruct.connection = await channel.join();
+        await queueConstruct.connection.voice.setSelfDeaf(true);
         play(queueConstruct.songs[0], message);
       } catch (error) {
         console.error(error);
         message.client.queue.delete(message.guild.id);
-        channel.leave();
+        await channel.leave();
         return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
       }
     }
-};
+  };
+
 
 exports.conf = {
   enabled: true,
