@@ -1,4 +1,3 @@
-
 exports.run = async (client, message) => {
   const work = Math.floor(Math.random() * 16777214) + 1;
   message.channel.send({
@@ -7,22 +6,17 @@ exports.run = async (client, message) => {
       description: `Random color generated: ${work}\n${work} is equal to 0x${work.toString(16).toUpperCase()}`
     }
   });
-
 };
-
-
-
-
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['rcolor'],
   permLevel: 0
 };
 
 exports.help = {
   name: 'rcolour',
-  description: 'Sends a random colour',
+  description: 'Generates a random colour',
   usage: 'rcolour'
 };
