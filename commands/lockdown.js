@@ -4,11 +4,8 @@ exports.run = (client, message, args) => {
   const time = args.join(' ');
   const validUnlocks = ['release', 'unlock'];
   if (!time) return message.reply('You must set a duration for the lockdown in either hours, minutes or seconds');
-
   if (validUnlocks.includes(time)) {
-    message.channel.overwritePermissions(message.guild.id, {
-      SEND_MESSAGES: null
-    }).then(() => {
+    message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: null }).then(() => {
       message.channel.send('Lockdown lifted.');
       clearTimeout(client.lockit[message.channel.id]);
       delete client.lockit[message.channel.id];
@@ -16,9 +13,7 @@ exports.run = (client, message, args) => {
       console.log(error);
     });
   } else {
-    message.channel.overwritePermissions(message.guild.id, {
-      SEND_MESSAGES: false
-    }).then(() => {
+    message.channel.updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
       message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}`).then(() => {
 
         client.lockit[message.channel.id] = setTimeout(() => {
@@ -34,6 +29,7 @@ exports.run = (client, message, args) => {
     });
   }
 };
+  
 exports.conf = {
   enabled: true,
   guildOnly: false,
