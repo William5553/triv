@@ -42,7 +42,6 @@ exports.run = async (client, message, args) => {
     } catch {
       return message.channel.send("**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**");
     }
-  }
 };
 
 function generateQueueEmbed(message, queue) {
@@ -62,7 +61,7 @@ function generateQueueEmbed(message, queue) {
     embeds.push(embed);
   }
   return embeds;
-};
+}
 
 exports.conf = {
   enabled: true,
