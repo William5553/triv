@@ -1,5 +1,5 @@
-async function caseNumber(client, modlog) {
-  const messages = await modlog.messages.fetch({ limit: 16 });
+async function caseNumber(client, botlog) {
+  const messages = await botlog.messages.fetch({ limit: 16 });
   const log = messages.filter(m => m.author.id === client.user.id &&
     m.embeds[0] &&
     m.embeds[0].type === 'rich' &&
