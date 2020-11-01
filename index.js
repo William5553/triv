@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const client = new Discord.Client({ disableMentions: 'everyone' });
+const { Client, Collection, MessageEmbed } = require('discord.js');
+const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
 const xp = require('./xp.json');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
@@ -10,8 +10,8 @@ require('./util/functions.js')(client);
 
 client.queue = new Map();
 
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+client.commands = new Collection();
+client.aliases = new Collection();
 fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
@@ -47,7 +47,7 @@ client.on('message', async message => {
   xp[message.author.id].messagessent = messagessent + Number(1);
   if (nxtLvl <= xp[message.author.id].xp) {
     xp[message.author.id].level = curlvl + 1;
-    const lvlup = new Discord.MessageEmbed()
+    const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
       .setColor(0x902B93)
