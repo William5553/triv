@@ -22,6 +22,6 @@ exports.conf = {
 
 exports.help = {
   name: '8ball',
-  description: 'Shakey shakey.',
+  description: 'Asks the magic 8 ball a question',
   usage: '8ball [question]'
 };
