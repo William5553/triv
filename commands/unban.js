@@ -13,8 +13,8 @@ exports.run = (client, message, args) => {
   const usah = client.users.fetch(args[0]);
   if (!user || !usah) return message.reply('You must supply a user ID.').catch(console.error);
   if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
-  message.guild.members.unban(user, {reason: reason});
-  message.channel.send(`unbanned ${usah.tag}`;
+  message.guild.members.unban(user, {reason: reason}).catch(message.channel.send);
+  message.channel.send(`unbanned ${usah.tag}`);
 };
 
 exports.conf = {
