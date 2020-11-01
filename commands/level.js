@@ -3,7 +3,7 @@ const xp = require('../xp.json');
 
 exports.run = async (client, message, args) => {
 
-  const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.author;
+  const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.author;
   
   if (!xp[user.id]) {
     xp[user.id] = {
