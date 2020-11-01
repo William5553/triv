@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
       .setTitle("Now playing")
       .setDescription(`${song.title}\n${song.url}`)
       .setColor("#F8AA2A")
-      .setAuthor("EvoBot")
+      .setAuthor(client.user.username)
       .addField(
         "\u200b",
         new Date(seek * 1000).toISOString().substr(11, 8) +
