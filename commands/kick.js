@@ -4,6 +4,7 @@ const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
+  if (!user) return message.reply('tag someone to mute next time before I mute you');
   parseUser(message, user);
   if (user.id == client.user.id) {
     return message.channel.send('You cannot, fool!');
