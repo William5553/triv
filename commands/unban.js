@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
   let botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !modlog) {
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog)
     return message.reply('I cannot find a bot-logs channel');
