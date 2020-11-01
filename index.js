@@ -5,7 +5,7 @@ const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 require('./util/eventLoader')(client);
 client.logger = require('./util/Logger');
-require('./util/functions.js')(client);
+require('./util/functions')(client);
 
 client.queue = new Map();
 
