@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const xp = require('../xp.json');
 
-module.exports.run = async (client, message, args) => {
+exports.run = async (client, message, args) => {
 
   const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.author;
   
