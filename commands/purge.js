@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   }*/
   async function purge() {
-    message.delete(); // Let's delete the command message, so it doesn't interfere with the messages we are going to delete.
+    await message.delete(); // Let's delete the command message, so it doesn't interfere with the messages we are going to delete.
     let mgct = Number(args.slice(0).join(' '));
     // We want to check if the argument is a number
     if (mgct < 2) {
@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
     message.channel.bulkDelete(mgct).catch(error => {
       message.channel.send(`Error: **${error}**`);
     });
- /*   const embed = new MessageEmbed()
+    /*const embed = new MessageEmbed()
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setColor(0xEB5234)
     .setTimestamp()
