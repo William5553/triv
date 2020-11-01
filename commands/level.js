@@ -1,23 +1,25 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const xp = require('../xp.json');
 
-module.exports.run = async (client, message) => {
+module.exports.run = async (client, message, args) => {
 
-  if (!xp[message.author.id]) {
-    xp[message.author.id] = {
+  const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.author;
+  
+  if (!xp[user.id]) {
+    xp[user.id] = {
       xp: 0,
       level: 1,
       messagessent: 0
     };
   }
-  const curxp = xp[message.author.id].xp;
-  const curlvl = xp[message.author.id].level;
-  const msgsent = xp[message.author.id].messagessent;
+  const curxp = xp[user.id].xp;
+  const curlvl = xp[user.id].level;
+  const msgsent = xp[user.id].messagessent;
   const nxtLvlXp = curlvl * 200;
   const difference = nxtLvlXp - curxp;
 
-  const lvlEmbed = new Discord.MessageEmbed()
-    .setAuthor(message.author.username, message.author.displayAvatarURL())
+  const lvlEmbed = new MessageEmbed()
+    .setAuthor(user.username, user.displayAvatarURL())
     .setColor(0x902B93)
     .addField('Level', curlvl, true)
     .addField('XP', curxp, true)
