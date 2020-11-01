@@ -70,6 +70,7 @@ exports.run = async (client, message, args) => {
           message.channel
             .send(`✅ **${song.title}** has been added to the queue by ${message.author}`)
             .catch(console.error);
+      }
     });
 
     let playlistEmbed = new MessageEmbed()
