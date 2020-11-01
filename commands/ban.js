@@ -17,7 +17,11 @@ exports.run = async (client, message, args) => {
   }
   parseUser(message, userr.user);
   const caseNum = await caseNumber(client, botlog);
-  if (!botlog) return message.reply('I cannot find a channel named bot-logs');
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
+    message.guild.channels.create('bot-logs', { type: 'text' });
+  } else {
+   return message.reply('I cannot find a channel named bot-logs');
+  }
   if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
   var chnl = message.Channel ;
   var gank = chnl.Guild.Name;
