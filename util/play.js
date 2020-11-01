@@ -3,7 +3,6 @@ const { canModifyQueue } = require("./queue");
 
 module.exports = {
   async play(song, message) {
-    let PRUNING;
 
     const queue = message.client.queue.get(message.guild.id);
 
@@ -167,9 +166,6 @@ module.exports = {
 
     collector.on("end", () => {
       playingMessage.reactions.removeAll().catch(console.error);
-      if (PRUNING && playingMessage && !playingMessage.deleted) {
-        playingMessage.delete({ timeout: 3000 }).catch(console.error);
-      }
     });
   }
 };
