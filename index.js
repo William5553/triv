@@ -25,6 +25,8 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
+client.on("warn", (info) => console.log(info));
+client.on("error", console.error);
 client.on('message', async message => {
   // levelling system
   if (message.author.id === client.user.id || message.author.bot) return;
