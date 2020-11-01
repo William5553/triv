@@ -1,7 +1,6 @@
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
-const xp = require('./xp.json');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 require('./util/eventLoader')(client);
@@ -29,26 +28,27 @@ client.on("warn", (info) => console.log(info));
 client.on("error", console.error);
 client.on('message', async message => {
   // levelling system
-  if (message.author.id === client.user.id || message.author.bot) return;
+  if (!message.guild || message.author.bot) return;
 
+  const xp = require('./xp.json');
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
-  if (!xp[message.author.id]) {
-    xp[message.author.id] = {
+  if (!xp[message.guild.id][message.author.id]) {
+    xp[message.guild.id][message.author.id] = {
       xp: 0,
       level: 1,
       messagessent: 0
     };
   }
 
-  const messagessent = xp[message.author.id].messagessent;
-  const curxp = xp[message.author.id].xp;
-  const curlvl = xp[message.author.id].level;
-  const nxtLvl = xp[message.author.id].level * 200;
-  xp[message.author.id].xp =  curxp + xpAdd;
-  xp[message.author.id].messagessent = messagessent + Number(1);
-  if (nxtLvl <= xp[message.author.id].xp) {
-    xp[message.author.id].level = curlvl + 1;
+  const messagessent = xp[message.guild.id][message.author.id].messagessent;
+  const curxp = xp[message.guild.id][message.author.id].xp;
+  const curlvl = xp[message.guild.id][message.author.id].level;
+  const nxtLvl = xp[message.guild.id][message.author.id].level * 200;
+  xp[message.guild.id][message.author.id].xp =  curxp + xpAdd;
+  xp[message.guild.id][message.author.id].messagessent = messagessent + Number(1);
+  if (nxtLvl <= xp[message.guild.id][message.author.id].xp) {
+    xp[message.guild.id][message.author.id].level = curlvl + 1;
     const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
