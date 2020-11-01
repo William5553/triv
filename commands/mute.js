@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
     .setDescription(`**Action:** Un/mute\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.tag}`)
     .setFooter(`ID ${caseNum}`);
 
-  if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions.').catch(console.error);
+  if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the **MANAGE_ROLES_OR_PERMISSIONS** permission').catch(console.error);
 
   if (message.guild.member(user).roles.cache.has(muteRole.id)) {
     message.guild.member(user).roles.remove(muteRole.id, reason).then(() => {
