@@ -5,7 +5,7 @@ const YouTubeAPI = require("simple-youtube-api");
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
-exports.run = (client, message, args) => {
+exports.run = asy nc(client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -45,9 +45,9 @@ exports.run = (client, message, args) => {
     let songInfo = null;
     let song = null;
 
-    if (urlValid) {
+if (urlValid) {
       try {
-        songInfo = ytdl.getInfo(url);
+        songInfo = await ytdl.getInfo(url);
         song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
@@ -57,9 +57,23 @@ exports.run = (client, message, args) => {
         console.error(error);
         return message.reply(error.message).catch(console.error);
       }
+    } else if (scRegex.test(url)) {
       try {
-        const results = youtube.searchVideos(search, 1);
-        songInfo = ytdl.getInfo(results[0].url);
+        const trackInfo = await scdl.getInfo(url, SOUNDCLOUD_CLIENT_ID);
+        song = {
+          title: trackInfo.title,
+          url: trackInfo.permalink_url,
+          duration: Math.ceil(trackInfo.duration / 1000)
+        };
+      } catch (error) {
+        if (error.statusCode === 404)
+          return message.reply("Could not find that Soundcloud track.").catch(console.error);
+        return message.reply("There was an error playing that Soundcloud track.").catch(console.error);
+      }
+    } else {
+      try {
+        const results = await youtube.searchVideos(search, 1);
+        songInfo = await ytdl.getInfo(results[0].url);
         song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
@@ -82,13 +96,13 @@ exports.run = (client, message, args) => {
     message.client.queue.set(message.guild.id, queueConstruct);
 
     try {
-      queueConstruct.connection = channel.join();
-      queueConstruct.connection.voice.setSelfDeaf(true);
+      queueConstruct.connection = await channel.join();
+      await queueConstruct.connection.voice.setSelfDeaf(true);
       play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(error);
       message.client.queue.delete(message.guild.id);
-      channel.leave();
+      await channel.leave();
       return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
     }
 };
