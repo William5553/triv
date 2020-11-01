@@ -8,11 +8,11 @@ exports.run = async (client, message, args) => {
     if (evaled && evaled.constructor.name == 'Promise')
       evaled = await evaled;
     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled);
-    message.channel.send(`\`\`\`xl\n${clean(client, evaled)}\n\`\`\``
+    message.channel.send(`\`\`\`xl\n${client.clean(client, evaled)}\n\`\`\``
     );
   }
   catch (err) {
-    message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(client, err)}\n\`\`\``);
+    message.channel.send(`\`ERROR\` \`\`\`xl\n${client.clean(client, err)}\n\`\`\``);
   }
 };
 
@@ -29,15 +29,3 @@ exports.help = {
   description: 'Evaluates arbitrary javascript.',
   usage: 'eval [code]'
 };
-
-
-function clean(client, text) {
-  if (typeof(text) === 'string') {
-    return text.replace(/`/g, '`' + String.fromCharCode(8203))
-      .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(client.token, 'no token');
-  }
-  else {
-    return text;
-  }
-}
