@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     .setTimestamp()
     .setDescription(`**Action:** Kick\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`)
     .setFooter(`ID ${caseNum}`);
-  return client.channels.fetch(botlog.id).send({embed});
+  return botlog.send({embed});
 };
 
 exports.conf = {
