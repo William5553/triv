@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
   const caseNum = await caseNumber(client, botlog);
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
-  } else {
+  } elseif (!botlog) {
    return message.reply('I cannot find a channel named bot-logs');
   }
   if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
