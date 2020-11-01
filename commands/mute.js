@@ -35,11 +35,11 @@ exports.run = async (client, message, args) => {
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles.remove(muteRole.id, reason).then(() => {
       botlog.send({embed}).catch(console.error);
-    });
+    }).catch(message.channel.send);
   } else {
     userr.roles.add(muteRole.id, reason).then(() => {
       botlog.send({embed}).catch(console.error);
-    });
+    }).catch(message.channel.send);
   }
 
 };
