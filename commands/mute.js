@@ -3,12 +3,12 @@ const {caseNumber} = require('../util/caseNumber.js');
 const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
-  const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-  parseUser(message, user.user);
-  if (user.id === settings.ownerid) {
+  const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+  parseUser(message, userr.user);
+  if (userr.user.id === settings.ownerid) {
     return message.reply('absolutely not.');
   }
-  if (user.id === client.user.id) {
+  if (userr.user.id === client.user.id) {
     return message.channel.send('Don\'t mute me!');
   }
   const botlog = message.guild.channels.cache.find(
@@ -24,13 +24,13 @@ exports.run = async (client, message, args) => {
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
-    .setDescription(`**Action:** Un/mute\n**Target:** ${user.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${user.user.tag}`)
+    .setDescription(`**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`)
     .setFooter(`ID ${caseNum}`);
 
   if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the **MANAGE_ROLES_OR_PERMISSIONS** permission').catch(console.error);
 
-  if (user.roles.cache.has(muteRole.id)) {
-    user.roles.remove(muteRole.id, reason).then(() => {
+  if (userr.roles.cache.has(muteRole.id)) {
+    userr.roles.remove(muteRole.id, reason).then(() => {
       client.channels.fetch(botlog.id).send({embed}).catch(console.error);
     });
   } else {
