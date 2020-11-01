@@ -10,11 +10,11 @@ exports.run = (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog)
     return message.reply('I cannot find a bot-logs channel');
-  const usah = client.users.fetch(args[0]);
-  if (!user || !usah) return message.reply('You must supply a user ID.').catch(console.error);
+
+  if (!user) return message.reply('You must supply a user ID.').catch(console.error);
   if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
   message.guild.members.unban(user, {reason: reason}).catch(message.channel.send);
-  message.channel.send(`unbanned ${usah.tag}`);
+  message.channel.send('unbanned');
 };
 
 exports.conf = {
