@@ -5,6 +5,7 @@ module.exports = client => {
   client.on('disconnect', () => reqEvent('disconnect')(client));
   client.on('message', reqEvent('message'));
   client.on('messageDelete', reqEvent('messageDelete'));
+  client.on('messageDeleteBulk', reqEvent('messageDeleteBulk'));
   client.on('guildMemberAdd', reqEvent('guildMemberAdd'));
   client.on('guildMemberRemove', reqEvent('guildMemberRemove'));
   client.on('guildBanAdd', reqEvent('guildBanAdd'));
