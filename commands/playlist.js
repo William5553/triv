@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
 
     if (!args.length)
       return message
-        .reply(`Usage: ${message.client.prefix}playlist <YouTube Playlist URL | Playlist Name>`)
+        .reply(`Usage: ${settings.prefix}playlist <YouTube Playlist URL | Playlist Name>`)
         .catch(console.error);
     if (!channel) return message.reply("You need to join a voice channel first!").catch(console.error);
 
