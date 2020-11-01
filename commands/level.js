@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js');
 const xp = require('../xp.json');
 
 exports.run = async (client, message, args) => {
-
   const user = message.mentions.users.first() || message.author;
   
   if (user.bot) return message.reply('that\'s a bot');
@@ -29,7 +28,6 @@ exports.run = async (client, message, args) => {
     .setFooter(`${difference} XP til level up`);
 
   message.channel.send(lvlEmbed);
-
 };
 
 exports.conf = {
