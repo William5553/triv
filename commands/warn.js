@@ -2,17 +2,17 @@ const {MessageEmbed} = require('discord.js');
 exports.run = (client, message, args) => {
   const reason = args.slice(1).join(' ');
   const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-  const modlog = message.guild.channels.cache.find(
+  const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
-  if (!modlog) return message.reply('I cannot find a bot-logs channel');
+  if (!botlog) return message.reply('I cannot find a bot-logs channel');
   if (reason.length < 1) return message.reply('supply a reason for the warning');
   if (!userr) return message.reply('tell me who to warn idiot').catch(console.error);
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Warning\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`);
-  return modlog.send({embed});
+  return botlog.send({embed}).catch(console.error);
 };
 
 exports.conf = {
