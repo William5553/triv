@@ -12,16 +12,6 @@ exports.run = (client, message) => {
 • Channels   :: ${client.channels.cache.size.toLocaleString()}
 • Discord.js :: v${Discord.version}
 • Node       :: ${process.version}`, {code: 'asciidoc'});
-
-  const bicon = client.user.displayAvatarURL();
-  const botembed = new Discord.MessageEmbed()
-    .setDescription('Bot Information')
-    .setColor('#15f153')
-    .setThumbnail(bicon)
-    .addField('Bot Name', client.user.username)
-    .addField('Created On', client.user.createdAt);
-
-  message.channel.send(botembed);
 };
 
 exports.conf = {
