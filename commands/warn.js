@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Warning\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`);
-  return client.channels.fetch(modlog.id).send({embed});
+  return modlog.send({embed});
 };
 
 exports.conf = {
