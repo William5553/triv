@@ -8,7 +8,7 @@ const message = messages.random(1);
   }
 
 const embed = new MessageEmbed()
-    .setAuthor(message.author.username, message.author.displayAvatarURL())
+    .setAuthor(message.guild.name, message.guild.iconURL())
     .setColor(0xEB5234)
     .setTimestamp()
     .setDescription(`**Bulk Delete in ${message.channel}, ${messages.size} messages deleted**`);
