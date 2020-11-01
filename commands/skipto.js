@@ -1,14 +1,15 @@
 const { canModifyQueue } = require("../util/queue");
+const settings = require('../settings.json');
 
 exports.run = (client, message, args) => {
     if (!args.length)
       return message
-        .reply(`Usage: ${message.client.prefix}skipto <Queue Number>`)
+        .reply(`Usage: ${settings.prefix}skipto <Queue Number>`)
         .catch(console.error);
 
     if (isNaN(args[0]))
       return message
-        .reply(`Usage: ${message.client.prefix}${module.exports.name} <Queue Number>`)
+        .reply(`Usage: ${settings.prefix}skipto <Queue Number>`)
         .catch(console.error);
 
     const queue = message.client.queue.get(message.guild.id);
