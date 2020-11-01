@@ -1,4 +1,5 @@
 const ms = require('ms');
+const settings = require('../settings.json');
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];
   const time = args.join(' ');
@@ -14,7 +15,7 @@ exports.run = (client, message, args) => {
     });
   } else {
     message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
-      message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}`).then(() => {
+      message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}. To lift, run **${settings.prefix}lockdown release**`).then(() => {
 
         client.lockit[message.channel.id] = setTimeout(() => {
           message.channel.overwritePermissions(message.guild.id, {
