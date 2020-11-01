@@ -31,11 +31,11 @@ exports.run = async (client, message, args) => {
 
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles.remove(muteRole.id, reason).then(() => {
-      client.channels.fetch(botlog.id).send({embed}).catch(console.error);
+      botlog.send({embed}).catch(console.error);
     });
   } else {
     user.roles.add(muteRole.id, reason).then(() => {
-      client.channels.fetch(botlog.id).send({embed}).catch(console.error);
+      botlog.send({embed}).catch(console.error);
     });
   }
 
