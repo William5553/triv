@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
       botlog.send({embed}).catch(console.error);
     });
   } else {
-    user.roles.add(muteRole.id, reason).then(() => {
+    userr.roles.add(muteRole.id, reason).then(() => {
       botlog.send({embed}).catch(console.error);
     });
   }
