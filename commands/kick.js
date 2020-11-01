@@ -30,6 +30,7 @@ exports.run = async (client, message, args) => {
 };
 
 exports.conf = {
+  enabled: true,
   aliases: [],
   permLevel: 2
 };
