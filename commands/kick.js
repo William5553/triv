@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
   } else if (!botlog) 
   return message.channel.send('I cannot find a channel named bot-logs');
   
-  await userr.user.send(`Seems like you have been kicked from ${message.channel.guild.name}`).catch(console.error);
+  await userr.user.send(`you've been kicked from ${message.channel.guild.name}`).catch(console.error);
   userr.kick().catch(console.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
   const embed = new MessageEmbed()
