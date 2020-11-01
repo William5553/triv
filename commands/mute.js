@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
   } else if (!botlog) 
   return message.reply('I cannot find a bot-logs channel').catch(console.error);
   if (!muteRole) return message.reply('I cannot find a role named **Muted**').catch(console.error);
-  if (message.mentions.users.size < 1) return message.reply('You must mention someone to mute them.').catch(console.error);
+  if (!userr) return message.reply('You must mention someone to mute them.').catch(console.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
 
   const embed = new MessageEmbed()
