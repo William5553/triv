@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
       console.log(error);
     });
   } else {
-    message.channel.updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
+    message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
       message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}`).then(() => {
 
         client.lockit[message.channel.id] = setTimeout(() => {
