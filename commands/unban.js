@@ -6,8 +6,12 @@ exports.run = (client, message, args) => {
   let modlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
     );
-  if (!modlog) return message.reply('I cannot find a bot-logs channel');
-  if (!user) return message.reply('You must supply a User Resolvable, aka a user ID.').catch(console.error);
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !modlog) {
+    message.guild.channels.create('bot-logs', { type: 'text' });
+  } elseif (!modlog) {
+    return message.reply('I cannot find a bot-logs channel');
+  }
+  if (!user) return message.reply('You must supply a user ID.').catch(console.error);
   if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
   message.guild.members.unban(user, {reason: reason});
 };
