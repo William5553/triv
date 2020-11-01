@@ -1,18 +1,18 @@
 const { MessageEmbed } = require("discord.js");
 
-exports.run = (client, message, args) => {
-    const serverQueue = message.client.queue.get(message.guild.id);
+exports.run = async (client, message, args) => {
+  const serverQueue = message.client.queue.get(message.guild.id);
     if (!serverQueue) return message.channel.send("❌ **Nothing playing in this server**");
     try {
       let currentPage = 0;
       const embeds = generateQueueEmbed(message, serverQueue.songs);
-      const queueEmbed = message.channel.send(
+      const queueEmbed = await message.channel.send(
         `**Current Page - ${currentPage + 1}/${embeds.length}**`,
         embeds[currentPage]
       );
-      queueEmbed.react("⬅️");
-      queueEmbed.react("⏹");
-      queueEmbed.react("➡️");
+      await queueEmbed.react("⬅️");
+      await queueEmbed.react("⏹");
+      await queueEmbed.react("➡️");
 
       const filter = (reaction, user) =>
         ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
@@ -42,6 +42,7 @@ exports.run = (client, message, args) => {
     } catch {
       return message.channel.send("**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**");
     }
+  }
 };
 
 function generateQueueEmbed(message, queue) {
@@ -61,7 +62,7 @@ function generateQueueEmbed(message, queue) {
     embeds.push(embed);
   }
   return embeds;
-}
+};
 
 exports.conf = {
   enabled: true,
