@@ -6,21 +6,21 @@ exports.run = async (client, message, args) => {
   
   if (user.bot) return message.reply('that\'s a bot');
   
-  if (!xp[user.id]) {
-    xp[user.id] = {
+  if (!xp[message.guild.id][user.id]) {
+    xp[message.guild.id][user.id] = {
       xp: 0,
       level: 1,
       messagessent: 0
     };
   }
-  const curxp = xp[user.id].xp;
-  const curlvl = xp[user.id].level;
-  const msgsent = xp[user.id].messagessent;
+  const curxp = xp[message.guild.id][user.id].xp;
+  const curlvl = xp[message.guild.id][user.id].level;
+  const msgsent = xp[message.guild.id][user.id].messagessent;
   const nxtLvlXp = curlvl * 200;
   const difference = nxtLvlXp - curxp;
 
   const lvlEmbed = new MessageEmbed()
-    .setAuthor(user.username, user.displayAvatarURL())
+    .setAuthor(`${user.username} - ${message.guild.name}`, user.displayAvatarURL())
     .setColor(0x902B93)
     .addField('Level', curlvl, true)
     .addField('XP', curxp, true)
