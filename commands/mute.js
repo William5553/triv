@@ -4,7 +4,7 @@ const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-  parseUser(message, user);
+  parseUser(message, user.user);
   if (user.id === settings.ownerid) {
     return message.reply('absolutely not.');
   }
