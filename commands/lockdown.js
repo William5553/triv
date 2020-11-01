@@ -18,9 +18,7 @@ exports.run = (client, message, args) => {
       message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}. To lift, run **${settings.prefix}lockdown ${validUnlocks[Math.floor(Math.random() * validUnlocks.length)]}**`).then(() => {
 
         client.lockit[message.channel.id] = setTimeout(() => {
-          message.channel.overwritePermissions(message.guild.id, {
-            SEND_MESSAGES: null
-          }).then(message.channel.send('Lockdown lifted.')).catch(console.error);
+          message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: null }).then(message.channel.send('Lockdown lifted.')).catch(console.error);
           delete client.lockit[message.channel.id];
         }, ms(time));
 
