@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   const response = `${responses[Math.floor(Math.random() * responses.length)]}`;
   if (response === 'Explode') { 
     message.channel.send({ files: ['../assets/explode8ball.png'] }).catch(console.error);
-  } else
+  } else {
     message.channel.send(response);
   }
 };
