@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     if (!args.length)
       return message.reply(`Usage: ${settings.prefix}search <Video Name>`).catch(console.error);
     if (message.channel.activeCollector)
