@@ -7,7 +7,7 @@ module.exports = message => {
   }
 
   const embed = new MessageEmbed()
-    .setTitle("Message Deleted")
+    .setTitle("**Message Deleted**")
     .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
     .setTimestamp()
     .setDescription(message.content)
