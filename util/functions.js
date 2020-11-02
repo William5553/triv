@@ -1,8 +1,8 @@
 module.exports = (client) => {
   
-  client.reload = async (client, command) => {
+  client.load = async (client, command) => {
   const props = require(`../commands/${command}`);
-  client.logger.log(`Reloading Command: ${props.help.name}. 👌`);
+  client.logger.log(`Loading Command: ${props.help.name}. 👌`);
   client.commands.set(props.help.name, props);
   props.conf.aliases.forEach(alias => {
     client.aliases.set(alias, props.help.name);
