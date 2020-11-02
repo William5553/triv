@@ -8,7 +8,7 @@ const settings = require('../settings.json');
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['die'],
   permLevel: 4
 };
 
