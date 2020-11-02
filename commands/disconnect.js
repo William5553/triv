@@ -1,7 +1,7 @@
-exports.run = (client, message) => {
-const settings = require('../settings.json');
+exports.run = async (client, message) => {
+  const settings = require('../settings.json');
   if (message.author.id !== settings.ownerid) return message.reply('no');
-  message.channel.send('Goodbye! 💀');
+  await message.channel.send('Goodbye! 💀');
   client.destroy();
 };
 
