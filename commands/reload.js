@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
     return message.channel.send(`I cannot find the command: ${args[0]}`);
   } else {
     message.channel.send(`Reloading: ${command}`).then(m => {
-      reload(client, command)
+      client.load(client, command)
         .then(() => {
           m.edit(`Successfully reloaded: ${command}`);
         })
@@ -35,12 +35,3 @@ exports.help = {
   description: "Reloads the command file, if it's been updated or modified.",
   usage: 'reload [command name]'
 };
-
-async function reload(client, command) {
-  const props = require(`./${command}`);
-  client.logger.log(`Reloading Command: ${props.help.name}. 👌`);
-  client.commands.set(props.help.name, props);
-  props.conf.aliases.forEach(alias => {
-    client.aliases.set(alias, props.help.name);
-  });
-}
