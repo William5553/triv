@@ -1,6 +1,6 @@
 module.exports = (client) => {
   
-  client.load = async (client, command) => {
+  client.load = async (command) => {
   const props = require(`../commands/${command}`);
   client.logger.log(`Loading Command: ${props.help.name}. 👌`);
   client.commands.set(props.help.name, props);
