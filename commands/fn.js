@@ -4,8 +4,8 @@ const settings = require("../settings.json");
 exports.run = async (c, m, a) => {
   if (a.length >= 2) {
     let platform = a[0].toLowerCase();
-    if (platform == "xbox") platform = "xbl";
-    if (platform == "ps4") platform = "psn";
+    if (platform == "xbox" || platform == 'xb') platform = "xbl";
+    if (platform == "ps4" || platform == 'ps' || platform == 'playstation') platform = "psn";
     if (!(platform == "pc" || platform == "psn" || platform == "xbl")) {
       return m.reply({
         embed: new MessageEmbed()
@@ -92,7 +92,7 @@ exports.run = async (c, m, a) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['fnbr', 'fortnite'],
   permLevel: 0
 };
 
