@@ -17,6 +17,10 @@ exports.run = async (c, m, a) => {
           .setDescription("Valid platforms are **pc**, **xbl** and **psn**")
       });
     }
+    var epicName = [];
+    a.forEach(arg => {
+      if (arg !== a[0]) epicName.push(arg);
+  });
     var e = await m.reply({
       embed: new MessageEmbed()
         .setTitle("Working...")
@@ -24,7 +28,7 @@ exports.run = async (c, m, a) => {
         .setColor("#ffdd57")
     });
     var r = await fetch(
-      `https://api.fortnitetracker.com/v1/profile/${platform}/${a[1]}`,
+      `https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`,
       {
         headers: {
           "TRN-Api-Key": settings.trn_api_key
