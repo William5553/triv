@@ -10,8 +10,8 @@ module.exports = (oldMessage, newMessage) => {
     .setTitle("Message Edited")
     .setAuthor(`${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.avatarURL())
     .setTimestamp()
-    .addField('Old Message', oldMessage.content, true)
-    .addField('New Message', newMessage.content, true)
+    .addField('**Old Message**', oldMessage.content, true)
+    .addField('**New Message**', newMessage.content, true)
     .setColor("0xEB5234");
   if (logs) logs.send(embed);
 };
