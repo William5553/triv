@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
     const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
 
     message.channel.activeCollector = false;
-    message.client.commands.get("play").run(message, [choice]);
+    message.client.commands.get("play").run(client, message, [choice]);
     resultsMessage.delete().catch(console.error);
   } catch (error) {
     console.error(error);
