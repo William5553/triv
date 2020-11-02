@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const weather = require('weather-js');
-  const Discord = require('discord.js');
+  const {MessageEmbed} = require('discord.js');
   // You can find some of the code used here on the weather-js npm page in the description.
 
   weather.find({search: args.join(' '), degreeType: 'C'}, function(err, result) { // Make sure you get that args.join part, since it adds everything after weather.
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     var location = result[0].location; // This is a variable for the location part of the JSON output
 
     // Let's use an embed for this.
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like, remember you can find all of this on the weather-js npm page.
       .setAuthor(`Weather for ${current.observationpoint}`) // This shows the current location of the weather.
       .setThumbnail(current.imageUrl) // This sets the thumbnail of the embed
