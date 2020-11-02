@@ -33,6 +33,15 @@ client.on('message', async message => {
   const xp = require('./xp.json');
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
+  if (!xp[message.guild.id]) {
+    xp[message.guild.id] = {
+      "0": {
+        "level": 1,
+        "xp": 0,
+        "messagessent": 0
+      }
+    };
+  }
   if (!xp[message.guild.id][message.author.id]) {
     xp[message.guild.id][message.author.id] = {
       xp: 0,
