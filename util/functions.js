@@ -1,4 +1,13 @@
 module.exports = (client) => {
+  
+  client.reload = async (client, command) => {
+  const props = require(`../commands/${command}`);
+  client.logger.log(`Reloading Command: ${props.help.name}. 👌`);
+  client.commands.set(props.help.name, props);
+  props.conf.aliases.forEach(alias => {
+    client.aliases.set(alias, props.help.name);
+  });
+  };
   /*
   PERMISSION LEVEL FUNCTION
   This is a very basic permission system for commands which uses "levels"
