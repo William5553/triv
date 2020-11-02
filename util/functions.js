@@ -1,12 +1,11 @@
-module.exports = (client) => {
-  
+module.exports = (client) => { 
   client.load = async (command) => {
-  const props = require(`../commands/${command}`);
-  client.logger.log(`Loading Command: ${props.help.name}. 👌`);
-  client.commands.set(props.help.name, props);
-  props.conf.aliases.forEach(alias => {
-    client.aliases.set(alias, props.help.name);
-  });
+    const props = require(`../commands/${command}`);
+    client.logger.log(`Loading Command: ${props.help.name}. 👌`);
+    client.commands.set(props.help.name, props);
+    props.conf.aliases.forEach(alias => {
+      client.aliases.set(alias, props.help.name);
+    });
   };
   /*
   PERMISSION LEVEL FUNCTION
