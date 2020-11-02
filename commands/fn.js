@@ -10,17 +10,17 @@ exports.run = async (c, m, a) => {
       return m.reply({
         embed: new MessageEmbed()
           .setAuthor(
-            "400: Invalid platform.",
-            "https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png"
+            '400: Invalid platform',
+            'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
           )
-          .setColor("#ff3860")
+          .setColor('#ff3860')
           .setDescription("Valid platforms are **pc**, **xbl** and **psn**")
       });
     }
     var epicName = [];
     a.forEach(arg => {
       if (arg !== a[0]) epicName.push(arg);
-  });
+    });
     var e = await m.reply({
       embed: new MessageEmbed()
         .setTitle('Working...')
@@ -53,9 +53,9 @@ exports.run = async (c, m, a) => {
           embed: new MessageEmbed()
             .setAuthor(
               '500: Something broke',
-              "https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png"
+              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
-            .setColor("#ff3860")
+            .setColor('#ff3860')
             .setFooter(text)
         });
       }
