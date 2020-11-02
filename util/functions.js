@@ -86,7 +86,7 @@ module.exports = (client) => {
     if (command.shutdown) {
       await command.shutdown(client);
     }
-    delete require.cache[require.resolve(`../commands/${commandName}.js`)];
+    delete require.cache[require.resolve(`../commands/${commandName}`)];
     return false;
   };
 
