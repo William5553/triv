@@ -6,13 +6,23 @@ exports.run = async (client, message, args) => {
   
   if (user.bot) return message.reply('that\'s a bot');
   
-  if (!xp[message.guild.id][user.id]) {
-    xp[message.guild.id][user.id] = {
+  if (!xp[message.guild.id]) {
+    xp[message.guild.id] = {
+      "0": {
+        "level": 1,
+        "xp": 0,
+        "messagessent": 0
+      }
+    };
+  }
+  if (!xp[message.guild.id][message.author.id]) {
+    xp[message.guild.id][message.author.id] = {
       xp: 0,
       level: 1,
       messagessent: 0
     };
   }
+  
   const curxp = xp[message.guild.id][user.id].xp;
   const curlvl = xp[message.guild.id][user.id].level;
   const msgsent = xp[message.guild.id][user.id].messagessent;
