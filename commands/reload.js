@@ -1,6 +1,7 @@
 exports.run = (client, message, args) => {
-  const settings = require('../settings.json');
-  if (message.author.id !== settings.ownerid) return message.reply('you can\'t do that.');
+  const settings = require("../settings.json");
+  if (message.author.id !== settings.ownerid)
+    return message.reply("you can't do that.");
   let command;
   if (client.commands.has(args[0])) {
     command = args[0];
@@ -10,28 +11,36 @@ exports.run = (client, message, args) => {
   if (!command) {
     return message.channel.send(`I cannot find the command: ${args[0]}`);
   } else {
-    message.channel.send(`Reloading: ${command}`)
-      .then(m => {
-        client.reload(command)
-          .then(() => {
-            m.edit(`Successfully reloaded: ${command}`);
-          })
-          .catch(e => {
-            m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
-          });
-      });
+    message.channel.send(`Reloading: ${command}`).then(m => {
+      reload(client, command)
+        .then(() => {
+          m.edit(`Successfully reloaded: ${command}`);
+        })
+        .catch(e => {
+          m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
+        });
+    });
   }
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['r'],
+  aliases: [],
   permLevel: 4
 };
 
 exports.help = {
-  name: 'reload',
-  description: 'Reloads the command file, if it\'s been updated or modified.',
-  usage: 'reload <commandname>'
+  name: "reload",
+  description: "Reloads the command file, if it's been updated or modified.",
+  usage: 'reload [command name]'
 };
+
+async function reload(client, command) {
+  const props = require(`./${command}`);
+  client.logger.log(`Reloading Command: ${props.help.name}. 👌`);
+  client.commands.set(props.help.name, props);
+  props.conf.aliases.forEach(alias => {
+    client.aliases.set(alias, props.help.name);
+  });
+}
