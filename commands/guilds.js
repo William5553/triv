@@ -1,19 +1,14 @@
+const {MessageEmbed} = require('discord.js');
 exports.run = (client, message) => {
   const settings = require('../settings.json');
   if (message.author.id !== settings.ownerid) return message.reply('you\'re not willeh!');
-  message.channel.send('', {embed: {
-    color: 0x00FF5C,
-    author: {
-      name: 'Guild(s)',
-      icon_url: client.user.avatarURL()
-    },
-    title: '** **',
-    url: 'https://discordapp.com/oauth2/authorize?client_id=340942145051426828&scope=bot&permissions=536308991',
-    description:  `**${client.guilds.cache.size} guild(s):**\n\n*${client.guilds.cache.map(g => g.name).join('\n')}*`,
-    footer: {
-      text: client.user.username
-    }
-  }});
+  const embed = new MessageEmbed()
+  .setColor(0x00FF5C)
+  .setAuthor(client.user.username, client.user.avatarURL())
+  .setDescription(`**${client.guilds.cache.size} guild(s):**\n\n*${client.guilds.cache.map(g => g.name).join('\n')}*`)
+  .setURL('https://discordapp.com/oauth2/authorize?client_id=340942145051426828&scope=bot&permissions=536308991')
+  .setTimestamp();
+  message.channel.send(embed);
 };
 
 exports.conf = {
