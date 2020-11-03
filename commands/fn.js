@@ -21,7 +21,7 @@ exports.run = async (c, m, a) => {
     a.forEach(arg => {
       if (arg !== a[0]) epicName.push(arg);
     });
-    var epicName = epicName.join().replace(/,/g, '-');
+    var epicName = epicName.join().replace(/,/g, ' ');
     var e = await m.reply({
       embed: new MessageEmbed()
         .setTitle('Working...')
