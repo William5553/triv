@@ -30,10 +30,10 @@ client.on('message', async message => {
 
   if (!xp[message.guild.id]) {
     xp[message.guild.id] = {
-      "0": {
-        level: 1,
-        xp: 0,
-        messagessent: 0
+      -1: {
+        level: -1,
+        xp: -1,
+        messagessent: -1
       }
     };
   }
