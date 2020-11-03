@@ -16,6 +16,6 @@ exports.conf = {
 
 exports.help = {
   name: 'forceunlock',
-  description: 'This will lock a channel down for the specified duration, disallowing members to speak.',
+  description: 'This will allow admins to unlock a channel from another channel',
   usage: 'forceunlock [channel id]'
 };
