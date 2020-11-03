@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-const chan = message.guild.channels.cache.resolve(args[0]);
+const chan = message.guild.channels.cache.find(channel => channel.id === args[0]);
 if (!chan) return message.reply('please specify a valid channel id');
 chan.updateOverwrite(chan.guild.roles.everyone, { SEND_MESSAGES: null }).then(message.channel.send('Lockdown lifted.')).catch(console.error);
 chan.send(`force unlocked by @${message.author.tag}`);
