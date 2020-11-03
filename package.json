@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "1.0.0",
+  "version": "2.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,7 +27,7 @@
     "lyrics-finder": "^21.4.0",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
-    "ytdl-core": "^4.0.1",
+    "ytdl-core": "^4.0.2",
     "ytdl-core-discord": "^1.2.4"
   },
   "repository": {
