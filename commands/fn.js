@@ -24,7 +24,7 @@ exports.run = async (c, m, a) => {
     var e = await m.reply({
       embed: new MessageEmbed()
         .setTitle('Working...')
-        .setDescription(`Please wait a few seconds`)
+        .setDescription('Please wait a few seconds')
         .setColor('#ffdd57')
     });
     var r = await fetch(
@@ -46,7 +46,7 @@ exports.run = async (c, m, a) => {
               'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
             .setColor("#ff3860")
-            .setFooter(`Make sure you've got the name correct!`)
+            .setFooter('Make sure you\'ve got the name correct!')
         });
       } else {
         return e.edit({
