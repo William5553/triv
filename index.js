@@ -70,8 +70,8 @@ client.elevation = message => {
   /* This function should resolve to an ELEVATION level which
      is then sent to the command handler for verification*/
   let permlvl = 0;
-  if (message.member.permissions.has("MANAGE_MESSAGES")) permlvl = 2;
-  if (message.member.permissions.has("ADMINISTRATOR")) permlvl = 3;
+  if (message.member.hasPermission("MANAGE_MESSAGES")) permlvl = 2;
+  if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission('MANAGE_GUILD')) permlvl = 3;
   if (message.author.id === settings.ownerid) permlvl = 4;
   return permlvl;
 };
