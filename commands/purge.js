@@ -8,8 +8,8 @@ exports.run = (client, message, args) => {
     await message.delete(); // Let's delete the command message, so it doesn't interfere with the messages we are going to delete.
     let mgct = Number(args.slice(0).join(' '));
     // We want to check if the argument is a number
-    if (isNaN(mgct)) return message.channel.send('How many messages? That isn\'t a number');
-    if (mgct < 1) return message.channel.send('Please enter a number *higher* than 2');
+    if (isNaN(mgct)) return message.channel.send('that\'s not a number');
+    if (mgct < 1) return message.reply('enter a number of 1 or higher');
     if (mgct > 99) mgct = 100;
     // Deleting the messages
     message.channel.bulkDelete(mgct).catch(error => {
