@@ -3,7 +3,7 @@ const chan = message.guild.channels.cache.find(channel => channel.id === args[0]
 if (!chan) return message.reply('please specify a valid channel id');
 chan.updateOverwrite(chan.guild.roles.everyone, { SEND_MESSAGES: null }).then(message.channel.send('Lockdown lifted.')).catch(console.error);
 chan.send(`force unlocked by @${message.author.tag}`);
-  if (client.lockit[chan.id]) delete client.lockit[chan.id];
+  if (client.lockit && client.lockit[chan.id]) delete client.lockit[chan.id];
 };
 
 exports.conf = {
