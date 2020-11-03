@@ -66,12 +66,8 @@ exports.run = async (c, m, a) => {
         .setColor('#23d160')
         .setFooter('Epic Account ID: ' + j.accountId)
         .setThumbnail('https://i.imgur.com/QDzGMB8.png')
-        .setURL(
-          `https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle}`
-        )
-        .setDescription(
-          `[View full stats on FortniteTracker.com](https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle})`
-        );
+        //.setURL(`https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle}`)
+        //.setDescription(`[View full stats on FortniteTracker.com](https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle})`);
       for (var stat of j.lifeTimeStats) {
         emb.addField(stat.key, stat.value, true);
       }
