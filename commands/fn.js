@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const settings = require('../settings.json');
 exports.run = async (c, m, a) => {
   if (a.length >= 2) {
+    var epicName = a.slice(1).join(' ');
     let platform = a[0].toLowerCase();
     if (platform == 'xbox' || platform == 'xb' || platform == 'xb1') platform = 'xbl';
     if (platform == 'ps4' || platform == 'ps5' || platform == 'ps' || platform == 'playstation') platform = 'psn';
@@ -17,11 +18,6 @@ exports.run = async (c, m, a) => {
           .setDescription("Valid platforms are **pc**, **xbl** and **psn**")
       });
     }
-    var epicName = [];
-    a.forEach(arg => {
-      if (arg !== a[0]) epicName.push(arg);
-    });
-    var epicName = epicName.join(' ');
     var e = await m.reply({
       embed: new MessageEmbed()
         .setTitle('Working...')
