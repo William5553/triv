@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   ) {
     calculate = calculate
       .replace(/ /g, "")
-      .replace(/^/g, '**')
+    //  .replace(/^/g, '**')
       .replace(/÷/g, "/")
       .replace(/power|pow/g, "Math.pow")
       .replace(/sqrt|squareroot/g, "Math.sqrt")
