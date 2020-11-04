@@ -3,10 +3,7 @@ const translate = require('google-translate-api');
 
 exports.run = (client, message, args) => {
   if (args.length < 3) {
-    message.reply(
-      'Wrong format: An example would be `!translate swedish korean swedish-text-here` where after `!translate` would translate the `swedish-text-here` into korean'
-    );
-  } else {
+    return message.reply('Wrong format: An example would be `!translate swedish korean swedish-text-here` where after `!translate` would translate the `swedish-text-here` into korean');
     const argFrom = args[0].toLowerCase();
     const argTo = args[1].toLowerCase();
     /*
@@ -18,7 +15,6 @@ exports.run = (client, message, args) => {
     translate(text, { from: argFrom, to: argTo })
       .then(res => message.channel.send(res.text))
       .catch(err => message.channel.send(err));
-  }
 };
 
 exports.conf = {
