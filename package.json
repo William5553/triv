@@ -23,7 +23,6 @@
     "relevant-urban": "^2.0.0",
     "weather-js": "^2.0.0",
     "@discordjs/opus": "^0.3.3",
-    "ffmpeg-static": "^4.2.7",
     "lyrics-finder": "^21.4.0",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
