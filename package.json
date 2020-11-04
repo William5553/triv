@@ -21,6 +21,7 @@
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
     "opusscript": "^0.0.7",
+    "relevant-urban": "^2.0.0",
     "weather-js": "^2.0.0",
     "@discordjs/opus": "^0.3.3",
     "ffmpeg-static": "^4.2.7",
