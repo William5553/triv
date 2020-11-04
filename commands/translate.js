@@ -9,7 +9,7 @@ if (args.length < 3) {
             let argTo = args[1].toLowerCase();
 
             let lang_from = language.filter(ele => ele.name === argFrom)[0].abrv;
-            let lang_to = language.filter(ele => ele.name=== argTo)[0].abrv;
+            let lang_to = language.filter(ele => ele.name === argTo)[0].abrv;
             let text = args.slice(2).join(' ');
 
             translate(text, {from: lang_from, to: lang_to})
