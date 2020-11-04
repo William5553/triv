@@ -3,7 +3,7 @@ const translate = require('translate-google-api');
 
 exports.run = (client, message, args) => {
   if (args.length < 3)
-    return message.reply('Wrong format: An example would be `!translate swedish korean swedish-text-here` where after `!translate` would translate the `swedish-text-here` into korean');
+    return message.reply('Wrong format: An example would be `!translate en fr english-text-here` where after `!translate` would translate the `english-text-here` into french');
 
   /*
   let lang_from = language.filter(ele => ele.name === argFrom)[0].abrv;
@@ -13,8 +13,6 @@ exports.run = (client, message, args) => {
 
   translate(text, { from: args[0], to: args[1] })
     .then(res => {
-      if (res.from.text.autoCorrected === true)
-        message.channel.send(`Autocorrected to: ${res.from.text.value}`);
       message.channel.send(res.text);
     })
     .catch(err => message.channel.send(err));
