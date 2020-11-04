@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => {
   const settings = require('../settings.json');
-  if (message.author.id !== settings.ownerid) return message.reply('no');
   var code = args.join(' ');
   if (code.length < 1) return message.reply('tell me what to run moron');
   try {
