@@ -1,4 +1,4 @@
-const settings = require("../settings.json)");
+const settings = require("../settings.json");
 exports.run = async (client, message, args) => {
   let calculate =
     "=" + message.content.toLowerCase().substring(settings.prefix.length);
