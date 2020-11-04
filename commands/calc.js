@@ -19,6 +19,15 @@ let calculate = "=" + message.content.toLowerCase().substring(settings.prefix.le
       if (isFinite(eval(calculate))) message.channel.send(eval(calculate));
     }
   };
+
+function getSubstringIndex(str, substring, n) {
+    var times = 0, index = null;
+    while (times < n && index !== -1) {
+        index = str.indexOf(substring, index+substring.length);
+        times++;
+    }
+    return index;
+}
   
   exports.conf = {
   enabled: true,
