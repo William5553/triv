@@ -1,4 +1,4 @@
-const language = require('./langOptions');
+const language = require('../util/langOptions');
 const translate = require('google-translate-api');
 
 exports.run = (client, message, args) => {
