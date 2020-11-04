@@ -1,5 +1,5 @@
 const language = require('../util/langOptions');
-const translate = require('google-translate-api');
+const translate = require('translate-google-api');
 
 exports.run = (client, message, args) => {
   if (args.length < 3)
