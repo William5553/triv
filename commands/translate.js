@@ -13,7 +13,10 @@ exports.run = (client, message, args) => {
     const text = args.slice(2).join(' ');
 
     translate(text, { from: argFrom, to: argTo })
-      .then(res => message.channel.send(res.text))
+      .then(res => {
+        if (res.from.text.autoCorrected === true) message.channel.send(`Autocorrected to: ${res.from.text.value}`);
+        message.channel.send(res.text);
+      })
       .catch(err => message.channel.send(err));
 };
 
