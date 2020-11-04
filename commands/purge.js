@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
     if (mgct > 99) mgct = 100;
     // Deleting the messages
     message.channel.bulkDelete(mgct).catch(error => {
-      message.reply(`**${error}**`);
+      message.reply(`**${error}**`).then((m) => m.delete({ timeout: 4500 }));
     });
     /*const embed = new MessageEmbed()
     .setAuthor(message.author.username, message.author.displayAvatarURL())
