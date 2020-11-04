@@ -14,6 +14,7 @@ exports.run = (client, message, args) => {
       console.log(error);
     });
   } else {
+    if (ms(time) > 3600000000000) return message.reply('specified duration is too long');
     message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
       message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}. To lift, run **${settings.prefix}lockdown ${validUnlocks[Math.floor(Math.random() * validUnlocks.length)]}**`).then(() => {
 
