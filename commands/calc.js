@@ -5,13 +5,14 @@ exports.run = async (client, message, args) => {
   if (
     isFinite(
       calculate.replace(
-        /\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,
+        /\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |\^|math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,
         ""
       )
     )
   ) {
     calculate = calculate
       .replace(/ /g, "")
+      .replace(/^/g, '**')
       .replace(/÷/g, "/")
       .replace(/power|pow/g, "Math.pow")
       .replace(/sqrt|squareroot/g, "Math.sqrt")
