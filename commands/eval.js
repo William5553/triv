@@ -11,6 +11,7 @@ exports.run = async (client, message, args) => {
     );
   }
   catch (err) {
+    if (typeof err !== 'string') err = require('util').inspect(err);
     message.channel.send(`\`ERROR\` \`\`\`xl\n${client.clean(client, err)}\n\`\`\``);
   }
 };
