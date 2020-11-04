@@ -29,7 +29,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: "translate",
-  description: "Translates text",
-  usage: "translate [language from] [language to] [text]"
+  name: 'translate',
+  description: 'Translates text',
+  usage: 'translate [language from] [language to] [text]'
 };
