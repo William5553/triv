@@ -13,7 +13,7 @@ let embed = new MessageEmbed()
 .setDescription(defin.definition)
 .addField("Example", defin.example)
 .setFooter(`Author: ${defin.author}`)
-.setColor(config.color)
+.setColor(0x0be05d)
 message.channel.send(embed)
 };
 
