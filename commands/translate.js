@@ -1,9 +1,10 @@
+const settings = require('../settings.json');
 const language = require('../util/langOptions');
 const translate = require('translate-google-api');
 
 exports.run = (client, message, args) => {
   if (args.length < 3)
-    return message.reply('Wrong format: An example would be `!translate en fr english-text-here` where after `!translate` would translate the `english-text-here` into french');
+    return message.reply(`Wrong format: An example would be \`${settings.prefix}translate en fr english-text-here\` which would translate \`english-text-here\` into french`);
 
   /*
   let lang_from = language.filter(ele => ele.name === argFrom)[0].abrv;
