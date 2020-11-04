@@ -20,6 +20,7 @@ module.exports = lng = [
     {"name": "greek", "abrv": "el",},
     {"name": "haitian", "abrv": "ht",},
     {"name": "hebrew","abrv": "iw",},
+    {"name": "hindi","abrv": "hi",},
     {"name": "hungarian", "abrv": "hu", },
     {"name": "icelandic", "abrv": "is", },
     {"name": "indonesian", "abrv": "id", },
