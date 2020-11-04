@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
   const validUnlocks = ['release', 'unlock'];
   if (!time) return message.reply('You must specify a duration for the lockdown');
   if (validUnlocks.includes(time)) {
-    message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: true }).then(() => {
+    message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: null }).then(() => {
       message.channel.send('Lockdown lifted.');
       clearTimeout(client.lockit[message.channel.id]);
       delete client.lockit[message.channel.id];
