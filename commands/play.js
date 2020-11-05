@@ -9,11 +9,11 @@ exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!channel) return message.reply("You need to join a voice channel first!").catch(console.error);
+    if (!channel) return message.reply("You need to join a voice channel first!").catch(client.logger.error);
     if (serverQueue && channel !== message.guild.me.voice.channel)
-      return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
+      return message.reply(`You must be in the same channel as ${message.client.user}`).catch(client.logger.error);
 
-    if (!args.length) return message.reply(`Usage: ${settings.prefix}play <YouTube URL | Video Name>`).catch(console.error);
+    if (!args.length) return message.reply(`Usage: ${settings.prefix}play <YouTube URL | Video Name>`).catch(client.logger.error);
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
@@ -54,8 +54,8 @@ if (urlValid) {
           duration: songInfo.videoDetails.lengthSeconds
         };
       } catch (error) {
-        console.error(error);
-        return message.reply(error.message).catch(console.error);
+        client.logger.error(error);
+        return message.reply(error.message).catch(client.logger.error);
       }
     } else {
       try {
@@ -67,8 +67,8 @@ if (urlValid) {
           duration: songInfo.videoDetails.lengthSeconds
         };
       } catch (error) {
-        console.error(error);
-        return message.reply("No video was found with a matching title").catch(console.error);
+        client.logger.error(error);
+        return message.reply("No video was found with a matching title").catch(client.logger.error);
       }
     }
 
@@ -76,7 +76,7 @@ if (urlValid) {
       serverQueue.songs.push(song);
       return serverQueue.textChannel
         .send(`✅ **${song.title}** has been added to the queue by ${message.author}`)
-        .catch(console.error);
+        .catch(client.logger.error);
     }
 
     queueConstruct.songs.push(song);
