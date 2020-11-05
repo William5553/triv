@@ -1,7 +1,7 @@
 const settings = require("../settings.json");
 exports.run = async (client, message, args) => {
   let calculate =
-    "=" + message.content.toLowerCase().substring(settings.prefix.length);
+    "=" + args.join(' ').toLowerCase();
   if (
     isFinite(
       calculate.replace(
