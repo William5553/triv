@@ -4,7 +4,10 @@ exports.run = (client, message, args) => {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
     message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
-    message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, {code:'asciidoc'});
+    message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, {code:'asciidoc'}).catch(err => {
+      client.logger.error(err);
+      message.author.send(err);
+    });
   } else {
     let command = args[0];
     if (client.commands.has(command)) {
