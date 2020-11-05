@@ -7,11 +7,13 @@ exports.run = (client, message, args) => {
   const text = args.slice(2).join(' ');
 
   const t = await translate(text, { from: args[0], to: args[1] }).catch(err => {
-    if (err) return message.channel.send(err);
+    return message.reply('big uh oh: ' + err.toString());
   });
-  if (t) message.channel.send(t);
+  if (t) {
+    message.channel.send(t);
+    client.logger.log(t);
+  }
 };
-
 exports.conf = {
   enabled: true,
   guildOnly: false,
