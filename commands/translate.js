@@ -6,7 +6,13 @@ exports.run = (client, message, args) => {
     return message.reply(`Wrong format: An example would be \`${settings.prefix}translate en fr english-text-here\` which would translate \`english-text-here\` into french`);
   const text = args.slice(2).join(' ');
 
-  const t = await translate(text, { from: args[0], to: args[1] }).catch(err => {
+  const a1 = getCode(args[0]);
+  const a2 = getCode(args[1]);
+  
+  if (!isSupport(a1)) return message.reply('first arg is invalid');
+  if (!isSupport(a2)) return message.reply('second arg is invalid');
+  
+  const t = await translate(text, { from: a1, to: a2 }).catch(err => {
     return err.toString();
   });
   if (t) message.channel.send(t);
