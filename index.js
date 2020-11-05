@@ -19,8 +19,8 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
-client.on("warn", (info) => console.log(info));
-client.on("error", console.error);
+client.on("warn", client.logger.warn);
+client.on("error", client.logger.error);
 client.on('message', async message => {
   // levelling system
   if (!message.guild || message.author.bot) return;
