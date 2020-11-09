@@ -1,19 +1,16 @@
 exports.run = (client, message, args) => {
   const settings = require("../settings.json");
-  if (message.author.id !== settings.ownerid)
-    return message.reply("you can't do that.");
   let command;
-  if (client.commands.has(args[0])) {
+  if (client.commands.has(args[0]))
     command = args[0];
-  } else if (client.aliases.has(args[0])) {
+  else if (client.aliases.has(args[0]))
     command = client.aliases.get(args[0]);
-  }
-  if (!command) {
+  if (!command)
     return message.channel.send(`I cannot find the command: ${args[0]}`);
-  } else {
+  else
     message.channel.send(`Reloading: ${command}`).then(m => {
       client.unloadCommand(command)
-      .then(() => {
+        .then(() => {
           client.load(command);
         })
         .then(() => {
@@ -23,7 +20,6 @@ exports.run = (client, message, args) => {
           m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
         });
     });
-  }
 };
 
 exports.conf = {
@@ -36,5 +32,5 @@ exports.conf = {
 exports.help = {
   name: "reload",
   description: "Reloads the command file, if it's been updated or modified.",
-  usage: 'reload [command name]'
+  usage: 'reload [command]'
 };
