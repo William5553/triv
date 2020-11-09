@@ -7,6 +7,20 @@ module.exports = (client) => {
       client.aliases.set(alias, props.help.name);
     });
   };
+  
+  client.unloadCommand = async (commandName) => {
+    let command;
+    if (client.commands.has(commandName)) {
+      command = commandName;
+    } else if (client.aliases.has(commandName)) {
+      command = client.aliases.get(commandName);
+    }
+    if (!command) return `The command \`${commandName}\` doesn\'t seem to exist, nor is it an alias. Try again!`;
+
+    client.commands.delete(command);
+    delete require.cache[require.resolve(`../commands/${command}`)];
+    return `Successfully unloaded ${command}`;
+  };
   /*
   PERMISSION LEVEL FUNCTION
   This is a very basic permission system for commands which uses "levels"
@@ -70,24 +84,6 @@ module.exports = (client) => {
     return text;
   };
 
-
-
-  client.unloadCommand = async (commandName) => {
-    let command;
-    if (client.commands.has(commandName)) {
-      command = client.commands.get(commandName);
-    } else if (client.aliases.has(commandName)) {
-      command = client.commands.get(client.aliases.get(commandName));
-    }
-    if (!command) return `The command \`${commandName}\` doesn\'t seem to exist, nor is it an alias. Try again!`;
-
-    if (command.shutdown) {
-      await command.shutdown(client);
-    }
-    client.commands.delete(command);
-    delete require.cache[require.resolve(`../commands/${command}`)];
-    return `Successfully unloaded ${command}`;
-  };
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
 
