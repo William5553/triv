@@ -86,7 +86,7 @@ module.exports = (client) => {
     }
     client.commands.delete(command);
     delete require.cache[require.resolve(`../commands/${commandName}`)];
-    return false;
+    return `Successfully unloaded ${commandName}`;
   };
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
