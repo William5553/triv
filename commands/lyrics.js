@@ -17,8 +17,7 @@ exports.run = async (client, message, args) => {
     let lyricsEmbed = new MessageEmbed()
       .setTitle("Lyrics")
       .setDescription(lyrics)
-      .setColor("#F8AA2A")
-      .setTimestamp();
+      .setColor("#F8AA2A");
 
     if (lyricsEmbed.description.length >= 2048)
       lyricsEmbed.description = `${lyricsEmbed.description.substr(0, 2045)}...`;
