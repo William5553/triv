@@ -1,3 +1,4 @@
+const settings = require('../settings.json');
 module.exports = (client) => { 
   client.load = async (command) => {
     const props = require(`../commands/${command}`);
@@ -79,7 +80,7 @@ module.exports = (client) => {
     text = text
       .replace(/`/g, '`' + String.fromCharCode(8203))
       .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(client.token, 'NO TOKEN');
+      .replace(settings.token, 'NO TOKEN');
 
     return text;
   };
