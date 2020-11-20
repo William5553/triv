@@ -1,5 +1,5 @@
 exports.run = (client, message) => {
-  const { channell } = message.member.voice;
+  const channell = message.member.voice.channel;
   
   const permissions = channell.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
