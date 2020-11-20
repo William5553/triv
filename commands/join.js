@@ -13,7 +13,7 @@ exports.run = (client, message) => {
         connection.voice.setSelfDeaf(true);
       })
       .catch(message.channel.send);
-    message.channel.reply('I\'ve joined the vc');
+    message.channel.send('I\'ve joined the vc');
   } else
     return message.reply('you have to be in a voice channel moron');
 };
