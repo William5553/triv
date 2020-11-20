@@ -8,7 +8,7 @@ exports.run = (client, message) => {
       return message.reply("I cannot speak in this voice channel, make sure I have the **SPEAK** permission!");
   
   if (channel)
-    channel.join();
+    channel.join().catch(message.channel.send);
   else
     return message.reply('you have to be in a voice channel moron');
 };
