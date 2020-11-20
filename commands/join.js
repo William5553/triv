@@ -10,7 +10,6 @@ exports.run = (client, message) => {
     channell.join()
       .then(connection => {
         connection.voice.setSelfDeaf(true);
-        message.reply('I\'ve joined the vc');
       })
       .catch(message.channel.send);
   } else
