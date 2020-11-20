@@ -6,12 +6,13 @@ exports.run = (client, message, args) => {
     
    // if (!queue) return message.reply("There is nothing playing.").catch(console.error);
     if (!canModifyQueue(message.member)) return;
-    message.member.voice.channel.leave();
     if (queue) {
-    queue.songs = [];
-    queue.connection.dispatcher.end();
-    queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(console.error);
+      queue.songs = [];
+      queue.connection.dispatcher.end();
+      queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(console.error);
     }
+    else
+      message.member.voice.channel.leave();
 };
 
 exports.conf = {
