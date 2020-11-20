@@ -7,9 +7,10 @@ exports.run = (client, message) => {
     if (!permissions.has("SPEAK"))
       return message.reply("I cannot speak in this voice channel, make sure I have the **SPEAK** permission!");
   
-  if (channel)
+  if (channel) {
     channel.join().catch(message.channel.send);
-  else
+    channel.voice.setSelfDeaf(true);
+  } else
     return message.reply('you have to be in a voice channel moron');
 };
 
