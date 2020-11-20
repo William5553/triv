@@ -11,9 +11,9 @@ exports.run = (client, message) => {
     channell.join()
       .then(connection => {
         connection.voice.setSelfDeaf(true);
+        message.channel.send('I\'ve joined the vc');
       })
       .catch(message.channel.send);
-    message.channel.send('I\'ve joined the vc');
   } else
     return message.reply('you have to be in a voice channel moron');
 };
