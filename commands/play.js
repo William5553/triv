@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
 
     // Start the playlist if playlist url was provided
     if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
-      return message.client.commands.get("playlist").execute(message, args);
+      return message.client.commands.get("playlist").run(message, args);
     }
 
     const queueConstruct = {
