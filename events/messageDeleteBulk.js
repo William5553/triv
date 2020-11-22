@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = messages => {
   const message = messages.first();
   const length = messages.array().length;
-  const channel = messages.first().channel.name;
+  const channel = messages.first().channel;
   if (!message.guild) return;
   const logs = message.guild.channels.cache.find(
     channel => channel.name === "bot-logs"
@@ -13,7 +13,7 @@ module.exports = messages => {
     .setColor(0xeb5234)
     .setTimestamp()
     .setDescription(
-      `**Bulk Delete in #${channel}, ${length} messages deleted**`
+      `**Bulk Delete in ${channel}, ${length} messages deleted**`
     );
   
   if (logs) logs.send({ embed });
