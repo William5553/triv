@@ -8,7 +8,7 @@ module.exports = (oldMessage, newMessage) => {
 
   const embed = new MessageEmbed()
     .setTitle("Message Edited")
-    .setAuthor(`${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.avatarURL())
+    .setAuthor(`${newMessage.author} - ${newMessage.channel}`, newMessage.author.avatarURL())
     .setTimestamp()
     .addField('**Old Message**', oldMessage.content, true)
     .addField('**New Message**', newMessage.content, true)
