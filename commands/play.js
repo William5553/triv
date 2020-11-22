@@ -11,11 +11,11 @@ exports.run = async (client, message, args) => {
     const serverQueue = message.client.queue.get(message.guild.id);
     if (!channel) return message.reply("you need to join a voice channel first!").catch(client.logger.error);
     if (serverQueue && channel !== message.guild.me.voice.channel)
-      return message.reply(`you must be in the same channel as ${message.client.user}`).catch(client.logger.error);
+      return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
 
     if (!args.length) return message.reply(`Usage: ${settings.prefix}play <YouTube URL | Video Name>`).catch(client.logger.error);
 
-    const permissions = channel.permissionsFor(message.client.user);
+    const permissions = channel.permissionsFor(client.user);
     if (!permissions.has("CONNECT"))
       return message.reply("cannot connect to voice channel, missing the **CONNECT** permission");
     if (!permissions.has("SPEAK"))
@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
 
     // Start the playlist if playlist url was provided
     if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
-      return message.client.commands.get("playlist").run(message, args);
+      return client.commands.get("playlist").run(client, message, args);
     }
 
     const queueConstruct = {
@@ -88,9 +88,9 @@ if (urlValid) {
       play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(error);
-      message.client.queue.delete(message.guild.id);
+      client.queue.delete(message.guild.id);
       await channel.leave();
-      return message.channel.send(`could not join the channel: ${error}`).catch(console.error);
+      return message.channel.send(`could not join the channel: ${error}`).catch(client.logger.error);
     }
 };
 
