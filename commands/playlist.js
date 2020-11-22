@@ -8,11 +8,11 @@ const youtube = new YouTubeAPI(settings.yt_api_key);
 exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
-    const serverQueue = message.client.queue.get(message.guild.id);
-    if (serverQueue && channel !== message.guild.me.voice.channel) return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
+    const serverQueue = client.queue.get(message.guild.id);
+    if (serverQueue && channel !== message.guild.me.voice.channel) return message.reply(`You must be in the same channel as ${client.user}`).catch(console.error);
 
-    if (!args.length) return message.reply(`Usage: ${message.client.prefix}playlist <YouTube Playlist URL | Playlist Name>`).catch(console.error);
-    if (!channel) return message.reply("you need to join a voice channel first!").catch(console.error);
+    if (!args.length) return message.reply(`Usage: ${settings.prefix}playlist <YouTube Playlist URL | Playlist Name>`).catch(client.logger.error);
+    if (!channel) return message.reply("you need to join a voice channel first!").catch(client.logger.error);
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
@@ -44,8 +44,8 @@ exports.run = async (client, message, args) => {
         playlist = await youtube.getPlaylist(url, { part: "snippet" });
         videos = await playlist.getVideos(20, { part: "snippet" });
       } catch (error) {
-        console.error(error);
-        return message.reply("Playlist not found :(").catch(console.error);
+        client.logger.error(error);
+        return message.reply("Playlist not found :(").catch(client.logger.error);
       }
     } else {
       try {
@@ -53,7 +53,7 @@ exports.run = async (client, message, args) => {
         playlist = results[0];
         videos = await playlist.getVideos(20, { part: "snippet" });
       } catch (error) {
-        console.error(error);
+        client.logger.error(error);
         return message.reply("Playlist not found :(").catch(console.error);
       }
     }
@@ -69,7 +69,7 @@ exports.run = async (client, message, args) => {
         serverQueue.songs.push(song);
           message.channel
             .send(`✅ **${song.title}** has been added to the queue by ${message.author}`)
-            .catch(console.error);
+            .catch(client.logger.error);
       }
     });
 
@@ -94,7 +94,7 @@ exports.run = async (client, message, args) => {
         await queueConstruct.connection.voice.setSelfDeaf(true);
         play(queueConstruct.songs[0], message);
       } catch (error) {
-        console.error(error);
+        client.logger.error(error);
         message.client.queue.delete(message.guild.id);
         await channel.leave();
         return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
