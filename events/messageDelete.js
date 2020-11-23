@@ -7,7 +7,8 @@ module.exports = message => {
 
   const embed = new MessageEmbed()
     .setTitle("**Message Deleted**")
-    .setAuthor(`${message.author} - ${message.channel}`, message.author.avatarURL())
+    .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
+    .setFooter(`User ID: ${message.author.id}`)
     .setTimestamp()
     .setDescription(message.content)
     .setColor("0xEB5234");
