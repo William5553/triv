@@ -1,21 +1,21 @@
 const { canModifyQueue } = require("../util/queue");
 
 exports.run = (client, message, args) => {
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = client.queue.get(message.guild.id);
 
-    if (!queue) return message.reply("There is nothing playing.").catch(console.error);
+    if (!queue) return message.reply("There is nothing playing.").catch(client.logger.error);
     if (!canModifyQueue(message.member))
-      return message.reply("You need to join a voice channel first!").catch(console.error);
+      return message.reply("You need to join a voice channel first!").catch(client.logger.error);
 
-    if (!args[0]) return message.reply(`🔊 The current volume is: **${queue.volume}%**`).catch(console.error);
-    if (isNaN(args[0])) return message.reply("Please use a number to set volume.").catch(console.error);
+    if (!args[0]) return message.reply(`🔊 The current volume is: **${queue.volume}%**`).catch(client.logger.error);
+    if (isNaN(args[0])) return message.reply("Please use a number to set volume.").catch(client.logger.error);
     if (parseInt(args[0]) > 100 || parseInt(args[0]) < 0)
-      return message.reply("Please use a number between 0 - 100.").catch(console.error);
+      return message.reply("Please use a number between 0 - 100.").catch(client.logger.error);
 
     queue.volume = args[0];
     queue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);
 
-    return queue.textChannel.send(`Volume set to: **${args[0]}%**`).catch(console.error);
+    return queue.textChannel.send(`Volume set to: **${args[0]}%**`).catch(client.logger.error);
 }
 
 exports.conf = {
