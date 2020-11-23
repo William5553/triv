@@ -3,7 +3,7 @@ const lyricsFinder = require("lyrics-finder");
 
 exports.run = async (client, message, args) => {
     const queue = client.queue.get(message.guild.id);
-    if (!queue) return message.channel.send("There is nothing playing.").catch(console.error);
+    if (!queue) return message.channel.send("There is nothing playing.").catch(client.logger.error);
 
     let lyrics = null;
     
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
 
     if (lyricsEmbed.description.length >= 2048)
       lyricsEmbed.description = `${lyricsEmbed.description.substr(0, 2045)}...`;
-    return message.channel.send(lyricsEmbed).catch(console.error);
+    return message.channel.send(lyricsEmbed).catch(client.logger.error);
   };
 
   exports.conf = {
