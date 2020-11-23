@@ -55,17 +55,17 @@ exports.run = async (client, message, args) => {
     )
     .setFooter(`ID ${caseNum}`);
 
-  message.guild.channels.forEach(f => {
-    f.overwritePermissions(muteRole, {
-        SEND_MESSAGES: false
+  message.guild.channels.cache.forEach(f => {
+    f.updateOverwrite(muteRole, {
+      SEND_MESSAGES: false
     });
-});
+  });
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles
       .remove(muteRole.id, reason)
       .then(() => {
         botlog.send({ embed }).catch(client.logger.error);
-      })
+})
       .catch(message.channel.send);
   } else {
     userr.roles
@@ -80,12 +80,12 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['unmute'],
+  aliases: ["unmute"],
   permLevel: 2
 };
 
 exports.help = {
-  name: 'mute',
+  name: "mute",
   description: `Toggles the mute of a member. (Use ${settings.prefix}mute or ${settings.prefix}unmute)`,
-  usage: 'mute [user] OR unmute [user]'
+  usage: "mute [user] OR unmute [user]"
 };
