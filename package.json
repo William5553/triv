@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
     "chalk": "^4.1.0",
     "discord.js": "^12.5.0",
     "fs": "^0.0.2",
+    "genius-lyrics": "^4.0.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.2",
@@ -23,7 +24,6 @@
     "relevant-urban": "^2.0.0",
     "weather-js": "^2.0.0",
     "@discordjs/opus": "^0.3.3",
-    "lyrics-finder": "^21.4.0",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
     "translate-google-api": "^1.0.4",
