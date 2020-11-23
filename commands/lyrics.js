@@ -10,11 +10,7 @@ exports.run = async (client, message, args) => {
 
   let lyrics = null;
   
-  const songtitle = queue.songs[0].title
-    .replace('/(official audio)/i', '')
-    .replace('/(dir*)/i', '')
-    .replace("/(official video)/i", "")
-    .replace("/(official music video*)/i", "");
+  const songtitle = queue.songs[0].title.replace(/\([^()]*\)/g, '');
 
   try {
     lyrics = await lyric(songtitle);
