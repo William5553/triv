@@ -10,23 +10,26 @@ exports.run = async (client, message, args) => {
       .send("There is nothing playing.")
       .catch(client.logger.error);
 
+  let firstSong = null;
   let lyrics = null;
 
   const songtitle = queue.songs[0].title
-    .replace("/(official video/i", "")
-    .replace("/(official music video)/i", "");
+    .replace('/(official audio)/i', '')
+    .replace('/(dir*)/i', '')
+    .replace("/(official video)/i", "")
+    .replace("/(official music video*)/i", "");
 
   try {
     const searches = await GClient.songs.search(songtitle);
-    const firstSong = searches[0];
-    lyrics = await firstSong.lyrics();
+    firstSong = searches[0];
+    lyrics = await firstSong.lyrics(false);
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
   }
 
   const lyricsEmbed = new MessageEmbed()
-    .setTitle("Lyrics")
+    .setTitle("Lyrics - " + firstSong.title)
     .setDescription(lyrics)
     .setColor("#F8AA2A");
 
