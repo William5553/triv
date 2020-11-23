@@ -3,11 +3,20 @@ exports.run = (client, message, args) => {
   if (!args[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+    const yes = client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n');
+    let yes2 = null;
+    if (yes.length >= 2000) {
+      yes = `${yes.substr(0, 2000)}`;
+      yes2 = `${yes.substr(2001)}`;
+    }
     message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
-    message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, {code:'asciidoc'}).catch(err => {
+    message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${yes}`, {code: 'asciidoc'}).catch(err => {
       client.logger.error(err);
       message.author.send(err);
     });
+    if (yes2) {
+      message.author.send(yes2, {code: 'asciidoc'}).catch(client.logger.error);
+    }
   } else {
     let command = args[0];
     if (client.commands.has(command)) {
