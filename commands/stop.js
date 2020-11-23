@@ -1,6 +1,5 @@
 const { canModifyQueue } = require("../util/queue");
 
-
 exports.run = (client, message, args) => {
     if (message.member.voice.channel) return message.reply('i\'m not in a voice channel moron');
     const queue = client.queue.get(message.guild.id);
