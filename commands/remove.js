@@ -2,7 +2,7 @@ const { canModifyQueue } = require("../util/queue");
 const settings = require('../settings.json');
 exports.run = (client, message, args) => {
     const queue = client.queue.get(message.guild.id);
-    if (!queue) return message.channel.send("There is no queue.").catch(console.error);
+    if (!queue) return message.reply('there ain\'t a queue').catch(client.logger.error);
     if (!canModifyQueue(message.member)) return;
     
     if (!args.length) return message.reply(`Usage: ${settings.prefix}remove <Queue Number>`);
