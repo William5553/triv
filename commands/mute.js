@@ -37,7 +37,8 @@ exports.run = async (client, message, args) => {
       .create({
         data: {
           name: "muted",
-          color: [255, 0, 0]
+          color: [255, 0, 0],
+          position: 1
         }
       })
       .catch(client.logger.error);
