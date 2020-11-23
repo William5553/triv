@@ -1,55 +1,78 @@
-const {MessageEmbed} = require('discord.js');
-const {caseNumber} = require('../util/caseNumber.js');
-const {parseUser} = require('../util/parseUser.js');
-const settings = require('../settings.json');
+const { MessageEmbed } = require("discord.js");
+const { caseNumber } = require("../util/caseNumber.js");
+const { parseUser } = require("../util/parseUser.js");
+const settings = require("../settings.json");
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first();
-  if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
+  if (!userr)
+    return message
+      .reply("you must mention someone to mute them")
+      .catch(client.logger.error);
   parseUser(message, userr.user);
   if (userr.user.id === settings.ownerid) {
-    return message.reply('absolutely not.');
+    return message.reply("absolutely not.");
   }
   if (userr.user.id === client.user.id) {
-    return message.channel.send('Don\'t mute me!');
+    return message.channel.send("Don't mute me!");
   }
   const botlog = message.guild.channels.cache.find(
-      channel => channel.name === 'bot-logs'
-    );
+    channel => channel.name === "bot-logs"
+  );
   const caseNum = await caseNumber(client, botlog);
-  const muteRole = message.guild.roles.cache.find(r => r.name === 'Muted') || message.guild.roles.cache.find(r => r.name === 'muted');
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
-    message.guild.channels.create('bot-logs', { type: 'text' });
-  } else if (!botlog) 
-  return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
-  if (!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
+  const muteRole =
+    message.guild.roles.cache.find(r => r.name === "Muted") ||
+    message.guild.roles.cache.find(r => r.name === "muted");
+  if (message.guild.me.hasPermission("MANAGE_CHANNELS") && !botlog) {
+    message.guild.channels.create("bot-logs", { type: "text" });
+  } else if (!botlog)
+    return message
+      .reply("I cannot find a bot-logs channel")
+      .catch(client.logger.error);
+  if (!message.guild.me.hasPermission("MANAGE_ROLES"))
+    return message
+      .reply("I do not have the **MANAGE_ROLES** permission")
+      .catch(client.logger.error);
   if (!muteRole) {
-    muteRole = message.guild.roles.create({
-  data: {
-    name: 'Muted',
-    color: [255, 0, 0],
-    permissions: { SEND_MESSAGES: false }
+    muteRole = message.guild.roles
+      .create({
+        data: {
+          name: "Muted",
+          color: "RED",
+          permissions: {
+            SEND_MESSAGES: false
+          }
+        }
+      })
+      .catch(client.logger.error);
   }
-}).catch(client.logger.error);
-  }
-  const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
+  const reason =
+    args.splice(1, args.length).join(" ") ||
+    `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
 
   const embed = new MessageEmbed()
-    .setColor(0x00AE86)
+    .setColor(0x00ae86)
     .setTimestamp()
-    .setDescription(`**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`)
+    .setDescription(
+      `**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+    )
     .setFooter(`ID ${caseNum}`);
 
-message.channel.updateOverwrite(muteRole, { SEND_MESSAGES: false })
+  message.channel.updateOverwrite(muteRole, { SEND_MESSAGES: false });
   if (userr.roles.cache.has(muteRole.id)) {
-    userr.roles.remove(muteRole.id, reason).then(() => {
-      botlog.send({embed}).catch(client.logger.error);
-    }).catch(message.channel.send);
+    userr.roles
+      .remove(muteRole.id, reason)
+      .then(() => {
+        botlog.send({ embed }).catch(client.logger.error);
+      })
+      .catch(message.channel.send);
   } else {
-    userr.roles.add(muteRole.id, reason).then(() => {
-      botlog.send({embed}).catch(client.logger.error);
-    }).catch(message.channel.send);
+    userr.roles
+      .add(muteRole.id, reason)
+      .then(() => {
+        botlog.send({ embed }).catch(client.logger.error);
+      })
+      .catch(message.channel.send);
   }
-
 };
 
 exports.conf = {
