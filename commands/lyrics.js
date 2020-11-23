@@ -17,6 +17,7 @@ exports.run = async (client, message, args) => {
     lyrics = await search[0].lyrics(false);
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
   } catch (error) {
+    client.logger.error(error);
     lyrics = `No lyrics found for ${songtitle}.`;
   }
 
@@ -27,6 +28,7 @@ exports.run = async (client, message, args) => {
 
   if (lyricsEmbed.description.length >= 2048)
     lyricsEmbed.description = `${lyricsEmbed.description.substr(0, 2045)}...`;
+  //TODO: show full lyrics
   return message.channel.send(lyricsEmbed).catch(client.logger.error);
 };
 
