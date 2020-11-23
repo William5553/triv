@@ -13,6 +13,6 @@ module.exports = message => {
   }
   if (cmd) {
     if (perms < cmd.conf.permLevel) return;
-    cmd.run(message.client, message, params, perms);
+    cmd.run(message.client, message, params, perms).catch(client.logger.error);
   }
 };
