@@ -20,7 +20,16 @@ exports.run = async (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) 
   return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
-  if (!muteRole) return message.reply('I cannot find a role named **muted**').catch(client.logger.error);
+  if (!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
+  if (!muteRole) {
+    muteRole = message.guild.roles.create({
+  data: {
+    name: 'Muted',
+    color: 'RED',
+    permissions: '{ SEND_MESSAGES: false }'
+  }
+}).catch(client.logger.error);
+  }
   if (!userr) return message.reply('You must mention someone to mute them.').catch(client.logger.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
 
@@ -30,7 +39,6 @@ exports.run = async (client, message, args) => {
     .setDescription(`**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`)
     .setFooter(`ID ${caseNum}`);
 
-  if (!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 message.channel.updateOverwrite(muteRole, { SEND_MESSAGES: false })
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles.remove(muteRole.id, reason).then(() => {
