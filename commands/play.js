@@ -87,7 +87,7 @@ if (urlValid) {
       await queueConstruct.connection.voice.setSelfDeaf(true);
       play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(error);
+      client.logger.error(error);
       client.queue.delete(message.guild.id);
       await channel.leave();
       return message.channel.send(`could not join the channel: ${error}`).catch(client.logger.error);
