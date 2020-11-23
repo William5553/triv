@@ -6,9 +6,7 @@ const GClient = new GeniusFetcher.Client(settings.genius_api_key);
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue)
-    return message.channel
-      .send("There is nothing playing.")
-      .catch(client.logger.error);
+    return message.reply("there is nothing playing.").catch(client.logger.error);
 
   let lyrics = null;
   
