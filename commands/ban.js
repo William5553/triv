@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) 
    return message.reply('I cannot find a channel named bot-logs');
-  if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
+  if (userr.size < 1) return message.reply('You must mention someone to ban them.').catch(client.logger.error);
   await userr.user.send(`you've been banned from ${message.channel.guild.name}`);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
   message.guild.members.ban(userr, { days: 0, reason: reason });
