@@ -2,7 +2,7 @@ exports.run = (client, message) => {
   const channell = message.member.voice.channel;
   
   if (channell) {
-    const permissions = channell.permissionsFor(message.client.user);
+    const permissions = channell.permissionsFor(client.user);
     if (!permissions.has("CONNECT"))
       return message.reply("Cannot connect to voice channel, missing the **CONNECT** permission");
     if (!permissions.has("SPEAK"))
