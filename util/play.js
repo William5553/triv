@@ -134,7 +134,7 @@ module.exports = {
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
           queue.textChannel
             .send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`)
-            .catch(console.error);
+            .catch(client.logger.error);
           break;
 
         case "🔁":
