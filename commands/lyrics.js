@@ -1,7 +1,7 @@
 const settings = require('../settings.json');
 const { MessageEmbed } = require("discord.js");
-const GeniusFetcher = require("genius-lyrics-fetcher");
-const GClient = new GeniusFetcher.Client(settings.genius_api_key);
+const Genius = require("genius-lyrics");
+const GClient = new Genius.Songs.Client(settings.genius_api_key);
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
@@ -11,10 +11,10 @@ exports.run = async (client, message, args) => {
   let lyrics = null;
   
   const songtitle = queue.songs[0].title.replace(/\([^()]*\)/g, '');
-  const splitsong = songtitle.split('-');
   
   try {
-    lyrics = await GClient.fetch(splitsong[1], splitsong[0]).lyrics;
+    const search = await GClient.search(songtitle);
+    lyrics = await search[0].lyrics();
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
