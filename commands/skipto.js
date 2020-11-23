@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
         .reply(`Usage: ${settings.prefix}skipto <Queue Number>`)
         .catch(client.logger.error);
 
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("There is no queue.").catch(client.logger.error);
     if (!canModifyQueue(message.member)) return;
 
