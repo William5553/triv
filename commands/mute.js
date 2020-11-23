@@ -3,8 +3,8 @@ const {caseNumber} = require('../util/caseNumber.js');
 const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
-  const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-  if (!userr) return message.reply('You must mention someone to mute them.').catch(client.logger.error);
+  const userr = message.mentions.members.first();
+  if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
   parseUser(message, userr.user);
   if (userr.user.id === settings.ownerid) {
     return message.reply('absolutely not.');
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
   data: {
     name: 'Muted',
     color: 'RED',
-    permissions: '{ SEND_MESSAGES: false }'
+    permissions: { SEND_MESSAGES: false }
   }
 }).catch(client.logger.error);
   }
