@@ -1,5 +1,7 @@
+const settings = require('../settings.json');
 const { MessageEmbed } = require("discord.js");
-const lyric = require("@allvaa/get-lyrics");
+const GeniusFetcher = require("genius-lyrics-fetcher");
+const GClient = new GeniusFetcher.Client(settings.genius_api_key);
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
@@ -11,9 +13,10 @@ exports.run = async (client, message, args) => {
   let lyrics = null;
   
   const songtitle = queue.songs[0].title.replace(/\([^()]*\)/g, '');
-
+  const splitsong = songtitle.split('-');
+  
   try {
-    lyrics = await lyric(songtitle);
+    lyrics = await GClient.fetch(splitsong[1], splitsong[0]).lyrics;
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
