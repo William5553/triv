@@ -3,7 +3,7 @@ const { canModifyQueue } = require("../util/queue");
 exports.run = (client, message, args) => {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)
-        return message.reply("There is nothing playing.").catch(console.error);
+        return message.reply("There is nothing playing.").catch(client.logger.error);
     if (!canModifyQueue(message.member))
         return;
 
@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     queue.loop = !queue.loop;
     return queue.textChannel
     .send(`Loop is now ${queue.loop ? "**on**" : "**off**"}`)
-    .catch(console.error);
+    .catch(client.logger.error);
 
 };
 
