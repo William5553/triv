@@ -1,7 +1,7 @@
 const { canModifyQueue } = require("../util/queue");
 
 exports.run = (client, message, args) => {
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = client.queue.get(message.guild.id);
     if (!queue)
       return message.reply("There is nothing playing that I could skip for you.").catch(client.logger.error);
     if (!canModifyQueue(message.member)) return;
