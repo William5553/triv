@@ -4,6 +4,7 @@ dependencies:
   chalk: 4.1.0
   discord.js: 12.5.0
   fs: 0.0.2
+  genius-lyrics-fetcher: 2.1.0
   moment: 2.29.1
   moment-duration-format: 2.3.2
   ms: 2.1.2
@@ -215,6 +216,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==
+  /axios/0.21.0:
+    dependencies:
+      follow-redirects: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
   /babel-code-frame/6.26.0:
     dependencies:
       chalk: 1.1.3
@@ -791,6 +798,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-LANAXHU4w51+s3sxcCLjJfsBi/c=
+  /genius-lyrics-fetcher/2.1.0:
+    dependencies:
+      axios: 0.21.0
+      cheerio: 1.0.0-rc.3
+    dev: false
+    resolution:
+      integrity: sha512-0mknb9hwTosjaDuYe8gapQwBmR/wqQsGTUL8JRFk86ntqMm1S0N8ijg/Y29MsVabsZ8ikjlGO4adQVAtpTp8kg==
   /getpass/0.1.7:
     dependencies:
       assert-plus: 1.0.0
@@ -1848,6 +1862,7 @@ specifiers:
   discord.js: ^12.5.0
   eslint: ^4.18.2
   fs: ^0.0.2
+  genius-lyrics-fetcher: ^2.1.0
   moment: ^2.29.1
   moment-duration-format: ^2.3.2
   ms: ^2.1.2
