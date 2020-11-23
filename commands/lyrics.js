@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   
   try {
     const search = await GClient.search(songtitle);
-    lyrics = await search[0].lyrics();
+    lyrics = await search[0].lyrics(false);
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
