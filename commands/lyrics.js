@@ -26,10 +26,10 @@ exports.run = async (client, message, args) => {
     .setDescription(lyrics)
     .setColor("#F8AA2A");
 
-  if (lyricsEmbed.description.length >= 2048)
-    lyricsEmbed.description = `${lyricsEmbed.description.substr(0, 2045)}...`;
-  //TODO: show full lyrics
-  return message.channel.send(lyricsEmbed).catch(client.logger.error);
+  for (i = 0; i*2000 <= lyrics.length; i++) {
+    lyricsEmbed.description = `${lyrics.substr(i*2000, i*2000+2000)}`;
+    message.channel.send(lyricsEmbed).catch(client.logger.error);
+  }
 };
 
   exports.conf = {
