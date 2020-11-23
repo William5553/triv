@@ -19,9 +19,9 @@ exports.run = async (client, message, args) => {
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) 
-  return message.reply('I cannot find a bot-logs channel').catch(console.error);
-  if (!muteRole) return message.reply('I cannot find a role named **muted**').catch(console.error);
-  if (!userr) return message.reply('You must mention someone to mute them.').catch(console.error);
+  return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
+  if (!muteRole) return message.reply('I cannot find a role named **muted**').catch(client.logger.error);
+  if (!userr) return message.reply('You must mention someone to mute them.').catch(client.logger.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
 
   const embed = new MessageEmbed()
@@ -34,11 +34,11 @@ exports.run = async (client, message, args) => {
 message.channel.updateOverwrite(muteRole, { SEND_MESSAGES: false })
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles.remove(muteRole.id, reason).then(() => {
-      botlog.send({embed}).catch(console.error);
+      botlog.send({embed}).catch(client.logger.error);
     }).catch(message.channel.send);
   } else {
     userr.roles.add(muteRole.id, reason).then(() => {
-      botlog.send({embed}).catch(console.error);
+      botlog.send({embed}).catch(client.logger.error);
     }).catch(message.channel.send);
   }
 
