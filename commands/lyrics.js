@@ -1,7 +1,5 @@
-const settings = require("../settings.json");
 const { MessageEmbed } = require("discord.js");
-const Genius = require("genius-lyrics");
-const GClient = new Genius.Client(settings.genius_api_key);
+const lyric = require("@allvaa/get-lyrics");
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
@@ -10,9 +8,7 @@ exports.run = async (client, message, args) => {
       .send("There is nothing playing.")
       .catch(client.logger.error);
 
-  let firstSong = null;
   let lyrics = null;
-  let embedtitle = null;
   
   const songtitle = queue.songs[0].title
     .replace('/(official audio)/i', '')
@@ -21,19 +17,14 @@ exports.run = async (client, message, args) => {
     .replace("/(official music video*)/i", "");
 
   try {
-    const searches = await GClient.songs.search(songtitle);
-    firstSong = searches[0];
-    lyrics = await firstSong.lyrics(false);
-    embedtitle = "Lyrics - " + firstSong.title
+    lyrics = await lyric(songtitle);
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
-    if (!firstSong.title) embedtitle = 'Lyrics';
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
-    embedtitle = 'Lyrics';
   }
 
   const lyricsEmbed = new MessageEmbed()
-    .setTitle(embedtitle)
+    .setTitle('Lyrics - ' + songtitle)
     .setDescription(lyrics)
     .setColor("#F8AA2A");
 
