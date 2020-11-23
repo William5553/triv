@@ -12,7 +12,8 @@ exports.run = async (client, message, args) => {
 
   let firstSong = null;
   let lyrics = null;
-
+  let embedtitle = null;
+  
   const songtitle = queue.songs[0].title
     .replace('/(official audio)/i', '')
     .replace('/(dir*)/i', '')
@@ -23,13 +24,16 @@ exports.run = async (client, message, args) => {
     const searches = await GClient.songs.search(songtitle);
     firstSong = searches[0];
     lyrics = await firstSong.lyrics(false);
+    embedtitle = "Lyrics - " + firstSong.title
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
+    if (!firstSong.title) embedtitle = 'Lyrics';
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
+    embedtitle = 'Lyrics';
   }
 
   const lyricsEmbed = new MessageEmbed()
-    .setTitle("Lyrics - " + firstSong.title)
+    .setTitle(embedtitle)
     .setDescription(lyrics)
     .setColor("#F8AA2A");
 
