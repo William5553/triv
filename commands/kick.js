@@ -21,15 +21,15 @@ exports.run = async (client, message, args) => {
   } else if (!botlog) 
   return message.channel.send('I cannot find a channel named bot-logs');
   
-  await userr.user.send(`you've been kicked from ${message.channel.guild.name}`).catch(console.error);
-  userr.kick().catch(console.error);
+  await userr.user.send(`you've been kicked from ${message.channel.guild.name}`).catch(client.logger.error);
+  userr.kick().catch(client.logger.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
     .setDescription(`**Action:** Kick\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`)
     .setFooter(`ID ${caseNum}`);
-  return botlog.send({embed}).catch(console.error);
+  return botlog.send({embed}).catch(client.logger.error);
 };
 
 exports.conf = {
