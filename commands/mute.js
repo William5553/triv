@@ -38,9 +38,9 @@ exports.run = async (client, message, args) => {
         data: {
           name: "muted",
           color: [255, 0, 0],
-          permissions: {
+          permissions: [
             SEND_MESSAGES: false
-          }
+          ]
         }
       })
       .catch(client.logger.error);
