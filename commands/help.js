@@ -3,10 +3,9 @@ exports.run = (client, message, args) => {
   if (!args[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    let yes = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`;
-    for (i = 0; i*1920 < yes.length; i++) { 
-      yes = `${yes.substr(i*1920, i*1920+1920)}`;
-      message.author.send(yes, {code: 'asciidoc'}).catch(err => {
+    const yes = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`;
+    for (i = 0; i*1980 <= yes.length; i++) { 
+      message.author.send(`${yes.substring(i*1980, i*1980+1980)}`, {code: 'asciidoc'}).catch(err => {
         client.logger.error(err);
         message.author.send(err);
       });
