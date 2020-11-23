@@ -36,8 +36,8 @@ exports.run = async (client, message, args) => {
     muteRole = message.guild.roles
       .create({
         data: {
-          name: "Muted",
-          color: "RED",
+          name: "muted",
+          color: [255, 0, 0],
           permissions: {
             SEND_MESSAGES: false
           }
