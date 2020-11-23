@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   if (!args.length)
     return message
       .reply(`Usage: ${settings.prefix}search <Video Name>`)
-      .catch(console.error);
+      .catch(client.logger.error);
   if (message.channel.activeCollector)
     return message.reply(
       "A message collector is already active in this channel."
@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
   if (!message.member.voice.channel)
     return message
       .reply("You need to join a voice channel first!")
-      .catch(console.error);
+      .catch(client.logger.error);
 
   const search = args.join(" "); 
   const resultsEmbed = new MessageEmbed()
@@ -50,9 +50,9 @@ exports.run = async (client, message, args) => {
 
     message.channel.activeCollector = false;
     message.client.commands.get("play").run(client, message, [choice]);
-    resultsMessage.delete().catch(console.error);
+    resultsMessage.delete().catch(client.logger.error);
   } catch (error) {
-    console.error(error);
+    client.logger.error(error);
     message.channel.activeCollector = false;
   }
 };
