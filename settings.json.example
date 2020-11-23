@@ -1,5 +1,4 @@
 {
-  "genius_api_key": "GENIUS_API_KEY",
   "ownerid": "YOUR_DISCORD_USER_ID_HERE",
   "prefix": "COMMAND_PREFIX",
   "token": "DISCORD_BOT_TOKEN",
