@@ -4,7 +4,7 @@ const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 require('./util/eventLoader')(client);
-client.logger = require('./util/Logger');
+client.logger = require('./util/logger');
 require('./util/functions')(client);
 
 client.queue = new Map();
@@ -12,7 +12,7 @@ client.queue = new Map();
 client.commands = new Collection();
 client.aliases = new Collection();
 fs.readdir('./commands/', (err, files) => {
-  if (err) console.error(err);
+  if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
     client.load(f);
@@ -62,7 +62,7 @@ client.on('message', async message => {
     message.channel.send(lvlup);
   }
   fs.writeFile('./xp.json', JSON.stringify(xp), (err) => {
-    if (err) console.log(err);
+    if (err) client.logger.error(err);
   });
 });
 
