@@ -9,13 +9,17 @@ exports.run = (client, message, args) => {
       queue.playing = false;
       queue.connection.dispatcher.pause(true);
       return queue.textChannel.send(`${message.author} ⏸ paused the music.`).catch(client.logger.error);
+    } else {
+      queue.playing = true;
+      queue.connection.dispatcher.resume();
+      return queue.textChannel.send(`${message.author} ▶ resumed the music!`).catch(client.logger.error);
     }
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['unpause', 'resume'],
   permLevel: 0
 };
 
