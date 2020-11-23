@@ -43,7 +43,7 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['lvl'],
+  aliases: ['lvl', 'xp'],
   permLevel: 0
 };
 
