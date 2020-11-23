@@ -1,13 +1,13 @@
 exports.run = (client, message) => {
-  const channell = message.member.voice.channel;
+  const vc = message.member.voice.channel;
   
-  if (channell) {
-    const permissions = channell.permissionsFor(client.user);
+  if (vc) {
+    const permissions = vc.permissionsFor(client.user);
     if (!permissions.has("CONNECT"))
       return message.reply("Cannot connect to voice channel, missing the **CONNECT** permission");
     if (!permissions.has("SPEAK"))
       return message.reply("I cannot speak in this voice channel, make sure I have the **SPEAK** permission!");
-    channell.join()
+    vc.join()
       .then(connection => {
         connection.voice.setSelfDeaf(true);
       })
