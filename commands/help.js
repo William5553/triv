@@ -5,9 +5,9 @@ exports.run = (client, message, args) => {
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
     let yes = client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n');
     let yes2 = null;
-    if (yes.length >= 2000) {
-      yes = `${yes.substr(0, 2000)}`;
-      yes2 = `${yes.substr(2001)}`;
+    if (yes.length >= 1920) {
+      yes = `${yes.substr(0, 1920)}`;
+      yes2 = `${yes.substr(1921)}`;
     }
     message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     message.author.send(`= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${yes}`, {code: 'asciidoc'}).catch(err => {
