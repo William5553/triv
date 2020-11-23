@@ -86,7 +86,7 @@ exports.run = async (client, message, args) => {
 
     message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
 
-    if (!serverQueue) message.client.queue.set(message.guild.id, queueConstruct);
+    if (!serverQueue) client.queue.set(message.guild.id, queueConstruct);
 
     if (!serverQueue) {
       try {
