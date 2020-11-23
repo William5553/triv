@@ -4,6 +4,7 @@ const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+  if (!userr) return message.reply('You must mention someone to mute them.').catch(client.logger.error);
   parseUser(message, userr.user);
   if (userr.user.id === settings.ownerid) {
     return message.reply('absolutely not.');
@@ -30,7 +31,6 @@ exports.run = async (client, message, args) => {
   }
 }).catch(client.logger.error);
   }
-  if (!userr) return message.reply('You must mention someone to mute them.').catch(client.logger.error);
   const reason = args.splice(1, args.length).join(' ') || `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
 
   const embed = new MessageEmbed()
