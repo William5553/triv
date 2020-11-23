@@ -37,10 +37,7 @@ exports.run = async (client, message, args) => {
       .create({
         data: {
           name: "muted",
-          color: [255, 0, 0],
-          permissions: [
-            SEND_MESSAGES: false
-          ]
+          color: [255, 0, 0]
         }
       })
       .catch(client.logger.error);
@@ -57,7 +54,11 @@ exports.run = async (client, message, args) => {
     )
     .setFooter(`ID ${caseNum}`);
 
-  message.channel.updateOverwrite(muteRole, { SEND_MESSAGES: false });
+  message.guild.channels.forEach(f => {
+    f.overwritePermissions(muteRole, {
+        SEND_MESSAGES: false
+    });
+});
   if (userr.roles.cache.has(muteRole.id)) {
     userr.roles
       .remove(muteRole.id, reason)
