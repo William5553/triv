@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
       message.channel.send('Lockdown lifted.');
       clearTimeout(client.lockit[message.channel.id]);
       delete client.lockit[message.channel.id];
-    }).catch(client.logger.log);
+    }).catch(client.logger.error);
   } else {
     if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
@@ -19,7 +19,6 @@ exports.run = (client, message, args) => {
           message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: null }).then(message.channel.send('Lockdown lifted.')).catch(client.logger.error);
           delete client.lockit[message.channel.id];
         }, ms(time));
-
       }).catch(client.logger.error);
     });
   }
