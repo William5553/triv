@@ -2,13 +2,17 @@ const { MessageEmbed } = require("discord.js");
 const lyricsFinder = require("lyrics-finder");
 
 exports.run = async (client, message, args) => {
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("There is nothing playing.").catch(console.error);
 
     let lyrics = null;
+    
+    const songtitle = queue.songs[0].title
+    .replace('(official video)', '')
+    .replace('(official music video)', '');
 
     try {
-      lyrics = await lyricsFinder(queue.songs[0].title, "");
+      lyrics = await lyricsFinder(songtitle, "");
       if (!lyrics) lyrics = `No lyrics found for ${queue.songs[0].title}.`;
     } catch (error) {
       lyrics = `No lyrics found for ${queue.songs[0].title}.`;
