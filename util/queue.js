@@ -7,7 +7,7 @@ module.exports = {
     if (channelID == botChannel || member.id == settings.ownerid) {
       return true;
     }
-    member.send("You need to join the voice channel first!").catch(console.error);
+    member.send("You need to join the voice channel first!").catch(member.client.logger.error);
     return;
   }
 };
