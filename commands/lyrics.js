@@ -8,8 +8,8 @@ exports.run = async (client, message, args) => {
     let lyrics = null;
     
     const songtitle = queue.songs[0].title
-    .replace('(official video)', '')
-    .replace('(official music video)', '');
+    .replace(/(official video/i, '')
+    .replace(/(official music video)/i, '');
 
     try {
       lyrics = await lyricsFinder(songtitle, "");
