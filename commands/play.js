@@ -8,7 +8,7 @@ const youtube = new YouTubeAPI(settings.yt_api_key);
 exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
-    const serverQueue = message.client.queue.get(message.guild.id);
+    const serverQueue = client.queue.get(message.guild.id);
     if (!channel) return message.reply("you need to join a voice channel first!").catch(client.logger.error);
     if (serverQueue && channel !== message.guild.me.voice.channel)
       return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
@@ -80,7 +80,7 @@ if (urlValid) {
     }
 
     queueConstruct.songs.push(song);
-    message.client.queue.set(message.guild.id, queueConstruct);
+    client.queue.set(message.guild.id, queueConstruct);
 
     try {
       queueConstruct.connection = await channel.join();
