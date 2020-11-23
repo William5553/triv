@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     if (!args.length) return message.reply(`Usage: ${settings.prefix}playlist <YouTube Playlist URL | Playlist Name>`).catch(client.logger.error);
     if (!channel) return message.reply("you need to join a voice channel first!").catch(client.logger.error);
 
-    const permissions = channel.permissionsFor(message.client.user);
+    const permissions = channel.permissionsFor(client.user);
     if (!permissions.has("CONNECT"))
       return message.reply("cannot connect to voice channel, missing **CONNECT** permission");
     if (!permissions.has("SPEAK"))
@@ -95,7 +95,7 @@ exports.run = async (client, message, args) => {
         play(queueConstruct.songs[0], message);
       } catch (error) {
         client.logger.error(error);
-        message.client.queue.delete(message.guild.id);
+        client.queue.delete(message.guild.id);
         await channel.leave();
         return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
       }
