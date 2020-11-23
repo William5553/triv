@@ -9,8 +9,8 @@ exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
 
     const serverQueue = client.queue.get(message.guild.id);
-    if (serverQueue && channel !== message.guild.me.voice.channel) return message.reply(`You must be in the same channel as ${client.user}`).catch(console.error);
-
+    if (serverQueue && channel !== message.guild.me.voice.channel)
+        return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
     if (!args.length) return message.reply(`Usage: ${settings.prefix}playlist <YouTube Playlist URL | Playlist Name>`).catch(client.logger.error);
     if (!channel) return message.reply("you need to join a voice channel first!").catch(client.logger.error);
 
@@ -54,7 +54,7 @@ exports.run = async (client, message, args) => {
         videos = await playlist.getVideos(20, { part: "snippet" });
       } catch (error) {
         client.logger.error(error);
-        return message.reply("Playlist not found :(").catch(console.error);
+        return message.reply("Playlist not found :(").catch(client.logger.error);
       }
     }
 
@@ -97,7 +97,7 @@ exports.run = async (client, message, args) => {
         client.logger.error(error);
         client.queue.delete(message.guild.id);
         await channel.leave();
-        return message.channel.send(`Could not join the channel: ${error}`).catch(console.error);
+        return message.channel.send(`Could not join the channel: ${error}`).catch(client.logger.error);
       }
     }
   };
