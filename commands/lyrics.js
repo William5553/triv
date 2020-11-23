@@ -1,5 +1,7 @@
+const settings = require('../settings.json');
 const { MessageEmbed } = require("discord.js");
-const lyricsFinder = require("lyrics-finder");
+const Genius = require("genius-lyrics");
+const GClient = Genius.Client(settings.genius_api_key);
 
 exports.run = async (client, message, args) => {
     const queue = client.queue.get(message.guild.id);
@@ -12,10 +14,12 @@ exports.run = async (client, message, args) => {
     .replace(/(official music video)/i, '');
 
     try {
-      lyrics = await lyricsFinder(songtitle, "");
-      if (!lyrics) lyrics = `No lyrics found for ${queue.songs[0].title}.`;
+      const searches = await GClient.songs.search(songtitle);
+      const firstSong = searches[0];
+      lyrics = await firstSong.lyrics();
+      if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
     } catch (error) {
-      lyrics = `No lyrics found for ${queue.songs[0].title}.`;
+      lyrics = `No lyrics found for ${songtitle}.`;
     }
 
     let lyricsEmbed = new MessageEmbed()
