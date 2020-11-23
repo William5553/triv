@@ -50,7 +50,8 @@ exports.run = async (client, message, args) => {
 
     message.channel.activeCollector = false;
     client.commands.get("play").run(client, message, [choice]);
-    resultsMessage.delete().catch(client.logger.error);
+    if (resultsMessage)
+      resultsMessage.delete().catch(client.logger.error);
   } catch (error) {
     client.logger.error(error);
     message.channel.activeCollector = false;
