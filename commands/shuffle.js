@@ -1,7 +1,7 @@
 const { canModifyQueue } = require("../util/queue");
 
 exports.run = (client, message, args) => {
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("There is no queue.").catch(console.error);
     if (!canModifyQueue(message.member)) return;
 
@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
       [songs[i], songs[j]] = [songs[j], songs[i]];
     }
     queue.songs = songs;
-    message.client.queue.set(message.guild.id, queue);
+    client.queue.set(message.guild.id, queue);
     queue.textChannel.send(`${message.author} 🔀 shuffled the queue`).catch(console.error);
 };
 
