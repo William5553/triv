@@ -2,7 +2,7 @@ const settings = require('../settings.json');
 module.exports = message => {
   const { client } = message;
   if (message.author.bot || !message.guild || !message.content.startsWith(settings.prefix)) return;
-  const command = message.content.split(' ')[0].slice(settings.prefix.length);
+  const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
   const params = message.content.split(' ').slice(1);
   const perms = client.elevation(message);
   let cmd;
