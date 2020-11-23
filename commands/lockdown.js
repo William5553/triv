@@ -11,21 +11,18 @@ exports.run = (client, message, args) => {
       clearTimeout(client.lockit[message.channel.id]);
       delete client.lockit[message.channel.id];
     }).catch(error => {
-      console.log(error);
+      client.logger.log(error);
     });
   } else {
     if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false }).then(() => {
       message.channel.send(`Channel locked down for ${ms(ms(time), { long:true })}. To lift, run **${settings.prefix}lockdown ${validUnlocks.random()}**`).then(() => {
-
         client.lockit[message.channel.id] = setTimeout(() => {
           message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: null }).then(message.channel.send('Lockdown lifted.')).catch(console.error);
           delete client.lockit[message.channel.id];
         }, ms(time));
 
-      }).catch(error => {
-        console.log(error);
-      });
+      }).catch(client.logger.error);
     });
   }
 };
