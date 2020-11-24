@@ -75,7 +75,7 @@ module.exports = {
 
     collector.on("collect", (reaction, user) => {
       if (!queue) return;
-      const member = message.guild.members.resolve(user);
+      const member = message.guild.members.fetch(user);
 
       switch (reaction.emoji.name) {
         case "⏭":
