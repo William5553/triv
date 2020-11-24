@@ -21,6 +21,7 @@
     "no-console": "off",
     "no-extra-parens": "warn",
     "no-extra-semi": "warn",
+    "no-unreachable": "error",
     "indent": [
       "error",
       2,
