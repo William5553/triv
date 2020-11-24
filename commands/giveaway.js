@@ -19,9 +19,9 @@ exports.run = async (client, message, args) => {
     .setTitle(`${prize}`)
     .setColor(0x00ae86)
     .setDescription(
-      `React with 🎉 to enter!\nTime duration: **${ms(time, { long: true })}**\nHosted by: ${message.author}`
+      `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
-    .setTimestamp(Date.now() + ms(time))
+    .setTimestamp(Date.now() + ms(time, {long: true}))
     .setFooter("Ends at");
   const msg = await message.channel.send(":tada: **GIVEAWAY** :tada:", embed);
   await msg.react("🎉");
