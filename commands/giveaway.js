@@ -15,6 +15,7 @@ exports.run = async (client, message, args) => {
   if (ms(time) < 1)
     return message.channel.send("The duration time has to be atleast 1 second");
   if (prize === "") return message.channel.send("You have to enter a prize.");
+  message.delete();
   const embed = new MessageEmbed()
     .setTitle(`${prize}`)
     .setColor(0x00ae86)
