@@ -24,7 +24,8 @@ exports.run = async (client, message, args) => {
     .setDescription(
       `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
-    .setFooter(`Ends at ${(Date.now() + ms(time, {long: true})).getTime()}`);
+    .setFooter('Ends at')
+    .setTimestamp(Date.now() + ms(time, {long: true}));
   const msg = await message.channel.send(":tada: **GIVEAWAY** :tada:", embed);
   await msg.react("🎉");
   setTimeout(() => {
@@ -38,14 +39,16 @@ exports.run = async (client, message, args) => {
           .setDescription(
             `No one entered the giveaway.\nHosted by: ${message.author}`
           )
-          .setFooter(`Ended at ${Date.now()}`);
+          .setFooter('Ended at')
+          .setTimestamp();
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
       } else {
         const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
           .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
-          .setFooter(`Ended at ${Date.now()}`);
+          .setFooter('Ended at')
+          .setTimestamp();
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
         message.channel.send(`${winner} won ${prize}!`);
         msg.reactions.removeAll();
