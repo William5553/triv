@@ -16,7 +16,6 @@
   "author": "William5553",
   "description": "The best discord bot ever!",
   "dependencies": {
-    "@discordjs/opus": "^0.3.3",
     "chalk": "^4.1.0",
     "discord.js": "^12.5.0",
     "fs": "^0.0.2",

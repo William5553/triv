@@ -4,13 +4,6 @@
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
-    "@discordjs/opus": {
-      "version": "0.3.3",
-      "requires": {
-        "@discordjs/node-pre-gyp": "^0.1.0",
-        "node-addon-api": "^3.0.2"
-      }
-    },
     "chalk": {
       "version": "4.1.0",
       "requires": {
