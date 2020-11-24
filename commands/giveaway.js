@@ -48,6 +48,7 @@ exports.run = async (client, message, args) => {
           .setTimestamp()
           .setFooter("Ended at");
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
+        message.channel.send(`${winner} won ${prize}!`);
       }
     }, 1000);
   }, ms(time));
