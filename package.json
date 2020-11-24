@@ -3,8 +3,10 @@
   "version": "3.1.1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "npm run lint",
+    "start": "node index.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -37,10 +39,18 @@
   "bugs": {
     "url": "https://github.com/William5553/discord-bot/issues"
   },
+  "homepage": "https://github.com/William5553/discord-bot",
   "devDependencies": {
     "eslint": "^7.14.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-config-prettier": "^6.13.0",
     "prettier": "^2.1.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all",
+    "endOfLine": "lf",
+    "arrowParens": "avoid"
   }
 }
