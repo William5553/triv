@@ -15,6 +15,6 @@ module.exports = messages => {
     .setDescription(
       `**Bulk Delete in ${channel}, ${length} messages deleted**`
     );
-  
+
   if (logs) logs.send({ embed });
 };

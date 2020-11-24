@@ -20,12 +20,12 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['ud', 'define'],
+  aliases: ["ud", "define"],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'urban',
-  description: 'Searches for a term on the urban dictionary',
-  usage: 'urban [term]'
+  name: "urban",
+  description: "Searches for a term on the urban dictionary",
+  usage: "urban [term]"
 };

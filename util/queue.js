@@ -1,4 +1,4 @@
-const settings = require('../settings.json');
+const settings = require("../settings.json");
 module.exports = {
   canModifyQueue(member) {
     const { channelID } = member.voice;
@@ -7,7 +7,9 @@ module.exports = {
     if (channelID == botChannel || member.id == settings.ownerid) {
       return true;
     }
-    member.send("You need to join the voice channel first!").catch(member.client.logger.error);
+    member
+      .send("You need to join the voice channel first!")
+      .catch(member.client.logger.error);
     return;
   }
 };

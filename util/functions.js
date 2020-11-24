@@ -1,6 +1,6 @@
-const settings = require('../settings.json');
-module.exports = (client) => { 
-  client.load = async (command) => {
+const settings = require("../settings.json");
+module.exports = client => {
+  client.load = async command => {
     const props = require(`../commands/${command}`);
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     client.commands.set(props.help.name, props);
@@ -8,15 +8,16 @@ module.exports = (client) => {
       client.aliases.set(alias, props.help.name);
     });
   };
-  
-  client.unloadCommand = async (commandName) => {
+
+  client.unloadCommand = async commandName => {
     let command;
     if (client.commands.has(commandName)) {
       command = commandName;
     } else if (client.aliases.has(commandName)) {
       command = client.aliases.get(commandName);
     }
-    if (!command) return `The command \`${commandName}\` doesn\'t seem to exist, nor is it an alias. Try again!`;
+    if (!command)
+      return `The command \`${commandName}\` doesn\'t seem to exist, nor is it an alias. Try again!`;
 
     client.commands.delete(command);
     delete require.cache[require.resolve(`../commands/${command}`)];
@@ -32,7 +33,9 @@ module.exports = (client) => {
   client.permlevel = message => {
     let permlvl = 0;
 
-    const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
+    const permOrder = client.config.permLevels
+      .slice(0)
+      .sort((p, c) => (p.level < c.level ? 1 : -1));
 
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
@@ -44,7 +47,6 @@ module.exports = (client) => {
     }
     return permlvl;
   };
-
 
   /*
   SINGLE-LINE AWAITMESSAGE
@@ -58,13 +60,16 @@ module.exports = (client) => {
     const filter = m => m.author.id === msg.author.id;
     await msg.channel.send(question);
     try {
-      const collected = await msg.channel.awaitMessages(filter, { max: 1, time: limit, errors: ['time'] });
+      const collected = await msg.channel.awaitMessages(filter, {
+        max: 1,
+        time: limit,
+        errors: ["time"]
+      });
       return collected.first().content;
     } catch (e) {
       return false;
     }
   };
-
 
   /*
   MESSAGE CLEAN FUNCTION
@@ -74,18 +79,16 @@ module.exports = (client) => {
   This is mostly only used by the Eval and Exec commands.
   */
   client.clean = async (client, text) => {
-    if (text && text.constructor.name == 'Promise')
-      text = await text;
+    if (text && text.constructor.name == "Promise") text = await text;
 
     text = text
-      .replace(/`/g, '`' + String.fromCharCode(8203))
-      .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(client.token, 'NO TOKEN')
-      .replace(settings.token, 'NO TOKEN');
+      .replace(/`/g, "`" + String.fromCharCode(8203))
+      .replace(/@/g, "@" + String.fromCharCode(8203))
+      .replace(client.token, "NO TOKEN")
+      .replace(settings.token, "NO TOKEN");
 
     return text;
   };
-
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
 
@@ -97,7 +100,9 @@ module.exports = (client) => {
   // <String>.toPropercase() returns a proper-cased string such as:
   // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
   String.prototype.toProperCase = function() {
-    return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
 
   // <Array>.random() returns a single random element from an array
@@ -107,18 +112,18 @@ module.exports = (client) => {
   };
 
   // `await client.wait(1000);` to "pause" for 1 second.
-  client.wait = require('util').promisify(setTimeout);
+  client.wait = require("util").promisify(setTimeout);
 
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
-  process.on('uncaughtException', (err) => {
-    const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, 'g'), './');
+  process.on("uncaughtException", err => {
+    const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
     client.logger.error(`Uncaught Exception: ${errorMsg}`);
     // Always best practice to let the code crash on uncaught exceptions.
     // Because you should be catching them anyway.
     process.exit(1);
   });
 
-  process.on('unhandledRejection', err => {
+  process.on("unhandledRejection", err => {
     client.logger.error(`Unhandled rejection: ${err}`);
   });
 };
