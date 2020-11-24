@@ -14,6 +14,8 @@ exports.run = async (client, message, args) => {
     return message.channel.send("The duration time is invalid.");
   if (ms(time) < 1)
     return message.channel.send("The duration time has to be atleast 1 second");
+  if (ms(time) >= 2147483647)
+    return message.reply("specified duration is too long");
   if (prize === "") return message.channel.send("You have to enter a prize.");
   message.delete();
   const embed = new MessageEmbed()
