@@ -4,7 +4,7 @@ const {parseUser} = require('../util/parseUser.js');
 const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   if (!message.member.permissions.has("BAN_MEMBERS")) return message.reply('you don\'t have the permission **BAN MEMBERS**');
-  const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+  const userr = message.mentions.members.first() || message.guild.members.cache.fetch(args[0]);
   if (userr.permissions.has("BAN_MEMBERS")) return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
   const botlog = message.guild.channels.cache.find(
       channel => channel.name === 'bot-logs'
