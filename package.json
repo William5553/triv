@@ -38,7 +38,7 @@
     "url": "https://github.com/William5553/discord-bot/issues"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^7.14.0",
     "eslint-plugin-node": "^11.1.0"
   }
 }
