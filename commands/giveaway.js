@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     .setDescription(
       `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
-    .setFooter(`Ends at ${Date.now()} ${ms(time, {long: true})}`);
+    .setFooter(`Ends at ${Date.now() + ms(time, {long: true})}`);
   const msg = await message.channel.send(":tada: **GIVEAWAY** :tada:", embed);
   await msg.react("🎉");
   setTimeout(() => {
