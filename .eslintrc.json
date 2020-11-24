@@ -19,6 +19,8 @@
     "node/no-deprecated-api": "error",
     "node/prefer-promises/fs": "error",
     "no-console": "off",
+    "no-extra-parens": "warn",
+    "no-extra-semi": "warn",
     "indent": [
       "error",
       2,
