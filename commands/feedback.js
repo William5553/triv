@@ -6,7 +6,11 @@ exports.run = (client, message, args) => {
     return message
       .reply("we don't accept blank feedback!")
       .catch(client.logger.error);
-  message.reply("Feedback sent.. :envelope:");
+  const respo = new MessageEmbed
+  .setColor(0x00ae86)
+  .setDescription('Found a bug? Report it at https://github.com/William5553/discord-bot/issues')
+  .setTitle('Feedback sent.. :envelope:');
+  message.channel.send(respo);
   const embed = new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
