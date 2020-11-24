@@ -1,20 +1,25 @@
 exports.run = (client, message, args) => {
-  let reason = args.slice(1).join(' ');
+  let reason = args.slice(1).join(" ");
   client.unbanReason = reason;
   client.unbanAuth = message.author;
   const user = args[0];
   const botlog = message.guild.channels.cache.find(
-    channel => channel.name === 'bot-logs'
+    channel => channel.name === "bot-logs"
   );
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
-    message.guild.channels.create('bot-logs', { type: 'text' });
-  } else if (!botlog)
-    return message.reply('I cannot find a bot-logs channel');
+  if (message.guild.me.hasPermission("MANAGE_CHANNELS") && !botlog) {
+    message.guild.channels.create("bot-logs", { type: "text" });
+  } else if (!botlog) return message.reply("I cannot find a bot-logs channel");
 
-  if (!user) return message.reply('You must supply a user ID.').catch(client.logger.error);
-  if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
-  message.guild.members.unban(user, {reason: reason}).catch(message.channel.send);
-  message.channel.send('unbanned');
+  if (!user)
+    return message
+      .reply("You must supply a user ID.")
+      .catch(client.logger.error);
+  if (reason.length < 1)
+    return message.reply("You must supply a reason for the unban.");
+  message.guild.members
+    .unban(user, { reason: reason })
+    .catch(message.channel.send);
+  message.channel.send("unbanned");
 };
 
 exports.conf = {
@@ -25,7 +30,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'unban',
-  description: 'Unbans provided user.',
-  usage: 'unban [user id] [reason]'
+  name: "unban",
+  description: "Unbans provided user.",
+  usage: "unban [user id] [reason]"
 };

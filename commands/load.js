@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
     return message.channel.send(`I cannot find the command: ${args[0]}`);
   else
     message.channel.send(`Loading: ${command}`).then(m => {
-        client
+      client
         .load(command)
         .then(() => {
           m.edit(`Successfully loaded: ${command}`);
@@ -26,5 +26,5 @@ exports.conf = {
 exports.help = {
   name: "load",
   description: "Loads a command if it was unloaded",
-  usage: 'load [command]'
+  usage: "load [command]"
 };

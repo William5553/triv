@@ -3,7 +3,9 @@ const { caseNumber } = require("../util/caseNumber.js");
 const { parseUser } = require("../util/parseUser.js");
 const settings = require("../settings.json");
 exports.run = async (client, message, args) => {
-  const userr = message.mentions.members.first() || message.guild.members.cache.fetch(args[0]);;
+  const userr =
+    message.mentions.members.first() ||
+    message.guild.members.cache.fetch(args[0]);
   if (!userr)
     return message
       .reply("you must mention someone to mute them")
@@ -65,7 +67,7 @@ exports.run = async (client, message, args) => {
       .remove(muteRole.id, reason)
       .then(() => {
         botlog.send({ embed }).catch(client.logger.error);
-})
+      })
       .catch(message.channel.send);
   } else {
     userr.roles

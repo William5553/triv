@@ -9,7 +9,9 @@ module.exports = {
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
-      return queue.textChannel.send("🚫 Music queue ended.").catch(client.logger.error);
+      return queue.textChannel
+        .send("🚫 Music queue ended.")
+        .catch(client.logger.error);
     }
 
     let stream = null;
@@ -26,10 +28,14 @@ module.exports = {
       }
 
       client.logger.error(error);
-      return message.channel.send(`Error: ${error.message ? error.message : error}`);
+      return message.channel.send(
+        `Error: ${error.message ? error.message : error}`
+      );
     }
 
-    queue.connection.on("disconnect", () => message.client.queue.delete(message.guild.id));
+    queue.connection.on("disconnect", () =>
+      message.client.queue.delete(message.guild.id)
+    );
 
     const dispatcher = queue.connection
       .play(stream, { type: streamType })
@@ -48,7 +54,7 @@ module.exports = {
           module.exports.play(queue.songs[0], message);
         }
       })
-      .on("error", (err) => {
+      .on("error", err => {
         client.logger.error(err);
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
@@ -56,7 +62,9 @@ module.exports = {
     dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
-      var playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
+      var playingMessage = await queue.textChannel.send(
+        `🎶 Started playing: **${song.title}** ${song.url}`
+      );
       await playingMessage.react("⏭");
       await playingMessage.react("⏯");
       await playingMessage.react("🔇");
@@ -83,7 +91,9 @@ module.exports = {
           reaction.users.remove(user).catch(client.logger.error);
           if (!canModifyQueue(member)) return;
           queue.connection.dispatcher.end();
-          queue.textChannel.send(`${user} ⏩ skipped the song`).catch(client.logger.error);
+          queue.textChannel
+            .send(`${user} ⏩ skipped the song`)
+            .catch(client.logger.error);
           collector.stop();
           break;
 
@@ -93,11 +103,15 @@ module.exports = {
           if (queue.playing) {
             queue.playing = !queue.playing;
             queue.connection.dispatcher.pause(true);
-            queue.textChannel.send(`${user} ⏸ paused the music.`).catch(client.logger.error);
+            queue.textChannel
+              .send(`${user} ⏸ paused the music.`)
+              .catch(client.logger.error);
           } else {
             queue.playing = !queue.playing;
             queue.connection.dispatcher.resume();
-            queue.textChannel.send(`${user} ▶ resumed the music!`).catch(client.logger.error);
+            queue.textChannel
+              .send(`${user} ▶ resumed the music!`)
+              .catch(client.logger.error);
           }
           break;
 
@@ -107,11 +121,15 @@ module.exports = {
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
-            queue.textChannel.send(`${user} 🔊 unmuted the music!`).catch(client.logger.error);
+            queue.textChannel
+              .send(`${user} 🔊 unmuted the music!`)
+              .catch(client.logger.error);
           } else {
             queue.volume = 0;
             queue.connection.dispatcher.setVolumeLogarithmic(0);
-            queue.textChannel.send(`${user} 🔇 muted the music!`).catch(client.logger.error);
+            queue.textChannel
+              .send(`${user} 🔇 muted the music!`)
+              .catch(client.logger.error);
           }
           break;
 
@@ -122,7 +140,9 @@ module.exports = {
           else queue.volume = queue.volume - 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
           queue.textChannel
-            .send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`)
+            .send(
+              `${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`
+            )
             .catch(message.client.logger.error);
           break;
 
@@ -133,7 +153,9 @@ module.exports = {
           else queue.volume = queue.volume + 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
           queue.textChannel
-            .send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`)
+            .send(
+              `${user} 🔊 increased the volume, the volume is now ${queue.volume}%`
+            )
             .catch(client.logger.error);
           break;
 
@@ -141,14 +163,18 @@ module.exports = {
           reaction.users.remove(user).catch(client.logger.error);
           if (!canModifyQueue(member)) return;
           queue.loop = !queue.loop;
-          queue.textChannel.send(`Loop is now ${queue.loop ? "**on**" : "**off**"}`).catch(client.logger.error);
+          queue.textChannel
+            .send(`Loop is now ${queue.loop ? "**on**" : "**off**"}`)
+            .catch(client.logger.error);
           break;
 
         case "⏹":
           reaction.users.remove(user).catch(client.logger.error);
           if (!canModifyQueue(member)) return;
           queue.songs = [];
-          queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
+          queue.textChannel
+            .send(`${user} ⏹ stopped the music!`)
+            .catch(client.logger.error);
           try {
             queue.connection.dispatcher.end();
           } catch (error) {

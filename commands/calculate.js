@@ -1,7 +1,6 @@
 const settings = require("../settings.json");
 exports.run = async (client, message, args) => {
-  let calculate =
-    "=" + args.join(' ').toLowerCase();
+  let calculate = "=" + args.join(" ").toLowerCase();
   if (
     isFinite(
       calculate.replace(
@@ -12,7 +11,7 @@ exports.run = async (client, message, args) => {
   ) {
     calculate = calculate
       .replace(/ /g, "")
-    //  .replace(/^/g, '**')
+      //  .replace(/^/g, '**')
       .replace(/÷/g, "/")
       .replace(/power|pow/g, "Math.pow")
       .replace(/sqrt|squareroot/g, "Math.sqrt")
@@ -42,7 +41,7 @@ exports.run = async (client, message, args) => {
           calculate.replace(/[^%]/g, "").length > 0
         ) {
           for (let j = getSubstringIndex(calculate, "%", i + 1); j > -1; j--) {
-           if (
+            if (
               calculate[j] == "=" ||
               calculate[j] == "+" ||
               calculate[j] == "-" ||
