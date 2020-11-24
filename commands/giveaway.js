@@ -35,18 +35,16 @@ exports.run = async (client, message, args) => {
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
           .setDescription(
-            `Winner:\nNo one entered the giveaway.\nHosted by: ${message.author}`
+            `No one entered the giveaway.\nHosted by: ${message.author}`
           )
-          .setTimestamp()
-          .setFooter("Ended at");
+          .setFooter(`Ended at ${Date.now()}`);
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
       } else {
         const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
           .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
-          .setTimestamp()
-          .setFooter("Ended at");
+          .setFooter(`Ended at ${Date.now}`);
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
         message.channel.send(`${winner} won ${prize}!`);
         msg.reactions.removeAll();
