@@ -34,6 +34,9 @@
     "type": "git",
     "url": "git+https://github.com/William5553/discord-bot.git"
   },
+  "bugs": {
+    "url": "https://github.com/William5553/discord-bot/issues"
+  },
   "devDependencies": {
     "eslint": "^4.18.2"
   }
