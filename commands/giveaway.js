@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   if (prize === "") return message.channel.send("You have to enter a prize.");
   const embed = new MessageEmbed()
     .setTitle(`${prize}`)
-    .setColor("36393F")
+    .setColor(0x00ae86)
     .setDescription(
       `React with 🎉 to enter!\nTime duration: **${ms(time, { long: true })}**\nHosted by: ${message.author}`
     )
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
       if (msg.reactions.cache.get("🎉").users.cache.size < 1) {
         const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
-          .setColor("36393F")
+          .setColor(0x00ae86)
           .setDescription(
             `Winner:\nNo one entered the giveaway.\nHosted by: ${message.author}`
           )
@@ -43,8 +43,8 @@ exports.run = async (client, message, args) => {
       if (!msg.reactions.cache.get("🎉").users.cache.size < 1) {
         const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
-          .setColor("36393F")
-          .setDescription(`Winner:\n${winner}\nHosted by: ${message.author}`)
+          .setColor(0x00ae86)
+          .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
           .setTimestamp()
           .setFooter("Ended at");
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
