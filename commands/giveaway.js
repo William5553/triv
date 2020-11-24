@@ -1,30 +1,27 @@
+const ms = require('ms');
+const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   if (!args[0])
     return messages.channel.send(
-      "Please enter a duration for the giveaway (in hours)."
+      "Please enter a duration for the giveaway."
     );
-  const stated_duration_hours = args[0];
-  const actual_duration_hours = stated_duration_hours * 3600000;
+  const time = args[0];
   const prize = message.content
     .split(" ")
     .slice(2)
     .join(" ");
-  if (isNaN(stated_duration_hours))
-    return message.channel.send("The duration time has to be a number.");
-  if (stated_duration_hours < 1)
-    return message.channel.send("The duration time has to be atleast 1.");
+  if (isNaN(ms(time)))
+    return message.channel.send("The duration time is invalid.");
+  if (ms(time) < 1)
+    return message.channel.send("The duration time has to be atleast 1 second");
   if (prize === "") return message.channel.send("You have to enter a prize.");
-  var hour_s = "hour";
-  if (stated_duration_hours > 1) {
-    var hour_s = "hours";
-  }
-  const embed = new Discord.MessageEmbed()
+  const embed = new MessageEmbed()
     .setTitle(`${prize}`)
     .setColor("36393F")
     .setDescription(
-      `React with 🎉 to enter!\nTime duration: **${stated_duration_hours}** ${hour_s}\nHosted by: ${message.author}`
+      `React with 🎉 to enter!\nTime duration: **${ms(time, { long: true })}**\nHosted by: ${message.author}`
     )
-    .setTimestamp(Date.now() + stated_duration_hours * 60 * 60 * 1000)
+    .setTimestamp(Date.now() + ms(time))
     .setFooter("Ends at");
   const msg = await message.channel.send(":tada: **GIVEAWAY** :tada:", embed);
   await msg.react("🎉");
@@ -33,7 +30,7 @@ exports.run = async (client, message, args) => {
     setTimeout(() => {
       const winner = msg.reactions.cache.get("🎉").users.cache.random();
       if (msg.reactions.cache.get("🎉").users.cache.size < 1) {
-        const winner_embed = new Discord.MessageEmbed()
+        const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor("36393F")
           .setDescription(
@@ -44,7 +41,7 @@ exports.run = async (client, message, args) => {
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
       }
       if (!msg.reactions.cache.get("🎉").users.cache.size < 1) {
-        const winner_embed = new Discord.MessageEmbed()
+        const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor("36393F")
           .setDescription(`Winner:\n${winner}\nHosted by: ${message.author}`)
@@ -53,7 +50,7 @@ exports.run = async (client, message, args) => {
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
       }
     }, 1000);
-  }, actual_duration_hours);
+  }, ms(time));
 };
 
 exports.conf = {
