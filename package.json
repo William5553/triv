@@ -26,10 +26,10 @@
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
     "relevant-urban": "^2.0.0",
-    "weather-js": "^2.0.0",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
     "translate-google-api": "^1.0.4",
+    "weather-js": "^2.0.0",
     "ytdl-core": "^4.0.6",
     "ytdl-core-discord": "^1.2.4"
   },
@@ -43,9 +43,9 @@
   "homepage": "https://github.com/William5553/discord-bot",
   "devDependencies": {
     "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-config-prettier": "^6.13.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.0"
   },
   "prettier": {
     "singleQuote": true,
