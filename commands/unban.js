@@ -1,7 +1,5 @@
 exports.run = (client, message, args) => {
   let reason = args.slice(1).join(" ");
-  client.unbanReason = reason;
-  client.unbanAuth = message.author;
   const user = args[0];
   const botlog = message.guild.channels.cache.find(
     channel => channel.name === "bot-logs"
@@ -19,6 +17,15 @@ exports.run = (client, message, args) => {
   message.guild.members
     .unban(user, { reason: reason })
     .catch(message.channel.send);
+  const embed = new MessageEmbed()
+    .setColor(0x00ae86)
+    .setTimestamp()
+    .setDescription(
+      `**Action:** Unban\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`
+    );
+  return message.guild.channels.cache
+    .find(channel => channel.name === "bot-logs")
+    .id.send({ embed });
   message.channel.send("unbanned");
 };
 
