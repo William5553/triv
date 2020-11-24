@@ -40,8 +40,7 @@ exports.run = async (client, message, args) => {
           .setTimestamp()
           .setFooter("Ended at");
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
-      }
-      if (!msg.reactions.cache.get("🎉").users.cache.size < 1) {
+      } else {
         const winner_embed = new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
@@ -50,6 +49,7 @@ exports.run = async (client, message, args) => {
           .setFooter("Ended at");
         msg.edit(":tada: **GIVEAWAY ENDED** :tada:", winner_embed);
         message.channel.send(`${winner} won ${prize}!`);
+        msg.reactions.removeAll();
       }
     }, 1000);
   }, ms(time));
