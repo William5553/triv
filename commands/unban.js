@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-  let reason = args.slice(1).join(" ");
+  const reason = args.slice(1).join(" ");
   const user = args[0];
   const botlog = message.guild.channels.cache.find(
     channel => channel.name === "bot-logs"
