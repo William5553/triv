@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
     .slice(2)
     .join(" ");
   if (isNaN(ms(time)))
-    return message.channel.send("The duration time is invalid.");
+    return message.channel.send("The duration time is invalid");
   if (ms(time) < 1)
     return message.channel.send("The duration time has to be atleast 1 second");
   if (ms(time) >= 2147483647)
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     .setDescription(
       `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
-    .setFooter(`Ends at ${Date.now() + ms(time, {long: true})}`);
+    .setFooter(`Ends at ${(Date.now() + ms(time, {long: true})).getTime()}`);
   const msg = await message.channel.send(":tada: **GIVEAWAY** :tada:", embed);
   await msg.react("🎉");
   setTimeout(() => {
