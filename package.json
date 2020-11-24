@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -38,6 +38,7 @@
     "url": "https://github.com/William5553/discord-bot/issues"
   },
   "devDependencies": {
-    "eslint": "^4.18.2"
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^11.1.0"
   }
 }
