@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
     if (client.commands.has(args[0])) {
       command = client.commands.get(args[0]);
     } else if (client.aliases.has(args[0])) {
-      command = client.aliases.get(args[0]);
+      command = client.commands.get(client.aliases.get(args[0]));
     }
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
     const aliases = command.conf.aliases.join(', ') || 'none';
