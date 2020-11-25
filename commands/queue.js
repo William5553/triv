@@ -19,7 +19,7 @@ exports.run = async (client, message) => {
       time: 60000,
     });
 
-    collector.on('collect', async (reaction) => {
+    collector.on('collect', async reaction => {
       try {
         if (reaction.emoji.name === '➡️') {
           if (currentPage < embeds.length - 1) {
