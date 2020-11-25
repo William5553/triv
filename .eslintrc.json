@@ -6,7 +6,7 @@
     "es2020": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:prettier/recommended"],
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
   "rules": {
     "node/file-extension-in-import": ["error", "always"],
     "node/prefer-global/buffer": ["error", "always"],
@@ -61,16 +61,6 @@
       {
         "destructuring": "all",
         "ignoreReadBeforeAssign": false
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 120,
-        "singleQuote": true,
-        "quoteProps": "as-needed",
-        "endOfLine": "lf",
-        "arrowParens": "avoid"
       }
     ]
   }
