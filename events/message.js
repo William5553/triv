@@ -10,7 +10,6 @@ module.exports = message => {
   } else if (client.aliases.has(command)) {
     cmd = client.commands.get(client.aliases.get(command));
   }
-  const perms = client.elevation(message);
   if (cmd) {
     if (!message.guild) {
       if (cmd.conf.guildOnly === false)
@@ -18,6 +17,7 @@ module.exports = message => {
       else if (cmd.conf.guildOnly === true)
         return message.reply('that command can only be used in a guild, get some friends.');
     }
+    const perms = client.elevation(message);
     if (perms < cmd.conf.permLevel) return message.reply("you don't have the perms for that");
     cmd.run(client, message, params, perms);
   }
