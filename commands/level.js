@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const xp = require('../xp.json');
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
   const user = message.mentions.users.first() || message.author;
 
   if (user.bot) return message.reply("that's a bot");

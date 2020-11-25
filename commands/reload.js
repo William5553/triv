@@ -1,5 +1,4 @@
 exports.run = (client, message, args) => {
-  const settings = require('../settings.json');
   let command;
   if (client.commands.has(args[0])) command = args[0];
   else if (client.aliases.has(args[0])) command = client.aliases.get(args[0]);

@@ -9,8 +9,8 @@ async function embedSan(embed) {
   embed.author ? delete embed.author.embed : null;
   embed.fields
     ? embed.fields.forEach(f => {
-        delete f.embed;
-      })
+      delete f.embed;
+    })
     : null;
   return embed;
 }

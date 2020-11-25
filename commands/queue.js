@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
   const serverQueue = client.queue.get(message.guild.id);
   if (!serverQueue) return message.channel.send('❌ **Nothing playing in this server**');
   try {
@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
       time: 60000,
     });
 
-    collector.on('collect', async (reaction, user) => {
+    collector.on('collect', async reaction => {
       try {
         if (reaction.emoji.name === '➡️') {
           if (currentPage < embeds.length - 1) {

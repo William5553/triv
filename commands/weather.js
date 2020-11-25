@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
   const { MessageEmbed } = require('discord.js');
   // You can find some of the code used here on the weather-js npm page in the description.
 
-  weather.find({ search: args.join(' '), degreeType: 'C' }, function (err, result) {
+  weather.find({ search: args.join(' '), degreeType: 'C' }, function(err, result) {
     // Make sure you get that args.join part, since it adds everything after weather.
     if (err) message.channel.send(err);
 

@@ -6,6 +6,7 @@ exports.run = (client, message, args) => {
     const msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands
       .map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`)
       .join('\n')}`;
+    let i;
     for (i = 0; i * 1980 <= msg.length; i++) {
       message.author
         .send(`${msg.substring(i * 1980, i * 1980 + 1980)}`, {
@@ -23,9 +24,12 @@ exports.run = (client, message, args) => {
     }
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
     const aliases = command.conf.aliases.join(', ') || 'none';
-    message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
-      code: 'asciidoc',
-    });
+    message.channel.send(
+      `= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`,
+      {
+        code: 'asciidoc',
+      }
+    );
   }
 };
 
