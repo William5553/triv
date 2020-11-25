@@ -2,8 +2,8 @@ const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 module.exports = message => {
   const { client } = message;
-    if (!message.guild || message.author.bot) return;
-
+  if (message.author.bot) return;
+  if (message.guild) {
   const xp = require('../xp.json');
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
@@ -43,7 +43,7 @@ module.exports = message => {
   fs.writeFile('../xp.json', JSON.stringify(xp), err => {
     if (err) client.logger.error(err);
   });
-  
+  }
   if (!message.content.startsWith(settings.prefix)) return;
   const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
   const params = message.content.split(' ').slice(1);
