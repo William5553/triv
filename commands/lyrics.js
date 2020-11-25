@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const Genius = require('genius-lyrics');
 const GClient = new Genius.SongsClient(settings.genius_api_key);
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('there is nothing playing.').catch(client.logger.error);
 
