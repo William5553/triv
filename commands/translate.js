@@ -161,6 +161,6 @@ exports.conf = {
 
 exports.help = {
   name: 'translate',
-  description: 'Translates text (must use abbreviation)',
+  description: 'Translates text using Google Translate',
   usage: 'translate [language from] [language to] [text]',
 };
