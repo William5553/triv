@@ -18,7 +18,8 @@ exports.run = (client, message, args) => {
     let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}`, {
+      const aliases = command.conf.aliases.join(', ') || 'none';
+      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
         code: 'asciidoc',
       });
     }
