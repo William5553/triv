@@ -16,7 +16,7 @@ module.exports = message => {
   if (!message.guild) return;
   const perms = client.elevation(message);
   if (cmd) {
-    if (perms < cmd.conf.permLevel) return;
+    if (perms < cmd.conf.permLevel) return message.reply("you don't have the perms for that");
     cmd.run(client, message, params, perms);
   }
 };
