@@ -1,6 +1,4 @@
-const fs = require('fs');
-const { MessageEmbed } = require('discord.js');
-const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+const settings = require('../settings.json');
 module.exports = message => {
   const { client } = message;
   if (message.author.bot || !message.content.startsWith(settings.prefix)) return;
