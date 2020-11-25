@@ -7,7 +7,7 @@ exports.run = (client, message, args, perms) => {
         if (perms < c.conf.permLevel)
           return null;
         else
-          return `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`
+          return `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
       })
       .filter(a => a !== null)
       .join('\n');
