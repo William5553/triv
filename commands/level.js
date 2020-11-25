@@ -8,15 +8,15 @@ exports.run = async (client, message) => {
 
   if (!xp[message.guild.id]) {
     xp[message.guild.id] = {
-      0: {
+      '-1': {
         level: 1,
         xp: 0,
         messagessent: 0,
       },
     };
   }
-  if (!xp[message.guild.id][message.author.id]) {
-    xp[message.guild.id][message.author.id] = {
+  if (!xp[message.guild.id][user.id]) {
+    xp[message.guild.id][user.id] = {
       xp: 0,
       level: 1,
       messagessent: 0,
@@ -44,11 +44,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['lvl', 'xp'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'level',
   description: 'Shows your current level',
-  usage: 'level',
+  usage: 'level'
 };
