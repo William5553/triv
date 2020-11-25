@@ -31,10 +31,10 @@
       }
     ],
     "linebreak-style": ["warn", "unix"],
-    "quotes": ["warn", "single"],
-    "semi": ["warn", "always", {
+    "quotes": ["warn", "single", {
       "avoidEscape": true
     }],
+    "semi": ["warn", "always"],
     "keyword-spacing": [
       "error",
       {
