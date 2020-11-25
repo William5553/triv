@@ -19,4 +19,4 @@ jobs:
       - name: Run ESLint
         uses: icrawl/action-eslint@v1
         with:
-          custom-glob: \*\*/*.js
+          custom-glob: '**/*'
