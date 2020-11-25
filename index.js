@@ -1,4 +1,4 @@
-const { Client, Collection, MessageEmbed } = require('discord.js');
+const { Client, Collection } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
