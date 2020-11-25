@@ -16,10 +16,7 @@ dependencies:
   ytdl-core-discord: 1.2.4
 devDependencies:
   eslint: 7.14.0
-  eslint-config-prettier: 6.15.0
   eslint-plugin-node: 11.1.0
-  eslint-plugin-prettier: 3.1.4
-  prettier: 2.2.0
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:
@@ -346,15 +343,6 @@ packages:
       node: '>=0.8.0'
     resolution:
       integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
-  /eslint-config-prettier/6.15.0:
-    dependencies:
-      get-stdin: 6.0.0
-    dev: true
-    hasBin: true
-    peerDependencies:
-      eslint: '>=3.14.1'
-    resolution:
-      integrity: sha512-a1+kOYLR8wMGustcgAjdydMsQ2A/2ipRPwRKUmfYaSxc9ZPcrku080Ctl6zrZzZNs/U82MjSv+qKREkoq3bJaw==
   /eslint-plugin-es/3.0.1:
     dependencies:
       eslint-utils: 2.1.0
@@ -381,17 +369,6 @@ packages:
       eslint: '>=5.16.0'
     resolution:
       integrity: sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==
-  /eslint-plugin-prettier/3.1.4:
-    dependencies:
-      prettier-linter-helpers: 1.0.0
-    dev: true
-    engines:
-      node: '>=6.0.0'
-    peerDependencies:
-      eslint: '>=5.0.0'
-      prettier: '>=1.13.0'
-    resolution:
-      integrity: sha512-jZDa8z76klRqo+TdGDTFJSavwbnWK2ZpqGKNZ+VvweMW516pDUMmQ2koXvxEE4JhzNvTv+radye/bWGBmA6jmg==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -542,10 +519,6 @@ packages:
   /fast-deep-equal/3.1.3:
     resolution:
       integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
-  /fast-diff/1.2.0:
-    dev: true
-    resolution:
-      integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
   /fast-json-stable-stringify/2.1.0:
     resolution:
       integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
@@ -618,12 +591,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ylAdZIg3WBodDCaHcu270MkDo4C/77ldRoJPS8QTsK+OMgRpH36xnICjvicy9WbQU2VLMQmzbEGv39p6oXYJCw==
-  /get-stdin/6.0.0:
-    dev: true
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==
   /getpass/0.1.7:
     dependencies:
       assert-plus: 1.0.0
@@ -998,21 +965,6 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
-  /prettier-linter-helpers/1.0.0:
-    dependencies:
-      fast-diff: 1.2.0
-    dev: true
-    engines:
-      node: '>=6.0.0'
-    resolution:
-      integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
-  /prettier/2.2.0:
-    dev: true
-    engines:
-      node: '>=10.13.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-yYerpkvseM4iKD/BXLYUkQV5aKt4tQPqaGW6EsZjzyu0r7sVZZNPJW4Y8MyKmicp6t42XUPcBVA+H6sB3gqndw==
   /prism-media/1.2.2:
     dev: false
     peerDependencies:
@@ -1416,16 +1368,13 @@ specifiers:
   chalk: ^4.1.0
   discord.js: ^12.5.0
   eslint: ^7.14.0
-  eslint-config-prettier: ^6.15.0
   eslint-plugin-node: ^11.1.0
-  eslint-plugin-prettier: ^3.1.4
   fs: ^0.0.2
   genius-lyrics: ^4.0.0
   moment: ^2.29.1
   moment-duration-format: ^2.3.2
   ms: ^2.1.2
   node-fetch: ^2.6.1
-  prettier: ^2.2.0
   relevant-urban: ^2.0.0
   simple-youtube-api: ^5.2.1
   string-progressbar: ^1.0.1
