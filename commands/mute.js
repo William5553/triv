@@ -68,13 +68,13 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['unmute'],
-  permLevel: 2,
+  permLevel: 2
 };
 
 exports.help = {
   name: 'mute',
   description: `Toggles the mute of a member. (Use ${settings.prefix}mute or ${settings.prefix}unmute)`,
-  usage: 'mute [user] OR unmute [user]',
+  usage: 'mute [user] OR unmute [user]'
 };
