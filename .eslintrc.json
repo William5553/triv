@@ -62,7 +62,7 @@
       }
     ],
     "prettier/prettier": [
-      "warn",
+      "error",
       {
         "printWidth": 120,
         "singleQuote": true,
