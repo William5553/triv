@@ -2,7 +2,7 @@ const { canModifyQueue } = require('../util/queue');
 
 exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply('There is nothing playing that I could skip for you.').catch(client.logger.error);
+  if (!queue) return message.reply("there's nothing playing that I could skip for you").catch(client.logger.error);
   if (!canModifyQueue(message.member)) return;
 
   queue.playing = true;
@@ -12,7 +12,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
   permLevel: 0,
 };
