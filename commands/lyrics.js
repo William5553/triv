@@ -29,6 +29,7 @@ exports.run = async (client, message) => {
     .setDescription(lyrics)
     .setColor('#F8AA2A');
 
+  let i;
   for (i = 0; i * 1950 <= lyrics.length; i++) {
     lyricsEmbed.description = `${lyrics.substr(i * 1950, i * 1950 + 1950)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);

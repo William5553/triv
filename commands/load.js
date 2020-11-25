@@ -1,5 +1,4 @@
 exports.run = (client, message, args) => {
-  const settings = require('../settings.json');
   const command = args[0];
   if (!command) return message.channel.send(`I cannot find the command: ${args[0]}`);
   else

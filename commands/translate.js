@@ -142,7 +142,7 @@ function getCode(language) {
   if (langs[language]) {
     return langs[language];
   }
-  var keys = Object.keys(langs).filter(function (item) {
+  var keys = Object.keys(langs).filter(function(item) {
     var lowerLan = language.toLowerCase();
     return langs[item] === lowerLan;
   });

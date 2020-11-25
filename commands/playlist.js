@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
 
   const search = args.join(' ');
-  const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
+  const pattern = /^.*(youtu.be\/|list=)([^#&?]*).*/gi;
   const url = args[0];
   const urlValid = pattern.test(args[0]);
 

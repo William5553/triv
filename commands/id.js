@@ -1,7 +1,7 @@
 exports.run = (client, message) => {
   const user = message.mentions.users.first() || message.author;
   //if (message.mentions.users.size < 1) return message.reply('try again but mention a user next time');
-  message.channel.send(user + `\'s ID is ${user.id}`);
+  message.channel.send(user + `'s ID is ${user.id}`);
 };
 
 exports.conf = {
