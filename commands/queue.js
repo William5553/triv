@@ -66,13 +66,13 @@ function generateQueueEmbed(message, queue) {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'queue',
   description: 'Show the music queue and now playing',
-  usage: 'queue',
+  usage: 'queue'
 };
