@@ -8,7 +8,7 @@ exports.run = (client, message) => {
         .setURL(link)
         .setDescription(`[Invite me](link)`);
       message.channel.send(embed);
-    }
+    })
     .catch(client.logger.error);
 };
 
