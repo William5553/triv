@@ -13,6 +13,6 @@ exports.conf = {
 
 exports.help = {
   name: 'roll',
-  description: 'Rolls a die (6 sides by default).',
+  description: 'Rolls a die',
   usage: 'roll [dice sides]',
 };
