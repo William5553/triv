@@ -10,6 +10,7 @@ exports.run = (client, message, args, perms) => {
         else
           return `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`
       })
+      .filter(a => a !== null)
       .join('\n')
     const msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${fonk}`;
     let i;
