@@ -152,16 +152,6 @@ function getCode(language) {
   return false;
 }
 
-function getAllLanguage() {
-  return Object.keys(langs);
-}
-
-function getAllCode() {
-  return Object.keys(langs).map(function(item) {
-    return langs[item];
-  });
-}
-
 exports.conf = {
   enabled: true,
   guildOnly: false,

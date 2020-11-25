@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = (client, message, args) => {
   const feedbackid = '340924459026219009';
   const feedback = args.slice(0).join(' ');
-  if (feedback.length < 1) return message.reply("we don\'t accept blank feedback!").catch(client.logger.error);
+  if (feedback.length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
   const respo = new MessageEmbed.setColor(0x00ae86)
     .setDescription('Found a bug? Report it at https://github.com/William5553/discord-bot/issues')
     .setTitle('Feedback sent.. :envelope:');
