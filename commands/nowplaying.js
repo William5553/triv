@@ -20,7 +20,7 @@ exports.run = (client, message) => {
         createBar(song.duration == 0 ? seek : song.duration, seek, 20)[0] +
         ']' +
         (song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)),
-      false,
+      false
     );
 
   if (song.duration > 0) nowPlaying.setFooter('Time Remaining: ' + new Date(left * 1000).toISOString().substr(11, 8));

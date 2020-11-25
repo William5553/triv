@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     const embeds = generateQueueEmbed(message, serverQueue.songs);
     const queueEmbed = await message.channel.send(
       `**Current Page - ${currentPage + 1}/${embeds.length}**`,
-      embeds[currentPage],
+      embeds[currentPage]
     );
     await queueEmbed.react('⬅️');
     await queueEmbed.react('⏹');

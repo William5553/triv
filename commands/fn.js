@@ -12,7 +12,7 @@ exports.run = async (c, m, a) => {
         embed: new MessageEmbed()
           .setAuthor(
             '400: Invalid platform',
-            'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png',
+            'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
           )
           .setColor('#ff3860')
           .setDescription('Valid platforms are **pc**, **xbl** and **psn**'),
@@ -34,7 +34,7 @@ exports.run = async (c, m, a) => {
           embed: new MessageEmbed()
             .setAuthor(
               '404: Account not found.',
-              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png',
+              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
             .setColor('#ff3860')
             .setFooter("Make sure you've got the name correct!"),
@@ -44,7 +44,7 @@ exports.run = async (c, m, a) => {
           embed: new MessageEmbed()
             .setAuthor(
               '500: Something broke',
-              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png',
+              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
             .setColor('#ff3860')
             .setFooter(text),
@@ -70,11 +70,11 @@ exports.run = async (c, m, a) => {
       embed: new MessageEmbed()
         .setAuthor(
           '400: Too few arguments.',
-          'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png',
+          'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
         )
         .setColor('#ff3860')
         .setDescription(
-          `This command requires 2 arguments, **platform** and **epic username**. Try this **${settings.prefix}fn psn William5553YT**`,
+          `This command requires 2 arguments, **platform** and **epic username**. Try this **${settings.prefix}fn psn William5553YT**`
         ),
     });
   }

@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     .setTitle(`${prize}`)
     .setColor(0x00ae86)
     .setDescription(
-      `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`,
+      `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
     .setFooter('Ends at')
     .setTimestamp(Date.now() + ms(time, { long: true }));

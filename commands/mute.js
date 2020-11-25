@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
-      `**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`,
+      `**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
     )
     .setFooter(`ID ${caseNum}`);
 

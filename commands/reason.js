@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
           m.embeds[0].type === 'rich' &&
           m.embeds[0].footer &&
           m.embeds[0].footer.text.startsWith('ID') &&
-          m.embeds[0].footer.text === `ID ${caseNumber}`,
+          m.embeds[0].footer.text === `ID ${caseNumber}`
       )
       .first();
     botlog.messages.fetch(caseLog.id).then(logMsg => {
@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
       embedSan(embed);
       embed.description = embed.description.replace(
         `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`,
-        newReason,
+        newReason
       );
       logMsg.edit({ embed });
     });
