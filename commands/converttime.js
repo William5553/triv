@@ -59,23 +59,23 @@ async function getUnit(convertTo) {
 	const yArray = ['y', 'yr', 'year', 'years']
 	const deArray = ['de', 'dec', 'decade', 'decades']
 	
-	if (msArray.includes(convertTo)
+	if (msArray.includes(convertTo))
 		return 'milliseconds';
-	if (sArray.includes(convertTo)
+	if (sArray.includes(convertTo))
 		return 'seconds';
-	if (mArray.includes(convertTo)
+	if (mArray.includes(convertTo))
 		return 'minutes';
-	if (hArray.includes(convertTo)
+	if (hArray.includes(convertTo))
 		return 'hours';
-	if (dArray.includes(convertTo)
+	if (dArray.includes(convertTo))
 		return 'days';
-	if (wArray.includes(convertTo)
+	if (wArray.includes(convertTo))
 		return 'weeks';
-	if (mnArray.includes(convertTo)
+	if (mnArray.includes(convertTo))
 		return 'months';
-	if (yArray.includes(convertTo)
+	if (yArray.includes(convertTo))
 		return 'years';
-	if (deArray.includes(convertTo)
+	if (deArray.includes(convertTo))
 		return 'decades';
 	return null;
 }
