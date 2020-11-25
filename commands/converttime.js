@@ -49,7 +49,6 @@ exports.run = (client, message, args) => {
 
 async function getUnit(convertTo) {
 	if (!convertTo) return;
-	let unit;
 	const msArray = ['ms', 'milli', 'millisecond', 'milliseconds']
 	const sArray = ['s', 'second', 'seconds']
 	const mArray = ['m', 'minute', 'minutes']
@@ -61,24 +60,24 @@ async function getUnit(convertTo) {
 	const deArray = ['de', 'dec', 'decade', 'decades']
 	
 	if (msArray.includes(convertTo)
-		unit = 'milliseconds';
+		return 'milliseconds';
 	if (sArray.includes(convertTo)
-		unit = 'seconds';
+		return 'seconds';
 	if (mArray.includes(convertTo)
-		unit = 'minutes';
+		return 'minutes';
 	if (hArray.includes(convertTo)
-		unit = 'hours';
+		return 'hours';
 	if (dArray.includes(convertTo)
-		unit = 'days';
+		return 'days';
 	if (wArray.includes(convertTo)
-		unit = 'weeks';
+		return 'weeks';
 	if (mnArray.includes(convertTo)
-		unit = 'months';
+		return 'months';
 	if (yArray.includes(convertTo)
-		unit = 'years';
+		return 'years';
 	if (deArray.includes(convertTo)
-		unit = 'decades';
-	return unit;
+		return 'decades';
+	return null;
 }
 
 exports.conf = {
