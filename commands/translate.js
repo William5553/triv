@@ -4,7 +4,7 @@ const translate = require('translate-google-api');
 exports.run = async (client, message, args) => {
   if (args.length < 3)
     return message.reply(
-      `Wrong format: An example would be \`${settings.prefix}translate en fr english-text-here\` which would translate \`english-text-here\` into french`,
+      `Wrong format: An example would be \`${settings.prefix}translate en fr english-text-here\` which would translate \`english-text-here\` into french`
     );
   const text = args.slice(2).join(' ');
 
@@ -142,7 +142,7 @@ function getCode(language) {
   if (langs[language]) {
     return langs[language];
   }
-  var keys = Object.keys(langs).filter(function(item) {
+  var keys = Object.keys(langs).filter(function (item) {
     var lowerLan = language.toLowerCase();
     return langs[item] === lowerLan;
   });

@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   message.channel.send(
-    `My invite link is: https://discordapp.com/oauth2/authorize?permissions=2146958591&client_id=${client.user.id}&scope=bot`,
+    `My invite link is: https://discordapp.com/oauth2/authorize?permissions=2146958591&client_id=${client.user.id}&scope=bot`
   );
 };
 

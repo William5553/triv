@@ -19,9 +19,12 @@ exports.run = (client, message, args) => {
     if (client.commands.has(command) || client.aliases.has(command)) {
       command = client.commands.get(command) || client.aliases.get(command);
       const aliases = command.conf.aliases.join(', ') || 'none';
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
-        code: 'asciidoc',
-      });
+      message.channel.send(
+        `= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`,
+        {
+          code: 'asciidoc',
+        }
+      );
     }
   }
 };

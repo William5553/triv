@@ -4,8 +4,8 @@ exports.run = async (client, message, args) => {
     isFinite(
       calculate.replace(
         /=|\+|-|\*|\/|÷|%|\(|\)|,| |\^|math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,
-        '',
-      ),
+        ''
+      )
     )
   ) {
     calculate = calculate
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
       .replace(/logarithm|log/g, 'Math.log')
       .replace(
         /random|rand|rng/g,
-        'Math.random()',
+        'Math.random()'
       ); /*.replace(/acos|arccosine/g, "Math.acos").replace(/asin|arcsine/g, "Math.asin").replace(/atan|arctangent|atan1|arctangent1/g, "Math.atan").replace(/atan2|arctangent2/g, "Math.atan2").replace(/cos|cosine/g, "Math.cos").replace(/sin|sine/g, "Math.sin").replace(/tan|tangent/g, "Math.tan")*/
     if (calculate.replace(/[^%]/g, '').length > 0) {
       for (let i = 0; i < calculate.replace(/[^%]/g, '').length; i++) {

@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
-      `**Action:** Unban\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`,
+      `**Action:** Unban\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`
     );
   message.channel.send('unbanned');
   return message.guild.channels.cache.find(channel => channel.name === 'bot-logs').send({ embed });

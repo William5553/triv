@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
-      `**Action:** Kick\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`,
+      `**Action:** Kick\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`
     )
     .setFooter(`ID ${caseNum}`);
   return botlog.send({ embed }).catch(client.logger.error);

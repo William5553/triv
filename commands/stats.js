@@ -13,7 +13,7 @@ exports.run = (client, message) => {
 • Channels   :: ${client.channels.cache.size.toLocaleString()}
 • Discord.js :: v${Discord.version}
 • Node       :: ${process.version}`,
-    { code: 'asciidoc' },
+    { code: 'asciidoc' }
   );
 };
 

@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
-      `**Sent in by:** ${message.author.tag}\n\n**ID: ** ${message.author.id}\n\n**Feedback:** ` + feedback,
+      `**Sent in by:** ${message.author.tag}\n\n**ID: ** ${message.author.id}\n\n**Feedback:** ` + feedback
     );
   return client.channels.cache.get(feedbackid).send({ embed }).catch(client.logger.error);
 };
