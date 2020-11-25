@@ -18,6 +18,8 @@ module.exports = message => {
       }
       else if (cmd.conf.guildOnly === true)
         return message.reply('that command can only be used in a guild, get some friends.');
+      else
+        return client.logger.warn(`${cmd.help.name}'s guildOnly should be a boolean but it is ${cmd.conf.guildOnly}`);
     }
     const perms = client.elevation(message);
     if (perms < cmd.conf.permLevel) return message.reply("you don't have the perms for that");
