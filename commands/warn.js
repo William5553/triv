@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) return message.reply('I cannot find a bot-logs channel');
   if (reason.length < 1) return message.reply('supply a reason for the warning');
-  if (!userr) return message.reply('tell me who to warn idiot').catch(client.logger.error);
+  if (!userr) return message.reply('tell me who to warn, idiot').catch(client.logger.error);
   const embed = new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
@@ -19,13 +19,13 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
-  permLevel: 2,
+  permLevel: 2
 };
 
 exports.help = {
   name: 'warn',
   description: 'Issues a warning to the mentioned user.',
-  usage: 'warn [mention] [reason]',
+  usage: 'warn [mention] [reason]'
 };
