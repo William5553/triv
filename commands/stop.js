@@ -14,13 +14,13 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['leave'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'stop',
   description: 'Stops the music',
-  usage: 'stop',
+  usage: 'stop'
 };
