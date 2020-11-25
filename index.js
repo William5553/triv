@@ -24,7 +24,7 @@ client.on('error', client.logger.error);
 client.on('message', async message => {
   if (!message.guild || message.author.bot) return;
   
-  const xp = require('../xp.json');
+  const xp = require('./xp.json');
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
   if (!xp[message.guild.id]) {
@@ -61,7 +61,7 @@ client.on('message', async message => {
 
     message.channel.send(lvlup);
   }
-  fs.writeFile('../xp.json', JSON.stringify(xp), err => {
+  fs.writeFile('./xp.json', JSON.stringify(xp), err => {
     if (err) client.logger.error(err);
   });
 });
