@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
       message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
         code: 'asciidoc',
       });
-    } else return client.logger.error(`${command} not a valid command`);
+    } else return client.logger.error(`${args[0]} is not a valid command`);
   }
 };
 
