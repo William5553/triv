@@ -18,7 +18,7 @@ exports.run = (client, message, args, perms) => {
         })
         .catch(client.logger.error);
     }
-    message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
+    if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
   } else {
     let command = null;
     if (client.commands.has(args[0])) {
