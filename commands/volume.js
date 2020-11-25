@@ -20,13 +20,13 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['vol'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'volume',
   description: 'Change volume of currently playing music',
-  usage: 'volume',
+  usage: 'volume'
 };
