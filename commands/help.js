@@ -1,11 +1,15 @@
 const settings = require('../settings.json');
-exports.run = (client, message, args) => {
+exports.run = (client, message, args, perms) => {
   if (!args[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    const msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands
-      .map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`)
-      .join('\n')}`;
+    const fonk = client.commands
+      .map(c => {
+        if (perms < c.conf.permLevel) return;
+        `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`
+      })
+      .join('\n')
+    const msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${fonk}`;
     let i;
     for (i = 0; i * 1980 <= msg.length; i++) {
       message.author
@@ -37,7 +41,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
