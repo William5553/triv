@@ -26,13 +26,13 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['prune'],
-  permLevel: 2,
+  permLevel: 2
 };
 
 exports.help = {
   name: 'purge',
   description: 'Deletes the specified amount of messages.',
-  usage: 'purge [amount]',
+  usage: 'purge [amount]'
 };
