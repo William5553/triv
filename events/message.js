@@ -12,8 +12,10 @@ module.exports = message => {
   }
   if (cmd) {
     if (!message.guild) {
-      if (cmd.conf.guildOnly === false && 3 >= cmd.conf.permLevel)
+      if (cmd.conf.guildOnly === false) {
+        if (cmd.conf.permLevel === 4 && message.author.id !== settings.ownerid) return message.reply("you don't have the perms for that");
         return cmd.run(client, message, params, 3);
+      }
       else if (cmd.conf.guildOnly === true)
         return message.reply('that command can only be used in a guild, get some friends.');
     }
