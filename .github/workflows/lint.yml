@@ -13,8 +13,11 @@ jobs:
         with:
           node-version: 12
 
-      - name: Install dependencies
-        run: npm i
+      - name: Install pnpm and install dependencies
+        uses: pnpm/action-setup@v1.2.1
+        with:
+         version: 5.13.4
+         run_install: true
 
       - name: Run ESLint
         uses: icrawl/action-eslint@v1
