@@ -16,14 +16,16 @@ exports.run = (client, message, args) => {
     message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
   } else {
     let command = null;
-    if (client.commands.has(args[0])) command = client.commands.get(command);
-    if (client.aliases.has(args[0])) command = client.aliases.get(command);
-    if (command) {
-      const aliases = command.conf.aliases.join(', ') || 'none';
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
-        code: 'asciidoc',
-      });
-    } else return client.logger.error(`${args[0]} is not a valid command`);
+    if (client.commands.has(args[0])) {
+      command = client.commands.get(args[0]);
+    } else if (client.aliases.has(args[0])) {
+      command = client.aliases.get(args[0]);
+    }
+    if (!command) return message.channel.send(`${args[0]} is not a valid command`);
+    const aliases = command.conf.aliases.join(', ') || 'none';
+    message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage :: ${command.help.usage}\naliases :: ${aliases}`, {
+      code: 'asciidoc',
+    });
   }
 };
 
