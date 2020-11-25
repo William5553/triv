@@ -5,6 +5,7 @@ exports.run = (client, message) => {
     .then(link => {
       const embed = new MessageEmbed()
         .setColor(0x00ae86)
+        .setTitle(client.user.name)
         .setURL(link)
         .setDescription(`[Invite me](${link})`);
       message.channel.send(embed);
