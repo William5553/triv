@@ -21,7 +21,9 @@ fs.readdir('./commands/', (err, files) => {
 
 client.on('warn', client.logger.warn);
 client.on('error', client.logger.error);
-client.on('message', message => async {
+client.on('message', async message => {
+  if (!message.guild || message.author.bot) return;
+  
 const xp = require('../xp.json');
     const xpAdd = Math.floor(Math.random() * 7) + 8;
 
@@ -34,6 +36,7 @@ const xp = require('../xp.json');
         },
       };
     }
+  
     if (!xp[message.guild.id][message.author.id]) {
       xp[message.guild.id][message.author.id] = {
         level: 1,
