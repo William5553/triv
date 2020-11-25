@@ -1,12 +1,12 @@
 {
   "name": "Triv",
-  "version": "3.1.8",
+  "version": "3.2.0",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint",
     "start": "node index.js",
-    "lint": "eslint '**/*'",
-    "lint:fix": "eslint '**/*' --fix",
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "eslint --fix '**/*.js'",
     "prettier": "prettier --write '**/*.js'"
   },
   "engines": {

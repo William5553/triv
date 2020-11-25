@@ -1,55 +1,37 @@
-const { MessageEmbed } = require("discord.js");
-const settings = require("../settings.json");
-const YouTubeAPI = require("simple-youtube-api");
+const { MessageEmbed } = require('discord.js');
+const settings = require('../settings.json');
+const YouTubeAPI = require('simple-youtube-api');
 
 const youtube = new YouTubeAPI(settings.yt_api_key);
 
 exports.run = async (client, message, args) => {
-  if (!args.length)
-    return message
-      .reply(`Usage: ${settings.prefix}search <Video Name>`)
-      .catch(client.logger.error);
-  if (message.channel.activeCollector)
-    return message.reply(
-      "A message collector is already active in this channel."
-    );
+  if (!args.length) return message.reply(`Usage: ${settings.prefix}search <Video Name>`).catch(client.logger.error);
+  if (message.channel.activeCollector) return message.reply('A message collector is already active in this channel.');
   if (!message.member.voice.channel)
-    return message
-      .reply("You need to join a voice channel first!")
-      .catch(client.logger.error);
+    return message.reply('You need to join a voice channel first!').catch(client.logger.error);
 
-  const search = args.join(" ");
+  const search = args.join(' ');
   const resultsEmbed = new MessageEmbed()
-    .setTitle(`**Reply with the song number you want to play**`)
+    .setTitle('**Reply with the song number you want to play**')
     .setDescription(`Results for: ${search}`)
-    .setColor("#F8AA2A");
+    .setColor('#F8AA2A');
 
   try {
     const results = await youtube.searchVideos(search, 10);
-    results.map((video, index) =>
-      resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`)
-    );
+    results.map((video, index) => resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`));
 
     var resultsMessage = await message.channel.send(resultsEmbed);
-
-    function filter(msg) {
-      const pattern = /(^[1-9][0-9]{0,1}$)/g;
-      return (
-        pattern.test(msg.content) &&
-        parseInt(msg.content.match(pattern)[0]) <= 10
-      );
-    }
 
     message.channel.activeCollector = true;
     const response = await message.channel.awaitMessages(filter, {
       max: 1,
       time: 30000,
-      errors: ["time"]
+      errors: ['time'],
     });
     const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
 
     message.channel.activeCollector = false;
-    client.commands.get("play").run(client, message, [choice]);
+    client.commands.get('play').run(client, message, [choice]);
     if (resultsMessage) resultsMessage.delete().catch(client.logger.error);
   } catch (error) {
     client.logger.error(error);
@@ -57,15 +39,20 @@ exports.run = async (client, message, args) => {
   }
 };
 
+function filter(msg) {
+  const pattern = /(^[1-9][0-9]{0,1}$)/g;
+  return pattern.test(msg.content) && parseInt(msg.content.match(pattern)[0]) <= 10;
+}
+
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
 };
 
 exports.help = {
-  name: "search",
-  description: "Search and select videos to listen to",
-  usage: "search [video name]"
+  name: 'search',
+  description: 'Search and select videos to listen to',
+  usage: 'search [video name]',
 };

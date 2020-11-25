@@ -1,11 +1,8 @@
-const { canModifyQueue } = require("../util/queue");
+const { canModifyQueue } = require('../util/queue');
 
-exports.run = (client, message, args) => {
+exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue)
-    return message.channel
-      .send("There is no queue.")
-      .catch(client.logger.error);
+  if (!queue) return message.channel.send('There is no queue.').catch(client.logger.error);
   if (!canModifyQueue(message.member)) return;
 
   const songs = queue.songs;
@@ -15,20 +12,18 @@ exports.run = (client, message, args) => {
   }
   queue.songs = songs;
   client.queue.set(message.guild.id, queue);
-  queue.textChannel
-    .send(`${message.author} 🔀 shuffled the queue`)
-    .catch(client.logger.error);
+  queue.textChannel.send(`${message.author} 🔀 shuffled the queue`).catch(client.logger.error);
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
 };
 
 exports.help = {
-  name: "shuffle",
-  description: "Shuffles the queue",
-  usage: "shuffle"
+  name: 'shuffle',
+  description: 'Shuffles the queue',
+  usage: 'shuffle',
 };

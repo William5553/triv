@@ -1,4 +1,4 @@
-const settings = require("../settings.json");
+const settings = require('../settings.json');
 
 async function embedSan(embed) {
   embed.message ? delete embed.message : null;
@@ -16,11 +16,9 @@ async function embedSan(embed) {
 }
 
 exports.run = async (client, message, args) => {
-  const botlog = message.guild.channels.cache.find(
-    channel => channel.name === "bot-logs"
-  );
+  const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNumber = args.shift();
-  const newReason = args.join(" ");
+  const newReason = args.join(' ');
 
   await botlog.messages.fetch({ limit: 100 }).then(messages => {
     const caseLog = messages
@@ -28,10 +26,10 @@ exports.run = async (client, message, args) => {
         m =>
           m.author.id === client.user.id &&
           m.embeds[0] &&
-          m.embeds[0].type === "rich" &&
+          m.embeds[0].type === 'rich' &&
           m.embeds[0].footer &&
-          m.embeds[0].footer.text.startsWith("ID") &&
-          m.embeds[0].footer.text === `ID ${caseNumber}`
+          m.embeds[0].footer.text.startsWith('ID') &&
+          m.embeds[0].footer.text === `ID ${caseNumber}`,
       )
       .first();
     botlog.messages.fetch(caseLog.id).then(logMsg => {
@@ -39,7 +37,7 @@ exports.run = async (client, message, args) => {
       embedSan(embed);
       embed.description = embed.description.replace(
         `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`,
-        newReason
+        newReason,
       );
       logMsg.edit({ embed });
     });
@@ -48,11 +46,11 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   aliases: [],
-  permLevel: 2
+  permLevel: 2,
 };
 
 exports.help = {
-  name: "reason",
+  name: 'reason',
   description: "Updates a moderation action's reason.",
-  usage: "reason <case number> <new reason>"
+  usage: 'reason <case number> <new reason>',
 };
