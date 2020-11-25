@@ -1,9 +1,9 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 6
   },
   "env": {
-    "es2020": true,
+    "es6": true,
     "node": true
   },
 
