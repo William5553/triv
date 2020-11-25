@@ -18,13 +18,13 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['unpause', 'resume'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'pause',
   description: 'Pauses the music',
-  usage: 'pause',
+  usage: 'pause'
 };
