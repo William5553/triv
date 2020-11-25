@@ -56,4 +56,5 @@ exports.help = {
   name: 'lockdown',
   description: 'This will lock a channel down for the specified duration, disallowing members to speak.',
   usage: 'lockdown [duration]',
+  example: 'lockdown 10 minutes'
 };
