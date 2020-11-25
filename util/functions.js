@@ -2,6 +2,7 @@ const settings = require('../settings.json');
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
+    if (props.conf.enabled !== true) return;
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
