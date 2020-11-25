@@ -5,8 +5,10 @@ exports.run = (client, message, args, perms) => {
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
     const fonk = client.commands
       .map(c => {
-        if (perms < c.conf.permLevel) return;
-        `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`
+        if (perms < c.conf.permLevel)
+          return null;
+        else
+          return `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`
       })
       .join('\n')
     const msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${fonk}`;
@@ -47,5 +49,5 @@ exports.conf = {
 exports.help = {
   name: 'help',
   description: 'Displays all the available commands for your permission level.',
-  usage: 'help [command]',
+  usage: 'help [command]'
 };
