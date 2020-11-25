@@ -11,7 +11,7 @@ client.queue = new Map();
 
 client.commands = new Collection();
 client.aliases = new Collection();
-fs.promises.readdir('./commands/', (err, files) => {
+fs.readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
@@ -61,7 +61,7 @@ client.on('message', async message => {
 
     message.channel.send(lvlup);
   }
-  fs.promises.writeFile('./xp.json', JSON.stringify(xp), err => {
+  fs.writeFile('./xp.json', JSON.stringify(xp), err => {
     if (err) client.logger.error(err);
   });
 });
