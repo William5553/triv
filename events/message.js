@@ -11,7 +11,7 @@ module.exports = message => {
     cmd = client.commands.get(client.aliases.get(command));
   }
   if (message.channel.type === 'dm' && cmd.conf.name === 'help') {
-    cmd.run(client, message, params);
+    cmd.run(client, message, params, 3);
   }
   if (!message.guild) return;
   const perms = client.elevation(message);
