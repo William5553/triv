@@ -17,11 +17,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['inv'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'invite',
   description: 'Gives you an invite link for me.',
-  usage: 'invite',
+  usage: 'invite'
 };
