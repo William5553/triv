@@ -1,7 +1,15 @@
+const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
-  message.channel.send(
-    `My invite link is: https://discordapp.com/oauth2/authorize?permissions=2146958591&client_id=${client.user.id}&scope=bot`
-  );
+  client
+    .generateInvite(2146958591)
+    .then(link => {
+      const embed = new MessageEmbed()
+        .setColor(0x00ae86)
+        .setURL(link)
+        .setDescription(`[Invite me](link)`);
+      message.channel.send(embed);
+    }
+    .catch(client.logger.error);
 };
 
 exports.conf = {
