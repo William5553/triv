@@ -10,12 +10,14 @@ module.exports = message => {
   } else if (client.aliases.has(command)) {
     cmd = client.commands.get(client.aliases.get(command));
   }
-  if (message.channel.type === 'dm' && cmd.conf.guildOnly === false) {
-    cmd.run(client, message, params, 3);
-  }
-  if (!message.guild) return;
   const perms = client.elevation(message);
   if (cmd) {
+    if (!message.guild) {
+      if (cmd.conf.guildOnly === false)
+        return cmd.run(client, message, params, 3);
+      else if (cmd.conf.guildOnly === true)
+        return message.reply('that command can only be used in a guild, get some friends.');
+    }
     if (perms < cmd.conf.permLevel) return message.reply("you don't have the perms for that");
     cmd.run(client, message, params, perms);
   }
