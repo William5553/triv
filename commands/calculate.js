@@ -1,4 +1,3 @@
-const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   let calculate = '=' + args.join(' ').toLowerCase();
   if (
