@@ -38,13 +38,13 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
-  permLevel: 2,
+  permLevel: 2
 };
 
 exports.help = {
   name: 'ban',
   description: 'Bans the mentioned user.',
-  usage: 'ban [mention] [reason]',
+  usage: 'ban [mention] [reason]'
 };
