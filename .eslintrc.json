@@ -68,7 +68,6 @@
         "printWidth": 120,
         "singleQuote": true,
         "quoteProps": "as-needed",
-        "trailingComma": "all",
         "endOfLine": "lf",
         "arrowParens": "avoid"
       }
