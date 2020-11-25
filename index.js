@@ -21,7 +21,7 @@ fs.readdir('./commands/', (err, files) => {
 
 client.on('warn', client.logger.warn);
 client.on('error', client.logger.error);
-client.on('message', message => {
+client.on('message', message => async {
 const xp = require('../xp.json');
     const xpAdd = Math.floor(Math.random() * 7) + 8;
 
