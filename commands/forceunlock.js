@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['fu'],
   permLevel: 3,
 };
