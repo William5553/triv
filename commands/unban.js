@@ -10,10 +10,10 @@ exports.run = (client, message, args) => {
 
   if (!user)
     return message
-      .reply("You must supply a user ID.")
+      .reply("you must supply a user ID.")
       .catch(client.logger.error);
   if (reason.length < 1)
-    return message.reply("You must supply a reason for the unban.");
+    return message.reply("you must supply a reason for the unban");
   message.guild.members
     .unban(user, { reason: reason })
     .catch(message.channel.send);
@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
     );
   return message.guild.channels.cache
     .find(channel => channel.name === "bot-logs")
-    .id.send({ embed });
+    .send({ embed });
   message.channel.send("unbanned");
 };
 
