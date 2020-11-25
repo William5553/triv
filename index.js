@@ -66,19 +66,4 @@ client.on('message', async message => {
   });
 });
 
-client.elevation = message => {
-  /* This function should resolve to an ELEVATION level which
-     is then sent to the command handler for verification*/
-  let permlvl = 0;
-  if (message.member.hasPermission('MANAGE_MESSAGES')) permlvl = 2;
-  if (
-    message.member.hasPermission('ADMINISTRATOR') ||
-    message.member.hasPermission('MANAGE_GUILD') ||
-    message.author.id == message.guild.ownerID
-  )
-    permlvl = 3;
-  if (message.author.id === settings.ownerid || message.author.id == 186620503123951617) permlvl = 4;
-  return permlvl;
-};
-
 client.login(settings.token);
