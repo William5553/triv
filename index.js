@@ -24,7 +24,7 @@ client.on('error', client.logger.error);
 client.on('message', async message => {
   if (!message.guild || message.author.bot) return;
   
-  const xp = require('./xp.json');
+  const xp = JSON.parse(fs.readFileSync('./xp.json', 'utf-8'));
   const xpAdd = Math.floor(Math.random() * 7) + 8;
 
   if (!xp[message.guild.id]) {
