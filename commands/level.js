@@ -9,33 +9,29 @@ exports.run = async (client, message) => {
   if (!xp[message.guild.id]) {
     xp[message.guild.id] = {
       '-1': {
-        level: 1,
+        lvl: 1,
         xp: 0,
-        messagessent: 0,
+        ms: 0
       },
     };
   }
   if (!xp[message.guild.id][user.id]) {
     xp[message.guild.id][user.id] = {
+      lvl: 1,
       xp: 0,
-      level: 1,
-      messagessent: 0,
+      ms: 0
     };
   }
 
-  const curxp = xp[message.guild.id][user.id].xp;
-  const curlvl = xp[message.guild.id][user.id].level;
-  const msgsent = xp[message.guild.id][user.id].messagessent;
-  const nxtLvlXp = curlvl * 200;
-  const difference = nxtLvlXp - curxp;
+  const uxp = xp[message.guild.id][user.id];
 
   const lvlEmbed = new MessageEmbed()
     .setAuthor(`${user.username} - ${message.guild.name}`, user.displayAvatarURL())
     .setColor(0x902b93)
-    .addField('Level', curlvl, true)
-    .addField('XP', curxp, true)
-    .addField('Messages Sent', msgsent, true)
-    .setFooter(`${difference} XP til level up`);
+    .addField('Level', uxp.lvl, true)
+    .addField('XP', uxp.xp, true)
+    .addField('Messages Sent', uxp.ms, true)
+    .setFooter(`${uxp.lvl*200 - uxp.xp} XP 'til level up`);
 
   message.channel.send(lvlEmbed);
 };

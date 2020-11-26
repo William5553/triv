@@ -1,13 +1,10 @@
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
-fs.access('./settings.json' fs.constants.R_OK, function(err) {
-  if (err) return client.logger.error(err);
-});
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
-require('./util/eventLoader')(client);
 client.logger = require('./util/logger');
+require('./util/eventLoader')(client);
 require('./util/functions')(client);
 
 client.queue = new Map();
@@ -28,39 +25,36 @@ client.on('message', async message => {
   if (!message.guild || message.author.bot) return;
   
   const xp = JSON.parse(fs.readFileSync('./xp.json', 'utf-8'));
-  const xpAdd = Math.floor(Math.random() * 7) + 8;
 
   if (!xp[message.guild.id]) {
     xp[message.guild.id] = {
       '-1': {
-        level: -1,
+        lvl: -1,
         xp: -1,
-        messagessent: -1,
+        ms: -1
       },
     };
   }
   
   if (!xp[message.guild.id][message.author.id]) {
     xp[message.guild.id][message.author.id] = {
-      level: 1,
+      lvl: 1,
       xp: 0,
-      messagessent: 0,
+      ms: 0
     };
   }
 
-  const messagessent = xp[message.guild.id][message.author.id].messagessent;
-  const curxp = xp[message.guild.id][message.author.id].xp;
-  const curlvl = xp[message.guild.id][message.author.id].level;
-  const nxtLvl = xp[message.guild.id][message.author.id].level * 200;
-  xp[message.guild.id][message.author.id].xp = curxp + xpAdd;
-  xp[message.guild.id][message.author.id].messagessent = messagessent + Number(1);
-  if (nxtLvl <= xp[message.guild.id][message.author.id].xp) {
-    xp[message.guild.id][message.author.id].level = curlvl + 1;
+  const uxp = xp[message.guild.id][message.author.id];
+  
+  uxp.xp = uxp.xp + Math.floor(Math.random() * 7) + 8;
+  uxp.ms = uxp.ms + Number(1);
+  if (uxp.lvl*200 <= uxp.xp) {
+    uxp.lvl = uxp.lvl + 1;
     const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
       .setColor(0x902b93)
-      .addField('New Level', curlvl + 1);
+      .addField('New Level', uxp.lvl + 1);
 
     message.channel.send(lvlup);
   }
@@ -69,7 +63,7 @@ client.on('message', async message => {
   });
 });
 
-if (settings.token)
+if (settings && settings.token)
   try {
     client.login(settings.token);
   } catch (e) {
