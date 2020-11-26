@@ -1,14 +1,14 @@
 const settings = require('../settings.json');
 module.exports = message => {
   const { client } = message;
-  if (message.author.bot || !(message.content.startsWith(`<@!${client.user.id}> `) || message.content.startsWith(settings.prefix))) return;
+  if (message.author.bot || !(message.content.startsWith(`<@!${client.user.id}> `) || message.content.startsWith(`<@${client.user.id}> `) || message.content.startsWith(settings.prefix))) return;
   let command, args;
-  if (message.content.startsWith(settings.prefix))
+  if (message.content.startsWith(settings.prefix)) {
     command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
-    args = message.content.split(' ').slice(1);
-  if (message.content.startsWith(`<@!${client.user.id}> `))
+    args = message.content.split(' ').slice(1);}
+  if (message.content.startsWith(`<@!${client.user.id}> `) || message.content.startsWith(`<@${client.user.id}> `)) {
     command = message.content.split(' ')[1].toLowerCase();
-    args = message.content.split(' ').slice(1, 2);
+    args = message.content.split(' ').slice(2);}
   let cmd;
   if (client.commands.has(command)) {
     cmd = client.commands.get(command);
