@@ -32,7 +32,7 @@ client.on('message', async message => {
         lvl: -1,
         xp: -1,
         ms: -1
-      },
+      }
     };
   }
   
