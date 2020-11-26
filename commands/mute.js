@@ -5,7 +5,7 @@ const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.cache.fetch(args[0]);
   if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
-  parseUser(message, userr.user);
+  parseUser(message, userr);
   if (userr.user.id === settings.ownerid) {
     return message.reply('absolutely not.');
   }
