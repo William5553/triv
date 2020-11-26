@@ -4,7 +4,6 @@ const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
-
 require('./util/eventLoader')(client);
 require('./util/functions')(client);
 
@@ -26,37 +25,36 @@ client.on('message', async message => {
   if (!message.guild || message.author.bot) return;
   
   const xp = JSON.parse(fs.readFileSync('./xp.json', 'utf-8'));
-  const xpAdd = Math.floor(Math.random() * 7) + 8;
 
   if (!xp[message.guild.id]) {
     xp[message.guild.id] = {
       '-1': {
-        level: -1,
+        lvl: -1,
         xp: -1,
-        messagessent: -1,
+        ms: -1
       },
     };
   }
   
   if (!xp[message.guild.id][message.author.id]) {
     xp[message.guild.id][message.author.id] = {
-      level: 1,
+      lvl: 1,
       xp: 0,
-      messagessent: 0,
+      ms: 0
     };
   }
 
   const uxp = xp[message.guild.id][message.author.id];
   
-  uxp.xp = uxp.xp + xpAdd;
-  uxp.messagessent = uxp.messagessent + Number(1);
-  if (uxp.level*200 <= uxp.xp) {
-    uxp.level = uxp.level + 1;
+  uxp.xp = uxp.xp + Math.floor(Math.random() * 7) + 8;
+  uxp.ms = uxp.ms + Number(1);
+  if (uxp.lvl*200 <= uxp.xp) {
+    uxp.lvl = uxp.lvl + 1;
     const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
       .setColor(0x902b93)
-      .addField('New Level', uxp.level + 1);
+      .addField('New Level', uxp.lvl + 1);
 
     message.channel.send(lvlup);
   }
