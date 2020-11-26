@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   if (userr.user.id === client.user.id) {
     return message.channel.send("No! Don't ban me!");
   }
-  parseUser(message, userr.user);
+  parseUser(message, userr);
   const caseNum = await caseNumber(client, botlog);
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
