@@ -31,7 +31,7 @@ exports.run = async (client, message) => {
     .addField('Level', uxp.lvl, true)
     .addField('XP', uxp.xp, true)
     .addField('Messages Sent', uxp.ms, true)
-    .setFooter(`${uxp.lvl*200 - uxp.xp} XP til level up`);
+    .setFooter(`${uxp.lvl*200 - uxp.xp} XP 'til level up`);
 
   message.channel.send(lvlEmbed);
 };
