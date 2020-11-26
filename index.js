@@ -1,6 +1,9 @@
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
+fs.access('./settings.json' fs.constants.R_OK, function(err) {
+  if (err) return client.logger.error(err);
+});
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 require('./util/eventLoader')(client);
@@ -67,6 +70,10 @@ client.on('message', async message => {
 });
 
 if (settings.token)
-  client.login(settings.token).catch(client.logger.error);
+  try {
+    client.login(settings.token);
+  } catch (e) {
+    client.logger.error(e);
+  }
 else
   client.logger.error('please input a token in settings.json');
