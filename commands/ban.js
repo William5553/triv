@@ -6,6 +6,7 @@ exports.run = async (client, message, args) => {
   if (!message.member.permissions.has('BAN_MEMBERS'))
     return message.reply("you don't have the permission **BAN MEMBERS**");
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
+  if (!userr) return message.reply('you must mention someone to ban them.').catch(client.logger.error);
   if (userr.permissions.has('BAN_MEMBERS'))
     return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
@@ -20,7 +21,6 @@ exports.run = async (client, message, args) => {
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) return message.reply('I cannot find a channel named bot-logs');
-  if (userr.size < 1) return message.reply('You must mention someone to ban them.').catch(client.logger.error);
   await userr.user.send(`you've been banned from ${message.channel.guild.name}`);
   const reason =
     args.splice(1, args.length).join(' ') ||
