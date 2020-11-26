@@ -5,7 +5,7 @@ const settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.cache.fetch(args[0]);
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
-  parseUser(message, userr.user);
+  parseUser(message, userr);
   if (userr.user.id == client.user.id) {
     return message.channel.send('You cannot, fool!');
   }
