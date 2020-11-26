@@ -6,7 +6,8 @@ exports.run = (client, message) => {
   if (!canModifyQueue(message.member)) return;
 
   queue.playing = true;
-  queue.connection.dispatcher.end();
+  if (queue.connection.dispatcher)
+    queue.connection.dispatcher.end();
   queue.textChannel.send(`${message.author} ⏭ skipped the song`).catch(client.logger.error);
 };
 
