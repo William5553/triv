@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message, args) => {
   const reason = args.slice(1).join(' ');
-  const userr = message.mentions.members.first() || message.guild.members.cache.fetch(args[0]);
+  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]);
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
