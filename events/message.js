@@ -5,8 +5,8 @@ module.exports = message => {
   let command;
   if (message.content.startsWith(settings.prefix))
     command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
-  if (message.mentions.users.first() === client.user)
-    command = message.content.split(' ')[0].slice(client.user.username.length + Number(2)).toLowerCase();
+  if (message.content.startsWith(`<@${client.user.id}> `))
+    command = message.content.split(' ')[0].slice(client.user.id.length + Number(4)).toLowerCase();
   const params = message.content.split(' ').slice(1);
   let cmd;
   if (client.commands.has(command)) {
