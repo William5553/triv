@@ -8,7 +8,7 @@ module.exports = message => {
     args = message.content.split(' ').slice(1);
   if (message.content.startsWith(`<@!${client.user.id}> `))
     command = message.content.split(' ')[1].toLowerCase();
-    args = message.content.split(' ').slice(2);
+    args = message.content.split(' ').slice(1, 2);
   let cmd;
   if (client.commands.has(command)) {
     cmd = client.commands.get(command);
