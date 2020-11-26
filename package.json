@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,6 +15,7 @@
   "author": "William5553",
   "description": "The best discord bot ever!",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
     "discord.js": "^12.5.0",
     "fs": "^0.0.2",
@@ -28,7 +29,7 @@
     "string-progressbar": "^1.0.1",
     "translate-google-api": "^1.0.4",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^4.0.6",
+    "ytdl-core": "^4.1.0",
     "ytdl-core-discord": "^1.2.4"
   },
   "repository": {
