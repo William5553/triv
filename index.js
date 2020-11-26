@@ -1,13 +1,11 @@
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
-fs.access('./settings.json' fs.constants.R_OK, function(err) {
-  if (err) return client.logger.error(err);
-});
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
-require('./util/eventLoader')(client);
 client.logger = require('./util/logger');
+
+require('./util/eventLoader')(client);
 require('./util/functions')(client);
 
 client.queue = new Map();
@@ -48,19 +46,17 @@ client.on('message', async message => {
     };
   }
 
-  const messagessent = xp[message.guild.id][message.author.id].messagessent;
-  const curxp = xp[message.guild.id][message.author.id].xp;
-  const curlvl = xp[message.guild.id][message.author.id].level;
-  const nxtLvl = xp[message.guild.id][message.author.id].level * 200;
-  xp[message.guild.id][message.author.id].xp = curxp + xpAdd;
-  xp[message.guild.id][message.author.id].messagessent = messagessent + Number(1);
-  if (nxtLvl <= xp[message.guild.id][message.author.id].xp) {
-    xp[message.guild.id][message.author.id].level = curlvl + 1;
+  const uxp = xp[message.guild.id][message.author.id];
+  
+  uxp.xp = uxp.xp + xpAdd;
+  uxp.messagessent = uxp.messagessent + Number(1);
+  if (uxp.level*200 <= uxp.xp) {
+    uxp.level = uxp.level + 1;
     const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
       .setColor(0x902b93)
-      .addField('New Level', curlvl + 1);
+      .addField('New Level', uxp.level + 1);
 
     message.channel.send(lvlup);
   }
@@ -69,7 +65,7 @@ client.on('message', async message => {
   });
 });
 
-if (settings.token)
+if (settings && settings.token)
   try {
     client.login(settings.token);
   } catch (e) {
