@@ -2,7 +2,11 @@ const settings = require('../settings.json');
 module.exports = message => {
   const { client } = message;
   if (message.author.bot || !message.content.startsWith(settings.prefix)) return;
-  const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
+  let command;
+  if (message.content.startsWith(settings.prefix))
+    command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
+  if (message.mentions.users.first() === client.user)
+    command = message.content.split(' ')[0].slice(client.user.username.length + Number(2)).toLowerCase();
   const params = message.content.split(' ').slice(1);
   let cmd;
   if (client.commands.has(command)) {
