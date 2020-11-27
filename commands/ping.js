@@ -12,19 +12,20 @@ exports.run = (client, message) => {
   ];
   const pingmsg = options.random();
   message.channel.send('Ping?').then(msg => {
-    msg.edit(pingmsg + ` (took: ${msg.createdTimestamp - message.createdTimestamp}ms)`);
+    msg.edit(pingmsg + ` (took: ${message.createdTimestamp - msg.createdTimestamp}ms)`);
   });
+  message.channel.send(`client.ws.ping = ${client.ws.ping}`);
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'ping',
-  description: 'Ping command. I wonder what this does? *sarcasm*',
-  usage: 'ping',
+  description: 'Ping command. I wonder what this does?',
+  usage: 'ping'
 };
