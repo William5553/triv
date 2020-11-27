@@ -7,7 +7,7 @@ module.exports = guild => {
     delete xp[guild.id];
   }
   
-  fs.writeFile('./xp.json', JSON.stringify(xp), err => {
+  fs.writeFile('../xp.json', JSON.stringify(xp), err => {
     if (err) guild.client.logger.error(err);
   });
 };
