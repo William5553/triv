@@ -43,18 +43,16 @@ client.on('message', async message => {
       ms: 0
     };
   }
-
-  const uxp = xp[message.guild.id][message.author.id];
   
-  uxp.xp = uxp.xp + Math.floor(Math.random() * 7) + 8;
-  uxp.ms = uxp.ms + Number(1);
-  if (uxp.lvl*200 <= uxp.xp) {
-    uxp.lvl = uxp.lvl + 1;
+  xp[message.guild.id][message.author.id].xp = xp[message.guild.id][message.author.id].xp + Math.floor(Math.random() * 7) + 8;
+  xp[message.guild.id][message.author.id].ms = xp[message.guild.id][message.author.id].ms + Number(1);
+  if (xp[message.guild.id][message.author.id].lvl*200 <= xp[message.guild.id][message.author.id].xp) {
+    xp[message.guild.id][message.author.id].lvl = xp[message.guild.id][message.author.id].lvl + 1;
     const lvlup = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('Level Up!')
       .setColor(0x902b93)
-      .addField('New Level', uxp.lvl + 1);
+      .addField('New Level', xp[message.guild.id][message.author.id].lvl + 1);
 
     message.channel.send(lvlup);
   }

@@ -23,15 +23,13 @@ exports.run = async (client, message) => {
     };
   }
 
-  const uxp = xp[message.guild.id][user.id];
-
   const lvlEmbed = new MessageEmbed()
     .setAuthor(`${user.username} - ${message.guild.name}`, user.displayAvatarURL())
     .setColor(0x902b93)
-    .addField('Level', uxp.lvl, true)
-    .addField('XP', uxp.xp, true)
-    .addField('Messages Sent', uxp.ms, true)
-    .setFooter(`${uxp.lvl*200 - uxp.xp} XP 'til level up`);
+    .addField('Level', xp[message.guild.id][user.id].lvl, true)
+    .addField('XP', xp[message.guild.id][user.id].xp, true)
+    .addField('Messages Sent', xp[message.guild.id][user.id].ms, true)
+    .setFooter(`${xp[message.guild.id][user.id].lvl*200 - xp[message.guild.id][user.id].xp} XP 'til level up`);
 
   message.channel.send(lvlEmbed);
 };
