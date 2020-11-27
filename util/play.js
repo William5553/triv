@@ -167,5 +167,5 @@ module.exports = {
     collector.on('end', () => {
       if (playingMessage) playingMessage.reactions.removeAll().catch(client.logger.error);
     });
-  },
+  }
 };
