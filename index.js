@@ -27,12 +27,7 @@ client.on('message', async message => {
   const xp = JSON.parse(fs.readFileSync('./xp.json', 'utf-8'));
 
   if (!xp[message.guild.id]) {
-    xp[message.guild.id] = {
-      '-1': {
-        lvl: -1,
-        xp: -1,
-        ms: -1
-      }
+      xp[message.guild.id] = {}
     };
   }
   
