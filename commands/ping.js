@@ -12,15 +12,14 @@ exports.run = (client, message) => {
   ];
   const pingmsg = options.random();
   message.channel.send('Ping?').then(msg => {
-    msg.edit(pingmsg + ` (took: ${message.createdTimestamp - msg.createdTimestamp}ms)`);
+    msg.edit(pingmsg + ` (${Date.now() - message.createdTimestamp}ms)`);
   });
-  message.channel.send(`client.ws.ping = ${client.ws.ping}`);
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['pong'],
   permLevel: 0
 };
 
