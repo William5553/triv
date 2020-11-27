@@ -56,11 +56,9 @@ client.on('message', async message => {
   });
 });
 
-if (settings && settings.token)
+
   try {
     client.login(settings.token);
   } catch (e) {
     client.logger.error(e);
   }
-else
-  client.logger.error('please input a token in settings.json');
