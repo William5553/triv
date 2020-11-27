@@ -7,7 +7,7 @@ exports.run = (client, message) => {
   if (!canModifyQueue(message.member)) return;
   if (queue) {
     queue.songs = [];
-    queue.connection.dispatcher.end();
+    queue.connection.dispatcher.destroy();
     queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
   } else message.member.voice.channel.leave();
 };
