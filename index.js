@@ -21,43 +21,9 @@ fs.readdir('./commands/', (err, files) => {
 
 client.on('warn', client.logger.warn);
 client.on('error', client.logger.error);
-client.on('message', async message => {
-  if (!message.guild || message.author.bot) return;
-  
-  const xp = JSON.parse(fs.readFileSync('./xp.json', 'utf-8'));
 
-  if (!xp[message.guild.id]) {
-      xp[message.guild.id] = {};
-  }
-  
-  if (!xp[message.guild.id][message.author.id]) {
-    xp[message.guild.id][message.author.id] = {
-      lvl: 1,
-      xp: 0,
-      ms: 0
-    };
-  }
-  
-  xp[message.guild.id][message.author.id].xp = xp[message.guild.id][message.author.id].xp + Math.floor(Math.random() * 7) + 8;
-  xp[message.guild.id][message.author.id].ms = xp[message.guild.id][message.author.id].ms + Number(1);
-  if (xp[message.guild.id][message.author.id].lvl*200 <= xp[message.guild.id][message.author.id].xp) {
-    xp[message.guild.id][message.author.id].lvl = xp[message.guild.id][message.author.id].lvl + 1;
-    const lvlup = new MessageEmbed()
-      .setAuthor(message.author.username, message.author.avatarURL())
-      .setTitle('Level Up!')
-      .setColor(0x902b93)
-      .addField('New Level', xp[message.guild.id][message.author.id].lvl + 1);
-
-    message.channel.send(lvlup);
-  }
-  fs.writeFile('./xp.json', JSON.stringify(xp), err => {
-    if (err) client.logger.error(err);
-  });
-});
-
-
-  try {
-    client.login(settings.token);
-  } catch (e) {
-    client.logger.error(e);
-  }
+try {
+  client.login(settings.token);
+} catch (e) {
+  client.logger.error(e);
+}
