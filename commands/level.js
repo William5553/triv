@@ -8,7 +8,6 @@ exports.run = async (client, message) => {
 
   if (!xp[message.guild.id]) {
       xp[message.guild.id] = {};
-    };
   }
   if (!xp[message.guild.id][user.id]) {
     xp[message.guild.id][user.id] = {
