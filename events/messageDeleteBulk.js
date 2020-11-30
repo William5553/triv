@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-module.exports = messages => {
+module.exports = (messages, client) => {
   const message = messages.first();
   const length = messages.array().length;
   const channel = messages.first().channel;
