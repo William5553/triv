@@ -16,6 +16,7 @@ fs.readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
+    if (!f.endsWith(".js")) return;
     client.load(f);
   });
 });
