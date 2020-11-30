@@ -5,7 +5,6 @@ const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
-require('./util/eventLoader')(client);
 require('./util/functions')(client);
 
 client.queue = new Map();
@@ -18,6 +17,20 @@ fs.readdir('./commands/', (err, files) => {
   files.forEach(f => {
     if (!f.endsWith(".js")) return;
     client.load(f);
+  });
+});
+
+fs.readdir("./events/", (err, files) => {
+  if (err) client.logger.error(err);
+  client.logger.log(`Loading a total of ${evtFiles.length} events.`);
+  evtFiles.forEach(file => {
+    const eventName = file.split(".")[0];
+    client.logger.log(`Loading Event: ${eventName}`);
+    const event = require(`./events/${file}`);
+    // Bind the client to any event, before the existing arguments
+    // provided by the discord.js event. 
+    // This line is awesome by the way. Just sayin'.
+    client.on(eventName, event.bind(null, client));
   });
 });
 
