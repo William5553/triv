@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNum = await caseNumber(client, botlog);
   let muteRole =
-    message.guild.roles.cache.find(r => r.name === 'Muted') || message.guild.roles.cache.find(r => r.name === 'muted');
+    message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
