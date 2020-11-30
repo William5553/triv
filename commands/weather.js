@@ -41,4 +41,5 @@ exports.help = {
   name: 'weather',
   description: 'Checks the weather in the specified area.',
   usage: 'weather [place]',
+  example: 'weather ohio'
 };
