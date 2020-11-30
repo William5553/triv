@@ -117,7 +117,7 @@ module.exports = client => {
 
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
   process.on('uncaughtException', err => {
-    client.logger.error(`Uncaught Exception: ${errorMsg}`);
+    client.logger.error(`Uncaught Exception: ${err}`);
   });
 
   process.on('unhandledRejection', err => {
