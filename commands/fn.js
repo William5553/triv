@@ -5,8 +5,10 @@ exports.run = async (c, m, a) => {
   if (a.length >= 2) {
     var epicName = a.slice(1).join(' ');
     let platform = a[0].toLowerCase();
-    if (platform == 'xbox' || platform == 'xb' || platform == 'xb1') platform = 'xbl';
-    if (platform == 'ps4' || platform == 'ps5' || platform == 'ps' || platform == 'playstation') platform = 'psn';
+    const xbArr = ['xbox', 'xb', 'xb1'];
+    const psArr = ['ps4', 'ps5', 'ps', 'playstation'];
+    if (xbArr.includes(platform)) platform = 'xbl';
+    if (psArr.includes(platform)) platform = 'psn';
     if (!(platform == 'pc' || platform == 'psn' || platform == 'xbl')) {
       return m.reply({
         embed: new MessageEmbed()
@@ -84,11 +86,12 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['fnbr', 'fortnite'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'fn',
   description: 'Gets a players fortnite stats',
   usage: 'fn [platform] [username]',
+  example: 'fn psn william5553yt'
 };
