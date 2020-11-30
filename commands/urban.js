@@ -20,11 +20,12 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['ud', 'define'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'urban',
   description: 'Searches for a term on the urban dictionary',
   usage: 'urban [term]',
+  example: 'urban dark blockchain'
 };
