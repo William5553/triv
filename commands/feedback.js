@@ -20,11 +20,12 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'feedback',
   description: 'Sends feedback, if you abuse this you will be blacklisted.',
   usage: 'feedback [feedback]',
+  example: 'feedback this bot sucks'
 };
