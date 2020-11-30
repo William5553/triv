@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     query = queue.songs[0].title;
   else if (args.length >= 1)
     query = args.join(' ');
-  else return message.reply('there is nothing playing.').catch(client.logger.error);
+  else return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
   let lyrics = null;
   let emtitle = null;
@@ -50,6 +50,6 @@ exports.conf = {
 
 exports.help = {
   name: 'lyrics',
-  description: 'Gets the lyrics for the currently playing song',
-  usage: 'lyrics'
+  description: 'Gets the lyrics for the currently playing song or specified song',
+  usage: 'lyrics [song title]'
 };
