@@ -30,9 +30,9 @@ exports.run = (client, message, args, perms) => {
     }
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
     const aliases = command.conf.aliases.join(', ') || 'none';
-    const example = command.help.example || 'to be added';
+    const example = command.help.example ? `${settings.prefix}${command.help.example}` : 'to be added';
     message.channel.send(
-      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${settings.prefix}${command.help.usage}\naliases :: ${aliases}\nexample :: ${settings.prefix}${example}`,
+      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${settings.prefix}${command.help.usage}\naliases :: ${aliases}\nexample :: ${example}`,
       {
         code: 'asciidoc',
       }
