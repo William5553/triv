@@ -32,7 +32,7 @@ exports.run = (client, message, args, perms) => {
     const aliases = command.conf.aliases.join(', ') || 'none';
     const example = command.help.example || 'to be added';
     message.channel.send(
-      `= ${command.help.name} = \n${command.help.description}\nusage    :: ${command.help.usage}\naliases  :: ${aliases}\nexample :: ${example}`,
+      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${command.help.usage}\naliases :: ${aliases}\nexample :: ${example}`,
       {
         code: 'asciidoc',
       }
