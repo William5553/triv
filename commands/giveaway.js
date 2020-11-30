@@ -57,4 +57,5 @@ exports.help = {
   name: 'giveaway',
   description: 'Hosts a giveaway',
   usage: 'giveaway [time] [prize]',
+  example: 'giveaway 1h Nitro'
 };
