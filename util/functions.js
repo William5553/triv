@@ -76,13 +76,15 @@ module.exports = client => {
   This is mostly only used by the Eval and Exec commands.
   */
   client.clean = async (client, text) => {
-    if (text && text.constructor.name == 'Promise') text = await text;
+    if (text && text.constructor.name == "Promise")
+      text = await text;
+    if (typeof text !== "string")
+      text = require("util").inspect(text, {depth: 1});
 
     text = text
-      .replace(/`/g, '`' + String.fromCharCode(8203))
-      .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(client.token, 'NO TOKEN')
-      .replace(settings.token, 'NO TOKEN');
+      .replace(/`/g, "`" + String.fromCharCode(8203))
+      .replace(/@/g, "@" + String.fromCharCode(8203))
+      .replace(client.token, "NO TOKEN");
 
     return text;
   };
