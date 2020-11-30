@@ -15,12 +15,12 @@ module.exports = client => {
     if (client.commands.has(commandName)) {
       command = commandName;
     } else if (client.aliases.has(commandName)) {
-      command = client.aliases.get(commandName);
+      command = client.commands.get(client.aliases.get(commandName));
     }
     if (!command) return `The command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
 
     client.commands.delete(command);
-    delete require.cache[require.resolve(`../commands/${command}`)];
+    delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     return `Successfully unloaded ${command}`;
   };
   /*
