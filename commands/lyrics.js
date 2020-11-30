@@ -3,14 +3,19 @@ const { MessageEmbed } = require('discord.js');
 const Genius = require('genius-lyrics');
 const GClient = new Genius.SongsClient(settings.genius_api_key);
 
-exports.run = async (client, message) => {
+exports.run = async (client, message, args) => {
+  let query;
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply('there is nothing playing.').catch(client.logger.error);
+  if (queue)
+    query = queue.songs[0].title;
+  else if (args.length >= 1)
+    query = args.join(' ');
+  else return message.reply('there is nothing playing.').catch(client.logger.error);
 
   let lyrics = null;
   let emtitle = null;
 
-  const songtitle = queue.songs[0].title.replace(/\([^()]*\)/g, '');
+  const songtitle = query.replace(/\([^()]*\)/g, '');
 
   try {
     const search = await GClient.search(songtitle);
@@ -40,11 +45,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'lyrics',
   description: 'Gets the lyrics for the currently playing song',
-  usage: 'lyrics',
+  usage: 'lyrics'
 };
