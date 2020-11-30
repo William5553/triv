@@ -1,5 +1,5 @@
 const settings = require('../settings.json');
-module.exports = (message, client) => {
+module.exports = (client, message) => {
   if (message.author.bot || !message.content.startsWith(settings.prefix)) return;
   const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
   const params = message.content.split(' ').slice(1);

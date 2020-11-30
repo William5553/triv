@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-module.exports = (message, client) => {
+module.exports = (client, message) => {
   if (!message.guild) return;
   const logs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs)
