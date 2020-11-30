@@ -1,3 +1,4 @@
+if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Node 12.0.0 or higher is required. Update Node on your system.");
 const { Client, Collection } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const fs = require('fs');
