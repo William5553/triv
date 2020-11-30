@@ -96,9 +96,9 @@ module.exports = client => {
   // this, a conflict also occurs. KNOWING THIS however, the following 2 methods
   // are, we feel, very useful in code.
 
-   // <String>.toPropercase() returns a proper-cased string such as: 
+  // <String>.toPropercase() returns a proper-cased string such as: 
   // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
-  Object.defineProperty(String.prototype, "toProperCase", {
+  Object.defineProperty(String.prototype, 'toProperCase', {
     value: function() {
       return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
     }
@@ -106,7 +106,7 @@ module.exports = client => {
 
   // <Array>.random() returns a single random element from an array
   // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
-  Object.defineProperty(Array.prototype, "random", {
+  Object.defineProperty(Array.prototype, 'random', {
     value: function() {
       return this[Math.floor(Math.random() * this.length)];
     }
