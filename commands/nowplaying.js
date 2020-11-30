@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply('there is nothing playing.').catch(client.logger.error);
+  if (!queue || !queue.connection || !queue.connection.dispatcher) return message.reply('there is nothing playing.').catch(client.logger.error);
   const song = queue.songs[0];
   const seek = (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000;
   const left = song.duration - seek;

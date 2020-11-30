@@ -6,10 +6,10 @@ const GClient = new Genius.SongsClient(settings.genius_api_key);
 exports.run = async (client, message, args) => {
   let query;
   const queue = client.queue.get(message.guild.id);
-  if (queue)
-    query = queue.songs[0].title;
-  else if (args.length >= 1)
+  if (args.length >= 1)
     query = args.join(' ');
+  else if (queue && queue.songs)
+    query = queue.songs[0].title;
   else return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
   let lyrics = null;
