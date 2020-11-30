@@ -24,7 +24,6 @@ exports.run = async (client, message, args) => {
     if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
     if (!emtitle) emtitle = songtitle;
   } catch (error) {
-    client.logger.error(error);
     lyrics = `No lyrics found for ${songtitle}.`;
     emtitle = songtitle;
   }
