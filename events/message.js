@@ -1,6 +1,11 @@
 const settings = require('../settings.json');
 module.exports = (client, message) => {
-  if (message.author.bot || !message.content.startsWith(settings.prefix)) return;
+  if (message.author.bot) return;
+  const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
+  if (message.content.match(prefixMention)) {
+    return message.reply(`my prefix on this guild is \`${settings.prefix}\``);
+  }
+  if (!message.content.startsWith(settings.prefix)) return;
   const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
   const params = message.content.split(' ').slice(1);
   let cmd;
