@@ -28,9 +28,7 @@ fs.readdir('./events/', (err, files) => {
     const eventName = file.split('.')[0];
     client.logger.log(`Loading Event: ${eventName}. 👌`);
     const event = require(`./events/${file}`);
-    // Bind the client to any event, before the existing arguments
-    // provided by the discord.js event. 
-    // This line is awesome by the way. Just sayin'.
+    // Bind the client to any event, before the existing arguments provided by the discord.js event
     client.on(eventName, event.bind(null, client));
   });
 });
