@@ -1,9 +1,10 @@
 dependencies:
   '@discordjs/opus': 0.3.3
   chalk: 4.1.0
+  discord-ytdl-core: 5.0.0
   discord.js: 12.5.0
   fs: 0.0.2
-  genius-lyrics: 4.0.0
+  genius-lyrics: 4.1.3
   moment: 2.29.1
   moment-duration-format: 2.3.2
   ms: 2.1.2
@@ -383,6 +384,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
+  /discord-ytdl-core/5.0.0:
+    dependencies:
+      prism-media: 1.2.3
+    dev: false
+    resolution:
+      integrity: sha512-lhk3VabO3vC+57ZIL0yOCaB5eyco9qmygmXwHoAr9c4VVzG9e02iGCvLAYzMIxOoBtuIggavNLwFTZ6gO6byJA==
   /discord.js/12.5.0:
     dependencies:
       '@discordjs/collection': 0.1.6
@@ -692,13 +699,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-LANAXHU4w51+s3sxcCLjJfsBi/c=
-  /genius-lyrics/4.0.0:
+  /genius-lyrics/4.1.3:
     dependencies:
       axios: 0.20.0
       node-html-parser: 1.4.9
     dev: false
     resolution:
-      integrity: sha512-ylAdZIg3WBodDCaHcu270MkDo4C/77ldRoJPS8QTsK+OMgRpH36xnICjvicy9WbQU2VLMQmzbEGv39p6oXYJCw==
+      integrity: sha512-E7e9uB+vWiiFyCZxJfKN2Qk8SAxHql6yqBtSEocBaxZVYTtGzJrZtK/DlJS9p1Qj3uMZRgqlJ8G/C9Pd1uCgJw==
   /getpass/0.1.7:
     dependencies:
       assert-plus: 1.0.0
@@ -1212,6 +1219,15 @@ packages:
       opusscript: ^0.0.6
     resolution:
       integrity: sha512-I+nkWY212lJ500jLe4tN9tWO7nRiBAVdMv76P9kffZjYhw20raMlW1HSSvS+MLXC9MmbNZCazMrAr+5jEEgTuw==
+  /prism-media/1.2.3:
+    dev: false
+    peerDependencies:
+      '@discordjs/opus': ^0.3.3
+      ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+      node-opus: ^0.3.3
+      opusscript: ^0.0.7
+    resolution:
+      integrity: sha512-fSrR66n0l6roW9Rx4rSLMyTPTjRTiXy5RVqDOurACQ6si1rKHHKDU5gwBJoCsIV0R3o9gi+K50akl/qyw1C74A==
   /process-nextick-args/2.0.1:
     dev: false
     resolution:
@@ -1722,11 +1738,12 @@ shrinkwrapVersion: 3
 specifiers:
   '@discordjs/opus': ^0.3.2
   chalk: ^4.1.0
+  discord-ytdl-core: ^5.0.0
   discord.js: ^12.5.0
   eslint: ^7.14.0
   eslint-plugin-node: ^11.1.0
   fs: ^0.0.2
-  genius-lyrics: ^4.0.0
+  genius-lyrics: ^4.1.3
   moment: ^2.29.1
   moment-duration-format: ^2.3.2
   ms: ^2.1.2
