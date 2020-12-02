@@ -21,7 +21,7 @@ module.exports = {
           highWaterMark: 1 << 25,
           opusEncoded: true
         });
-      }
+      } else message.reply('the video must be a youtube url');
     } catch (error) {
       if (queue) {
         queue.songs.shift();
