@@ -1,4 +1,4 @@
-const ytdlDiscord = require('ytdl-core-discord');
+const ytdl = require('discord-ytdl-core');
 const { canModifyQueue } = require('./queue');
 
 module.exports = {
@@ -13,12 +13,15 @@ module.exports = {
     }
 
     let stream = null;
-    const streamType = song.url.includes('youtube.com') ? 'opus' : 'ogg/opus';
 
     try {
       if (song.url.includes('youtube.com')) {
-        stream = await ytdlDiscord(song.url, { highWaterMark: 1 << 25 });
-      }
+        stream = await ytdl(song.url, {
+          filter: 'audioonly',
+          highWaterMark: 1 << 25,
+          opusEncoded: true
+        });
+      } else message.reply('the video must be a youtube url');
     } catch (error) {
       if (queue) {
         queue.songs.shift();
@@ -32,7 +35,7 @@ module.exports = {
     queue.connection.on('disconnect', () => message.client.queue.delete(message.guild.id));
 
     const dispatcher = queue.connection
-      .play(stream, { type: streamType })
+      .play(stream, { type: 'opus' })
       .on('finish', () => {
         if (collector && !collector.ended) collector.stop();
 
