@@ -41,6 +41,7 @@ exports.run = async (client, message, args) => {
     loop: false,
     volume: 100,
     playing: true,
+    additionalStreamTime: 0,
     filters: []
   };
 
