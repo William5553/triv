@@ -26,7 +26,7 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
+    const seekTime = updFilter ? queue.connection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
