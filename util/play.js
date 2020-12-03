@@ -23,10 +23,10 @@ const filters = {
 };
 
 module.exports = {
-  async play(song, message) {
+  async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-
+const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime : undefined;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
@@ -52,6 +52,7 @@ let encoderArgs;
           filter: 'audioonly',
           encoderArgs,
           highWaterMark: 1 << 25,
+            seek: seekTime / 1000,
           opusEncoded: true
         });
       } else message.reply('the video must be a youtube url');
