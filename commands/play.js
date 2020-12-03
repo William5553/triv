@@ -53,7 +53,7 @@ exports.run = async (client, message, args) => {
       reverse: false,
       treble: false,
       normalizer: false,
-      surrounding: false,
+      surround: false,
       pulsator: false,
       subboost: false,
       karaoke: false,
