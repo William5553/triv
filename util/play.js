@@ -2,48 +2,48 @@ const ytdl = require('discord-ytdl-core');
 const { canModifyQueue } = require('./queue');
 
 const filters = {
-    bassboost: 'bass=g=20,dynaudnorm=f=200',
-    '8D': 'apulsator=hz=0.08',
-    vaporwave: 'aresample=48000,asetrate=48000*0.8',
-    nightcore: 'aresample=48000,asetrate=48000*1.25',
-    phaser: 'aphaser=in_gain=0.4',
-    tremolo: 'tremolo',
-    vibrato: 'vibrato=f=6.5',
-    reverse: 'areverse',
-    treble: 'treble=g=5',
-    normalizer: 'dynaudnorm=f=200',
-    surrounding: 'surround',
-    pulsator: 'apulsator=hz=1',
-    subboost: 'asubboost',
-    karaoke: 'stereotools=mlev=0.03',
-    flanger: 'flanger',
-    gate: 'agate',
-    haas: 'haas',
-    mcompand: 'mcompand'
+  bassboost: 'bass=g=20,dynaudnorm=f=200',
+  '8D': 'apulsator=hz=0.08',
+  vaporwave: 'aresample=48000,asetrate=48000*0.8',
+  nightcore: 'aresample=48000,asetrate=48000*1.25',
+  phaser: 'aphaser=in_gain=0.4',
+  tremolo: 'tremolo',
+  vibrato: 'vibrato=f=6.5',
+  reverse: 'areverse',
+  treble: 'treble=g=5',
+  normalizer: 'dynaudnorm=f=200',
+  surrounding: 'surround',
+  pulsator: 'apulsator=hz=1',
+  subboost: 'asubboost',
+  karaoke: 'stereotools=mlev=0.03',
+  flanger: 'flanger',
+  gate: 'agate',
+  haas: 'haas',
+  mcompand: 'mcompand'
 };
 
 module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
+    const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
     }
-    const encoderArgsFilters = []
-            Object.keys(queue.filters).forEach((filterName) => {
-                if (queue.filters[filterName]) {
-                    encoderArgsFilters.push(filters[filterName])
-                }
-            })
-let encoderArgs;
-            if (encoderArgsFilters.length < 1) {
-                encoderArgs = []
-            } else {
-                encoderArgs = ['-af', encoderArgsFilters.join(',')]
-            }
+    const encoderArgsFilters = [];
+    Object.keys(queue.filters).forEach((filterName) => {
+      if (queue.filters[filterName]) {
+        encoderArgsFilters.push(filters[filterName]);
+      }
+    });
+    let encoderArgs;
+    if (encoderArgsFilters.length < 1) {
+      encoderArgs = [];
+    } else {
+      encoderArgs = ['-af', encoderArgsFilters.join(',')];
+    }
     let stream = null;
 
     try {
@@ -52,7 +52,7 @@ let encoderArgs;
           filter: 'audioonly',
           encoderArgs,
           highWaterMark: 1 << 25,
-            seek: seekTime / 1000,
+          seek: seekTime / 1000,
           opusEncoded: true
         });
       } else message.reply('the video must be a youtube url');
@@ -75,7 +75,7 @@ let encoderArgs;
       })
       .on('finish', () => {
         if (collector && !collector.ended) collector.stop();
-queue.additionalStreamTime = 0;
+        queue.additionalStreamTime = 0;
         if (queue.loop) {
           // if loop is on, push the song back at the end of the queue
           // so it can repeat endlessly
@@ -93,9 +93,9 @@ queue.additionalStreamTime = 0;
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
-      if (seekTime) {
-                    queue.additionalStreamTime = seekTime
-                }
+    if (seekTime) {
+      queue.additionalStreamTime = seekTime;
+    }
     dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
