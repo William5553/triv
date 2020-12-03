@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,8 +29,7 @@
     "string-progressbar": "^1.0.1",
     "translate-google-api": "^1.0.4",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^4.1.1",
-    "ytdl-core-discord": "^1.2.4",
+    "ytdl-core": "^4.1.2",
     "discord-ytdl-core": "^5.0.0"
   },
   "repository": {
