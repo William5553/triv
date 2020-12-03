@@ -2,9 +2,9 @@ const { canModifyQueue } = require('../util/queue');
 const settings = require('../settings.json');
 
 exports.run = (client, message, args) => {
-  if (!args.length) return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+  if (!args.length) return message.reply(exports.help.usage).catch(client.logger.error);
 
-  if (isNaN(args[0])) return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+  if (isNaN(args[0])) return message.reply(exports.help.usage).catch(client.logger.error);
 
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.channel.send('There is no queue.').catch(client.logger.error);
