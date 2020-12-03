@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
   if (!queue) return message.reply("there ain't a queue").catch(client.logger.error);
   if (!canModifyQueue(message.member)) return;
 
-  if (!args.length || isNaN(args[0])) return message.reply(exports.help.usage);
+  if (!args.length || isNaN(args[0])) return message.reply(`${settings.prefix}${exports.help.usage}`);
 
   const song = queue.songs.splice(args[0] - 1, 1);
   queue.textChannel.send(`${message.author} ❌ removed **${song[0].title}** from the queue.`);
