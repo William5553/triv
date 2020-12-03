@@ -9,11 +9,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['say'],
-  permLevel: 4,
+  permLevel: 4
 };
 
 exports.help = {
   name: 'send',
   description: 'Sends a message.',
-  usage: 'send [message]',
+  usage: 'send [message]'
 };
