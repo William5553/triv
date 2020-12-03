@@ -2,9 +2,9 @@ const { canModifyQueue } = require('../util/queue');
 const settings = require('../settings.json');
 
 exports.run = (client, message, args) => {
-  if (!args.length) return message.reply(`Usage: ${settings.prefix}skipto <Queue Number>`).catch(client.logger.error);
+  if (!args.length) return message.reply(exports.help.usage).catch(client.logger.error);
 
-  if (isNaN(args[0])) return message.reply(`Usage: ${settings.prefix}skipto <Queue Number>`).catch(client.logger.error);
+  if (isNaN(args[0])) return message.reply(exports.help.usage).catch(client.logger.error);
 
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.channel.send('There is no queue.').catch(client.logger.error);
@@ -29,11 +29,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'skipto',
   description: 'Skip to the selected queue number',
-  usage: 'skipto',
+  usage: 'skipto [queue number]'
 };
