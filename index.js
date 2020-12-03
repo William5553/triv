@@ -7,7 +7,7 @@ const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 client.logger = require('./util/logger');
 require('./util/functions')(client);
 
-client.queue = new Map();
+client.queue = new Collection();
 
 client.commands = new Collection();
 client.aliases = new Collection();
