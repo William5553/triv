@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
     queue.filters[args[1]] = false;
   else if (args[0] === 'list')
     message.channel.send(JSON.stringify(queue.filters).split(',').join('\n'));
-  else return message.reply(exports.help.usage);
+  else return message.reply(`${settings.prefix}${exports.help.usage}`);
   if (args[0] === 'add' || args[0] === 'remove') play(queue.songs[0], message, true); 
 };
 
