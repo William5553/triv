@@ -12,7 +12,7 @@ const filters = {
   reverse: 'areverse',
   treble: 'treble=g=5',
   normalizer: 'dynaudnorm=f=200',
-  surrounding: 'surround',
+  surround: 'surround',
   pulsator: 'apulsator=hz=1',
   subboost: 'asubboost',
   karaoke: 'stereotools=mlev=0.03',
