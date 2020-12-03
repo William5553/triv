@@ -1,3 +1,4 @@
+const { play } = require('../util/play');
 const filters = {
     bassboost: 'bass=g=20,dynaudnorm=f=200',
     '8D': 'apulsator=hz=0.08',
