@@ -1,6 +1,27 @@
 const ytdl = require('discord-ytdl-core');
 const { canModifyQueue } = require('./queue');
 
+const filters = {
+    bassboost: 'bass=g=20,dynaudnorm=f=200',
+    '8D': 'apulsator=hz=0.08',
+    vaporwave: 'aresample=48000,asetrate=48000*0.8',
+    nightcore: 'aresample=48000,asetrate=48000*1.25',
+    phaser: 'aphaser=in_gain=0.4',
+    tremolo: 'tremolo',
+    vibrato: 'vibrato=f=6.5',
+    reverse: 'areverse',
+    treble: 'treble=g=5',
+    normalizer: 'dynaudnorm=f=200',
+    surrounding: 'surround',
+    pulsator: 'apulsator=hz=1',
+    subboost: 'asubboost',
+    karaoke: 'stereotools=mlev=0.03',
+    flanger: 'flanger',
+    gate: 'agate',
+    haas: 'haas',
+    mcompand: 'mcompand'
+};
+
 module.exports = {
   async play(song, message) {
     const { client } = message;
@@ -11,13 +32,25 @@ module.exports = {
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
     }
-
+    const encoderArgsFilters = []
+            Object.keys(queue.filters).forEach((filterName) => {
+                if (queue.filters[filterName]) {
+                    encoderArgsFilters.push(filters[filterName])
+                }
+            })
+let encoderArgs;
+            if (encoderArgsFilters.length < 1) {
+                encoderArgs = []
+            } else {
+                encoderArgs = ['-af', encoderArgsFilters.join(',')]
+            }
     let stream = null;
 
     try {
       if (song.url.includes('youtube.com')) {
         stream = await ytdl(song.url, {
           filter: 'audioonly',
+          encoderArgs,
           highWaterMark: 1 << 25,
           opusEncoded: true
         });
