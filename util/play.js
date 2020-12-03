@@ -119,20 +119,17 @@ module.exports = {
     collector.on('collect', (reaction, user) => {
       if (!queue) return;
       const member = message.guild.member(user);
-
+      if (!canModifyQueue(member)) return;
+      reaction.users.remove(user).catch(client.logger.error);
       switch (reaction.emoji.name) {
         case '⏭':
           queue.playing = true;
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           queue.connection.dispatcher.end();
           queue.textChannel.send(`${user} ⏩ skipped the song`).catch(client.logger.error);
           collector.stop();
           break;
 
         case '⏯':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           if (queue.playing) {
             queue.playing = !queue.playing;
             queue.connection.dispatcher.pause(true);
@@ -145,8 +142,6 @@ module.exports = {
           break;
 
         case '🔇':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
@@ -159,8 +154,6 @@ module.exports = {
           break;
 
         case '🔉':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           if (queue.volume - 10 <= 0) queue.volume = 0;
           else queue.volume = queue.volume - 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
@@ -170,8 +163,6 @@ module.exports = {
           break;
 
         case '🔊':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           if (queue.volume + 10 >= 100) queue.volume = 100;
           else queue.volume = queue.volume + 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
@@ -181,15 +172,11 @@ module.exports = {
           break;
 
         case '🔁':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           queue.loop = !queue.loop;
           queue.textChannel.send(`Loop is now ${queue.loop ? '**on**' : '**off**'}`).catch(client.logger.error);
           break;
 
         case '⏹':
-          reaction.users.remove(user).catch(client.logger.error);
-          if (!canModifyQueue(member)) return;
           queue.songs = [];
           queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
           try {
@@ -202,7 +189,6 @@ module.exports = {
           break;
 
         default:
-          reaction.users.remove(user).catch(client.logger.error);
           break;
       }
     });
