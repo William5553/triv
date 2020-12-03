@@ -6,9 +6,9 @@ const youtube = new YouTubeAPI(settings.yt_api_key);
 
 exports.run = async (client, message, args) => {
   if (!args.length) return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
-  if (message.channel.activeCollector) return message.reply('A message collector is already active in this channel.');
+  if (message.channel.activeCollector) return message.reply('a message collector is already active in this channel.');
   if (!message.member.voice.channel)
-    return message.reply('You need to join a voice channel first!').catch(client.logger.error);
+    return message.reply('you need to join a voice channel first!').catch(client.logger.error);
 
   const search = args.join(' ');
   const resultsEmbed = new MessageEmbed()
