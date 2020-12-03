@@ -24,7 +24,7 @@ const filters = {
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('nothing is playing');
-  if (args.length < 2) return message.reply(exports.help.usage);
+  if (args.length < 1) return message.reply(exports.help.usage);
   if (!canModifyQueue(message.member)) return;
   if (!filters[args[1]]) return message.reply(`${args[1]} is not a valid filter. Valid filters are: bassboost, 8d, vaporwave, nightcore, phaser, tremolo, vibrato, reverse, treble, normalizer, surrounding, pulsator, subboost, karaoke, flanger, gate, haas, and mcompand.`);
   if (args[0] === 'add')
