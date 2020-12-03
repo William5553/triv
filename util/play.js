@@ -26,7 +26,7 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime : undefined;
+const seekTime = updFilter ? queue.voiceConnection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
@@ -75,7 +75,7 @@ let encoderArgs;
       })
       .on('finish', () => {
         if (collector && !collector.ended) collector.stop();
-
+queue.additionalStreamTime = 0;
         if (queue.loop) {
           // if loop is on, push the song back at the end of the queue
           // so it can repeat endlessly
@@ -93,6 +93,9 @@ let encoderArgs;
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
+      if (seekTime) {
+                    queue.additionalStreamTime = seekTime
+                }
     dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
