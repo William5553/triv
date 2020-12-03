@@ -42,7 +42,26 @@ exports.run = async (client, message, args) => {
     volume: 100,
     playing: true,
     additionalStreamTime: 0,
-    filters: []
+    filters: {
+      bassboost :false,
+      '8D': false,
+      vaporwave:false,
+      nightcore: false,
+      phaser:false,
+      tremolo: false,
+      vibrato:false,
+      reverse:false,
+      treble:false,
+      normalizer:false,
+      surrounding:false,
+      pulsator:false,
+      subboost:false,
+      karaoke:false,
+      flanger:false,
+      gate:false,
+      haas:false,
+      mcompand:false
+    }
   };
 
   let songInfo = null;

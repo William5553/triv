@@ -26,7 +26,7 @@ exports.run = (client, message, args) => {
   if (!queue) return message.reply('nothing is playing');
   if (args.length < 1) return message.reply(exports.help.usage);
   if (!canModifyQueue(message.member)) return;
-  if (!filters[args[1]]) return message.reply(`${args[1]} is not a valid filter. Valid filters are: bassboost, 8d, vaporwave, nightcore, phaser, tremolo, vibrato, reverse, treble, normalizer, surrounding, pulsator, subboost, karaoke, flanger, gate, haas, and mcompand.`);
+  if (args[0] !== 'list' && !filters[args[1]]) return message.reply(`${args[1]} is not a valid filter. Valid filters are: bassboost, 8d, vaporwave, nightcore, phaser, tremolo, vibrato, reverse, treble, normalizer, surrounding, pulsator, subboost, karaoke, flanger, gate, haas, and mcompand.`);
   if (args[0] === 'add')
     queue.filters[args[1]] = true;
   else if (args[0] === 'remove')
@@ -34,7 +34,7 @@ exports.run = (client, message, args) => {
   else if (args[0] === 'list')
     message.channel.send(JSON.stringify(queue.filters));
   else return message.reply(exports.help.usage);
-  play(queue.songs[0], message, true); 
+  if (args[0] === 'add' || args[0] === 'remove') play(queue.songs[0], message, true); 
 };
 
 exports.conf = {
