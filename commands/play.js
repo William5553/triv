@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
 
   if (!args.length)
-    return message.reply(`Usage: ${settings.prefix}play <YouTube URL | Video Name>`).catch(client.logger.error);
+    return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
 
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
