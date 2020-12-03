@@ -24,22 +24,27 @@ const filters = {
 exports.run = (client, message, args) => {
 const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('nothing is playing');
+ if (args.length < 2) return message.reply(exports.help.usage);
     if (!canModifyQueue(message.member)) return;
-            Object.keys(newFilters).forEach((filterName) => {
-                queue.filters[filterName] = newFilters[filterName]
-            });
+            if (args[0] === 'add')
+                queue.filters[args[1]] = true;
+           else if (args[0] === 'remove')
+               queue.filters[args[1]] = false;
+    else if (args[0] === 'list')
+        message.channel.send(JSON.stringify(queue.filters)));
+    else return message.reply(exports.help.usage);
            play(queue.songs[0], message, true); 
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['filter'],
+  aliases: [],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'addfilter',
+  name: 'filter',
   description: 'Adds a filter to the music. Valid filters are: bassboost, 8d, vaporwave, nightcore, phaser, tremolo, vibrato, reverse, treble, normalizer, surrounding, pulsator, subboost, karaoke, flanger, gate, haas, and mcompand.',
-  usage: 'addfilter [filter]'
+  usage: 'filter [add|remove] [filter]'
 };
