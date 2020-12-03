@@ -1,4 +1,5 @@
 const { play } = require('../util/play');
+const {canModifyQueue} = require('../util/queue');
 const filters = {
     bassboost: 'bass=g=20,dynaudnorm=f=200',
     '8D': 'apulsator=hz=0.08',
@@ -23,12 +24,11 @@ const filters = {
 exports.run = (client, message, args) => {
 const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('nothing is playing');
+    if (!canModifyQueue(message.member)) return;
             Object.keys(newFilters).forEach((filterName) => {
                 queue.filters[filterName] = newFilters[filterName]
-            })
-            this._playYTDLStream(queue, true).then(() => {
-                resolve()
-            })
+            });
+           play(queue.songs[0], message, true); 
 };
 
 exports.conf = {
