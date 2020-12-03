@@ -32,7 +32,7 @@ module.exports = {
       return message.channel.send(`Error: ${error.message ? error.message : error}`);
     }
 
-    queue.connection.on('disconnect', () => message.client.queue.delete(message.guild.id));
+    queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
     const dispatcher = queue.connection
       .play(stream, {
