@@ -44,11 +44,10 @@ module.exports = {
     } else {
       encoderArgs = ['-af', encoderArgsFilters.join(',')];
     }
-    let stream = null;
 
     try {
       if (song.url.includes('youtube.com')) {
-        stream = await ytdl(song.url, {
+        queue.stream = await ytdl(song.url, {
           filter: 'audioonly',
           encoderArgs,
           highWaterMark: 1 << 25,
@@ -69,7 +68,7 @@ module.exports = {
     queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
     const dispatcher = queue.connection
-      .play(stream, {
+      .play(queue.stream, {
         type: 'opus',
         bitrate: 'auto'
       })
