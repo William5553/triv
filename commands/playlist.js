@@ -1,9 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const { play } = require('../util/play');
 const YouTubeAPI = require('simple-youtube-api');
-const settings = require('../settings.json');
+const { google_api_key, prefix } = require('../settings.json');
 
-const youtube = new YouTubeAPI(settings.yt_api_key);
+const youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice;
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
   if (!args.length)
     return message
-      .reply(`${settings.prefix}${exports.help.usage}`)
+      .reply(`${prefix}${exports.help.usage}`)
       .catch(client.logger.error);
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
 
@@ -110,11 +110,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'playlist',
   description: 'Plays a playlist from YouTube',
-  usage: 'playlist [youtube playlist url | playlist name]',
+  usage: 'playlist [youtube playlist url | playlist name]'
 };
