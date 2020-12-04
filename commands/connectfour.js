@@ -117,7 +117,7 @@ function displayBoard(board) {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['connect4'],
+  aliases: ['connect4', 'conn4'],
   permLevel: 0
 };
 
