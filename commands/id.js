@@ -7,11 +7,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'id',
   description: "Gets a user's ID",
-  usage: 'id [user]',
+  usage: 'id [user]'
 };
