@@ -28,8 +28,8 @@ exports.run = async (client, msg) => {
     let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {
       finished = finished.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof choices[number] != 'undefined' ? `**${choices[number]}**` : match;
-    });
+        return typeof choices[number] != 'undefined' ? `**${choices[number]}**` : match;
+      });
     }
     return msg.channel.send(finished);
   } catch (err) {
