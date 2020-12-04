@@ -14,7 +14,7 @@ exports.run = async (client, msg) => {
       max: 1,
       time: 30000
     });
-    this.client.games.delete(msg.channel.id);
+    client.games.delete(msg.channel.id);
     if (!msgs.size) return msg.say('Failed to answer within 30 seconds.');
     return msg.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
   } catch (err) {
