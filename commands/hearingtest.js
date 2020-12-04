@@ -21,23 +21,23 @@ exports.run = async (client, msg) => {
             return msg.reply('cannot connect to voice channel, missing the **CONNECT** permission');
           if (!permissions.has('SPEAK'))
             return msg.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
-          vc.join()
+          await vc.join()
             .then(connection => {
               connection.voice.setSelfDeaf(true);
+              connection.play(path.join(__dirname, '..', 'assets', file));
             })
             .catch(msg.channel.send);
         } else return msg.reply('you have to be in a voice channel moron');
       }
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
-      connection.play(path.join(__dirname, '..', 'assets', file));
       await client.wait(3500);
       const heard = await client.awaitReply(msg, 'Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       let hearddd;
       if (yes.includes(heard)) hearddd = true;
       if (no.includes(heard)) hearddd = false;
       if (hearddd === undefined) return msg.reply(`${heard} is not a valid response`);
-      if (!heard || file === data[data.length - 1].file) {
+      if (!hearddd || file === data[data.length - 1].file) {
         age = previousAge;
         range = previousRange;
         break;
