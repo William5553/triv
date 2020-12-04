@@ -6,7 +6,7 @@ exports.run = async (client, msg, args) => {
   const current = client.games.get(msg.channel.id);
   if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
   try { 
-    const deckCount = args[0];
+    const deckCount = args[0] || 1;
     if (!deckCount || deckCount > 8 || deckCount < 1) return msg.reply('deck count must be between 1 and 8');
     client.games.set(msg.channel.id, { name: 'blackjack', data: new Deck({ deckCount }) });
     const dealerHand = [];
@@ -84,7 +84,7 @@ exports.run = async (client, msg, args) => {
 };
 
 function draw(channel, hand) {
-  const deck = this.client.games.get(channel.id).data;
+  const deck = client.games.get(channel.id).data;
   const card = deck.draw();
   hand.push(card);
   return card;
