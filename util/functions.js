@@ -1,6 +1,6 @@
 const settings = require('../settings.json');
-const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
-const no = ['false', 'no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
+const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely'];
+const no = ['false', 'no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off', 'absolutely not'];
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
