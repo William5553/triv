@@ -1,5 +1,5 @@
 const request = require('node-superfetch');
-const { google_key } = require('../settings.json');;
+const { google_api_key } = require('../settings.json');;
 
 exports.run = async (client, msg, args) => {
 try {
