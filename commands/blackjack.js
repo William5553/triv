@@ -1,4 +1,4 @@
-const Deck = require('../assets/Deck');
+const Deck = require('../util/Deck');
 const hitWords = ['hit', 'hit me', 'h'];
 const standWords = ['stand', 's'];
 
