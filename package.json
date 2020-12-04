@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.2.7",
+  "version": "3.3.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,6 +25,7 @@
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
+    "node-superfetch": "^0.1.10",
     "relevant-urban": "^2.0.0",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
