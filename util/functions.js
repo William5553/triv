@@ -70,21 +70,21 @@ module.exports = client => {
     }
   };
   client.verify = async (channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) => {
-		const filter = res => {
-			const value = res.content.toLowerCase();
-			return (user ? res.author.id === user.id : true)
+    const filter = res => {
+      const value = res.content.toLowerCase();
+      return (user ? res.author.id === user.id : true)
 				&& (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
-		};
-		const verify = await channel.awaitMessages(filter, {
-			max: 1,
-			time
-		});
-		if (!verify.size) return 0;
-		const choice = verify.first().content.toLowerCase();
-		if (yes.includes(choice) || extraYes.includes(choice)) return true;
-		if (no.includes(choice) || extraNo.includes(choice)) return false;
-		return false;
-	}
+    };
+    const verify = await channel.awaitMessages(filter, {
+      max: 1,
+      time
+    });
+    if (!verify.size) return 0;
+    const choice = verify.first().content.toLowerCase();
+    if (yes.includes(choice) || extraYes.includes(choice)) return true;
+    if (no.includes(choice) || extraNo.includes(choice)) return false;
+    return false;
+  };
   /*
   MESSAGE CLEAN FUNCTION
   "Clean" removes @everyone pings, as well as tokens, and makes code blocks
@@ -126,6 +126,20 @@ module.exports = client => {
   Object.defineProperty(Array.prototype, 'random', {
     value: function() {
       return this[Math.floor(Math.random() * this.length)];
+    }
+  });
+  
+  
+  Object.defineProperty(Array.prototype, 'shuffle', {
+    value: function() {
+      const arr = this.slice(0);
+		for (let i = arr.length - 1; i >= 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			const temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+		return arr;
     }
   });
 
