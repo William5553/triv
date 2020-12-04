@@ -172,7 +172,7 @@ module.exports = {
 
         case '🔁':
           queue.loop = !queue.loop;
-          queue.textChannel.send(`Loop is now ${queue.loop ? '**on**' : '**off**'}`).catch(client.logger.error);
+          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`).catch(client.logger.error);
           break;
 
         case '⏹':
