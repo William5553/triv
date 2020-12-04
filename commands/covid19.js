@@ -24,7 +24,7 @@ exports.run = async (client, msg, args) => {
       .addField('❯ Active Cases', formatNumber(data.active), true)
       .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
       .addField('❯ Tests', formatNumber(data.tests), true);
-    return msg.embed(embed);
+    return msg.channel.send(embed);
   } catch (err) {
     if (err.status === 404) return msg.say('Country not found or doesn\'t have any cases.');
     return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
