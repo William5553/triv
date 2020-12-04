@@ -1,6 +1,21 @@
 const moment = require('moment');
 require('moment-duration-format');
 
+const months = [
+	"january",
+	"february",
+	"march",
+	"april",
+	"may",
+	"june",
+	"july",
+	"august",
+	"september",
+	"october",
+	"november",
+	"december"
+];
+
 exports.run = (client, message, args) => {
 if (args.length < 2) return message.reply(`${prefix}${exports.help.usage}`);
 const month = args[0];
@@ -15,8 +30,21 @@ const now = new Date();
 		const futureFormat = moment.utc(future).format('dddd, MMMM Do, YYYY');
 		const time = moment.duration(future - now);
 		const link = time.months() ? time.months() === 1 ? 'is' : 'are' : time.days() === 1 ? 'is' : 'are';
-		return msg.say(`There ${link} ${time.format('M [months and] d [days]')} until ${futureFormat}!`);
+		return message.channel.send(`There ${link} ${time.format('M [months and] d [days]')} until ${futureFormat}!`);
 };
+
+function validate(value) {
+		const num = Number.parseInt(value, 10);
+		if (num > 0 && num < 13) return true;
+		if (months.includes(value.toLowerCase())) return true;
+		return false;
+	}
+
+	function parse(value) {
+		const num = Number.parseInt(value, 10);
+		if (!Number.isNaN(num)) return num;
+		return months.indexOf(value.toLowerCase()) + 1;
+	}
 
 exports.conf = {
   enabled: true,
