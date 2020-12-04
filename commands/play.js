@@ -1,5 +1,5 @@
 const { play } = require('../util/play');
-const {google_api_key,prefix} = require('../settings.json');
+const { google_api_key, prefix } = require('../settings.json');
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 
