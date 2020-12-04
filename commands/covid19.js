@@ -36,7 +36,7 @@ async function fetchStats(country) {
   return body;
 }
   
-async function formatNumber(number, minimumFractionDigits = 0) {
+function formatNumber(number, minimumFractionDigits = 0) {
   return Number.parseFloat(number).toLocaleString(undefined, {
     minimumFractionDigits,
     maximumFractionDigits: 2
