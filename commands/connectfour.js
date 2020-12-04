@@ -25,11 +25,7 @@ exports.run = async (client, msg) => {
     while (!winner && board.some(row => row.includes(null))) {
       const user = userTurn ? msg.author : opponent;
       const sign = userTurn ? 'user' : 'oppo';
-      await msg.channel.send(`
-					${user}, which column do you pick? Type \`end\` to forefeit.
-					${displayBoard(board)}
-					${nums.join('')}
-				`);
+      await msg.channel.send(`${user}, which column do you pick? Type \`end\` to forefeit.\n${displayBoard(board)}\n${nums.join('')}`);
       const filter = res => {
         if (res.author.id !== user.id) return false;
         const choice = res.content;
@@ -66,7 +62,7 @@ exports.run = async (client, msg) => {
     }
     client.games.delete(msg.channel.id);
     if (winner === 'time') return msg.channel.send('Game ended due to inactivity.');
-    return msg.channel.send(winner ? `Congrats, ${winner}!` : 'Looks like it\'s a draw...');
+    return msg.channel.send(winner ? `Congrats, ${winner}!` : "Looks like it's a draw...");
   } catch (err) {
     client.games.delete(msg.channel.id);
     throw err;
