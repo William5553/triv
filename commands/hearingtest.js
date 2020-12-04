@@ -1,9 +1,6 @@
 const path = require('path');
 const data = require('../assets/hearing-test.json');
 
-const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
-const no = ['false', 'no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
-
 exports.run = async (client, msg) => {
   try {
     let age;
@@ -31,12 +28,9 @@ exports.run = async (client, msg) => {
         return msg.reply("I'm already in a voice channel");
       msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', file));
       await client.wait(3500);
-      const heard = await client.awaitReply(msg, 'Did you hear that sound? Reply with **[y]es** or **[n]o**.');
-      let hearddd;
-      if (yes.includes(heard)) hearddd = true;
-      if (no.includes(heard)) hearddd = false;
-      if (hearddd === undefined) return msg.reply(`${heard} is not a valid response`);
-      if (!hearddd || file === data[data.length - 1].file) {
+      msg.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
+      const heard = await client.verify(msg.channel, msg.author);
+      if (!heard || file === data[data.length - 1].file) {
         age = previousAge;
         range = previousRange;
         break;

@@ -1,4 +1,6 @@
 const settings = require('../settings.json');
+const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
+const no = ['false', 'no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
@@ -55,7 +57,7 @@ module.exports = client => {
   */
   client.awaitReply = async (msg, question, limit = 60000) => {
     const filter = m => m.author.id === msg.author.id;
-    await msg.channel.send(question);
+    if (question) await msg.channel.send(question);
     try {
       const collected = await msg.channel.awaitMessages(filter, {
         max: 1,
@@ -67,7 +69,22 @@ module.exports = client => {
       return false;
     }
   };
-
+  client.verify = async (channel, user, { time = 30000 } = {}) => {
+    const filter = res => {
+      const value = res.content.toLowerCase();
+      return (user ? res.author.id === user.id : true)
+				&& (yes.includes(value) || no.includes(value));
+    };
+    const verify = await channel.awaitMessages(filter, {
+      max: 1,
+      time
+    });
+    if (!verify.size) return 0;
+    const choice = verify.first().content.toLowerCase();
+    if (yes.includes(choice)) return true;
+    if (no.includes(choice)) return false;
+    return false;
+  };
   /*
   MESSAGE CLEAN FUNCTION
   "Clean" removes @everyone pings, as well as tokens, and makes code blocks
