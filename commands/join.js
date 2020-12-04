@@ -10,6 +10,7 @@ exports.run = (client, message) => {
     vc.join()
       .then(connection => {
         connection.voice.setSelfDeaf(true);
+        return connection;
       })
       .catch(message.channel.send);
   } else return message.reply('you have to be in a voice channel moron');

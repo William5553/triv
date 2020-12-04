@@ -11,12 +11,12 @@ exports.run = async (client, msg) => {
     let previousAge = 'all';
     let previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
+      let connection;
       if (!msg.guild.voice|| !msg.guild.voice.channel)
-        await client.commands.get('join').run(client, msg);
+        connection = await client.commands.get('join').run(client, msg);
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
-      await client.wait(2000);
-      msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', file));
+      connection.play(path.join(__dirname, '..', 'assets', file));
       await client.wait(3500);
       const heard = await client.awaitReply(msg, 'Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       let hearddd;
