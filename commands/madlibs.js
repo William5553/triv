@@ -11,8 +11,8 @@ exports.run = async (client, msg) => {
       await msg.reply(`Give me a **${word}**.`);
       const filter = res => {
         if (res.author.id !== msg.author.id) return false;
-        if (!res.content || res.content.length > 12) {
-          msg.reply('only use a maximum of 12 characters per word.').catch(() => null);
+        if (!res.content || res.content.length > 16) {
+          msg.reply('only use a maximum of 16 characters per word.').catch(() => null);
           return false;
         }
         return true;
@@ -25,7 +25,7 @@ exports.run = async (client, msg) => {
       choices.push(choice.first().content);
     }
     client.games.delete(msg.channel.id);
-    let finished = lib.text.toString();
+    let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {
       finished = finished.replace(`{${i}}`, `**${choices[i]}**`);
     }
