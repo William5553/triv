@@ -5,7 +5,7 @@ const current = client.games.get(msg.channel.id);
 		this.client.games.set(msg.channel.id, { name: 'reactiontime' });
 		try {
 			await msg.channel.send('Get Ready...');
-			await client.wait(Math.random()*28000+2000);
+			await client.wait(Math.floor(Math.random() * (10000 - 1500 + 1)) + 1500);
 			const word = words.random();
 			await msg.say(`TYPE \`${word.toUpperCase()}\` NOW!`);
 			const filter = res => msg.author.id === res.author.id && res.content.toLowerCase() === word;
@@ -25,7 +25,7 @@ const current = client.games.get(msg.channel.id);
     
     exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['reaction', 'react'],
   permLevel: 0
 };
