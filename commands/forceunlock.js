@@ -14,11 +14,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['fu'],
-  permLevel: 3,
+  permLevel: 3
 };
 
 exports.help = {
   name: 'forceunlock',
   description: 'This will allow admins to unlock a channel from another channel',
-  usage: 'forceunlock [channel id]',
+  usage: 'forceunlock [channel id]'
 };

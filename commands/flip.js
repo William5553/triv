@@ -7,11 +7,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'flip',
   description: 'Flips a coin.',
-  usage: 'flip',
+  usage: 'flip'
 };

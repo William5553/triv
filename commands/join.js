@@ -19,11 +19,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'join',
   description: 'Joins the voice channel',
-  usage: 'join',
+  usage: 'join'
 };
