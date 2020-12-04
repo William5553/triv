@@ -45,6 +45,7 @@ exports.run = async (client, msg) => {
       previousAge = dataAge;
       previousRange = khz;
     }
+    msg.member.voice.channel.leave();
     if (age === 'all')
       return msg.channel.send('Everyone should be able to hear that. You cannot hear.');
     if (age === 'max') 
