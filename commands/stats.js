@@ -21,11 +21,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'stats',
   description: 'Gives some useful bot statistics',
-  usage: 'stats',
+  usage: 'stats'
 };

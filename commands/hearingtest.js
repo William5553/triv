@@ -39,3 +39,16 @@ exports.run = async (client, msg) => {
     return msg.reply(`oh no, an error occurred: \`${err.message}\`. Try again later!`);
   }
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: true,
+  aliases: ['hearing', 'hear'],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'hearingtest',
+  description: 'Tests your hearing',
+  usage: 'hearingtest'
+};
