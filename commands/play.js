@@ -1,9 +1,9 @@
 const { play } = require('../util/play');
-const settings = require('../settings.json');
+const { prefix, google_api_key } = require('../settings.json');
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 
-const youtube = new YouTubeAPI(settings.google_api_key);
+const youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice;
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
 
   if (!args.length)
-    return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+    return message.reply(`${prefix}${exports.help.usage}`).catch(client.logger.error);
 
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
