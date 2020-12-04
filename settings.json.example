@@ -4,5 +4,5 @@
   "prefix": "COMMAND_PREFIX",
   "token": "DISCORD_BOT_TOKEN",
   "trn_api_key": "TRACKER.GG_API_KEY",
-  "yt_api_key": "YT_DATA_V3_API_KEY"
+  "google_api_key": "YT_DATA_V3_API_KEY"
 }
