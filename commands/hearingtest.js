@@ -12,8 +12,22 @@ exports.run = async (client, msg) => {
     let previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
       let connection;
-      if (!msg.guild.voice|| !msg.guild.voice.channel)
-        connection = await client.commands.get('join').run(client, msg);
+      if (!msg.guild.voice || !msg.guild.voice.channel) {
+        const vc = msg.member.voice.channel;
+
+        if (vc) {
+          const permissions = vc.permissionsFor(client.user);
+          if (!permissions.has('CONNECT'))
+            return msg.reply('cannot connect to voice channel, missing the **CONNECT** permission');
+          if (!permissions.has('SPEAK'))
+            return msg.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
+          vc.join()
+            .then(connection => {
+              connection.voice.setSelfDeaf(true);
+            })
+            .catch(msg.channel.send);
+        } else return msg.reply('you have to be in a voice channel moron');
+      }
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
       connection.play(path.join(__dirname, '..', 'assets', file));
