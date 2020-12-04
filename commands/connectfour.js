@@ -5,6 +5,7 @@ const nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
 
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();
+  if (!opponent) return msg.reply('tag someone, moron');
   if (opponent.bot) return msg.reply('make some friends, you loser.');
   if (opponent.id === msg.author.id) return msg.reply('you may not play against yourself.');
   const current = client.games.get(msg.channel.id);
