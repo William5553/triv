@@ -84,7 +84,7 @@ exports.run = async (client, msg, args) => {
 };
 
 function draw(channel, hand) {
-  const deck = client.games.get(channel.id).data;
+  const deck = channel.guild.client.games.get(channel.id).data;
   const card = deck.draw();
   hand.push(card);
   return card;
