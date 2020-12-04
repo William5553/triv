@@ -25,9 +25,9 @@ exports.run = async (client, msg) => {
       choices.push(choice.first().content);
     }
     client.games.delete(msg.channel.id);
-    let finished = lib.text;
+    let finished = lib.text.toString();
     for (let i = 0; i < choices.length; i++) {
-      finished = finished.replaceAll(`{${i}}`, `**${choices[i]}**`);
+      finished = finished.replace(`{${i}}`, `**${choices[i]}**`);
     }
     return msg.channel.send(finished);
   } catch (err) {
