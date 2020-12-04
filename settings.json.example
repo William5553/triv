@@ -1,8 +1,8 @@
 {
   "genius_api_key": "GENIUS_API_KEY",
+  "google_api_key": "GOOGLE_API_KEY_WITH_YT_DATA_V3_AND_PERSPECTIVE_APIS",
   "ownerid": "YOUR_DISCORD_USER_ID_HERE",
   "prefix": "COMMAND_PREFIX",
   "token": "DISCORD_BOT_TOKEN",
-  "trn_api_key": "TRACKER.GG_API_KEY",
-  "google_api_key": "GOOGLE_API_KEY_WITH_YT_DATA_V3_AND_PERSPECTIVE_APIS"
+  "trn_api_key": "TRACKER.GG_API_KEY"
 }
