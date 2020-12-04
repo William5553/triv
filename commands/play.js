@@ -3,7 +3,7 @@ const settings = require('../settings.json');
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 
-const youtube = new YouTubeAPI(settings.yt_api_key);
+const youtube = new YouTubeAPI(settings.google_api_key);
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice;
