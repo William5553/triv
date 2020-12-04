@@ -1,5 +1,5 @@
 const path = require('path');
-const data = require('../assets/hearing-test');
+const data = require('../assets/hearing-test.json');
 
 const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
 const no = ['false', 'no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
