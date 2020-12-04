@@ -26,7 +26,7 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.connection.dispatcher.streamTime + queue.additionalStreamTime : undefined;
+    const seekTime = updFilter ? queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime + queue.additionalStreamTime : undefined;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
@@ -172,7 +172,7 @@ module.exports = {
 
         case '🔁':
           queue.loop = !queue.loop;
-          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disablee**'} loop`).catch(client.logger.error);
+          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`).catch(client.logger.error);
           break;
 
         case '⏹':

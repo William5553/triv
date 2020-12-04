@@ -7,16 +7,14 @@ exports.run = async (client, message, args) => {
     return message.channel.send('Word not found');
   });
   
-  const definition = defin.definition.substr(2000);
-  const examp = defin.example.substr(2000);
   const embed = new MessageEmbed()
     .setTitle(defin.word)
     .setURL(defin.urbanURL)
-    .setDescription(definition)
-    .addField('Example', examp)
+    .setDescription(defin.definition)
+    .addField('Example', defin.example)
     .setFooter(`Author: ${defin.author}`)
     .setColor(0x0be05d);
-  message.channel.send(embed);
+  message.channel.send(embed).catch(client.logger.error);
 };
 
 exports.conf = {
