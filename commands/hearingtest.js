@@ -11,8 +11,7 @@ exports.run = async (client, msg) => {
     let previousAge = 'all';
     let previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
-      let connection;
-      if (!msg.guild.voice || !msg.guild.voice.channel) {
+      if (!msg.guild.voice || !msg.guild.voice.connection) {
         const vc = msg.member.voice.channel;
 
         if (vc) {
@@ -24,13 +23,13 @@ exports.run = async (client, msg) => {
           await vc.join()
             .then(connection => {
               connection.voice.setSelfDeaf(true);
-              connection.play(path.join(__dirname, '..', 'assets', file));
             })
             .catch(msg.channel.send);
         } else return msg.reply('you have to be in a voice channel moron');
       }
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
+      msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', file));
       await client.wait(3500);
       const heard = await client.awaitReply(msg, 'Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       let hearddd;
