@@ -1,3 +1,4 @@
+const settings = require ('../settings.json');
 const { play } = require('../util/play');
 const {canModifyQueue} = require('../util/queue');
 const filters = [
@@ -11,14 +12,14 @@ exports.run = (client, message, args) => {
   if (!queue) return message.reply('nothing is playing');
   if (args.length < 1) return message.reply(exports.help.usage);
   if (!canModifyQueue(message.member)) return;
-  if (args[0] !== 'list' && !filters[args[1]]) return message.reply(`${args[1]} is not a valid filter. Valid filters are: ${filters.join(', ')}`);
+  if (args[0] !== 'list' && !filters.includes(args[1])) return message.reply(`${args[1]} is not a valid filter. Valid filters are: ${filters.join(', ')}`);
   if (args[0] === 'add')
     queue.filters[args[1]] = true;
   else if (args[0] === 'remove')
     queue.filters[args[1]] = false;
   else if (args[0] === 'list')
     message.channel.send(JSON.stringify(queue.filters).split(',').join('\n'));
-  else return message.reply(exports.help.usage);
+  else return message.reply(`${settings.prefix}${exports.help.usage}`);
   if (args[0] === 'add' || args[0] === 'remove') play(queue.songs[0], message, true); 
 };
 
