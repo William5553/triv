@@ -2,7 +2,7 @@ const words = ['fire', 'draw', 'shoot', 'bang', 'pull', 'boom'];
 exports.run = async (client, msg) => {
   const current = client.games.get(msg.channel.id);
   if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
-  this.client.games.set(msg.channel.id, { name: 'reactiontime' });
+  client.games.set(msg.channel.id, { name: 'reactiontime' });
   try {
     await msg.channel.send('Get Ready...');
     await client.wait(Math.floor(Math.random() * (10000 - 1500 + 1)) + 1500);
