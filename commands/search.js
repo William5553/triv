@@ -1,11 +1,11 @@
 const { MessageEmbed } = require('discord.js');
-const settings = require('../settings.json');
+const { prefix, google_api_key } = require('../settings.json');
 const YouTubeAPI = require('simple-youtube-api');
 
-const youtube = new YouTubeAPI(settings.yt_api_key);
+const youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
-  if (!args.length) return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+  if (!args.length) return message.reply(`${prefix}${exports.help.usage}`).catch(client.logger.error);
   if (message.channel.activeCollector) return message.reply('a message collector is already active in this channel.');
   if (!message.member.voice.channel)
     return message.reply('you need to join a voice channel first!').catch(client.logger.error);
@@ -48,11 +48,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'search',
   description: 'Search and select videos to listen to',
-  usage: 'search [video name]',
+  usage: 'search [video name]'
 };
