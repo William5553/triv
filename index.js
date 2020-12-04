@@ -8,6 +8,7 @@ client.logger = require('./util/logger');
 require('./util/functions')(client);
 
 client.queue = new Collection();
+client.games = new Collection();
 
 client.commands = new Collection();
 client.aliases = new Collection();
