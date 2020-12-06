@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -1296,6 +1296,11 @@
         }
       }
     },
+    "esrever": {
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/esrever/-/esrever-0.2.0.tgz",
+      "integrity": "sha1-lunSj08bGnZ4TNXUkOquAQ50B7g="
+    },
     "follow-redirects": {
       "version": "1.13.0",
       "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.0.tgz",
@@ -1343,9 +1348,9 @@
       }
     },
     "genius-lyrics": {
-      "version": "4.1.3",
-      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.1.3.tgz",
-      "integrity": "sha512-E7e9uB+vWiiFyCZxJfKN2Qk8SAxHql6yqBtSEocBaxZVYTtGzJrZtK/DlJS9p1Qj3uMZRgqlJ8G/C9Pd1uCgJw==",
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.1.4.tgz",
+      "integrity": "sha512-bt0uRY4RG3HOcls1FEZrOWiXg4uxROQx55pUDlNmRvK7c6sovCtGt+7fawiQbA642Qe4YHChE6MCSfsKAHQ1YA==",
       "requires": {
         "axios": "^0.20.0",
         "node-html-parser": "^1.2.20"
