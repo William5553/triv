@@ -34,8 +34,4 @@ fs.readdir('./events/', (err, files) => {
   });
 });
 
-try {
-  client.login(settings.token);
-} catch (e) {
-  client.logger.error(e);
-}
+client.login(settings.token);
