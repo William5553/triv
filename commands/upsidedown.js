@@ -10,6 +10,7 @@ const replaceD = {
   p: 'd',
   n: 'u',
   m: 'ɯ',
+  l: 'ן',
   k: 'ʞ',
   j: 'ɾ',
   i: 'ᴉ',
@@ -39,8 +40,7 @@ const replaceD = {
   _: '‾'
 };
 exports.run = (client, message, args) => {
-  let frick = args.join(' ');
-  frick = frick.replace(/[a-z0-9&_.,!"?'/$]*/gi, match => {
+  const frick = args.join(' ').replace(/[a-z0-9&_.,!"?']/gi, match => {
     return typeof replaceD[match] != 'undefined' ? replaceD[match] : match;
   });
   message.channel.send(esrever.reverse(frick));
