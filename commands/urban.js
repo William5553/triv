@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
       .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0,800) : 'None');
     return message.channel.send(embed).catch(client.logger.error);
   } catch (err) {
-    message.channel.send(err);
+    return message.channel.send(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
   }
 };
 
