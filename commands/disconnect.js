@@ -6,12 +6,12 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['die'],
-  permLevel: 4,
+  aliases: ['die', 'kys'],
+  permLevel: 4
 };
 
 exports.help = {
   name: 'disconnect',
   description: 'Kills the bot',
-  usage: 'disconnect',
+  usage: 'disconnect'
 };
