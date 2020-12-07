@@ -32,9 +32,13 @@
       }
     ],
     "linebreak-style": ["warn", "unix"],
-    "quotes": ["warn", "single", {
-      "avoidEscape": true
-    }],
+    "quotes": [
+      "warn",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "semi": ["warn", "always"],
     "keyword-spacing": [
       "error",
