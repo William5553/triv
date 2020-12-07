@@ -23,7 +23,7 @@ module.exports = client => {
 
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     client.commands.delete(command);
-    return `Successfully unloaded ${command}`;
+    return `Successfully unloaded ${command.help.name}`;
   };
   /*
   PERMISSION LEVEL FUNCTION
