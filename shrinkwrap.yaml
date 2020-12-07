@@ -11,7 +11,6 @@ dependencies:
   ms: 2.1.2
   node-fetch: 2.6.1
   node-superfetch: 0.1.10
-  relevant-urban: 2.0.0
   simple-youtube-api: 5.2.1
   string-progressbar: 1.0.1
   translate-google-api: 1.0.4
@@ -1281,12 +1280,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-ZOIzd8yVsQQA7j8GCSlPGXwg5PfmA1mrq0JP4nGhh54LaKN3xdai/vHUDu74pKwV8OxseMS65u2NImosQcSD0Q==
-  /relevant-urban/2.0.0:
-    dependencies:
-      snekfetch: 3.6.4
-    dev: false
-    resolution:
-      integrity: sha1-abvU9DpnSQjbkI4n8jCWyw8kuLk=
   /request/2.88.2:
     dependencies:
       aws-sign2: 0.7.0
@@ -1412,11 +1405,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==
-  /snekfetch/3.6.4:
-    deprecated: use node-fetch instead
-    dev: false
-    resolution:
-      integrity: sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw==
   /sprintf-js/1.0.3:
     dev: true
     resolution:
@@ -1731,7 +1719,6 @@ specifiers:
   ms: ^2.1.2
   node-fetch: ^2.6.1
   node-superfetch: ^0.1.10
-  relevant-urban: ^2.0.0
   simple-youtube-api: ^5.2.1
   string-progressbar: ^1.0.1
   translate-google-api: ^1.0.4

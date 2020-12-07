@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -1659,12 +1659,6 @@
         "safe-buffer": "~5.1.1",
         "string_decoder": "~1.1.1",
         "util-deprecate": "~1.0.1"
-      }
-    },
-    "relevant-urban": {
-      "version": "2.0.0",
-      "requires": {
-        "snekfetch": "^3.0.1"
       }
     },
     "rimraf": {
