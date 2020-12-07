@@ -3,7 +3,7 @@ const ud = require('relevant-urban');
 exports.run = async (client, message, args) => {
   const worder = args[0];
   if (!worder) return message.channel.send('Specify a word');
-  const defin = await ud(args.join(' ')).catch(e => {
+  const defin = await ud(args.join(' ')).catch(() => {
     return message.channel.send('Word not found');
   });
   
