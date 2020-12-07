@@ -3,7 +3,7 @@ const ud = require('relevant-urban');
 exports.run = async (client, message, args) => {
   const worder = args[0];
   if (!worder) return message.channel.send('Specify a word');
-  const defin = await ud(args.join(' ')).catch(function() {
+  const defin = await ud(args.join(' ')).catch(e => {
     return message.channel.send('Word not found');
   });
   
@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     .setURL(defin.urbanURL)
     .setDescription(defin.definition)
     .addField('Example', defin.example)
-    .setFooter(`Author: ${defin.author}`)
+    .setFooter(`Author: ${defin.author} | ${defin.thumbsUp} 👍 | ${defin.thumbsDown} 👎`)
     .setColor(0x0be05d);
   message.channel.send(embed).catch(client.logger.error);
 };
