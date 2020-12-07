@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const request = require('node-superfetch');
+
 exports.run = async (client, message, args) => {
   try {
     const word = args.join(' ');
