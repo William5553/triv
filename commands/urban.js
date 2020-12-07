@@ -1,20 +1,27 @@
 const { MessageEmbed } = require('discord.js');
-const ud = require('relevant-urban');
+const request = require('node-superfetch');
 exports.run = async (client, message, args) => {
-  const worder = args[0];
-  if (!worder) return message.channel.send('Specify a word');
-  const defin = await ud(args.join(' ')).catch(() => {
-    return message.channel.send('Word not found');
-  });
-  
-  const embed = new MessageEmbed()
-    .setTitle(defin.word)
-    .setURL(defin.urbanURL)
-    .setDescription(defin.definition)
-    .addField('Example', defin.example)
-    .setFooter(`Author: ${defin.author} | ${defin.thumbsUp} 👍 | ${defin.thumbsDown} 👎`)
-    .setColor(0x0be05d);
-  message.channel.send(embed).catch(client.logger.error);
+  try {
+    const word = args.join(' ');
+    if (!word) return message.channel.send('Specify a word');
+    const { body } = await request
+      .get('http://api.urbandictionary.com/v0/define')
+      .query({ term: word });
+    if (!body.list.length) return message.channel.send('Could not find any results');
+    const data = body.list[0];
+    const embed = new MessageEmbed()
+      .setColor(0x32A8F0)
+      .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
+      .setURL(data.permalink)
+      .setTitle(data.word)
+      .setDescription(data.definition.replace(/\[|\]/g, '').substr(0,1200))
+      .setFooter(`Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}`)
+      .setTimestamp(new Date(data.written_on))
+      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0,800) : 'None');
+    return message.channel.send(embed).catch(client.logger.error);
+  } catch (err) {
+    message.channel.send(err);
+  }
 };
 
 exports.conf = {
