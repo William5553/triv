@@ -8,11 +8,11 @@ exports.run = async (client, message) => {
   const embed = new MessageEmbed()
     .setColor(0x00AE86)
     .setFooter(`${cloc.header.cloc_url} ${cloc.header.cloc_version}`)
-    .addField('❯ JS (cloc.JavaScript.nFiles)', cloc.JavaScript.code, true)
-    .addField('❯ JSON (cloc.JSON.nFiles)', cloc.JSON.code, true)
-    .addField('❯ MD (cloc.Markdown.nFiles)', cloc.Markdown.code, true)
+    .addField(`❯ JS ${cloc.JavaScript.nFiles}`, cloc.JavaScript.code, true)
+    .addField(`❯ JSON ${cloc.JSON.nFiles}`, cloc.JSON.code, true)
+    .addField(`❯ MD ${cloc.Markdown.nFiles}`, cloc.Markdown.code, true)
     .addField('\u200B', '\u200B', true)
-    .addField('❯ Total (cloc.SUM.nFiles)', cloc.SUM.code, true)
+    .addField(`❯ Total ${cloc.SUM.nFiles}`, cloc.SUM.code, true)
     .addField('\u200B', '\u200B', true);
   return message.channel.send(embed);
 };
@@ -20,8 +20,8 @@ exports.run = async (client, message) => {
 async function cloc() {
   if (this.cache) return this.cache;
   const { stdout, stderr } = await exec(
-    path.join(__dirname, '..', '..', 'node_modules', '.bin', 'cloc'),
-    ['--json', '--exclude-dir=node_modules', path.join(__dirname, '..', '..')]
+    path.join(process.cwd(), 'node_modules', '.bin', 'cloc'),
+    ['--json', '--exclude-dir=node_modules', path.join(process.cwd())]
   );
   if (stderr) throw new Error(stderr.trim());
   this.cache = JSON.parse(stdout.trim());
