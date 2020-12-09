@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.3.7",
+  "version": "3.3.8",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -8,11 +8,18 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint --fix '**/*.js'"
   },
+  "keywords": [
+    "bot",
+    "discord",
+    "discord-api",
+    "discord-bot",
+    "discord-js"
+  ],
   "engines": {
     "node": ">=12.0.0"
   },
   "license": "MIT",
-  "author": "William5553",
+  "author": "William5553 <contact@williamk.ga>",
   "description": "The best discord bot ever!",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
@@ -23,6 +30,7 @@
     "esrever": "^0.2.0",
     "fs": "^0.0.2",
     "genius-lyrics": "^4.1.4",
+    "mathjs": "^8.0.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.3",
