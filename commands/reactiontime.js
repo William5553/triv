@@ -12,10 +12,10 @@ exports.run = async (client, msg) => {
     const now = Date.now();
     const msgs = await msg.channel.awaitMessages(filter, {
       max: 1,
-      time: 30000
+      time: 20000
     });
     client.games.delete(msg.channel.id);
-    if (!msgs.size) return msg.channel.send('Failed to answer within 30 seconds.');
+    if (!msgs.size) return msg.channel.send('Failed to answer within 20 seconds.');
     return msg.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
   } catch (err) {
     client.games.delete(msg.channel.id);
