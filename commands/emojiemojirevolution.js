@@ -52,7 +52,7 @@ if (opponent.bot) return msg.reply('bots may not be played against.');
 			client.games.delete(msg.channel.id);
 			throw err;
 		}
-	}
+	}};
   
   exports.conf = {
   enabled: true,
