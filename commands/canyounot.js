@@ -3,7 +3,7 @@ exports.run = async (client, message) => message.channel.send('Can YOU not?');
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['canunot'],
   permLevel: 0
 };
 
