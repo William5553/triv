@@ -5,7 +5,7 @@ exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
 
   if (!canModifyQueue(message.member)) return;
-  if (queue) {
+  if (queue && queue.connection) {
     queue.songs = [];
     queue.connection.dispatcher.end();
     queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);

@@ -3,13 +3,15 @@ const request = require('node-superfetch');
 
 exports.run = async (client, message, args) => {
   try {
-    const word = args.join(' ');
+    const word = args.join(' ').split('|')[0];
+    let resultN = Number(args.join(' ').split('|')[1])-1;
     if (!word) return message.channel.send('Specify a word');
+    if (!resultN || resultN <= 0) resultN = 0;
     const { body } = await request
       .get('http://api.urbandictionary.com/v0/define')
       .query({ term: word });
     if (!body.list.length) return message.channel.send('Could not find any results');
-    const data = body.list[0];
+    const data = body.list[resultN];
     const embed = new MessageEmbed()
       .setColor(0x32A8F0)
       .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
@@ -35,6 +37,6 @@ exports.conf = {
 exports.help = {
   name: 'urban',
   description: 'Searches for a term on the urban dictionary',
-  usage: 'urban [term]',
+  usage: 'urban [term|result #]',
   example: 'urban dark blockchain'
 };
