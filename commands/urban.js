@@ -4,9 +4,9 @@ const request = require('node-superfetch');
 exports.run = async (client, message, args) => {
   try {
     const word = args.join(' ').split('|')[0];
-    const resultN = Number(args.split('|')[1])-1 || 0;
+    let resultN = Number(args.join(' ').split('|')[1])-1;
     if (!word) return message.channel.send('Specify a word');
-    if (resultN < 1) return message.reply('result number must be more than 1');
+    if (!resultN || resultN <= 0) resultN = 0;
     const { body } = await request
       .get('http://api.urbandictionary.com/v0/define')
       .query({ term: word });
