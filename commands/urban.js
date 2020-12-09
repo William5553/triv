@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     const word = args.join(' ').split('|')[0];
     let resultN = Number(args.join(' ').split('|')[1])-1;
     if (!word) return message.channel.send('Specify a word');
-    if (!resultN || resultN <= 0) resultN = 0;
+    if (!resultN || isNaN(resultN) || resultN <= 0) resultN = 0;
     const { body } = await request
       .get('http://api.urbandictionary.com/v0/define')
       .query({ term: word });
