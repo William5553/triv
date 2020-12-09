@@ -8,7 +8,7 @@ if (!msg.guild.voice || !msg.guild.voice.connection)
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
 		const airhorn = sounds.random();
-		connection.play(path.join(process.cwd(), 'assets', airhorn));
+		connection.play(path.join(process.cwd(), 'assets', 'airhorn', airhorn));
 		if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']) {
     try {
 				await msg.react('🔉');
