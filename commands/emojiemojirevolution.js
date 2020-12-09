@@ -63,5 +63,5 @@ exports.conf = {
 exports.help = {
   name: 'emojiemojirevolution',
   description: 'Can you type arrow emoji faster than anyone else has ever typed them before?',
-  usage: 'eer [user]',
+  usage: 'eer [user]'
 };
