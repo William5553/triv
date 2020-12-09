@@ -13,7 +13,7 @@ exports.run = async (client, msg) => {
       else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
         return msg.reply("I'm already in a voice channel");
       msg.guild.voice.connection.dispatcher.setVolumeLogarithmic(1);
-      msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', file));
+      msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
       await client.wait(3500);
       msg.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       const heard = await client.verify(msg.channel, msg.author);
