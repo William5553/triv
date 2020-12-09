@@ -1,9 +1,9 @@
 const math = require('mathjs');
 
 exports.run = async (client, message, args) => {
-  const expression = args.join(' ');
   try {
-    const evaluated = math.evaluate(expression).toString();
+    const expression = args.join(' ');
+    const evaluated = await math.evaluate(expression).toString();
     return message.channel.send(evaluated).catch(() => message.channel.send('Invalid expression'));
   } catch {
     return message.channel.send('Invalid expression');
