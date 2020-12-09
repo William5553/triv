@@ -18,11 +18,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 4,
+  permLevel: 4
 };
 
 exports.help = {
   name: 'eval',
-  description: 'Evaluates arbitrary javascript.',
-  usage: 'eval [code]',
+  description: 'Evaluates arbitrary javascript',
+  usage: 'eval [code]'
 };
