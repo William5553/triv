@@ -23,7 +23,7 @@ exports.run = async (client, msg) => {
       ++turn;
       const num = Math.floor(Math.random() * emojis.length);
       const emoji = [emojis[num], emojisNew[num]];
-      await msg.channel.send(emojisNew[num]);
+      await msg.channel.send(`Repeat the emoji\n${emojisNew[num]}`);
       const filter = res => [msg.author.id, opponent.id].includes(res.author.id) && emoji.includes(res.content);
       const win = await msg.channel.awaitMessages(filter, {
         max: 1,
@@ -51,7 +51,6 @@ exports.run = async (client, msg) => {
   } catch (err) {
     client.games.delete(msg.channel.id);
     throw err;
-		
   }};
   
 exports.conf = {
