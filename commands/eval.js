@@ -5,10 +5,12 @@ exports.run = async (client, message, args) => {
     var evaled = eval(code);
     if (evaled && evaled.constructor.name == 'Promise') evaled = await evaled;
     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled);
-    message.channel.send(`\`\`\`xl\n${client.clean(client, evaled)}\n\`\`\``);
+    evaled = await client.clean(evaled);
+    message.channel.send(evaled, { code: 'xl' });
   } catch (err) {
     if (typeof err !== 'string') return;
-    message.channel.send(`\`ERROR\` \`\`\`xl\n${client.clean(client, err)}\n\`\`\``);
+    const result = await client.clean(err);
+    message.channel.send(`ERROR: ${result}`, {code: 'xl'});
   }
 };
 
