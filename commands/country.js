@@ -25,3 +25,17 @@ exports.run = async (client, msg, args) => {
     if (err.status === 404) return msg.channel.send('Could not find any results.');
     return msg.reply(`an error occurred: \`${err.message}\`. Try again later!`);
   }};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'country',
+  description: 'Gives information about a country',
+  usage: 'country [country]',
+  example: 'country Venezuela'
+};
