@@ -6,7 +6,7 @@ exports.run = async (client, msg) => {
   if (opponent.bot) return msg.reply('bots may not be played against.');
   if (opponent.id === msg.author.id) return msg.reply('you may not play against yourself.');
   const current = client.games.get(msg.channel.id);
-  if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+  if (current) return msg.reply(`please wait until the current game of \`${current.name}\` is finished.`);
   client.games.set(msg.channel.id, { name: 'emojiemojirevolution' });
   try {
     await msg.channel.send(`${opponent}, do you accept this challenge?`);
