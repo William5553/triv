@@ -1,3 +1,5 @@
+const path = require('path');
+
 exports.run = (client, message, args) => {
   const question = args.slice(0).join(' ');
   const responses = [
@@ -27,7 +29,7 @@ exports.run = (client, message, args) => {
   if (question.length < 1) return message.reply('ask me a question moron');
   const response = `${responses[Math.floor(Math.random() * responses.length)]}`;
   if (response === 'Explode') {
-    message.channel.send({ files: ['./assets/explode8ball.png'] }).catch(client.logger.error);
+    message.channel.send({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] }).catch(client.logger.error);
   } else {
     message.channel.send(response);
   }
