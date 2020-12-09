@@ -4,8 +4,8 @@ const Genius = require('genius-lyrics');
 const GClient = new Genius.SongsClient(settings.genius_api_key);
 
 exports.run = async (client, message, args) => {
-  let query;
-  const queue = client.queue.get(message.guild.id);
+  let query, queue;
+  if (message.guild) queue = client.queue.get(message.guild.id);
   if (args.length >= 1)
     query = args.join(' ');
   else if (queue && queue.songs)
@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: true,
+  guildOnly: false,
   aliases: [],
   permLevel: 0
 };
