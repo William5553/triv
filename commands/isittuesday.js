@@ -3,7 +3,7 @@ exports.run = async (client, message) => message.channel.send(`Today **is${new D
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['tuesday'],
+  aliases: ['tuesday', 'tues', 'isittues'],
   permLevel: 0
 };
 
