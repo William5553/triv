@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  var code = args.join(' ');
+  const code = args.join(' ');
   if (code.length < 1) return message.reply('tell me what to run moron');
   try {
     var evaled = eval(code);
