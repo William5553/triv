@@ -4,8 +4,8 @@ exports.run = (client, message, args) => {
   const user = message.mentions.users.first();
   const lim = Number(args[1]);
   if (!user || !lim) message.reply(`Usage: ${settings.prefix}${exports.help.usage}`);
-  message.channel
-    .fetchMessages({ limit: 100 })
+  message.channel.messages
+    .fetch({ limit: 100 })
     .then(messages => {
       messages = messages.filter(m => m.author.id === user.id).array().slice(0, lim);   
       message.channel
