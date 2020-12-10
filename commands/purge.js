@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     if (mgct < 1) return message.reply('enter a number of 1 or higher');
     if (mgct > 99) mgct = 100;
     // Deleting the messages
-    message.channel.bulkDelete(mgct).catch(error => {
+    message.channel.bulkDelete(mgct, true).catch(error => {
       message.reply(`**${error}**`).then(m => m.delete({ timeout: 4500 }));
     });
     /*const embed = new MessageEmbed()
