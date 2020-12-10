@@ -54,5 +54,5 @@ exports.conf = {
 exports.help = {
   name: 'reason',
   description: "Updates a moderation action's reason.",
-  usage: 'reason <case number> <new reason>',
+  usage: 'reason [case number] [new reason]'
 };
