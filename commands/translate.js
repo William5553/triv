@@ -1,5 +1,5 @@
-const settings = require('../settings.json');
-const translate = require('translate-google-api');
+const settings = require('../settings.json'),
+  translate = require('translate-google-api');
 
 exports.run = async (client, message, args) => {
   if (args.length < 3)

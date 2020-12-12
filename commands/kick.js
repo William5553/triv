@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-const { caseNumber } = require('../util/caseNumber.js');
-const { parseUser } = require('../util/parseUser.js');
-const settings = require('../settings.json');
+const { MessageEmbed } = require('discord.js'),
+  { caseNumber } = require('../util/caseNumber.js'),
+  { parseUser } = require('../util/parseUser.js'),
+  settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('tag someone to kick next time before I kick you');

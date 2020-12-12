@@ -1,8 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-const { prefix, google_api_key } = require('../settings.json');
-const YouTubeAPI = require('simple-youtube-api');
+const { MessageEmbed } = require('discord.js'),
+  { prefix, google_api_key } = require('../settings.json'),
+  YouTubeAPI = require('simple-youtube-api'),
 
-const youtube = new YouTubeAPI(google_api_key);
+  youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
   if (!args.length) return message.reply(`${prefix}${exports.help.usage}`).catch(client.logger.error);

@@ -10,9 +10,8 @@ exports.run = (client, message) => {
     'erggggghhhh',
     `banned ${message.author}`,
   ];
-  const pingmsg = options.random();
   message.channel.send('Ping?').then(msg => {
-    msg.edit(pingmsg + ` (${Date.now() - message.createdTimestamp}ms)`);
+    msg.edit(options.random() + ` (${Date.now() - message.createdTimestamp}ms)`);
   });
 };
 

@@ -1,9 +1,9 @@
-const { MessageEmbed } = require('discord.js');
-const { play } = require('../util/play');
-const YouTubeAPI = require('simple-youtube-api');
-const { google_api_key, prefix } = require('../settings.json');
+const { MessageEmbed } = require('discord.js'),
+  { play } = require('../util/play'),
+  YouTubeAPI = require('simple-youtube-api'),
+  { google_api_key, prefix } = require('../settings.json'),
 
-const youtube = new YouTubeAPI(google_api_key);
+  youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice;

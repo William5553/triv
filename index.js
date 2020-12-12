@@ -1,8 +1,8 @@
 if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 12.0.0 or higher is required. Update Node on your system.');
-const { Client, Collection } = require('discord.js');
-const client = new Client({ disableMentions: 'everyone' });
-const fs = require('fs');
-const settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+const { Client, Collection } = require('discord.js'),
+  client = new Client({ disableMentions: 'everyone' }),
+  fs = require('fs'),
+  settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
 require('./util/functions')(client);

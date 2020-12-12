@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs');
-const sounds = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
+const path = require('path'),
+  fs = require('fs'),
+  sounds = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
 exports.run = async (client, msg) => {
   if (!msg.guild.voice || !msg.guild.voice.connection) 

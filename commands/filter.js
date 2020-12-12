@@ -1,6 +1,6 @@
-const settings = require ('../settings.json');
-const { play } = require('../util/play');
-const {canModifyQueue} = require('../util/queue');
+const settings = require ('../settings.json'),
+  { play } = require('../util/play'),
+  { canModifyQueue } = require('../util/queue');
 const filters = [
   'bassboost', '8D', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
   'treble', 'normalizer', 'surround', 'pulsator', 'subboost', 'karaoke', 'flanger', 'gate',

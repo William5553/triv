@@ -1,6 +1,6 @@
 const moment = require('moment');
 require('moment-duration-format');
-const {prefix} = require('../settings.json');
+const { prefix } = require('../settings.json');
 const months = [
   'january',
   'february',

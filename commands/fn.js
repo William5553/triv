@@ -1,6 +1,6 @@
-const request = require('node-superfetch');
-const { MessageEmbed } = require('discord.js');
-const settings = require('../settings.json');
+const request = require('node-superfetch'),
+  { MessageEmbed } = require('discord.js'),
+  settings = require('../settings.json');
 exports.run = async (c, m, a) => {
   if (a.length >= 2) {
     var epicName = a.slice(1).join(' ');

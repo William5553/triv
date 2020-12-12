@@ -1,7 +1,7 @@
-const blankEmoji = '⚪️';
-const playerOneEmoji = '🔴';
-const playerTwoEmoji = '🟡';
-const nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
+const blankEmoji = '⚪️',
+  playerOneEmoji = '🔴',
+  playerTwoEmoji = '🟡',
+  nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
 
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();
@@ -19,13 +19,13 @@ exports.run = async (client, msg) => {
       return msg.channel.send('Looks like they declined...');
     }
     const board = generateBoard();
-    let userTurn = true;
-    let winner = null;
+    let userTurn = true,
+      winner = null;
     const colLevels = [5, 5, 5, 5, 5, 5, 5];
     let lastTurnTimeout = false;
     while (!winner && board.some(row => row.includes(null))) {
-      const user = userTurn ? msg.author : opponent;
-      const sign = userTurn ? 'user' : 'oppo';
+      const user = userTurn ? msg.author : opponent,
+        sign = userTurn ? 'user' : 'oppo';
       await msg.channel.send(`${user}, which column do you pick? Type \`end\` to forefeit.\n${displayBoard(board)}\n${nums.join('')}`);
       const filter = res => {
         if (res.author.id !== user.id) return false;

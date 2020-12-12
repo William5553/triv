@@ -1,8 +1,8 @@
 const settings = require('../settings.json');
 
 exports.run = (client, message, args) => {
-  const user = message.mentions.users.first();
-  const lim = Number(args[1]);
+  const user = message.mentions.users.first(),
+    lim = Number(args[1]);
   if (!user || !lim) message.reply(`Usage: ${settings.prefix}${exports.help.usage}`);
   message.channel.messages
     .fetch({ limit: 100 })

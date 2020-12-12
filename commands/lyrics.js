@@ -1,7 +1,7 @@
-const settings = require('../settings.json');
-const { MessageEmbed } = require('discord.js');
-const Genius = require('genius-lyrics');
-const GClient = new Genius.SongsClient(settings.genius_api_key);
+const settings = require('../settings.json'),
+  { MessageEmbed } = require('discord.js'),
+  Genius = require('genius-lyrics'),
+  GClient = new Genius.SongsClient(settings.genius_api_key);
 
 exports.run = async (client, message, args) => {
   let query, queue;

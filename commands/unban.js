@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message, args) => {
-  const reason = args.slice(1).join(' ');
-  const user = args[0];
-  const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
+  const reason = args.slice(1).join(' '),
+    user = args[0],
+    botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
     message.guild.channels.create('bot-logs', { type: 'text' });
   } else if (!botlog) return message.reply('I cannot find a bot-logs channel');
