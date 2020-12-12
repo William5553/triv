@@ -23,11 +23,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 4,
+  permLevel: 10
 };
 
 exports.help = {
   name: 'reload',
   description: "Reloads the command file, if it's been updated or modified.",
-  usage: 'reload [command]',
+  usage: 'reload [command]'
 };

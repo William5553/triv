@@ -18,11 +18,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 4,
+  permLevel: 10
 };
 
 exports.help = {
   name: 'load',
-  description: 'Loads a command if it was unloaded',
-  usage: 'load [command]',
+  description: 'Loads a command if it was unloaded or load a new command',
+  usage: 'load [command]'
 };

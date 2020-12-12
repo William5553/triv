@@ -21,7 +21,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['die', 'kys', 'shutdown', 'restart'],
-  permLevel: 4
+  permLevel: 10
 };
 
 exports.help = {
