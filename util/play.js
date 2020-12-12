@@ -150,6 +150,7 @@ module.exports = {
           break;
 
         case '🔉':
+          if (queue.volume === 0) return;
           if (queue.volume - 10 <= 0) queue.volume = 0;
           else queue.volume = queue.volume - 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
@@ -159,6 +160,7 @@ module.exports = {
           break;
 
         case '🔊':
+          if (queue.volume === 100) return;
           if (queue.volume + 10 >= 100) queue.volume = 100;
           else queue.volume = queue.volume + 10;
           queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
