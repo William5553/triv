@@ -29,13 +29,13 @@ exports.run = async (client, message, args) => {
 async function nameToUUID(name) {
   const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}?at=${moment().format('x')}`);
   if (body.id) return { uuid: body.id, name: body.name };
-  else return false;
+  return false;
 }
 
 async function uuidToName(uuid) {
   const { body } = await fetch.get(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`);
   if (body.id) return { uuid: body.id, name: body.name };
-  else return false;
+  return false;
 }
   
 exports.conf = {
