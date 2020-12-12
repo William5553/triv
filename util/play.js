@@ -46,6 +46,7 @@ module.exports = {
     }
 
     try {
+      if (queue.stream) queue.stream.destroy();
       queue.stream = await ytdl(song.url, {
         filter: 'audioonly',
         encoderArgs,
