@@ -5,8 +5,14 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.reply('tell me a Minecraft username next time, idiot');
   const name = args[0];
-  const findPlayer = await nameToUUID(name) || await uuidToName(name);
-
+  let findPlayer;
+  
+  try {
+    findPlayer = await nameToUUID(name, message) || await uuidToName(name, message);
+  } catch (e) {
+    return message.channel.send('User not found');
+  }
+  
   if (findPlayer.uuid) {
     message.channel.send(
       new MessageEmbed()
@@ -23,13 +29,13 @@ exports.run = async (client, message, args) => {
 async function nameToUUID(name) {
   const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}?at=${moment().format('x')}`);
   if (body.id) return { uuid: body.id, name: body.name };
-  return false;
+  else return false;
 }
 
 async function uuidToName(uuid) {
   const { body } = await fetch.get(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`);
   if (body.id) return { uuid: body.id, name: body.name };
-  return false;
+  else return false;
 }
   
 exports.conf = {
