@@ -45,15 +45,17 @@ module.exports = {
       encoderArgs = ['-af', encoderArgsFilters.join(',')];
     }
 
+    let stream;
+    
     try {
-      if (queue.stream) queue.stream.destroy();
-      queue.stream = await ytdl(song.url, {
+      if (queue.stream) await queue.stream.destroy();
+      stream = await ytdl(song.url, {
         filter: 'audioonly',
         encoderArgs,
         highWaterMark: 1 << 25,
         seek: seekTime / 1000,
         opusEncoded: true
-      });     
+      });
     } catch (error) {
       if (queue) {
         queue.songs.shift();
@@ -66,7 +68,7 @@ module.exports = {
     queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
     const dispatcher = queue.connection
-      .play(queue.stream, {
+      .play(stream, {
         type: 'opus',
         bitrate: 'auto'
       })
