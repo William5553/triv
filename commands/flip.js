@@ -1,12 +1,12 @@
 exports.run = (client, message) => {
   const responses = ["it's heads!", "it's tails!"];
-  message.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
+  message.channel.send(`${responses.random()}`);
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ['coinflip'],
   permLevel: 0
 };
 
