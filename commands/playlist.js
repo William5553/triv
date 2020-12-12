@@ -36,6 +36,27 @@ exports.run = async (client, message, args) => {
     loop: false,
     volume: 100,
     playing: true,
+    additionalStreamTime: 0,
+    filters: {
+      bassboost: false,
+      '8D': false,
+      vaporwave: false,
+      nightcore: false,
+      phaser: false,
+      tremolo: false,
+      vibrato: false,
+      reverse: false,
+      treble: false,
+      normalizer: false,
+      surround: false,
+      pulsator: false,
+      subboost: false,
+      karaoke: false,
+      flanger: false,
+      gate: false,
+      haas: false,
+      mcompand: false
+    }
   };
 
   let song = null;
@@ -64,23 +85,23 @@ exports.run = async (client, message, args) => {
   }
 
   const newSongs = videos.map(video => {
-      return song = {
-        title: video.title,
-        url: video.url,
-        duration: video.durationSeconds
-      };
-    });
+    return song = {
+      title: video.title,
+      url: video.url,
+      duration: video.durationSeconds
+    };
+  });
 
-    serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
-    const songs = serverQueue ? serverQueue.songs : queueConstruct.songs;
+  serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
+  const songs = serverQueue ? serverQueue.songs : queueConstruct.songs;
 
 
   const playlistEmbed = new MessageEmbed()
-      .setTitle(`${playlist.title}`)
-      .setDescription(songs.map((song, index) => `${index + 1}. ${song.title}`))
-      .setURL(playlist.url)
-      .setColor("#F8AA2A")
-      .setTimestamp();
+    .setTitle(playlist.title)
+    .setDescription(songs.map((song, index) => `${index + 1}. ${song.title}`))
+    .setURL(playlist.url)
+    .setColor('#F8AA2A')
+    .setTimestamp();
 
   if (playlistEmbed.description.length >= 2048)
     playlistEmbed.description = playlistEmbed.description.substr(0, 2020) + '...';
