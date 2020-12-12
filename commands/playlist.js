@@ -63,32 +63,29 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  videos.forEach(video => {
-    song = {
-      title: video.title,
-      url: video.url,
-      duration: video.durationSeconds,
-    };
+  const newSongs = videos.map((video) => {
+      return (song = {
+        title: video.title,
+        url: video.url,
+        duration: video.durationSeconds
+      });
+    });
 
-    if (serverQueue) {
-      serverQueue.songs.push(song);
-      message.channel
-        .send(`✅ **${song.title}** has been added to the queue by ${message.author}`)
-        .catch(client.logger.error);
-    }
-  });
+    serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
+    const songs = serverQueue ? serverQueue.songs : queueConstruct.songs;
+
 
   const playlistEmbed = new MessageEmbed()
-    .setTitle(`${playlist.title}`)
-    .setURL(playlist.url)
-    .setColor('#F8AA2A')
-    .setTimestamp();
+      .setTitle(`${playlist.title}`)
+      .setDescription(songs.map((song, index) => `${index + 1}. ${song.title}`))
+      .setURL(playlist.url)
+      .setColor("#F8AA2A")
+      .setTimestamp();
 
-  playlistEmbed.setDescription(queueConstruct.songs.map((song, index) => `${index + 1}. ${song.title}`));
   if (playlistEmbed.description.length >= 2048)
-    playlistEmbed.description = playlistEmbed.description.substr(0, 2007) + '\nPlaylist larger than character limit...';
+    playlistEmbed.description = playlistEmbed.description.substr(0, 2020) + '...';
 
-  message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
+  message.channel.send(`${message.author} started a playlist`, playlistEmbed);
 
   if (!serverQueue) {
     client.queue.set(message.guild.id, queueConstruct);
