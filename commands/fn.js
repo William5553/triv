@@ -23,8 +23,7 @@ exports.run = async (c, m, a) => {
     var e = await m.reply({
       embed: new MessageEmbed().setTitle('Working...').setDescription('Please wait a few seconds').setColor('#ffdd57'),
     });
-    const { body } = await request.get(`https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`).set('TRN-Api-Key': settings.trn_api_key);
-    });
+    const { body } = await request.get(`https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`).set({'TRN-Api-Key': settings.trn_api_key});
     if (body.error) {
       var text = body.error;
       if (text == 'Player Not Found') {
