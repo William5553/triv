@@ -4,7 +4,7 @@ const no = ['false', 'no', 'n', 'nah', 'nah foo', 'nope', 'nop', 'iie', 'いい�
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
-    if (!props.conf || !props.help) return client.logger.error(`${command} failed to load as it is missing configuration`);
+    if (!props.conf || !props.help) return client.logger.error(`${command} failed to load as it is missing required command configuration`);
     if (props.conf.enabled !== true) return client.logger.log(`${props.help.name} is disabled.`);
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     client.commands.set(props.help.name, props);
@@ -22,8 +22,12 @@ module.exports = client => {
     }
     if (!command) return `The command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
 
+    client.logger.log(`Unloading Command: ${command.help.name}. 👌`);
+    client.commands.delete(command.help.name);
+    command.conf.aliases.forEach(alias => {
+      client.aliases.delete(alias);
+    });
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
-    client.commands.delete(command);
     return `Successfully unloaded ${command.help.name}`;
   };
   /*
@@ -31,19 +35,18 @@ module.exports = client => {
   This is a very basic permission system for commands which uses "levels"
   0 = member
   2 = mod
-  3 = admin/guild owner
-  4 = bot owner
+  3 = admin
+  4 = guild owner
+  10 = bot owner
   */
   client.elevation = message => {
     let permlvl = 0;
-    if (message.member.hasPermission('MANAGE_MESSAGES')) permlvl = 2;
-    if (
-      message.member.hasPermission('ADMINISTRATOR') ||
-    message.member.hasPermission('MANAGE_GUILD') ||
-    message.author.id == message.guild.ownerID
-    )
+    if (message.member.hasPermission('MANAGE_MESSAGES'))
+      permlvl = 2;
+    if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_GUILD'))
       permlvl = 3;
-    if (message.author.id === settings.ownerid || message.author.id == 186620503123951617) permlvl = 4;
+    if (message.author.id == message.guild.ownerID) permlvl = 4;
+    if (message.author.id === settings.ownerid) permlvl = 10;
     return permlvl;
   };
 
