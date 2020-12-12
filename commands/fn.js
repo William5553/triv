@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const request = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 const settings = require('../settings.json');
 exports.run = async (c, m, a) => {
@@ -23,14 +23,10 @@ exports.run = async (c, m, a) => {
     var e = await m.reply({
       embed: new MessageEmbed().setTitle('Working...').setDescription('Please wait a few seconds').setColor('#ffdd57'),
     });
-    var r = await fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`, {
-      headers: {
-        'TRN-Api-Key': settings.trn_api_key,
-      },
+    const { body } = await request.get(`https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`).set('TRN-Api-Key': settings.trn_api_key);
     });
-    var j = await r.json();
-    if (j.error) {
-      var text = j.error;
+    if (body.error) {
+      var text = body.error;
       if (text == 'Player Not Found') {
         return e.edit({
           embed: new MessageEmbed()
@@ -54,13 +50,13 @@ exports.run = async (c, m, a) => {
       }
     } else {
       var emb = new MessageEmbed()
-        .setAuthor(`[${j.platformNameLong}] ${j.epicUserHandle}`)
+        .setAuthor(`[${body.platformNameLong}] ${body.epicUserHandle}`)
         .setColor('#23d160')
-        .setFooter('Epic Account ID: ' + j.accountId)
+        .setFooter('Epic Account ID: ' + body.accountId)
         .setThumbnail('https://i.imgur.com/QDzGMB8.png');
       //.setURL(`https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle}`)
       //.setDescription(`[View full stats on FortniteTracker.com](https://fortnitetracker.com/profile/${j.platformName}/${j.epicUserHandle})`);
-      for (var stat of j.lifeTimeStats) {
+      for (var stat of body.lifeTimeStats) {
         emb.addField(stat.key, stat.value, true);
       }
       return e.edit({
@@ -77,7 +73,7 @@ exports.run = async (c, m, a) => {
         .setColor('#ff3860')
         .setDescription(
           `This command requires 2 arguments, **platform** and **epic username**. Try this **${settings.prefix}fn psn William5553YT**`
-        ),
+        )
     });
   }
 };
