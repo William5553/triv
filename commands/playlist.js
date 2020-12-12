@@ -63,12 +63,12 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  const newSongs = videos.map((video) => {
-      return (song = {
+  const newSongs = videos.map(video => {
+      return song = {
         title: video.title,
         url: video.url,
         duration: video.durationSeconds
-      });
+      };
     });
 
     serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
