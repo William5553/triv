@@ -54,7 +54,7 @@ module.exports = {
         highWaterMark: 1 << 25,
         seek: seekTime / 1000,
         opusEncoded: true
-      });     
+      });
     } catch (error) {
       if (queue) {
         queue.songs.shift();
