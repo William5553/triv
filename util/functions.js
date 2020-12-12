@@ -35,8 +35,9 @@ module.exports = client => {
   This is a very basic permission system for commands which uses "levels"
   0 = member
   2 = mod
-  3 = admin/guild owner
-  4 = bot owner
+  3 = admin
+  4 = guild owner
+  10 = bot owner
   */
   client.elevation = message => {
     let permlvl = 0;
