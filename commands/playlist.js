@@ -90,9 +90,9 @@ exports.run = async (client, message, args) => {
 
   message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
 
-  if (!serverQueue) client.queue.set(message.guild.id, queueConstruct);
-
   if (!serverQueue) {
+    client.queue.set(message.guild.id, queueConstruct);
+    
     try {
       queueConstruct.connection = await channel.join();
       await queueConstruct.connection.voice.setSelfDeaf(true);
