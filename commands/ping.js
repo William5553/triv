@@ -11,7 +11,7 @@ exports.run = (client, message) => {
     `banned ${message.author}`,
   ];
   message.channel.send('Ping?').then(msg => {
-    msg.edit(options.random() + ` (${Date.now() - message.createdTimestamp}ms)`);
+    msg.edit(`${options.random()} (${Date.now() - message.createdTimestamp}ms)`);
   });
 };
 
