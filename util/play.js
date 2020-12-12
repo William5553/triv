@@ -58,7 +58,7 @@ module.exports = {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       }
-      client.logger.error(error);
+      client.logger.error(error.message ? error.message : error);
       return message.channel.send(`Error: ${error.message ? error.message : error}`);
     }
 
