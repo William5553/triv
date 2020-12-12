@@ -4,7 +4,8 @@ const no = ['false', 'no', 'n', 'nah', 'nah foo', 'nope', 'nop', 'iie', 'いい�
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
-    if (props.conf.enabled !== true) return;
+    if (!props.conf || !props.help) return client.logger.error(`${command} failed to load as it is missing configuration`);
+    if (props.conf.enabled !== true) return client.logger.log(`${props.help.name} is disabled.`);
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
