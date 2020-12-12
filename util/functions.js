@@ -22,6 +22,7 @@ module.exports = client => {
     }
     if (!command) return `The command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
 
+    client.logger.log(`Unloading Command: ${command.help.name}. 👌`);
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     client.commands.delete(command);
     return `Successfully unloaded ${command.help.name}`;
