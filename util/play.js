@@ -46,13 +46,13 @@ module.exports = {
     }
 
     try {
-        queue.stream = await ytdl(song.url, {
-          filter: 'audioonly',
-          encoderArgs,
-          highWaterMark: 1 << 25,
-          seek: seekTime / 1000,
-          opusEncoded: true
-        });     
+      queue.stream = await ytdl(song.url, {
+        filter: 'audioonly',
+        encoderArgs,
+        highWaterMark: 1 << 25,
+        seek: seekTime / 1000,
+        opusEncoded: true
+      });     
     } catch (error) {
       if (queue) {
         queue.songs.shift();
