@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
   }
 
   const newSongs = videos.map(video => {
-    return song = {
+    return {
       title: video.title,
       url: video.url,
       duration: video.durationSeconds
@@ -94,7 +94,6 @@ exports.run = async (client, message, args) => {
 
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
   const songs = serverQueue ? serverQueue.songs : queueConstruct.songs;
-
 
   const playlistEmbed = new MessageEmbed()
     .setTitle(playlist.title)
