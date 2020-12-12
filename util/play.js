@@ -46,21 +46,18 @@ module.exports = {
     }
 
     try {
-      if (song.url.includes('youtube.com')) {
         queue.stream = await ytdl(song.url, {
           filter: 'audioonly',
           encoderArgs,
           highWaterMark: 1 << 25,
           seek: seekTime / 1000,
           opusEncoded: true
-        });
-      } else message.reply('the video must be a youtube url');
+        });     
     } catch (error) {
       if (queue) {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       }
-
       client.logger.error(error);
       return message.channel.send(`Error: ${error.message ? error.message : error}`);
     }
