@@ -1,8 +1,8 @@
 if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 12.0.0 or higher is required. Update Node on your system.');
 const { Client, Collection } = require('discord.js'),
   client = new Client({ disableMentions: 'everyone' }),
-  fs = require('fs'),
-  settings = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+  { readFileSync, readdir } = require('fs'),
+  settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
 require('./util/functions')(client);
@@ -12,7 +12,7 @@ client.games = new Collection();
 
 client.commands = new Collection();
 client.aliases = new Collection();
-fs.readdir('./commands/', (err, files) => {
+readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
   files.forEach(file => {
@@ -21,7 +21,7 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
-fs.readdir('./events/', (err, files) => {
+readdir('./events/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} events.`);
   files.forEach(file => {
