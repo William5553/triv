@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js'),
+  feedbackid = '340924459026219009';
 exports.run = (client, message, args) => {
-  const feedbackid = '340924459026219009';
   const feedback = args.slice(0).join(' ');
   if (feedback.length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
   const respo = new MessageEmbed.setColor(0x00ae86)

@@ -1,9 +1,9 @@
-const { play } = require('../util/play');
-const { google_api_key, prefix } = require('../settings.json');
-const ytdl = require('ytdl-core');
-const YouTubeAPI = require('simple-youtube-api');
+const { play } = require('../util/play'),
+  { google_api_key, prefix } = require('../settings.json'),
+  ytdl = require('ytdl-core'),
+  YouTubeAPI = require('simple-youtube-api'),
 
-const youtube = new YouTubeAPI(google_api_key);
+  youtube = new YouTubeAPI(google_api_key);
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice;

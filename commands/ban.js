@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-const { caseNumber } = require('../util/caseNumber.js');
-const { parseUser } = require('../util/parseUser.js');
-const settings = require('../settings.json');
+const { MessageEmbed } = require('discord.js'),
+  { caseNumber } = require('../util/caseNumber.js'),
+  { parseUser } = require('../util/parseUser.js'),
+  settings = require('../settings.json');
 exports.run = async (client, message, args) => {
   if (!message.member.permissions.has('BAN_MEMBERS'))
     return message.reply("you don't have the permission **BAN MEMBERS**");

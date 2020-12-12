@@ -16,9 +16,9 @@ async function embedSan(embed) {
 }
 
 exports.run = async (client, message, args) => {
-  const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  const caseNumber = args.shift();
-  const newReason = args.join(' ');
+  const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs'),
+    caseNumber = args.shift(),
+    newReason = args.join(' ');
 
   await botlog.messages.fetch({ limit: 100 }).then(messages => {
     const caseLog = messages

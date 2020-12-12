@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-const { promisify } = require('util');
-const exec = promisify(require('child_process').execFile);
-const path = require('path');
+const { MessageEmbed } = require('discord.js'),
+  { promisify } = require('util'),
+  exec = promisify(require('child_process').execFile),
+  path = require('path');
 
 async function clc() {
   if (this.cache) return this.cache;

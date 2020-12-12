@@ -1,9 +1,9 @@
-const ms = require('ms');
-const { MessageEmbed } = require('discord.js');
+const ms = require('ms'),
+  { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.channel.send('Please enter a duration for the giveaway.');
-  const time = args[0];
-  const prize = message.content.split(' ').slice(2).join(' ');
+  const time = args[0],
+    prize = message.content.split(' ').slice(2).join(' ');
   if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
   if (ms(time) < 1) return message.channel.send('The duration time has to be atleast 1 second');
   if (ms(time) >= 2147483647) return message.reply('specified duration is too long');

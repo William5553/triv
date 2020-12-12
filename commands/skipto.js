@@ -1,5 +1,5 @@
-const { canModifyQueue } = require('../util/queue');
-const settings = require('../settings.json');
+const { canModifyQueue } = require('../util/queue'),
+  settings = require('../settings.json');
 
 exports.run = (client, message, args) => {
   if (!args.length) return message.reply(`${settings.prefix}${exports.help.usage}`).catch(client.logger.error);

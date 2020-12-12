@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
     'Without a doubt',
     'Yes definitely',
     'You may rely on it',
-    ' As I see it, yes',
+    'As I see it, yes',
     'Most likely',
     'Outlook good',
     'Yes',
@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
     'My reply is no',
     'My sources say no',
     'Outlook not so good',
-    'Very doubtful',
+    'Very doubtful'
   ];
 
   if (question.length < 1) return message.reply('ask me a question moron');

@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
-  const weather = require('weather-js');
-  const { MessageEmbed } = require('discord.js');
+  const weather = require('weather-js'),
+    { MessageEmbed } = require('discord.js');
   // You can find some of the code used here on the weather-js npm page in the description.
 
   weather.find({ search: args.join(' '), degreeType: 'C' }, function(err, result) {

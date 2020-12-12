@@ -1,6 +1,6 @@
-const moment = require('moment');
-const fetch = require('node-superfetch');
-const { MessageEmbed } = require('discord.js');
+const moment = require('moment'),
+  fetch = require('node-superfetch'),
+  { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.reply('tell me a Minecraft username next time, idiot');

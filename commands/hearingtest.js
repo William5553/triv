@@ -1,12 +1,11 @@
-const path = require('path');
-const data = require('../assets/hearing-test.json');
+const path = require('path'),
+  data = require('../assets/hearing-test.json');
 
 exports.run = async (client, msg) => {
   try {
-    let age;
-    let range;
-    let previousAge = 'all';
-    let previousRange = 8;
+    let age, range,
+      previousAge = 'all',
+      previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
       if (!msg.guild.voice || !msg.guild.voice.connection) 
         await client.commands.get('join').run(client, msg);

@@ -1,6 +1,6 @@
-const Deck = require('../util/Deck');
-const hitWords = ['hit', 'hit me', 'h'];
-const standWords = ['stand', 's'];
+const Deck = require('../util/Deck'),
+  hitWords = ['hit', 'hit me', 'h'],
+  standWords = ['stand', 's'];
 
 exports.run = async (client, msg, args) => {
   const current = client.games.get(msg.channel.id);

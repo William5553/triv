@@ -1,5 +1,5 @@
-const emojis = ['⬆', '↗', '➡', '↘', '⬇', '↙', '⬅', '↖'];
-const emojisNew = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'];
+const emojis = ['⬆', '↗', '➡', '↘', '⬇', '↙', '⬅', '↖'],
+  emojisNew = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'];
 
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();

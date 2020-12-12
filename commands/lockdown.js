@@ -1,5 +1,5 @@
-const ms = require('ms');
-const settings = require('../settings.json');
+const ms = require('ms'),
+  settings = require('../settings.json');
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];
   const time = args.join(' ');
