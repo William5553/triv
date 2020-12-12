@@ -23,11 +23,11 @@ module.exports = client => {
     if (!command) return `The command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
 
     client.logger.log(`Unloading Command: ${command.help.name}. 👌`);
-    delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     client.commands.delete(command.help.name);
     command.conf.aliases.forEach(alias => {
       client.aliases.delete(alias);
     });
+    delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     return `Successfully unloaded ${command.help.name}`;
   };
   /*
@@ -43,11 +43,11 @@ module.exports = client => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) permlvl = 2;
     if (
       message.member.hasPermission('ADMINISTRATOR') ||
-    message.member.hasPermission('MANAGE_GUILD') ||
-    message.author.id == message.guild.ownerID
+      message.member.hasPermission('MANAGE_GUILD') ||
+      message.author.id == message.guild.ownerID
     )
       permlvl = 3;
-    if (message.author.id === settings.ownerid || message.author.id == 186620503123951617) permlvl = 4;
+    if (message.author.id === settings.ownerid) permlvl = 4;
     return permlvl;
   };
 
