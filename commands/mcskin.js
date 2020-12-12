@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   let findPlayer;
   
   try {
-    findPlayer = await nameToUUID(name, message) || await uuidToName(name, message);
+    findPlayer = await nameToUUID(name) || await uuidToName(name);
   } catch (e) {
     return message.channel.send('User not found');
   }
