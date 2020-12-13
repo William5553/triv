@@ -9,9 +9,11 @@ module.exports = (client, oldState, newState) => {
   }
   
   // when member joins vc return
-  if ((!oldState.channelID || newState.channelID) && newState.channelID === queue.channel) return; 
+  if ((!oldState.channelID || newState.channelID) && newState.channelID === queue.channel) return;
+  
   // if there are still members in the vc who are not bots return
   if (!(queue.channel.members.filter((member) => !member.user.bot).size === 0)) return;
+  
   queue.channel.leave();
   client.queue.delete(oldState.guild.id);          
 };
