@@ -5,11 +5,13 @@ exports.run = async (c, m, a) => {
   if (a.length >= 2) {
     let platform = a[0].toLowerCase();
     const epicName = a.slice(1).join(' '),
-      xbArr = ['xbox', 'xb', 'xb1'],
-      psArr = ['ps4', 'ps5', 'ps', 'playstation'];
-    if (xbArr.includes(platform)) platform = 'xbl';
-    if (psArr.includes(platform)) platform = 'psn';
-    if (!(platform == 'pc' || platform == 'psn' || platform == 'xbl')) {
+      gamepadA = ['xbox', 'xb', 'xb1', 'xbl', 'psn', 'ps4', 'ps5', 'ps', 'playstation', 'controller'],
+      kmbA = ['pc', 'computer', 'laptop', 'desktop', 'keyboard', 'mouse', 'keyboardmouse'],
+      touchA = ['ipad', 'iphone', 'apple', 'android', 'samsung', 'mobile'];
+    if (kbmA.includes(platform)) platform = 'kbm';
+    if (gamepadA.includes(platform)) platform = 'gamepad';
+    if (touchA.includes(platform)) platform = 'touch';
+    if (!(platform == 'kbm' || platform == 'gamepad' || platform == 'touch')) {
       return m.reply({
         embed: new MessageEmbed()
           .setAuthor(
@@ -17,7 +19,7 @@ exports.run = async (c, m, a) => {
             'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
           )
           .setColor('#ff3860')
-          .setDescription('Valid platforms are **pc**, **xbl** and **psn**')
+          .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
       });
     }
     var e = await m.reply({
@@ -26,7 +28,9 @@ exports.run = async (c, m, a) => {
         .setDescription('Please wait a few seconds')
         .setColor('#ffdd57')
     });
-    const { body } = await request.get(`https://api.fortnitetracker.com/v1/profile/${platform}/${epicName}`).set({'TRN-Api-Key': settings.trn_api_key});
+    const { body } = await request
+      .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
+      .set({'TRN-Api-Key': settings.trn_api_key});
     if (body.error) {
       if (body.error == 'Player Not Found') {
         return e.edit({
