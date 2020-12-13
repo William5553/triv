@@ -3,6 +3,7 @@ const emojis = ['⬆', '↗', '➡', '↘', '⬇', '↙', '⬅', '↖'],
 
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();
+  if (!opponent) return msg.reply('tag somebody to play with, moron');
   if (opponent.bot) return msg.reply('bots may not be played against.');
   if (opponent.id === msg.author.id) return msg.reply('you may not play against yourself.');
   const current = client.games.get(msg.channel.id);
