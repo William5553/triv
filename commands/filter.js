@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
     queue.filters[args[1]] = false;
   else if (args[0] === 'list')
     message.channel.send(JSON.stringify(queue.filters).replace(/[{}"]/g, '').replace(/false/gi, ' '+String.fromCharCode(10060)).replace(/true/gi, ' '+String.fromCharCode(10003)).replace(/,/gi, '\n'));
-  else return message.reply(`${settings.prefix}${exports.help.usage}`);
+  else return message.reply(`Usage: ${settings.prefix}${exports.help.usage}`);
   if (args[0] === 'add' || args[0] === 'remove') play(queue.songs[0], message, true); 
 };
 

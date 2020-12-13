@@ -2,8 +2,7 @@ const settings = require('../settings.json'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = (client, message, args) => {
-  const feedback = args.join(' ');
-  if (feedback.length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
+  if (args.join(' ').length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setDescription('Found a bug? Report it [here](https://github.com/William5553/discord-bot/issues)')
@@ -12,9 +11,9 @@ exports.run = (client, message, args) => {
   return client.channels.cache.get(settings.feedback_channel_id).send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
-    .setDescription(
-      `**Sent in by:** ${message.author.tag}\n\n**ID: ** ${message.author.id}\n\n**Feedback:** ` + feedback
-    )
+    .setAuthor(message.author.tag, message.author.avatarURL())
+    .setFooter(`User ID: ${message.author.id}`)
+    .setDescription(args.join(' '))
   ).catch(client.logger.error);
 };
 
