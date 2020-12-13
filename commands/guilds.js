@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
-  client.generateInvite({permissions: 2146958591}).then(link => {
+  client.generateInvite({ permissions: 2146958591 }).then(link => {
     message.channel.send(new MessageEmbed()
       .setColor(0x00ff5c)
       .setAuthor(client.user.username, client.user.avatarURL())
