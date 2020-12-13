@@ -1,3 +1,1 @@
-module.exports = client => {
-  client.logger.log(`Reconnecting at ${new Date()}`);
-};
+module.exports = client => client.logger.log(`Reconnecting at ${new Date()}`);

@@ -2,8 +2,8 @@ const ms = require('ms'),
   settings = require('../settings.json');
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];
-  const time = args.join(' ');
-  const validUnlocks = ['release', 'unlock'];
+  const time = args.join(' '),
+    validUnlocks = ['release', 'unlock'];
   if (!time) return message.reply('you must specify a duration for the lockdown');
   if (validUnlocks.includes(time)) {
     message.channel
