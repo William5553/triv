@@ -3,6 +3,7 @@ const emojis = ['⬆', '↗', '➡', '↘', '⬇', '↙', '⬅', '↖'],
 
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();
+  if (!opponent) return msg.reply('tag somebody to play with, moron');
   if (opponent.bot) return msg.reply('bots may not be played against.');
   if (opponent.id === msg.author.id) return msg.reply('you may not play against yourself.');
   const current = client.games.get(msg.channel.id);
@@ -15,20 +16,20 @@ exports.run = async (client, msg) => {
       client.games.delete(msg.channel.id);
       return msg.channel.send('Looks like they declined...');
     }
-    let turn = 0;
-    let aPts = 0;
-    let oPts = 0;
-    let lastTurnTimeout = false;
+    let turn = 0,
+      aPts = 0,
+      oPts = 0,
+      lastTurnTimeout = false;
     while (turn < 10) {
       ++turn;
-      const num = Math.floor(Math.random() * emojis.length);
-      const emoji = [emojis[num], emojisNew[num]];
+      const num = Math.floor(Math.random() * emojis.length),
+        emoji = [emojis[num], emojisNew[num]];
       await msg.channel.send(`Repeat the emoji\n${emojisNew[num]}`);
-      const filter = res => [msg.author.id, opponent.id].includes(res.author.id) && emoji.includes(res.content);
-      const win = await msg.channel.awaitMessages(filter, {
-        max: 1,
-        time: 30000
-      });
+      const filter = res => [msg.author.id, opponent.id].includes(res.author.id) && emoji.includes(res.content),
+        win = await msg.channel.awaitMessages(filter, {
+          max: 1,
+          time: 30000
+        });
       if (!win.size) {
         await msg.channel.send('No one even tried that round.');
         if (lastTurnTimeout) {

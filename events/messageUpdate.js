@@ -6,13 +6,13 @@ module.exports = (client, oldMessage, newMessage) => {
     newMessage.guild.channels.create('bot-logs', { type: 'text' });
   }
 
-  const embed = new MessageEmbed()
+  if (logs) logs.send(new MessageEmbed()
     .setTitle('**Message Edited**')
     .setAuthor(`@${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.avatarURL())
     .setFooter(`User ID: ${newMessage.author.id}`)
     .setTimestamp()
     .addField('**Old Message**', oldMessage.content, true)
     .addField('**New Message**', newMessage.content, true)
-    .setColor('0xEB5234');
-  if (logs) logs.send(embed);
+    .setColor('0xEB5234')
+  );
 };

@@ -1,7 +1,5 @@
-exports.run = (client, message) => {
-  const responses = ["it's heads!", "it's tails!"];
-  message.channel.send(`${responses.random()}`);
-};
+exports.run = async (client, message) => message.channel.send(`${["it's heads!", "it's tails!"].random()}`);
+
 
 exports.conf = {
   enabled: true,

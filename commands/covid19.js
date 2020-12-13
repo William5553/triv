@@ -7,7 +7,7 @@ exports.run = async (client, msg, args) => {
     if (args.size < 1) return msg.reply(`${settings.prefix}${exports.help.usage}`);
     const country = args[0];
     const data = await fetchStats(country);
-    const embed = new MessageEmbed()
+    return msg.channel.send(new MessageEmbed()
       .setColor(0xA2D84E)
       .setAuthor('Worldometers', 'https://i.imgur.com/IoaBMuK.jpg', 'https://www.worldometers.info/coronavirus/')
       .setTitle(`Stats for ${country === 'all' ? 'The World' : data.country}`)
@@ -23,8 +23,8 @@ exports.run = async (client, msg, args) => {
         `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} Today)`, true)
       .addField('❯ Active Cases', formatNumber(data.active), true)
       .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
-      .addField('❯ Tests', formatNumber(data.tests), true);
-    return msg.channel.send(embed);
+      .addField('❯ Tests', formatNumber(data.tests), true)
+    );
   } catch (err) {
     if (err.status === 404) return msg.say('Country not found or doesn\'t have any cases.');
     return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);

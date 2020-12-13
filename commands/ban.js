@@ -26,14 +26,14 @@ exports.run = async (client, message, args) => {
     args.splice(1, args.length).join(' ') ||
     `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
   message.guild.members.ban(userr, { days: 0, reason: reason });
-  const embed = new MessageEmbed()
+  return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
       `**Action:** Ban\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`
     )
-    .setFooter(`ID ${caseNum}`);
-  return botlog.send({ embed });
+    .setFooter(`ID ${caseNum}`)
+  );
 };
 
 exports.conf = {
