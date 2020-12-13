@@ -24,8 +24,12 @@ exports.run = (client, message, args) => {
   const day = args[1];
   if (isNaN(day) || day > 31 || day < 1) return message.reply(`${day} is not a valid day`);
   const now = new Date();
-  let year = args[2] ? Number(args[2]) : now.getMonth() + 1 <= month ? now.getFullYear() : now.getFullYear() + 1;
-  if (month === now.getMonth() + 1 && now.getDate() >= day) ++year;
+  if (args[2])
+    year = Number(args[2]);
+  else if (now.getMonth() + 1 <= month) {
+    year = now.getFullYear();
+  } else
+    year = now.getFullYear() + 1;
   const future = new Date(year, month - 1, day),
     futureFormat = moment.utc(future).format('dddd, MMMM Do, YYYY'),
     time = moment.duration(future - now),
@@ -49,12 +53,13 @@ function parse(value) {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['daysuntil'],
+  aliases: ['daysuntil', 'daystil'],
   permLevel: 0
 };
 
 exports.help = {
   name: 'daysto',
   description: 'Responds with how many days there are until a certain date',
-  usage: 'daysto [month] [day]'
+  usage: 'daysto [month] [day] [year]',
+  example: 'daysto october 31 2024'
 };
