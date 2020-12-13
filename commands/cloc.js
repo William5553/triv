@@ -18,7 +18,6 @@ exports.run = async (client, message) => {
   const cloc = await clc();
   return message.channel.send(new MessageEmbed()
     .setColor(0x00AE86)
-    .setFooter(`${cloc.header.cloc_url} v${cloc.header.cloc_version}`)
     .addField(`❯ JavaScript: ${cloc.JavaScript.nFiles} files`, `${cloc.JavaScript.code} lines`, true)
     .addField(`❯ JSON: ${cloc.JSON.nFiles} files`, `${cloc.JSON.code} lines`, true)
     .addField('\u200B', '\u200B', true)
