@@ -93,9 +93,8 @@ module.exports = {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
-    if (seekTime) {
+    if (seekTime) 
       queue.additionalStreamTime = seekTime;
-    }
     dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
