@@ -10,7 +10,8 @@ exports.run = async (client, message, args) => {
     message.channel.send(evaled, { code: 'xl' });
   } catch (err) {
     if (typeof err !== 'string') return;
-    const result = await client.clean(err);
+    let result = await client.clean(err);
+    if (result.length >= 1990) result = result.substr(0, 1985) + '...';
     message.channel.send(`ERROR: ${result}`, {code: 'xl'});
   }
 };
