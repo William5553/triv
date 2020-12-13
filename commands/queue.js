@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   const serverQueue = client.queue.get(message.guild.id);
-  if (!serverQueue) return message.channel.send('❌ **Nothing playing in this server**');
+  if (!serverQueue) return message.channel.send('❌ **Nothing playing**');
   try {
     let currentPage = 0;
     const embeds = generateQueueEmbed(message, serverQueue.songs);
