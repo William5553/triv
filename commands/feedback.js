@@ -4,7 +4,8 @@ const settings = require('../settings.json'),
 exports.run = (client, message, args) => {
   const feedback = args.join(' ');
   if (feedback.length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
-  message.channel.send(new MessageEmbed.setColor(0x00ae86)
+  message.channel.send(new MessageEmbed()
+    .setColor(0x00ae86)
     .setDescription('Found a bug? Report it [here](https://github.com/William5553/discord-bot/issues)')
     .setTitle('Feedback sent.. :envelope:')
   );
