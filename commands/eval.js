@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const code = args.join(' ');
   if (code.length < 1) return message.reply('tell me what to run moron');
   try {
-    var evaled = eval(code);
+    let evaled = eval(code);
     if (evaled && evaled.constructor.name == 'Promise') evaled = await evaled;
     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled);
     evaled = await client.clean(evaled);
