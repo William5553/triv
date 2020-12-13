@@ -6,12 +6,12 @@ exports.run = (client, message) => {
 
   if (!canModifyQueue(message.member)) return;
   if (queue && queue.connection) {
-    queue.songs = [];
     queue.connection.dispatcher.end();
     queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
     if (queue.stream) queue.stream.destroy();
     client.queue.delete(message.guild.id);
-  } else message.member.voice.channel.leave();
+  }
+  message.member.voice.channel.leave();
 };
 
 exports.conf = {
