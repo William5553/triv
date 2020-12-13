@@ -11,8 +11,8 @@ exports.run = async (client, message) => {
     const verification = await client.verify(message.channel, message.author);
     if (!verification) return message.channel.send('Aborted restart.');
   }
-  await msg.channel.send(texts.random());
-  client.logger.log(`${msg.author.tag} is restarting the bot`);
+  await message.channel.send(texts.random());
+  await client.logger.log(`${message.author.tag} is restarting the bot`);
   client.destroy();
   process.exit(0);
 };
