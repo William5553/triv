@@ -9,6 +9,8 @@ exports.run = (client, message) => {
     queue.songs = [];
     queue.connection.dispatcher.end();
     queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
+    if (queue.stream) queue.stream.destroy();
+    client.queue.delete(message.guild.id);
   } else message.member.voice.channel.leave();
 };
 
