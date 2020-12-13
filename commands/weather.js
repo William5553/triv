@@ -1,22 +1,17 @@
 exports.run = async (client, message, args) => {
   const weather = require('weather-js'),
     { MessageEmbed } = require('discord.js');
-  // You can find some of the code used here on the weather-js npm page in the description.
 
-  weather.find({ search: args.join(' '), degreeType: 'C' }, function(err, result) {
-    // Make sure you get that args.join part, since it adds everything after weather.
+  weather.find({ search: args.join(' '), degreeType: 'C' }, (err, result) => {
     if (err) message.channel.send(err);
 
-    // We also want them to know if a place they enter is invalid.
-    if (result.length === 0) return message.channel.send('**Please enter a valid location.**'); // This tells them in chat that the place they entered is invalid.
+    if (result.length === 0) return message.channel.send('**Please enter a valid location.**');
 
-    // Variables
-    var current = result[0].current; // This is a variable for the current part of the JSON output
-    var location = result[0].location; // This is a variable for the location part of the JSON output
+    var current = result[0].current,
+      location = result[0].location;
 
-    // Let's use an embed for this.
     const embed = new MessageEmbed()
-      .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like, remember you can find all of this on the weather-js npm page.
+      .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like
       .setAuthor(`Weather for ${current.observationpoint}`) // This shows the current location of the weather.
       .setThumbnail(current.imageUrl) // This sets the thumbnail of the embed
       .setColor(0x00ae86) // This sets the color of the embed, you can set this to anything if you look put a hex color picker, just make sure you put 0x infront of the hex
@@ -34,7 +29,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
