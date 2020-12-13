@@ -6,10 +6,8 @@ exports.run = async (client, message) => {
   try {
     let currentPage = 0;
     const embeds = generateQueueEmbed(message, serverQueue.songs);
-    const queueEmbed = await message.channel.send(
-      `**Current Page - ${currentPage + 1}/${embeds.length}**`,
-      embeds[currentPage]
-    );
+    const queueEmbed = await message.channel.send(`**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds[currentPage]);
+    if (embeds.length === 0) return;
     await queueEmbed.react('⬅️');
     await queueEmbed.react('⏹');
     await queueEmbed.react('➡️');
@@ -33,8 +31,12 @@ exports.run = async (client, message) => {
           }
         } else {
           collector.stop();
-          reaction.message.reactions.removeAll();
           queueEmbed.delete();
+          if (serverQueue.stream) serverQueue.stream.destroy();
+          serverQueue.connection.dispatcher.end();
+          serverQueue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
+          client.queue.delete(message.guild.id);
+          message.member.voice.channel.leave();
         }
         await reaction.users.remove(message.author.id);
       } catch {
