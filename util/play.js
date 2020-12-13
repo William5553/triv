@@ -56,6 +56,7 @@ module.exports = {
         seek: seekTime / 1000,
         opusEncoded: true
       });
+      queue.stream = stream;
     } catch (error) {
       if (queue) {
         queue.songs.shift();
