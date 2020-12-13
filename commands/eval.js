@@ -6,12 +6,12 @@ exports.run = async (client, message, args) => {
     if (evaled && evaled.constructor.name == 'Promise') evaled = await evaled;
     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled);
     evaled = await client.clean(evaled);
-    if (evaled.length >= 2000) evaled = evaled.substr(0, 1990) + '...';
+    if (evaled.length > 1980) evaled = evaled.substr(0, 1980) + '...';
     message.channel.send(evaled, { code: 'xl' });
   } catch (err) {
     if (typeof err !== 'string') return;
     let result = await client.clean(err);
-    if (result.length >= 1990) result = result.substr(0, 1985) + '...';
+    if (result.length > 1980) result = result.substr(0, 1980) + '...';
     message.channel.send(`ERROR: ${result}`, {code: 'xl'});
   }
 };
