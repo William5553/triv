@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   const user = message.mentions.users.first() || message.author;
-  message.channel.send(user + `'s ID is ${user.id}`);
+  message.channel.send(`${user}'s ID is ${user.id}`);
 };
 
 exports.conf = {
