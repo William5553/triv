@@ -9,9 +9,9 @@ require('./util/functions')(client);
 
 client.queue = new Collection();
 client.games = new Collection();
-
 client.commands = new Collection();
 client.aliases = new Collection();
+
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
