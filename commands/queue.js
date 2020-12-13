@@ -48,7 +48,7 @@ exports.run = async (client, message) => {
 function generateQueueEmbed(message, queue) {
   const embeds = [];
   for (let i = 0; i < queue.length; i += 10) {
-    const current = queue.slice(i, i*10+10);
+    const current = queue.slice(i, i+10);
     let j = i;
     const embed = new MessageEmbed()
       .setTitle('Song Queue\n')
