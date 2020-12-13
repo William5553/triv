@@ -94,7 +94,7 @@ exports.run = async (client, message, args) => {
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
   const playlistEmbed = new MessageEmbed()
-    .setTitle(playlist.title.replace(/&#(\d+);/g, function(match, dec) {
+    .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     }))
     .setDescription(newSongs.map((song, index) => `${index + 1}. ${song.title}`))
