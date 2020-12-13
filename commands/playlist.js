@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
   if (urlValid) {
     try {
       playlist = await youtube.getPlaylist(url, { part: 'snippet' });
-      videos = await playlist.getVideos(30, { part: 'snippet' });
+      videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
       return message.reply('Playlist not found :(').catch(client.logger.error);
@@ -76,7 +76,7 @@ exports.run = async (client, message, args) => {
         part: 'snippet',
       });
       playlist = results[0];
-      videos = await playlist.getVideos(30, { part: 'snippet' });
+      videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
       return message.reply('Playlist not found :(').catch(client.logger.error);
@@ -94,7 +94,9 @@ exports.run = async (client, message, args) => {
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
   const playlistEmbed = new MessageEmbed()
-    .setTitle(playlist.title)
+    .setTitle(playlist.title.replace(/&#(\d+);/g, function(match, dec) {
+      return String.fromCharCode(dec);
+    }))
     .setDescription(newSongs.map((song, index) => `${index + 1}. ${song.title}`))
     .setURL(playlist.url)
     .setColor('#F8AA2A')

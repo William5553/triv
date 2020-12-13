@@ -30,20 +30,22 @@ exports.run = async (client, message) => {
             queueEmbed.edit(`**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds[currentPage]);
           }
         } else {
+          message.delete();
           collector.stop();
           queueEmbed.delete();
-          if (serverQueue.stream) serverQueue.stream.destroy();
+          serverQueue.songs = [];
           serverQueue.connection.dispatcher.end();
+          if (serverQueue.stream) serverQueue.stream.destroy();
           serverQueue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
-          client.queue.delete(message.guild.id);
-          message.member.voice.channel.leave();
         }
         await reaction.users.remove(message.author.id);
-      } catch {
+      } catch (e) {
+        client.logger.error(e.stack ? e.stack : e);
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });
-  } catch {
+  } catch (e) {
+    client.logger.error(e.stack ? e.stack : e);
     return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
   }
 };

@@ -180,6 +180,7 @@ module.exports = {
         case '⏹':
           queue.songs = [];
           queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
+          if (queue.stream) queue.stream.destroy();
           try {
             queue.connection.dispatcher.end();
           } catch (error) {
