@@ -6,7 +6,7 @@ exports.run = async (c, m, a) => {
     let platform = a[0].toLowerCase();
     const epicName = a.slice(1).join(' '),
       gamepadA = ['xbox', 'xb', 'xb1', 'xbl', 'psn', 'ps4', 'ps5', 'ps', 'playstation', 'controller'],
-      kmbA = ['pc', 'computer', 'laptop', 'desktop', 'keyboard', 'mouse', 'keyboardmouse'],
+      kbmA = ['pc', 'computer', 'laptop', 'desktop', 'keyboard', 'mouse', 'keyboardmouse'],
       touchA = ['ipad', 'iphone', 'apple', 'android', 'samsung', 'mobile'];
     if (kbmA.includes(platform)) platform = 'kbm';
     if (gamepadA.includes(platform)) platform = 'gamepad';
