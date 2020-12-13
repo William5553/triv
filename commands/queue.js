@@ -16,7 +16,7 @@ exports.run = async (client, message) => {
 
     const filter = (reaction, user) => ['⬅️', '⏹', '➡️'].includes(reaction.emoji.name) && message.author.id === user.id;
     const collector = queueEmbed.createReactionCollector(filter, {
-      time: 60000,
+      time: 60000
     });
 
     collector.on('collect', async reaction => {
@@ -52,12 +52,11 @@ function generateQueueEmbed(message, queue) {
     const current = queue.slice(i, k);
     let j = i;
     k += 10;
-    const info = current.map(track => `${++j} - [${track.title}](${track.url})`).join('\n');
     const embed = new MessageEmbed()
       .setTitle('Song Queue\n')
       .setThumbnail(message.guild.iconURL())
       .setColor('#F8AA2A')
-      .setDescription(`**Current Song - [${queue[0].title}](${queue[0].url})**\n\n${info}`)
+      .setDescription(`**Current Song - [${queue[0].title}](${queue[0].url})**\n\n${current.map(track => `${++j} - [${track.title}](${track.url})`).join('\n')}`)
       .setTimestamp();
     embeds.push(embed);
   }
