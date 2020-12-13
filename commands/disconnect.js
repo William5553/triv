@@ -4,8 +4,7 @@ exports.run = async (client, msg) => {
   const games = client.games.size;
   let areIs = 'are';
   if (games > 0) {
-    let currentString = '';
-    currentString += `${games} game${games > 1 ? 's' : ''}`;
+    const currentString = `${games} game${games > 1 ? 's' : ''}`;
     if (games === 1) areIs = 'is';
 			
     await msg.reply(`there ${areIs} currently **${currentString}**. Are you sure?`);
@@ -20,7 +19,7 @@ exports.run = async (client, msg) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['die', 'kys', 'shutdown', 'restart'],
+  aliases: ['die', 'kys', 'shutdown', 'restart', 'reboot'],
   permLevel: 10
 };
 

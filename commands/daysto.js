@@ -26,10 +26,10 @@ exports.run = (client, message, args) => {
   const now = new Date();
   let year = now.getMonth() + 1 <= month ? now.getFullYear() : now.getFullYear() + 1;
   if (month === now.getMonth() + 1 && now.getDate() >= day) ++year;
-  const future = new Date(year, month - 1, day);
-  const futureFormat = moment.utc(future).format('dddd, MMMM Do, YYYY');
-  const time = moment.duration(future - now);
-  const link = time.months() ? time.months() === 1 ? 'is' : 'are' : time.days() === 1 ? 'is' : 'are';
+  const future = new Date(year, month - 1, day),
+    futureFormat = moment.utc(future).format('dddd, MMMM Do, YYYY'),
+    time = moment.duration(future - now),
+    link = time.months() ? time.months() === 1 ? 'is' : 'are' : time.days() === 1 ? 'is' : 'are';
   return message.channel.send(`There ${link} ${time.format('M [months and] d [days]')} until ${futureFormat}!`);
 };
 

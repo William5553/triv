@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     const current = result[0].current,
       location = result[0].location;
 
-    const embed = new MessageEmbed()
+    message.channel.send(new MessageEmbed()
       .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like
       .setAuthor(`Weather for ${current.observationpoint}`) // This shows the current location of the weather.
       .setThumbnail(current.imageUrl) // This sets the thumbnail of the embed
@@ -20,8 +20,8 @@ exports.run = async (client, message, args) => {
       .addField('Temperature', `${current.temperature}° C`, true)
       .addField('Feels Like', `${current.feelslike}° C`, true)
       .addField('Winds', current.winddisplay, true)
-      .addField('Humidity', `${current.humidity}%`, true);
-    message.channel.send({ embed });
+      .addField('Humidity', `${current.humidity}%`, true)
+    );
   });
 };
 
