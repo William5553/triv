@@ -47,11 +47,9 @@ exports.run = async (client, message) => {
 
 function generateQueueEmbed(message, queue) {
   const embeds = [];
-  let k = 10;
   for (let i = 0; i < queue.length; i += 10) {
-    const current = queue.slice(i, k);
+    const current = queue.slice(i, i*10+10);
     let j = i;
-    k += 10;
     const embed = new MessageEmbed()
       .setTitle('Song Queue\n')
       .setThumbnail(message.guild.iconURL())
