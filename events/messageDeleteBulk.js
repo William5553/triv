@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = (client, messages) => {
   const message = messages.first(),
-   length = messages.array().length,
-   channel = messages.first().channel;
+    length = messages.array().length,
+    channel = messages.first().channel;
   if (!message.guild) return;
   const logs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
 

@@ -39,7 +39,7 @@ exports.run = async (c, m, a) => {
             .setFooter("Make sure you've got the name correct!")
         });
       } else {
-        client.logger.error(body.error);
+        c.logger.error(body.error);
         return e.edit({
           embed: new MessageEmbed()
             .setAuthor(
@@ -47,7 +47,7 @@ exports.run = async (c, m, a) => {
               'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
             .setColor('#ff3860')
-            .setFooter(text)
+            .setFooter(body.error)
         });
       }
     } else {

@@ -24,6 +24,7 @@ exports.run = (client, message, args) => {
   const day = args[1];
   if (isNaN(day) || day > 31 || day < 1) return message.reply(`${day} is not a valid day`);
   const now = new Date();
+  let year;
   if (args[2])
     year = Number(args[2]);
   else if (now.getMonth() + 1 <= month) {
