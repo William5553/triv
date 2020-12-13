@@ -34,6 +34,7 @@ exports.run = async (client, message) => {
         } else {
           collector.stop();
           reaction.message.reactions.removeAll();
+          queueEmbed.delete();
         }
         await reaction.users.remove(message.author.id);
       } catch {
