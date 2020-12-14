@@ -1,11 +1,9 @@
 const { MessageEmbed } = require('discord.js'),
-  { prefix, google_api_key } = require('../settings.json'),
-  YouTubeAPI = require('simple-youtube-api'),
-
-  youtube = new YouTubeAPI(google_api_key);
+  YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  if (!args.length) return message.reply(`${prefix}${exports.help.usage}`).catch(client.logger.error);
+  const youtube = new YouTubeAPI(client.settings.google_api_key);
+  if (!args.length) return message.reply(`${client.settings.prefix}${exports.help.usage}`).catch(client.logger.error);
   if (message.channel.activeCollector) return message.reply('a message collector is already active in this channel.');
   if (!message.member.voice.channel)
     return message.reply('you need to join a voice channel first!').catch(client.logger.error);
@@ -32,7 +30,8 @@ exports.run = async (client, message, args) => {
 
     message.channel.activeCollector = false;
     client.commands.get('play').run(client, message, [choice]);
-    if (resultsMessage) resultsMessage.delete().catch(client.logger.error);
+    if (resultsMessage)
+      resultsMessage.delete().catch(client.logger.error);
   } catch (error) {
     client.logger.error(error);
     message.channel.activeCollector = false;
