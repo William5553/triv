@@ -2,7 +2,7 @@ if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 1
 const { Client, Collection } = require('discord.js'),
   client = new Client({ disableMentions: 'everyone' }),
   { readFileSync, readdir } = require('fs'),
-  settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
+  client.settings = config ? config : process.env ? process.env : JSON.parse(readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
 require('./util/functions')(client);
@@ -34,4 +34,4 @@ readdir('./events/', (err, files) => {
   });
 });
 
-client.login(settings.token);
+client.login(client.settings.token);
