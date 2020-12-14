@@ -9,11 +9,11 @@ exports.run = async (client, message, args) => {
   if (userr.permissions.has('BAN_MEMBERS'))
     return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  if (userr.user.id === client.settings.ownerid) {
+  if (userr.user.id === client.settings.owner_id) {
     return message.reply('no!');
   }
   if (userr.user.id === client.user.id) {
-    return message.channel.send("No! Don't ban me!");
+    return message.reply('bruh');
   }
   parseUser(message, userr);
   const caseNum = await caseNumber(client, botlog);
