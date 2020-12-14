@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
   if (args.join(' ').length < 1) return message.reply("we don't accept blank feedback!").catch(client.logger.error);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ae86)
-    .setDescription('Found a bug? Report it [here](https://github.com/William5553/discord-bot/issues)')
+    .setDescription('Found a bug? Report it [here](https://github.com/William5553/triv/issues)')
     .setTitle('Feedback sent.. :envelope:')
   );
   return client.channels.cache.get(client.settings.feedback_channel_id).send(new MessageEmbed()
