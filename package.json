@@ -39,7 +39,7 @@
     "string-progressbar": "^1.0.1",
     "translate-google-api": "^1.0.4",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^4.1.5"
+    "ytdl-core": "^4.1.4"
   },
   "repository": {
     "type": "git",
