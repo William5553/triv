@@ -1,4 +1,3 @@
-const settings = require('../settings.json');
 const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yis', 'hai', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'];
 const no = ['false', 'no', 'n', 'nah', 'nah foo', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off', 'absolutely not'];
 module.exports = client => {
@@ -46,7 +45,7 @@ module.exports = client => {
     if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_GUILD'))
       permlvl = 3;
     if (message.author.id == message.guild.ownerID) permlvl = 4;
-    if (message.author.id === settings.ownerid) permlvl = 10;
+    if (message.author.id === client.settings.ownerid) permlvl = 10;
     return permlvl;
   };
 
