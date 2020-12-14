@@ -1,5 +1,3 @@
-const settings = require('../settings.json');
-
 async function embedSan(embed) {
   embed.message ? delete embed.message : null;
   embed.footer ? delete embed.footer.embed : null;
@@ -36,7 +34,7 @@ exports.run = async (client, message, args) => {
       const embed = logMsg.embeds[0];
       embedSan(embed);
       embed.description = embed.description.replace(
-        `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`,
+        `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNumber} <reason>.`,
         newReason
       );
       logMsg.edit({ embed });
