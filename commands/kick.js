@@ -6,9 +6,9 @@ exports.run = async (client, message, args) => {
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
   parseUser(message, userr);
   if (userr.user.id == client.user.id) {
-    return message.channel.send('You cannot, fool!');
+    return message.reply('bruh');
   }
-  if (userr.user.id == client.settings.ownerid) {
+  if (userr.user.id == client.settings.owner_id) {
     return message.reply('no.');
   }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
