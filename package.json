@@ -5,8 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "lint": "eslint '**/*.js'",
-    "lint:fix": "eslint --fix '**/*.js'"
+    "lint": "eslint . --ext js,json",
+    "lint:fix": "eslint . --fix --ext js,json"
   },
   "keywords": [
     "bot",
