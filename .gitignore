@@ -2,6 +2,10 @@
 /node_modules/
 
 # Files
-/settings.json
 *.log
+*.tgz
+.npm
+.eslintcache
+.yarn-integrity
+/settings.json
 .env
