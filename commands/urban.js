@@ -17,10 +17,10 @@ exports.run = async (client, message, args) => {
       .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
       .setURL(data.permalink)
       .setTitle(data.word)
-      .setDescription(data.definition.replace(/\[|\]/g, '').substr(0,1200))
+      .setDescription(data.definition.replace(/\[|\]/g, '').substr(0, 1200))
       .setFooter(`Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}`)
       .setTimestamp(new Date(data.written_on))
-      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0,800) : 'None');
+      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0, 800) : 'None');
     return message.channel.send(embed).catch(client.logger.error);
   } catch (err) {
     return message.channel.send(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);

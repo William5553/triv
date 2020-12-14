@@ -8,11 +8,11 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'roll',
   description: 'Rolls a die',
-  usage: 'roll [dice sides]',
+  usage: 'roll [dice sides]'
 };

@@ -73,7 +73,7 @@ exports.run = async (client, message, args) => {
       song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,
-        duration: songInfo.videoDetails.lengthSeconds,
+        duration: songInfo.videoDetails.lengthSeconds
       };
     } catch (error) {
       client.logger.error(error);
@@ -86,7 +86,7 @@ exports.run = async (client, message, args) => {
       song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,
-        duration: songInfo.videoDetails.lengthSeconds,
+        duration: songInfo.videoDetails.lengthSeconds
       };
     } catch (error) {
       client.logger.error(error);

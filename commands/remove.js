@@ -15,11 +15,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'remove',
   description: 'Removes song from queue',
-  usage: 'remove [queue number]',
+  usage: 'remove [queue number]'
 };

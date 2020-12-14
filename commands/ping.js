@@ -8,7 +8,7 @@ exports.run = (client, message) => {
     'Pongity Pow!',
     'no!',
     'erggggghhhh',
-    `banned ${message.author}`,
+    `banned ${message.author}`
   ];
   message.channel.send('Ping?').then(msg => {
     msg.edit(`${options.random()} (${Date.now() - message.createdTimestamp}ms)`);

@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
     const response = await message.channel.awaitMessages(filter, {
       max: 1,
       time: 30000,
-      errors: ['time'],
+      errors: ['time']
     });
     const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
 

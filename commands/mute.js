@@ -27,8 +27,8 @@ exports.run = async (client, message, args) => {
         data: {
           name: 'muted',
           color: [255, 0, 0],
-          position: 1,
-        },
+          position: 1
+        }
       })
       .catch(client.logger.error);
   }
@@ -46,7 +46,7 @@ exports.run = async (client, message, args) => {
 
   message.guild.channels.cache.forEach(f => {
     f.updateOverwrite(muteRole, {
-      SEND_MESSAGES: false,
+      SEND_MESSAGES: false
     });
   });
   if (userr.roles.cache.has(muteRole.id)) {

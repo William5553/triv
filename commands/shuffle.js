@@ -19,11 +19,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'shuffle',
   description: 'Shuffles the queue',
-  usage: 'shuffle',
+  usage: 'shuffle'
 };

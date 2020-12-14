@@ -15,11 +15,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'skip',
   description: 'Skips the currently playing music',
-  usage: 'skip',
+  usage: 'skip'
 };

@@ -32,11 +32,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['np'],
-  permLevel: 0,
+  permLevel: 0
 };
 
 exports.help = {
   name: 'nowplaying',
   description: 'Shows the song that is currently playing',
-  usage: 'nowplaying',
+  usage: 'nowplaying'
 };

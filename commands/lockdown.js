@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (validUnlocks.includes(time)) {
     message.channel
       .updateOverwrite(message.channel.guild.roles.everyone, {
-        SEND_MESSAGES: null,
+        SEND_MESSAGES: null
       })
       .then(() => {
         message.channel.send('Lockdown lifted.');
@@ -20,20 +20,20 @@ exports.run = (client, message, args) => {
     if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     message.channel
       .updateOverwrite(message.channel.guild.roles.everyone, {
-        SEND_MESSAGES: false,
+        SEND_MESSAGES: false
       })
       .then(() => {
         message.channel
           .send(
             `Channel locked down for ${ms(ms(time), {
-              long: true,
+              long: true
             })}. To lift, run **${settings.prefix}lockdown ${validUnlocks.random()}**`
           )
           .then(() => {
             client.lockit[message.channel.id] = setTimeout(() => {
               message.channel
                 .updateOverwrite(message.channel.guild.roles.everyone, {
-                  SEND_MESSAGES: null,
+                  SEND_MESSAGES: null
                 })
                 .then(message.channel.send('Lockdown lifted.'))
                 .catch(client.logger.error);
@@ -49,7 +49,7 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['lock', 'ld'],
-  permLevel: 2,
+  permLevel: 2
 };
 
 exports.help = {

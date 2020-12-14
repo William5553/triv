@@ -15,7 +15,8 @@ exports.run = async (client, message, args) => {
     return message.channel.send(data.join('\n'));
   } catch (err) {
     return message.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
-  }};
+  }
+};
 
 exports.conf = {
   enabled: true,
