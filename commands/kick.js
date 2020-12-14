@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
   { caseNumber } = require('../util/caseNumber.js'),
-  { parseUser } = require('../util/parseUser.js'),
-  settings = require('../settings.json');
+  { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
@@ -9,7 +8,7 @@ exports.run = async (client, message, args) => {
   if (userr.user.id == client.user.id) {
     return message.channel.send('You cannot, fool!');
   }
-  if (userr.user.id == settings.ownerid) {
+  if (userr.user.id == client.settings.ownerid) {
     return message.reply('not willeh!');
   }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
@@ -22,7 +21,7 @@ exports.run = async (client, message, args) => {
   userr.kick().catch(client.logger.error);
   const reason =
     args.splice(1, args.length).join(' ') ||
-    `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
+    `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
   const embed = new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
