@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js'),
 exports.run = async (client, message, args) => {
   if (!message.member.permissions.has('BAN_MEMBERS'))
     return message.reply("you don't have the permission **BAN MEMBERS**");
-  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
+  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]);
   if (!userr) return message.reply('you must mention someone to ban them.').catch(client.logger.error);
   if (userr.permissions.has('BAN_MEMBERS'))
     return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
