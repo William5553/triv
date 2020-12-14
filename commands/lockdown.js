@@ -1,5 +1,4 @@
-const ms = require('ms'),
-  settings = require('../settings.json');
+const ms = require('ms');
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];
   const time = args.join(' '),
@@ -27,7 +26,7 @@ exports.run = (client, message, args) => {
           .send(
             `Channel locked down for ${ms(ms(time), {
               long: true
-            })}. To lift, run **${settings.prefix}lockdown ${validUnlocks.random()}**`
+            })}. To lift, run **${client.settings.prefix}lockdown ${validUnlocks.random()}**`
           )
           .then(() => {
             client.lockit[message.channel.id] = setTimeout(() => {
