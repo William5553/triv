@@ -1,6 +1,5 @@
 const request = require('node-superfetch'),
-  { MessageEmbed } = require('discord.js'),
-  settings = require('../settings.json');
+  { MessageEmbed } = require('discord.js');
 exports.run = async (c, m, a) => {
   if (a.length >= 2) {
     let platform = a[0].toLowerCase();
@@ -22,7 +21,7 @@ exports.run = async (c, m, a) => {
           .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
       });
     }
-    var e = await m.reply({
+    const e = await m.reply({
       embed: new MessageEmbed()
         .setTitle('Working...')
         .setDescription('Please wait a few seconds')
@@ -30,7 +29,7 @@ exports.run = async (c, m, a) => {
     });
     const { body } = await request
       .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
-      .set({'TRN-Api-Key': settings.trn_api_key});
+      .set({'TRN-Api-Key': c.settings.trn_api_key});
     if (body.error) {
       if (body.error == 'Player Not Found') {
         return e.edit({
@@ -55,7 +54,7 @@ exports.run = async (c, m, a) => {
         });
       }
     } else {
-      var emb = new MessageEmbed()
+      const emb = new MessageEmbed()
         .setTitle(`[${body.platformNameLong}] ${body.epicUserHandle}`)
         .setColor('#23d160')
         .setFooter('Epic Account ID: ' + body.accountId)
@@ -77,7 +76,7 @@ exports.run = async (c, m, a) => {
         )
         .setColor('#ff3860')
         .setDescription(
-          `This command requires 2 arguments, **platform** and **epic username**. Try this **${settings.prefix}fn psn William5553YT**`
+          `This command requires 2 arguments, **platform** and **epic username**. Try this **${c.settings.prefix}fn psn William5553YT**`
         )
     });
   }
