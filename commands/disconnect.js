@@ -20,7 +20,7 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['die', 'kys', 'shutdown', 'restart', 'reboot'],
+  aliases: ['die', 'kys', 'shutdown', 'restart', 'reboot', 'stfu'],
   permLevel: 10
 };
 
