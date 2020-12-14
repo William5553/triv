@@ -1,19 +1,16 @@
 const { MessageEmbed } = require('discord.js'),
   { play } = require('../util/play'),
-  YouTubeAPI = require('simple-youtube-api'),
-  { google_api_key, prefix } = require('../settings.json'),
-
-  youtube = new YouTubeAPI(google_api_key);
+  YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  const { channel } = message.member.voice;
-
-  const serverQueue = client.queue.get(message.guild.id);
+  const { channel } = message.member.voice,
+    youtube = new YouTubeAPI(client.settings.google_api_key),
+    serverQueue = client.queue.get(message.guild.id);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
   if (!args.length)
     return message
-      .reply(`${prefix}${exports.help.usage}`)
+      .reply(`${client.settings.prefix}${exports.help.usage}`)
       .catch(client.logger.error);
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
 
