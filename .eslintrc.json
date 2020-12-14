@@ -3,7 +3,7 @@
     "ecmaVersion": 2020
   },
   "env": {
-    "es2020": true,
+    "es6": true,
     "node": true
   },
   "extends": ["eslint:recommended", "plugin:node/recommended"],
