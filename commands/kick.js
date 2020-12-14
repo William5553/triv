@@ -22,14 +22,14 @@ exports.run = async (client, message, args) => {
   const reason =
     args.splice(1, args.length).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
-  const embed = new MessageEmbed()
+  return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
       `**Action:** Kick\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`
     )
-    .setFooter(`ID ${caseNum}`);
-  return botlog.send({ embed }).catch(client.logger.error);
+    .setFooter(`ID ${caseNum}`)
+  ).catch(client.logger.error);
 };
 
 exports.conf = {
