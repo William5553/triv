@@ -1,12 +1,11 @@
 const { MessageEmbed } = require('discord.js'),
   { caseNumber } = require('../util/caseNumber.js'),
-  { parseUser } = require('../util/parseUser.js'),
-  settings = require('../settings.json');
+  { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
   parseUser(message, userr);
-  if (userr.user.id === settings.ownerid) {
+  if (userr.user.id === client.settings.ownerid) {
     return message.reply('absolutely not.');
   }
   if (userr.user.id === client.user.id) {
@@ -33,16 +32,8 @@ exports.run = async (client, message, args) => {
       .catch(client.logger.error);
   }
   const reason =
-    args.splice(1, args.length).join(' ') ||
-    `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
-
-  const embed = new MessageEmbed()
-    .setColor(0x00ae86)
-    .setTimestamp()
-    .setDescription(
-      `**Action:** Un/mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
-    )
-    .setFooter(`ID ${caseNum}`);
+    args.splice(1, -1).join(' ') ||
+    `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
 
   message.guild.channels.cache.forEach(f => {
     f.updateOverwrite(muteRole, {
@@ -53,14 +44,26 @@ exports.run = async (client, message, args) => {
     userr.roles
       .remove(muteRole.id, reason)
       .then(() => {
-        botlog.send({ embed }).catch(client.logger.error);
+        botlog.send(new MessageEmbed()
+    .setColor(0x00ae86)
+    .setTimestamp()
+    .setDescription(
+      `**Action:** Unmute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+    )
+    .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
       })
       .catch(message.channel.send);
   } else {
     userr.roles
       .add(muteRole.id, reason)
       .then(() => {
-        botlog.send({ embed }).catch(client.logger.error);
+        botlog.send(new MessageEmbed()
+    .setColor(0x00ae86)
+    .setTimestamp()
+    .setDescription(
+      `**Action:** Mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+    )
+    .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
       })
       .catch(message.channel.send);
   }
@@ -75,6 +78,6 @@ exports.conf = {
 
 exports.help = {
   name: 'mute',
-  description: `Toggles the mute of a member. (Use ${settings.prefix}mute or ${settings.prefix}unmute)`,
+  description: 'Toggles the mute of a member',
   usage: 'mute [user] OR unmute [user]'
 };
