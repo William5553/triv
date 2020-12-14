@@ -1,20 +1,17 @@
 const { play } = require('../util/play'),
-  { google_api_key, prefix } = require('../settings.json'),
   ytdl = require('ytdl-core'),
-  YouTubeAPI = require('simple-youtube-api'),
-
-  youtube = new YouTubeAPI(google_api_key);
+  YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  const { channel } = message.member.voice;
-
-  const serverQueue = client.queue.get(message.guild.id);
+  const { channel } = message.member.voice,
+    youtube = new YouTubeAPI(client.settings.google_api_key),
+    serverQueue = client.queue.get(message.guild.id);
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
 
   if (!args.length)
-    return message.reply(`${prefix}${exports.help.usage}`).catch(client.logger.error);
+    return message.reply(`${client.settings.prefix}${exports.help.usage}`).catch(client.logger.error);
 
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
