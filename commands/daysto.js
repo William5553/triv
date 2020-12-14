@@ -1,6 +1,5 @@
 const moment = require('moment');
 require('moment-duration-format');
-const { prefix } = require('../settings.json');
 const months = [
   'january',
   'february',
@@ -17,7 +16,7 @@ const months = [
 ];
 
 exports.run = (client, message, args) => {
-  if (args.length < 2) return message.reply(`${prefix}${exports.help.usage}`);
+  if (args.length < 2) return message.reply(`${client.settings.prefix}${exports.help.usage}`);
   let month = args[0];
   if (!validate(month)) return message.reply(`${month} is not a valid month`);
   else month = parse(month);
