@@ -6,7 +6,7 @@ module.exports = (client, message) => {
     return message.reply(`my prefix on this guild is \`${settings.prefix}\``);
   if (!message.content.startsWith(settings.prefix)) return;
   const command = message.content.split(' ')[0].slice(settings.prefix.length).toLowerCase();
-  const args = message.content.split(/ +/);.slice(1);
+  const args = message.content.split(' ').slice(1);
   let cmd;
   if (client.commands.has(command))
     cmd = client.commands.get(command);
