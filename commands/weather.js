@@ -27,10 +27,16 @@ exports.run = async (client, message, args) => {
 				)
 				.setURL(`https://openweathermap.org/city/${body.id}`)
 				.setTimestamp()
+						    .addField('❯ Timezone', `UTC${body.timezone}`, true)
 				.addField('❯ Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))
 				.addField('❯ Temperature', `${body.main.temp}° C`, true)
+						    .addField('❯ Feels Like', `${body.main.feels_like}° C`, true)
+						    .addField('❯ High', `${body.main.temp_max}° C`, true)
+						    .addField('❯ Low', `${body.main.temp_min}° C`, true)
+						    .addField('❯ Atmospheric Pressure (sea level)', `${body.main.pressure} hPa`, true)
 				.addField('❯ Humidity', `${body.main.humidity}%`, true)
-				.addField('❯ Wind Speed', `${body.wind.speed} mph`, true)
+				.addField('❯ Wind Speed', `${body.wind.speed} meters/sec`, true)
+						    .addField('❯ Cloudiness', `${body.clouds.all}%`, true)
 			);
 		} catch (err) {
 			if (err.status === 404) return message.channel.send('Could not find any results.');
