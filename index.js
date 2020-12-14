@@ -5,14 +5,14 @@ const { Client, Collection } = require('discord.js'),
   settings = config ? config : process.env ? process.env : JSON.parse(readFileSync('./settings.json', 'utf-8'));
 
 client.logger = require('./util/logger');
+client.settings = settings;
+
 require('./util/functions')(client);
 
 client.queue = new Collection();
 client.games = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
-
-client.settings = settings;
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
