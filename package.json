@@ -43,12 +43,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/William5553/discord-bot.git"
+    "url": "git+https://github.com/William5553/triv.git"
   },
   "bugs": {
-    "url": "https://github.com/William5553/discord-bot/issues"
+    "url": "https://github.com/William5553/triv/issues"
   },
-  "homepage": "https://github.com/William5553/discord-bot",
+  "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
     "eslint": "^7.15.0",
     "eslint-plugin-node": "^11.1.0"
