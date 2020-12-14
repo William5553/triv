@@ -14,10 +14,11 @@ exports.run = async (client, message, args) => {
   if (!isSupport(a1)) return message.reply(`${args[0]} isn't a language`);
   if (!isSupport(a2)) return message.reply(`${args[1]} isn't a language`);
 
-  const t = await translate(text, { from: a1, to: a2 }).catch(err => {
+  let t = await translate(text, { from: a1, to: a2 }).catch(err => {
     return err.toString();
   });
-  if (t) message.channel.send(t);
+  t = await client.clean(t);
+  if (t) message.channel.send(t).catch(client.logger.error);
 };
 
 const langs = {
