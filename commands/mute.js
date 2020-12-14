@@ -45,12 +45,12 @@ exports.run = async (client, message, args) => {
       .remove(muteRole.id, reason)
       .then(() => {
         botlog.send(new MessageEmbed()
-    .setColor(0x00ae86)
-    .setTimestamp()
-    .setDescription(
-      `**Action:** Unmute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
-    )
-    .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
+          .setColor(0x00ae86)
+          .setTimestamp()
+          .setDescription(
+            `**Action:** Unmute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+          )
+          .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
       })
       .catch(message.channel.send);
   } else {
@@ -58,12 +58,12 @@ exports.run = async (client, message, args) => {
       .add(muteRole.id, reason)
       .then(() => {
         botlog.send(new MessageEmbed()
-    .setColor(0x00ae86)
-    .setTimestamp()
-    .setDescription(
-      `**Action:** Mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
-    )
-    .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
+          .setColor(0x00ae86)
+          .setTimestamp()
+          .setDescription(
+            `**Action:** Mute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+          )
+          .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
       })
       .catch(message.channel.send);
   }
