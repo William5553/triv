@@ -14,7 +14,7 @@ module.exports = (client, message) => {
   if (cmd) {
     if (!message.guild) {
       if (!cmd.conf.guildOnly) {
-        if (cmd.conf.permLevel >= 10 && message.author.id !== client.settings.ownerid)
+        if (cmd.conf.permLevel >= 10 && message.author.id !== client.settings.owner_id)
           return message.reply("you don't have the perms for that");
         return cmd.run(client, message, args, 4);
       } else if (cmd.conf.guildOnly)
