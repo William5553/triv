@@ -60,7 +60,7 @@ module.exports = {
     } catch (error) {
       if (queue) {
         queue.songs.shift();
-        module.exports.play(queue.songs[0], message);
+        module.exports.play(queue.songs[0], message, false);
       }
       client.logger.error(error.stack ? error.stack : error);
       return message.channel.send(`Error: ${error.message ? error.message : error}`);
@@ -68,10 +68,11 @@ module.exports = {
 
     queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
-    const dispatcher = queue.connection
+    queue.connection
       .play(stream, {
         type: 'opus',
-        bitrate: 'auto'
+        bitrate: 'auto',
+        volume: queue.volume / 100
       })
       .on('finish', () => {
         if (collector && !collector.ended) collector.stop();
@@ -95,7 +96,6 @@ module.exports = {
       });
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
-    dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
       var playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);

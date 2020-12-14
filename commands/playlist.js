@@ -113,7 +113,7 @@ exports.run = async (client, message, args) => {
     try {
       queueConstruct.connection = await channel.join();
       await queueConstruct.connection.voice.setSelfDeaf(true);
-      play(queueConstruct.songs[0], message);
+      play(queueConstruct.songs[0], message, false);
     } catch (error) {
       client.logger.error(error);
       client.queue.delete(message.guild.id);
