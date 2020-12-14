@@ -60,7 +60,7 @@ module.exports = {
     } catch (error) {
       if (queue) {
         queue.songs.shift();
-        module.exports.play(queue.songs[0], message);
+        module.exports.play(queue.songs[0], message, false);
       }
       client.logger.error(error.stack ? error.stack : error);
       return message.channel.send(`Error: ${error.message ? error.message : error}`);
