@@ -4,3 +4,4 @@
 # Files
 /settings.json
 *.log
+.env
