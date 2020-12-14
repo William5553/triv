@@ -16,10 +16,10 @@ exports.run = async (client, msg, args) => {
       .setThumbnail(country === 'all' ? null : data.countryInfo.flag || null)
       .setFooter('Last Updated')
       .setTimestamp(data.updated)
-      .addField('❯ Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} Today)`, true)
-      .addField('❯ Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} Today)`, true)
+      .addField('❯ Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, true)
+      .addField('❯ Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, true)
       .addField('❯ Total Recoveries',
-        `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} Today)`, true)
+        `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} today)`, true)
       .addField('❯ Active Cases', formatNumber(data.active), true)
       .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
       .addField('❯ Tests', formatNumber(data.tests), true)
