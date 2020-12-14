@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
   { caseNumber } = require('../util/caseNumber.js'),
-  { parseUser } = require('../util/parseUser.js'),
-  settings = require('../settings.json');
+  { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
   if (!message.member.permissions.has('BAN_MEMBERS'))
     return message.reply("you don't have the permission **BAN MEMBERS**");
@@ -10,7 +9,7 @@ exports.run = async (client, message, args) => {
   if (userr.permissions.has('BAN_MEMBERS'))
     return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  if (userr.user.id === settings.ownerid) {
+  if (userr.user.id === client.settings.ownerid) {
     return message.reply('no!');
   }
   if (userr.user.id === client.user.id) {
@@ -23,8 +22,8 @@ exports.run = async (client, message, args) => {
   } else if (!botlog) return message.reply('I cannot find a channel named bot-logs');
   await userr.user.send(`you've been banned from ${message.channel.guild.name}`);
   const reason =
-    args.splice(1, args.length).join(' ') ||
-    `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNum} <reason>.`;
+    args.splice(1, -1).join(' ') ||
+    `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
   message.guild.members.ban(userr, { days: 0, reason: reason });
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
