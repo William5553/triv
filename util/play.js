@@ -71,7 +71,8 @@ module.exports = {
     const dispatcher = queue.connection
       .play(stream, {
         type: 'opus',
-        bitrate: 'auto'
+        bitrate: 'auto',
+        volume: queue.volume / 100
       })
       .on('finish', () => {
         if (collector && !collector.ended) collector.stop();
@@ -95,7 +96,6 @@ module.exports = {
       });
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
-    dispatcher.setVolumeLogarithmic(queue.volume / 100);
 
     try {
       var playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
