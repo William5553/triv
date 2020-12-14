@@ -25,26 +25,14 @@
     "no-extra-parens": "warn",
     "no-extra-semi": "warn",
     "no-unreachable": "error",
-		"brace-style": ["error", "1tbs"],
+    "brace-style": ["error", "1tbs"],
     "comma-dangle": ["error", "never"],
     "comma-spacing": "error",
     "comma-style": "error",
-    "yoda": ["never", { "exceptRange": true }],
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
+    "yoda": ["error", "never", { "exceptRange": true }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["warn", "unix"],
-    "quotes": [
-      "warn",
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
     "semi": ["warn", "always"],
     "keyword-spacing": [
       "error",

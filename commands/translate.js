@@ -128,7 +128,7 @@ const langs = {
   Xhosa: 'xh',
   Yiddish: 'yi',
   Yoruba: 'yo',
-  Zulu: 'zu',
+  Zulu: 'zu'
 };
 
 function isSupport(language) {

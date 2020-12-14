@@ -66,7 +66,7 @@ module.exports = client => {
       const collected = await msg.channel.awaitMessages(filter, {
         max: 1,
         time: limit,
-        errors: ['time'],
+        errors: ['time']
       });
       return collected.first().content;
     } catch (e) {

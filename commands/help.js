@@ -16,7 +16,7 @@ exports.run = (client, message, args, perms) => {
     for (i = 0; i * 1980 <= msg.length; i++) {
       message.author
         .send(`${msg.substring(i * 1980, i * 1980 + 1980)}`, {
-          code: 'asciidoc',
+          code: 'asciidoc'
         })
         .catch(client.logger.error);
     }

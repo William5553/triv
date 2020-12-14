@@ -73,7 +73,7 @@ exports.run = async (client, message, args) => {
   } else {
     try {
       const results = await youtube.searchPlaylists(search, 1, {
-        part: 'snippet',
+        part: 'snippet'
       });
       playlist = results[0];
       videos = await playlist.getVideos(100, { part: 'snippet' });

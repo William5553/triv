@@ -24,7 +24,8 @@ exports.run = async (client, msg, args) => {
   } catch (err) {
     if (err.status === 404) return msg.channel.send('Could not find any results.');
     return msg.reply(`an error occurred: \`${err.message}\`. Try again later!`);
-  }};
+  }
+};
 
 exports.conf = {
   enabled: true,
