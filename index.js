@@ -3,16 +3,16 @@ const { Client, Collection } = require('discord.js'),
   client = new Client({ disableMentions: 'everyone' }),
   { readFileSync, readdir } = require('fs');
 
-let config;
+let settings;
 
 try {
-  config = JSON.parse(readFileSync('./settings.json', 'utf-8'));
+  settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
 } catch {
-  config = null;
+  settings = null;
 }
 
 client.logger = require('./util/logger');
-client.settings = config ? config : process.env;
+client.settings = settings ? settings : process.env;
 
 require('./util/functions')(client);
 
