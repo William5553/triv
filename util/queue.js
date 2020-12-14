@@ -4,7 +4,7 @@ module.exports = {
     const memChan = member.voice.channelID;
     const botChan = member.guild.voice.channelID;
 
-    if (memChan === botChan || member.id === member.client.settings.ownerid)
+    if (memChan === botChan || member.id === member.client.settings.owner_id)
       return true;
     return member.send('You need to join the voice channel first!').catch(member.client.logger.error);
   }
