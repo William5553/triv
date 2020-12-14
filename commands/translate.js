@@ -1,10 +1,9 @@
-const settings = require('../settings.json'),
-  translate = require('translate-google-api');
+const translate = require('translate-google-api');
 
 exports.run = async (client, message, args) => {
   if (args.length < 3)
     return message.reply(
-      `Wrong format: An example would be \`${settings.prefix}${exports.help.name} en fr english-text-here\` which would translate \`english-text-here\` into french`
+      `Wrong format: An example would be \`${client.settings.prefix}${exports.help.name} en fr english-text-here\` which would translate \`english-text-here\` into french`
     );
   const text = args.slice(2).join(' ');
 
