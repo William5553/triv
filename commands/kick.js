@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     return message.channel.send('You cannot, fool!');
   }
   if (userr.user.id == client.settings.ownerid) {
-    return message.reply('not willeh!');
+    return message.reply('no.');
   }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNum = await caseNumber(client, botlog);
