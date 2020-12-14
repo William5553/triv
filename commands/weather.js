@@ -18,6 +18,7 @@ exports.run = async (client, message, args) => {
 					units: 'metric',
 					appid: client.settings.openweathermap_key
 				});
+	    message.channel.send(`http://openweathermap.org/img/wn/${body.weather.icon}@2x.png`);
 			return message.channel.send(new MessageEmbed()
 				.setColor(0xFF7A09)
 				.setAuthor(
