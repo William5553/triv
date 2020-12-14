@@ -68,7 +68,7 @@ module.exports = {
 
     queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
-    const dispatcher = queue.connection
+    queue.connection
       .play(stream, {
         type: 'opus',
         bitrate: 'auto',
