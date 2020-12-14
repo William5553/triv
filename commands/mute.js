@@ -5,11 +5,11 @@ exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
   parseUser(message, userr);
-  if (userr.user.id === client.settings.ownerid) {
+  if (userr.user.id === client.settings.owner_id) {
     return message.reply('absolutely not.');
   }
   if (userr.user.id === client.user.id) {
-    return message.channel.send("Don't mute me!");
+    return message.reply("bruh");
   }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNum = await caseNumber(client, botlog);
