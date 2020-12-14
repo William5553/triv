@@ -22,12 +22,10 @@ exports.run = async (client, message, args) => {
 				.setColor(0xFF7A09)
 				.setAuthor(
 					`${body.name}, ${body.sys.country}`,
-					'https://i.imgur.com/NjMbE9o.png',
-					'https://openweathermap.org/city'
+					`http://openweathermap.org/img/wn/${body.weather.icon}@2x.png`
 				)
 				.setURL(`https://openweathermap.org/city/${body.id}`)
 				.setTimestamp()
-						    .addField('❯ Timezone', `UTC${body.timezone}`, true)
 				.addField('❯ Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))
 				.addField('❯ Temperature', `${body.main.temp}° C`, true)
 						    .addField('❯ Feels Like', `${body.main.feels_like}° C`, true)
