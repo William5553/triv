@@ -1,4 +1,3 @@
-const settings = require('../settings.json');
 exports.run = (client, message, args, perms) => {
   if (!args[0]) {
     const longest = Array.from(client.commands.keys()).reduce((long, str) => Math.max(long, str.length), 0),
@@ -7,11 +6,11 @@ exports.run = (client, message, args, perms) => {
           if (perms < c.conf.permLevel)
             return null;
           else
-            return `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
+            return `${client.settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
         })
         .filter(a => a !== null)
         .join('\n'),
-      msg = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${fonk}`;
+      msg = `= Command List =\n\n[Use ${client.settings.prefix}help <commandname> for details]\n\n${fonk}`;
     let i;
     for (i = 0; i * 1980 <= msg.length; i++) {
       message.author
@@ -30,9 +29,9 @@ exports.run = (client, message, args, perms) => {
     }
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
     const aliases = command.conf.aliases.join(', ') || 'none';
-    const example = command.help.example ? `${settings.prefix}${command.help.example}` : 'to be added';
+    const example = command.help.example ? `${client.settings.prefix}${command.help.example}` : 'to be added';
     message.channel.send(
-      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${settings.prefix}${command.help.usage}\naliases :: ${aliases}\nexample :: ${example}`,
+      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${client.settings.prefix}${command.help.usage}\naliases :: ${aliases}\nexample :: ${example}`,
       {
         code: 'asciidoc'
       }
