@@ -13,7 +13,6 @@ dependencies:
   ms: 2.1.3
   node-superfetch: 0.1.10
   simple-youtube-api: 5.2.1
-  sodium: 3.0.2
   string-progressbar: 1.0.1
   translate-google-api: 1.0.4
   weather-js: 2.0.0
@@ -1458,13 +1457,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==
-  /sodium/3.0.2:
-    dependencies:
-      node-addon-api: 3.0.2
-    dev: false
-    requiresBuild: true
-    resolution:
-      integrity: sha512-IsTwTJeoNBU97km3XkrbCGC/n/9aUQejgD3QPr2YY2gtbSPru3TI6nhCqgoez9Mv88frF9oVZS/jrXFbd6WXyA==
   /sprintf-js/1.0.3:
     dev: true
     resolution:
@@ -1782,7 +1774,6 @@ specifiers:
   ms: ^2.1.3
   node-superfetch: ^0.1.10
   simple-youtube-api: ^5.2.1
-  sodium: ^3.0.2
   string-progressbar: ^1.0.1
   translate-google-api: ^1.0.4
   weather-js: ^2.0.0
