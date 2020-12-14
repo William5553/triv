@@ -14,6 +14,8 @@ try {
 client.logger = require('./util/logger');
 client.settings = settings ? settings : process.env;
 
+if (!client.settings.token) throw new Error('Invalid token provided');
+
 require('./util/functions')(client);
 
 client.queue = new Collection();
