@@ -1,28 +1,41 @@
 exports.run = async (client, message, args) => {
-  const { find } = require('weather-js'),
+  const request = require('node-superfetch'),
     { MessageEmbed } = require('discord.js');
 
-  find({ search: args.join(' '), degreeType: 'C' }, (err, result) => {
-    if (err) message.channel.send(err);
+  let location = args.join(' ');
+  if (!location) return message.reply('enter a location next time');
+  if (/^[0-9]+$/.test(location))
+    location = { type: 'zip', data: location };
+  else
+    location = { type: 'q', data: location };
 
-    if (result.length === 0) return message.channel.send('**Please enter a valid location.**');
-
-    const current = result[0].current,
-      location = result[0].location;
-
-    message.channel.send(new MessageEmbed()
-      .setDescription(`**${current.skytext}**`) // This is the text of what the sky looks like
-      .setAuthor(`Weather for ${current.observationpoint}`) // This shows the current location of the weather.
-      .setThumbnail(current.imageUrl) // This sets the thumbnail of the embed
-      .setColor(0x00ae86) // This sets the color of the embed, you can set this to anything if you look put a hex color picker, just make sure you put 0x infront of the hex
-      .setFooter(`Observed at ${current.observationtime}`)
-      .addField('Timezone', `UTC${location.timezone}`, true) // the true means `inline`
-      .addField('Temperature', `${current.temperature}° C`, true)
-      .addField('Feels Like', `${current.feelslike}° C`, true)
-      .addField('Winds', current.winddisplay, true)
-      .addField('Humidity', `${current.humidity}%`, true)
-    );
-  });
+    try {
+			const { body } = await request
+				.get('https://api.openweathermap.org/data/2.5/weather')
+				.query({
+					q: location.type === 'q' ? location.data : '',
+					zip: location.type === 'zip' ? location.data : '',
+					units: 'imperial',
+					appid: client.settings.openweathermap_key
+				});
+			return message.channel.send(new MessageEmbed()
+				.setColor(0xFF7A09)
+				.setAuthor(
+					`${body.name}, ${body.sys.country}`,
+					'https://i.imgur.com/NjMbE9o.png',
+					'https://openweathermap.org/city'
+				)
+				.setURL(`https://openweathermap.org/city/${body.id}`)
+				.setTimestamp()
+				.addField('❯ Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))
+				.addField('❯ Temperature', `${body.main.temp}°F`, true)
+				.addField('❯ Humidity', `${body.main.humidity}%`, true)
+				.addField('❯ Wind Speed', `${body.wind.speed} mph`, true)
+			);
+		} catch (err) {
+			if (err.status === 404) return message.channel.send('Could not find any results.');
+			return message.channel.send(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
+		}
 };
 
 exports.conf = {
