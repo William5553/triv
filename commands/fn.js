@@ -76,7 +76,7 @@ exports.run = async (c, m, a) => {
         )
         .setColor('#ff3860')
         .setDescription(
-          `This command requires 2 arguments, **platform** and **epic username**. Try this **${c.settings.prefix}fn psn William5553YT**`
+          `This command requires 2 arguments, **platform** and **epic username**. Try this **${c.settings.prefix}${exports.help.example}**`
         )
     });
   }
@@ -93,5 +93,5 @@ exports.help = {
   name: 'fn',
   description: 'Gets a players fortnite stats',
   usage: 'fn [platform] [username]',
-  example: 'fn psn william5553yt'
+  example: 'fn gamepad william5553yt'
 };
