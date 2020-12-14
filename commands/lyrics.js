@@ -1,9 +1,8 @@
-const settings = require('../settings.json'),
-  { MessageEmbed } = require('discord.js'),
-  Genius = require('genius-lyrics'),
-  GClient = new Genius.SongsClient(settings.genius_api_key);
+const { MessageEmbed } = require('discord.js'),
+  Genius = require('genius-lyrics');
 
 exports.run = async (client, message, args) => {
+  const GClient = new Genius.SongsClient(client.settings.genius_api_key);
   let query, queue;
   if (message.guild) queue = client.queue.get(message.guild.id);
   if (args.length >= 1)
