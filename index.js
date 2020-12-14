@@ -43,4 +43,4 @@ readdir('./events/', (err, files) => {
   });
 });
 
-client.login(settings.token);
+client.login(client.settings.token);
