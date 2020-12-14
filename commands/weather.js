@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
 				.query({
 					q: location.type === 'q' ? location.data : '',
 					zip: location.type === 'zip' ? location.data : '',
-					units: 'imperial',
+					units: 'metric',
 					appid: client.settings.openweathermap_key
 				});
 			return message.channel.send(new MessageEmbed()
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
 				.setURL(`https://openweathermap.org/city/${body.id}`)
 				.setTimestamp()
 				.addField('❯ Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))
-				.addField('❯ Temperature', `${body.main.temp}°F`, true)
+				.addField('❯ Temperature', `${body.main.temp}° F`, true)
 				.addField('❯ Humidity', `${body.main.humidity}%`, true)
 				.addField('❯ Wind Speed', `${body.wind.speed} mph`, true)
 			);
