@@ -18,7 +18,6 @@ exports.run = async (client, message, args) => {
 					units: 'metric',
 					appid: client.settings.openweathermap_key
 				});
-	    message.channel.send(JSON.stringify(body));
 			return message.channel.send(new MessageEmbed()
 				.setColor(0xFF7A09)
 				.setAuthor(
