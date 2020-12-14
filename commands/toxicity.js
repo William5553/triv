@@ -1,12 +1,11 @@
-const request = require('node-superfetch'),
-  { google_api_key } = require('../settings.json');
+const request = require('node-superfetch');
 
 exports.run = async (client, msg, args) => {
   try {
     const text = args.join(' '),
       { body } = await request
         .post('https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze')
-        .query({ key: google_api_key })
+        .query({ key: client.settings.google_api_key })
         .send({
           comment: { text },
           languages: ['en'],
