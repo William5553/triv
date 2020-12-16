@@ -83,7 +83,7 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  const newSongs = await videos.map(async video => {
+  const newSongs = await videos.map(video => {
     try {
     ytdl.getInfo(`https://youtube.com/watch?v=${video.id}`).then(info => {
       client.logger.log(`
@@ -97,7 +97,7 @@ exports.run = async (client, message, args) => {
       };
     });
     } catch {
-      continue;
+      return;
     }
   });
   
