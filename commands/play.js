@@ -61,8 +61,7 @@ exports.run = async (client, message, args) => {
     }
   };
 
-  let songInfo = null;
-  let song = null;
+  let songInfo, song;
 
   if (urlValid) {
     try {
