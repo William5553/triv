@@ -1,8 +1,6 @@
-const MAX_VIDEOS = 50,
-  { MessageEmbed } = require('discord.js'),
-  ytdl = require("ytdl-core"),
-  YouTubeAPI = require('simple-youtube-api'),
-  { play } = require('../util/play');
+const { MessageEmbed } = require('discord.js'),
+  { play } = require('../util/play'),
+  YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice,
@@ -14,7 +12,8 @@ exports.run = async (client, message, args) => {
     return message
       .reply(`${client.settings.prefix}${exports.help.usage}`)
       .catch(client.logger.error);
-  if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
+  if (!channel)
+    return message.reply('you need to join a voice channel first!').catch(client.logger.error);
 
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
@@ -61,15 +60,13 @@ exports.run = async (client, message, args) => {
   let playlist = null,
     videos = [];
 
-  const m = await message.channel.send('Give me a minute...');
-  
   if (urlValid) {
     try {
       playlist = await youtube.getPlaylist(url, { part: 'snippet' });
-      videos = await playlist.getVideos(MAX_VIDEOS, { part: 'snippet' });
+      videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
-      return m.edit('Playlist not found :(').catch(client.logger.error);
+      return message.reply('Playlist not found :(').catch(client.logger.error);
     }
   } else {
     try {
@@ -77,41 +74,28 @@ exports.run = async (client, message, args) => {
         part: 'snippet'
       });
       playlist = results[0];
-      videos = await playlist.getVideos(MAX_VIDEOS, { part: 'snippet' });
+      videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
-      return m.edit('Playlist not found :(').catch(client.logger.error);
+      return message.reply('Playlist not found :(').catch(client.logger.error);
     }
   }
 
-  let sInfoFull = [];
-  for (let i = 0; i < videos.size; i++) {
-    try {
-    ytdl.getInfo(`https://youtube.com/watch?v=${videos[i].id}`).then(info => {
-      client.logger.log(`
-        title: ${info.videoDetails.title},
-        url: ${info.videoDetails.video_url},
-        duration: ${info.videoDetails.lengthSeconds}`);
-      sInfoFull.push({
-        title: info.videoDetails.title,
-        url: info.videoDetails.video_url,
-        duration: info.videoDetails.lengthSeconds     
-      });
-    });
-    } catch (e) {
-      client.logger.error(e.stack ? e.stack : e);
-      continue;
-    }
-  }
+  const newSongs = videos.map(video => {
+    return {
+      title: video.title,
+      url: video.url,
+      duration: video.durationSeconds
+    };
+  });
 
-  client.logger.log(JSON.stringify(sInfoFull));
-  serverQueue ? serverQueue.songs.push(...sInfoFull) : queueConstruct.songs.push(...sInfoFull);
-  
+  serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
+
   const playlistEmbed = new MessageEmbed()
     .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     }))
-    .setDescription(sInfoFull.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
+    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
     .setURL(playlist.url)
     .setColor('#F8AA2A')
     .setTimestamp();
@@ -119,7 +103,6 @@ exports.run = async (client, message, args) => {
   if (playlistEmbed.description.length >= 2048)
     playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
 
-  m.delete();
   message.channel.send(`${message.author} started a playlist`, playlistEmbed);
 
   if (!serverQueue) {
