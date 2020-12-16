@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
     return {
       title: video.title,
       url: video.url,
-      duration: video.durationSeconds
+      duration: video.durationSeconds // TODO: fix so it's not -1
     };
   });
 
