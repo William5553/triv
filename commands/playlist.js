@@ -94,7 +94,7 @@ exports.run = async (client, message, args) => {
     .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     }))
-    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8))})`))
+    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
     .setURL(playlist.url)
     .setColor('#F8AA2A')
     .setTimestamp();
