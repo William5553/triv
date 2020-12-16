@@ -21,10 +21,10 @@ exports.run = async (client, message, args) => {
   if (!permissions.has('SPEAK'))
     return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
 
-  const search = args.join(' ');
-  const pattern = /^.*(youtu.be\/|list=)([^#&?]*).*/gi;
-  const url = args[0];
-  const urlValid = pattern.test(args[0]);
+  const search = args.join(' '),
+    pattern = /^.*(youtu.be\/|list=)([^#&?]*).*/gi,
+    url = args[0],
+    urlValid = pattern.test(args[0]);
 
   const queueConstruct = {
     textChannel: message.channel,
@@ -81,10 +81,10 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  const newSongs = await videos.map(async video => {
+  const newSongs = videos.map(video => {
     let songInfo;
     try {
-      songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
+      songInfo = ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
     } catch {
       return;
     }
