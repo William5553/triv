@@ -1,4 +1,4 @@
-exports.run = async (client, message) => message.channel.send(`Today **is${new Date().getDay() === 2 ? '' : ' not'}** Tuesday.`);
+exports.run = async (client, message) => message.channel.send(`Today **is${new Date().getDay() === 1 ? '' : ' not'}** Tuesday.`);
 
 exports.conf = {
   enabled: true,
