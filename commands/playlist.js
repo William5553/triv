@@ -84,32 +84,34 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  const newSongs = await videos.map(video => {
+  let sInfoFull;
+  for (let i = 0; i < videos.size; i++) {
     try {
-    ytdl.getInfo(`https://youtube.com/watch?v=${video.id}`).then(info => {
+    ytdl.getInfo(`https://youtube.com/watch?v=${videos[i].id}`).then(info => {
       client.logger.log(`
         title: ${info.videoDetails.title},
         url: ${info.videoDetails.video_url},
         duration: ${info.videoDetails.lengthSeconds}`);
-      return {
+      sInfoFull.push({
         title: info.videoDetails.title,
         url: info.videoDetails.video_url,
         duration: info.videoDetails.lengthSeconds     
-      };
+      });
     });
     } catch (e) {
       client.logger.error(e.stack ? e.stack : e);
+      continue;
     }
-  });
-  
-  client.logger.log(JSON.stringify(newSongs));
-  serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
+  }
 
+  client.logger.log(JSON.stringify(sInfoFull));
+  serverQueue ? serverQueue.songs.push(...sInfoFull) : queueConstruct.songs.push(...sInfoFull);
+  
   const playlistEmbed = new MessageEmbed()
     .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     }))
-    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
+    .setDescription(sInfoFull.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
     .setURL(playlist.url)
     .setColor('#F8AA2A')
     .setTimestamp();
