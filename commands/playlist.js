@@ -9,9 +9,7 @@ exports.run = async (client, message, args) => {
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
   if (!args.length)
-    return message
-      .reply(`${client.settings.prefix}${exports.help.usage}`)
-      .catch(client.logger.error);
+    return message.reply(`Usage: ${client.settings.prefix}${exports.help.usage}`).catch(client.logger.error);
   if (!channel)
     return message.reply('you need to join a voice channel first!').catch(client.logger.error);
 
