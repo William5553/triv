@@ -6,6 +6,7 @@ dependencies:
   discord.js: 12.5.1
   esrever: 0.2.0
   expr-eval: 2.0.2
+  ffmpeg-static: 4.2.7
   fs: 0.0.2
   genius-lyrics: 4.1.4
   moment: 2.29.1
@@ -15,7 +16,7 @@ dependencies:
   simple-youtube-api: 5.2.1
   string-progressbar: 1.0.1
   translate-google-api: 1.0.4
-  ytdl-core: 4.1.5
+  ytdl-core: 4.1.6
 devDependencies:
   eslint: 7.15.0
   eslint-plugin-node: 11.1.0
@@ -38,6 +39,17 @@ packages:
     dev: true
     resolution:
       integrity: sha512-i6rgnR/YgPEQzZZnbTHHuZdlE8qyoBNalD6F+q4vAFlcMEcqmkoG+mPqJYJCo63qPf74+Y1UZsl3l6f7/RIkmA==
+  /@derhuerst/http-basic/8.2.1:
+    dependencies:
+      caseless: 0.12.0
+      concat-stream: 1.6.2
+      http-response-object: 3.0.2
+      parse-cache-control: 1.0.1
+    dev: false
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-Rmn7qQQulw2sxJ8qGfZ7OuqMWuhz8V+L5xnYKMF5cXVcYqmgWqlVEAme90pF7Ya8OVhxVxLmhh0rI2k6t7ITWw==
   /@discordjs/collection/0.1.6:
     dev: false
     resolution:
@@ -93,6 +105,10 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-EfB5OHNYp1F4px/LI/FEnGylop7nOqkQ1LRzCM0KccA2U8tvV8w01KBv37LbO7nW4H+YhKyo2LcJhRwjjV17QQ==
+  /@types/node/10.17.49:
+    dev: false
+    resolution:
+      integrity: sha512-PGaJNs5IZz5XgzwJvL/1zRfZB7iaJ5BydZ8/Picm+lUNYoNO9iVTQkVy5eUh0dZDrx3rBOIs3GCbCRmMuYyqwg==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -121,6 +137,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
+  /agent-base/6.0.2:
+    dependencies:
+      debug: 4.3.1
+    dev: false
+    engines:
+      node: '>= 6.0.0'
+    resolution:
+      integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==
   /ajv/6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -217,12 +241,20 @@ packages:
       concat-map: 0.0.1
     resolution:
       integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
+  /buffer-from/1.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
   /callsites/3.1.0:
     dev: true
     engines:
       node: '>=6'
     resolution:
       integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
+  /caseless/0.12.0:
+    dev: false
+    resolution:
+      integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
   /chalk/2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -289,6 +321,17 @@ packages:
   /concat-map/0.0.1:
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+  /concat-stream/1.6.2:
+    dependencies:
+      buffer-from: 1.1.1
+      inherits: 2.0.4
+      readable-stream: 2.3.7
+      typedarray: 0.0.6
+    dev: false
+    engines:
+      '0': node >= 0.8
+    resolution:
+      integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
   /console-control-strings/1.1.0:
     dev: false
     resolution:
@@ -316,7 +359,6 @@ packages:
   /debug/4.3.1:
     dependencies:
       ms: 2.1.2
-    dev: true
     engines:
       node: '>=6.0'
     resolution:
@@ -389,6 +431,12 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
+  /env-paths/2.2.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-6u0VYSCo/OW6IoD5WCLLy9JUGARbamfSavcNXry/eu8aHVFei6CD3Sw+VGX5alea1i9pgPHW0mbu6Xj0uBh7gA==
   /escape-string-regexp/1.0.5:
     dev: true
     engines:
@@ -573,6 +621,18 @@ packages:
     dev: true
     resolution:
       integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+  /ffmpeg-static/4.2.7:
+    dependencies:
+      '@derhuerst/http-basic': 8.2.1
+      env-paths: 2.2.0
+      https-proxy-agent: 5.0.0
+      progress: 2.0.3
+    dev: false
+    engines:
+      node: '>=10'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-SGnOr2d+k0/9toRIv9t5/hN/DMYbm5XMtG0wVwGM1tEyXJAD6dbcWOEvfHq4LOySm9uykKL6LMC4eVPeteUnbQ==
   /file-entry-cache/6.0.0:
     dependencies:
       flat-cache: 3.0.4
@@ -707,10 +767,21 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
-  /html-entities/1.3.3:
+  /http-response-object/3.0.2:
+    dependencies:
+      '@types/node': 10.17.49
     dev: false
     resolution:
-      integrity: sha512-/VulV3SYni1taM7a4RMdceqzJWR39gpZHjBwUnsCFKWV/GJkD14CJ5F7eWcZozmHJK0/f/H5U3b3SiPkuvxMgg==
+      integrity: sha512-bqX0XTF6fnXSQcEJ2Iuyr75yVakyjIDCqroJQ/aHfSdlM743Cwqoi2nDYMzLGWUcuTWGWy8AAvOKXTfiv6q9RA==
+  /https-proxy-agent/5.0.0:
+    dependencies:
+      agent-base: 6.0.2
+      debug: 4.3.1
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -1067,6 +1138,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==
+  /parse-cache-control/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-juqz5U+laSD+Fro493+iGqzC104=
   /path-is-absolute/1.0.1:
     engines:
       node: '>=0.10.0'
@@ -1102,7 +1177,6 @@ packages:
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
   /progress/2.0.3:
-    dev: true
     engines:
       node: '>=0.4.0'
     resolution:
@@ -1390,6 +1464,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
+  /typedarray/0.0.6:
+    dev: false
+    resolution:
+      integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
   /uri-js/4.4.0:
     dependencies:
       punycode: 2.1.1
@@ -1440,9 +1518,8 @@ packages:
   /yallist/4.0.0:
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-  /ytdl-core/4.1.5:
+  /ytdl-core/4.1.6:
     dependencies:
-      html-entities: 1.3.3
       m3u8stream: 0.8.3
       miniget: 4.1.0
       sax: 1.2.4
@@ -1450,7 +1527,7 @@ packages:
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-3MSGIFg3jBWuYZthumSZh69pLwC8/0Wz4Ov+Q6StsGsGcbwBN0OGtz3XvtlYS5YWLrxLeIs/FRBMXrgeEOSA+w==
+      integrity: sha512-byQCynwQeqzn0VkzASFWs41sxnGSHgAXC4Dm6r7woK3e/WNtTr0sfOIgLkRKXaTw3ez5Pq5VhGwFQtbY6YbxRA==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -1464,6 +1541,7 @@ specifiers:
   eslint-plugin-node: ^11.1.0
   esrever: ^0.2.0
   expr-eval: ^2.0.2
+  ffmpeg-static: ^4.2.7
   fs: ^0.0.2
   genius-lyrics: ^4.1.4
   moment: ^2.29.1
@@ -1473,4 +1551,4 @@ specifiers:
   simple-youtube-api: ^5.2.1
   string-progressbar: ^1.0.1
   translate-google-api: ^1.0.4
-  ytdl-core: ^4.1.4
+  ytdl-core: ^4.1.6
