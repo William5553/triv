@@ -86,14 +86,14 @@ exports.run = async (client, message, args) => {
     try {
       songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
       client.logger.log(JSON.stringify(songInfo));
-      return {
-        title: video.title,
-        url: songInfo.videoDetails.video_url,
-        duration: songInfo.videoDetails.lengthSeconds
-      };
     } catch {
       return;
     }
+    return {
+      title: video.title,
+      url: songInfo.videoDetails.video_url,
+      duration: songInfo.videoDetails.lengthSeconds     
+    };
   });
 
   client.logger.log(JSON.stringify(newSongs));
