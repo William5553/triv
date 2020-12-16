@@ -95,6 +95,8 @@ exports.run = async (client, message, args) => {
     };
   });
 
+  await client.wait(3500);
+  
   client.logger.log(JSON.stringify(newSongs));
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
