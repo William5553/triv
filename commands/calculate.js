@@ -1,9 +1,8 @@
-const math = require('mathjs');
+const { Parser } = require('expr-eval');
 
 exports.run = async (client, message, args) => {
   try {
-    const expression = args.join(' ');
-    const evaluated = await math.evaluate(expression).toString();
+    const evaluated = Parser.evaluate(args.join(' ')).toString();
     return message.channel.send(evaluated).catch(() => message.channel.send('Invalid expression'));
   } catch {
     return message.channel.send('Invalid expression');
