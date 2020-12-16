@@ -95,6 +95,7 @@ exports.run = async (client, message, args) => {
     }
   });
 
+  client.logger.log(JSON.stringify(newSongs));
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
   const playlistEmbed = new MessageEmbed()
