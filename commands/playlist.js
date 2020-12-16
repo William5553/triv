@@ -57,16 +57,18 @@ exports.run = async (client, message, args) => {
     }
   };
 
-  let playlist = null;
-  let videos = [];
+  let playlist = null,
+    videos = [];
 
+  const m = await message.channel.send('Give me a minute...');
+  
   if (urlValid) {
     try {
       playlist = await youtube.getPlaylist(url, { part: 'snippet' });
       videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
-      return message.reply('Playlist not found :(').catch(client.logger.error);
+      return m.edit('Playlist not found :(').catch(client.logger.error);
     }
   } else {
     try {
@@ -77,7 +79,7 @@ exports.run = async (client, message, args) => {
       videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
-      return message.reply('Playlist not found :(').catch(client.logger.error);
+      return m.edit('Playlist not found :(').catch(client.logger.error);
     }
   }
 
@@ -98,7 +100,7 @@ exports.run = async (client, message, args) => {
     };
   });
 
-  await client.wait(3500);
+  await client.wait(20000);
   
   client.logger.log(JSON.stringify(newSongs));
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
@@ -115,6 +117,7 @@ exports.run = async (client, message, args) => {
   if (playlistEmbed.description.length >= 2048)
     playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
 
+  m.delete();
   message.channel.send(`${message.author} started a playlist`, playlistEmbed);
 
   if (!serverQueue) {
