@@ -82,7 +82,7 @@ exports.run = async (client, message, args) => {
   }
 
   let songInfo;
-  const newSongs = videos.map(video => {
+  const newSongs = videos.map(async video => {
     songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
     return {
       title: video.title,
