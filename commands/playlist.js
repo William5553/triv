@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js'),
-  { play } = require('../util/play'),
-  YouTubeAPI = require('simple-youtube-api');
+  ytdl = require("ytdl-core"),
+  YouTubeAPI = require('simple-youtube-api'),
+  { play } = require('../util/play');
 
 exports.run = async (client, message, args) => {
   const { channel } = message.member.voice,
@@ -80,11 +81,13 @@ exports.run = async (client, message, args) => {
     }
   }
 
+  let songInfo;
   const newSongs = videos.map(video => {
+    songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
     return {
       title: video.title,
       url: video.url,
-      duration: video.durationSeconds
+      duration: songInfo.videoDetails.lengthSeconds
     };
   });
 
