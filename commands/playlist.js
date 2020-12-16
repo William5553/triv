@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
       client.logger.log(JSON.stringify(songInfo));
       return {
         title: video.title,
-        url: songInfo.videoDetails.url,
+        url: songInfo.videoDetails.video_url,
         duration: songInfo.videoDetails.lengthSeconds
       };
     } catch {
