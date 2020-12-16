@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
   let t = await translate(text, { from: a1, to: a2 }).catch(err => {
     return err.toString();
   });
-  t = await client.clean(t[0]);
+  t = await client.clean(t);
   if (t) message.channel.send(t).catch(client.logger.error);
 };
 

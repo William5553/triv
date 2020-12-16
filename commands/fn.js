@@ -85,13 +85,13 @@ exports.run = async (c, m, a) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['fnbr', 'fn'],
+  aliases: ['fnbr', 'fortnite'],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'fortnite',
+  name: 'fn',
   description: 'Gets a players fortnite stats',
-  usage: 'fortnite [platform] [username]',
-  example: 'fortnite gamepad william5553yt'
+  usage: 'fn [platform] [username]',
+  example: 'fn gamepad william5553yt'
 };
