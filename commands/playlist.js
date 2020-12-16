@@ -84,7 +84,7 @@ exports.run = async (client, message, args) => {
   }
 
   const newSongs = videos.map(async video => {
-    ytdl.getInfo(video.id).then(info => {
+    ytdl.getInfo(`https://youtube.com/watch?v=${video.id}`).then(info => {
     client.logger.log(`
       title: ${video.title},
       url: ${info.videoDetails.video_url},
