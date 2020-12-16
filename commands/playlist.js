@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js'),
+const MAX_VIDEOS = 50,
+  { MessageEmbed } = require('discord.js'),
   ytdl = require("ytdl-core"),
   YouTubeAPI = require('simple-youtube-api'),
   { play } = require('../util/play');
@@ -65,7 +66,7 @@ exports.run = async (client, message, args) => {
   if (urlValid) {
     try {
       playlist = await youtube.getPlaylist(url, { part: 'snippet' });
-      videos = await playlist.getVideos(100, { part: 'snippet' });
+      videos = await playlist.getVideos(MAX_VIDEOS, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
       return m.edit('Playlist not found :(').catch(client.logger.error);
@@ -76,7 +77,7 @@ exports.run = async (client, message, args) => {
         part: 'snippet'
       });
       playlist = results[0];
-      videos = await playlist.getVideos(100, { part: 'snippet' });
+      videos = await playlist.getVideos(MAX_VIDEOS, { part: 'snippet' });
     } catch (error) {
       client.logger.error(error);
       return m.edit('Playlist not found :(').catch(client.logger.error);
