@@ -85,14 +85,14 @@ exports.run = async (client, message, args) => {
   const newSongs = videos.map(async video => {
     try {
       songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${video.id}`);
+      return {
+        title: video.title,
+        url: video.url,
+        duration: songInfo.videoDetails.lengthSeconds
+      };
     } catch {
       return;
     }
-    return {
-      title: video.title,
-      url: video.url,
-      duration: songInfo.videoDetails.lengthSeconds
-    };
   });
 
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
