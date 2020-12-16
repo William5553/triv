@@ -84,7 +84,7 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  let sInfoFull;
+  let sInfoFull = [];
   for (let i = 0; i < videos.size; i++) {
     try {
     ytdl.getInfo(`https://youtube.com/watch?v=${videos[i].id}`).then(info => {
