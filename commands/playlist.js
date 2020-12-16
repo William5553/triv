@@ -96,8 +96,8 @@ exports.run = async (client, message, args) => {
         duration: info.videoDetails.lengthSeconds     
       };
     });
-    } catch {
-      return;
+    } catch (e) {
+      client.logger.error(e.stack ? e.stack : e);
     }
   });
   
