@@ -73,7 +73,7 @@ exports.run = async (client, message, args) => {
         duration: songInfo.videoDetails.lengthSeconds
       };
     } catch (error) {
-      client.logger.error(error);
+      client.logger.error(error.stack ? error.stack : error);
       return message.reply(error.message).catch(client.logger.error);
     }
   } else {
@@ -86,7 +86,7 @@ exports.run = async (client, message, args) => {
         duration: songInfo.videoDetails.lengthSeconds
       };
     } catch (error) {
-      client.logger.error(error);
+      client.logger.error(error.stack ? error.stack : error);
       return message.reply('no video was found with a matching title').catch(client.logger.error);
     }
   }
