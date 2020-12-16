@@ -15,6 +15,6 @@ exports.conf = {
 
 exports.help = {
   name: 'countdown',
-  description: "Starts a timer",
+  description: 'Starts a timer',
   usage: 'countdown [seconds]'
 };
