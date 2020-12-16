@@ -102,7 +102,6 @@ module.exports = client => {
       text = require('util').inspect(text, {depth: 1});
 
     text = text
-      .replace(/`/g, '`' + String.fromCharCode(8203))
       .replace(/@/g, '@' + String.fromCharCode(8203))
       .replace(client.token, 'NO TOKEN');
 
