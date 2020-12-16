@@ -87,11 +87,11 @@ exports.run = async (client, message, args) => {
     try {
     ytdl.getInfo(`https://youtube.com/watch?v=${video.id}`).then(info => {
       client.logger.log(`
-        title: ${video.title},
+        title: ${info.videoDetails.title},
         url: ${info.videoDetails.video_url},
         duration: ${info.videoDetails.lengthSeconds}`);
       return {
-        title: video.title,
+        title: info.videoDetails.title,
         url: info.videoDetails.video_url,
         duration: info.videoDetails.lengthSeconds     
       };
