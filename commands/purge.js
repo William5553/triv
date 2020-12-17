@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
       if (user)
         messages = messages.filter(m => m.author.id === user.id).array().slice(0, mgct);
       else
-        messages = messages.slice(0, mgct);
+        messages = messages.array().slice(0, mgct);
       message.channel
         .bulkDelete(messages, true)
         .catch(e => client.logger.log(e.stack ? e.stack : e));
@@ -27,5 +27,5 @@ exports.conf = {
 exports.help = {
   name: 'purge',
   description: 'Deletes the specified amount of messages.',
-  usage: 'purge [amount]'
+  usage: 'purge [amount] [user (optional)]'
 };
