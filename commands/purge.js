@@ -1,12 +1,20 @@
 exports.run = async (client, message, args) => {
+  const user = message.mentions.users.first();
   await message.delete(); // delete the command message, so it doesn't interfere with the messages we are going to delete.
-  let mgct = Number(args.slice(0).join(' '));
-  if (isNaN(mgct)) return message.channel.send("that's not a number");
-  if (mgct < 1) return message.reply('enter a number of 1 or higher');
-  if (mgct > 99) mgct = 100;
-  message.channel.bulkDelete(mgct, true).catch(error => {
-    message.reply(`**${error}**`).then(m => m.delete({ timeout: 4500 }));
-  });
+  let mgct = Number(args[0]);
+  if (!mgct || isNaN(mgct) || mgct < 1) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.example}`);
+  if (mgct > 100) mgct = 100;
+  message.channel.messages
+    .fetch({ limit: 100 })
+    .then(messages => {
+      if (user)
+        messages = messages.filter(m => m.author.id === user.id).array().slice(0, mgct);
+      else
+        messages = messages.slice(0, mgct);
+      message.channel
+        .bulkDelete(messages, true)
+        .catch(e => client.logger.log(e.stack ? e.stack : e));
+    });
 };
 
 exports.conf = {
