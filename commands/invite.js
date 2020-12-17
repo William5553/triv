@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
   client
-    .generateInvite({permissions: 2146958591})
+    .generateInvite({ permissions: 2146958591 })
     .then(link => {
       const embed = new MessageEmbed()
         .setColor(0x00ae86)
