@@ -2,6 +2,7 @@ exports.run = (client, message, args) => {
   const user = message.mentions.users.first(),
     lim = Number(args[1]);
   if (!user || !lim) message.reply(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+  message.delete();
   message.channel.messages
     .fetch({ limit: 100 })
     .then(messages => {
