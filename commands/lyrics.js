@@ -9,10 +9,10 @@ exports.run = async (client, message, args) => {
     query = args.join(' ');
   else if (queue && queue.songs)
     query = queue.songs[0].title;
-  else return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
+  else
+    return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
-  let lyrics = null;
-  let emtitle = null;
+  let lyrics, emtitle;
 
   const songtitle = query.replace(/\([^()]*\)/g, '');
 
@@ -32,8 +32,12 @@ exports.run = async (client, message, args) => {
     .setDescription(lyrics)
     .setColor('#F8AA2A');
 
-  let i;
-  for (i = 0; i * 1950 <= lyrics.length; i++) {
+  if (lyricsEmbed.description.length > 4096) {
+    lyricsEmbed.description = `${lyrics.substr(1995)}...`;
+    message.channel.send(lyricsEmbed).catch(client.logger.error);
+  }
+    
+  for (let i = 0; i * 1950 <= lyrics.length; i++) {
     lyricsEmbed.description = `${lyrics.substr(i * 1950, i * 1950 + 1950)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);
   }
