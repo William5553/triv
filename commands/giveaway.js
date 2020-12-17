@@ -9,36 +9,33 @@ exports.run = async (client, message, args) => {
   if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
   if (prize === '') return message.channel.send('You have to enter a prize.');
   message.delete();
-  const embed = new MessageEmbed()
+  const msg = await message.channel.send(':tada: **GIVEAWAY** :tada:', new MessageEmbed()
     .setTitle(`${prize}`)
     .setColor(0x00ae86)
     .setDescription(
       `React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`
     )
     .setFooter('Ends at')
-    .setTimestamp(Date.now() + ms(time, { long: true }));
-  const msg = await message.channel.send(':tada: **GIVEAWAY** :tada:', embed);
+    .setTimestamp(Date.now() + ms(time, { long: true })));
   await msg.react('🎉');
   setTimeout(() => {
     msg.reactions.cache.get('🎉').users.remove(client.user.id);
     setTimeout(() => {
       const winner = msg.reactions.cache.get('🎉').users.cache.random();
       if (msg.reactions.cache.get('🎉').users.cache.size < 1) {
-        const winner_embed = new MessageEmbed()
+        msg.edit(':tada: **GIVEAWAY ENDED** :tada:', new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
           .setDescription(`No one entered the giveaway.\nHosted by: ${message.author}`)
           .setFooter('Ended at')
-          .setTimestamp();
-        msg.edit(':tada: **GIVEAWAY ENDED** :tada:', winner_embed);
+          .setTimestamp());
       } else {
-        const winner_embed = new MessageEmbed()
+        msg.edit(':tada: **GIVEAWAY ENDED** :tada:', new MessageEmbed()
           .setTitle(`${prize}`)
           .setColor(0x00ae86)
           .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
           .setFooter('Ended at')
-          .setTimestamp();
-        msg.edit(':tada: **GIVEAWAY ENDED** :tada:', winner_embed);
+          .setTimestamp());
         message.channel.send(`${winner} won ${prize}!`);
         msg.reactions.removeAll();
       }
