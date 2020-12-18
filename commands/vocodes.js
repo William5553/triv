@@ -1,12 +1,18 @@
-const request = require('node-superfetch');
-const { Readable } = require('stream');
+const request = require('node-superfetch'),
+  path = require('path'),
+  { Readable } = require('stream'),
+  voices = require(path.join(process.cwd(), 'assets', 'vocodes.json'));
 
 exports.run = async (client, msg, args) => {
-  const text = args.join(' ');
+  let voice = args[0].toLowerCase();
+  const text = args.splice(1).join(' ');
+  if (!voice || !Object.keys(voices).includes(voice))
+    return msg.channel.send(`Possible voices: ${Object.keys(voices).join(', ')}`);
   if (!text)
     return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
-  if (text.length > 1024)
-    return msg.reply('keep the message under 1024 characters man');
+  if (text.length > 500)
+    return msg.reply('keep the message under 500 characters man');
+  voice = voices[voice.toLowerCase()];
   if (!msg.guild.voice || !msg.guild.voice.connection) 
     await client.commands.get('join').run(client, msg);
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
@@ -15,9 +21,12 @@ exports.run = async (client, msg, args) => {
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('💬');
     const { body } = await request
-      .get('http://tts.cyzon.us/tts')
-      .query({ text });
-    msg.guild.voice.connection.play(Readable.from([body]));
+      .post('https://mumble.stream/speak_spectrogram')
+      .send({
+        speaker: voice,
+        text
+      });
+    msg.guild.voice.connection.play(Readable.from([Buffer.from(body.audio_base64, 'base64')]));
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('🔉');
     return null;
@@ -36,7 +45,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'tts',
-  description: "The world's best text-to-speech",
-  usage: 'tts [text]'
+  name: 'vocodes',
+  description: 'Speak text like a variety of famous figures',
+  usage: 'vocodes [voice] [text]'
 };
