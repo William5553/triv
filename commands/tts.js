@@ -17,7 +17,12 @@ exports.run = async (client, msg, args) => {
     const { body } = await request
       .get('http://tts.cyzon.us/tts')
       .query({ text });
-    msg.guild.voice.connection.play(Readable.from([body]));
+    msg.guild.voice.connection
+      .play(Readable.from([body]))
+      .on('finish', () => {
+        msg.member.voice.channel.leave();
+      })
+      .on('error', err => client.logger.error(err));
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('🔉');
     return null;
