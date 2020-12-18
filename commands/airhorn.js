@@ -9,9 +9,7 @@ exports.run = async (client, msg) => {
     return msg.reply("I'm already in a voice channel");
   msg.guild.voice.connection
     .play(path.join(process.cwd(), 'assets', 'airhorn', airhorn))
-    .on('finish', () => {
-      msg.member.voice.channel.leave();
-    })
+    .on('finish', () => msg.member.voice.channel.leave())
     .on('error', err => client.logger.error(err));
   if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY'])) {
     await msg.react('🔉');
