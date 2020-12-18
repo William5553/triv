@@ -1,6 +1,5 @@
 const esrever = require('esrever'),
-  path = require('path'),
-  replaceD = require(path.join(process.cwd(), 'assets', 'upsidedown.json'));
+  replaceD = require('../assets/upsidedown.json');
 
 exports.run = (client, message, args) => {
   message.channel.send(esrever.reverse(args.join(' ').replace(/[a-z0-9&_.,!"?']/gi, match => {
