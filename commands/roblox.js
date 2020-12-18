@@ -1,15 +1,15 @@
 const fetch = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
 const user = message.mentions.users.first();
 if (!user) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
-const { body } = fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
+const { body } = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
   if (body.status === 'error' && body.errorCode == 404)
     return message.reply('they have not linked their Roblox account to their Discord account yet');
   else if (body.status === 'error')
     return message.reply('an error occurred');
-const headShot = fetch
+const headShot = await fetch
 .get('https://thumbnails.roblox.com/v1/users/avatar-headshot')
 .query({
     userIds: body.robloxId,
