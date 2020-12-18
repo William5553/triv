@@ -12,8 +12,8 @@ exports.run = async (client, message) => {
     m.edit('I was unable to find a Roblox account linked with that user');
   }
   m.edit(new MessageEmbed()
-    .setTitle(data.body.robloxUsername)
-    .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
+    .setTitle(data.robloxUsername)
+    .setDescription(`https://roblox.com/users/${data.robloxId}/profile`)
     .setColor(0x00ae86)
   );
 };
