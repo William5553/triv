@@ -14,9 +14,7 @@ exports.run = async (client, message, args) => {
   if (!isSupport(a1)) return message.reply(`${args[0]} isn't a language`);
   if (!isSupport(a2)) return message.reply(`${args[1]} isn't a language`);
 
-  let t = await translate(text, { from: a1, to: a2 }).catch(err => {
-    return err.toString();
-  });
+  let t = await translate(text, { from: a1, to: a2 }).catch(err => message.reply(err.toString()));
   t = await client.clean(t[0]);
   if (t) message.channel.send(t).catch(client.logger.error);
 };
