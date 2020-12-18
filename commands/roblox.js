@@ -9,17 +9,8 @@ const { body } = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
     return message.reply('they have not linked their Roblox account to their Discord account yet');
   else if (body.status === 'error')
     return message.reply('an error occurred');
-const headShot = await fetch
-.get('https://thumbnails.roblox.com/v1/users/avatar-headshot')
-.query({
-    userIds: body.robloxId,
-  size: '150x150',
-  format: 'Png',
-  isCircular: true
-});
 message.channel.send(new MessageEmbed()
-.setAuthor(body.robloxUsername, headShot.body.imageUrl)
-.setURL(`https://roblox.com/users/${body.robloxId}/profile`)
+                     .setDescription(`[${body.robloxUsername}](https://roblox.com/users/${body.robloxId}/profile)`)
 );
 }
 
