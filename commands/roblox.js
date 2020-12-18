@@ -11,7 +11,7 @@ let data;
     message.channel.send(e.message ? e.message : e);
   }
 message.channel.send(new MessageEmbed()
-                     .setDescription(`[${body.robloxUsername}](https://roblox.com/users/${body.robloxId}/profile)`)
+       .setDescription(`[${data.body.robloxUsername}](https://roblox.com/users/${data.body.robloxId}/profile)`)
 );
 }
 
