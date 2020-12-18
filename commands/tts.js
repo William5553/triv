@@ -6,7 +6,7 @@ exports.run = async (client, msg, args) => {
   if (!text)
     return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
   if (text.length > 1024)
-    return msg.reply('keep it under 1024 characters man');
+    return msg.reply('keep the message under 1024 characters man');
   if (!msg.guild.voice || !msg.guild.voice.connection) 
     await client.commands.get('join').run(client, msg);
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
@@ -24,7 +24,7 @@ exports.run = async (client, msg, args) => {
   } catch (err) {
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('⚠️');
-    return msg.reply(`oh no, an error occurred: \`${err.message}\`. Try again later!`);
+    return msg.reply(`uh oh, an error occurred: \`${err.message}\`. Try again later!`);
   }
 };
 
