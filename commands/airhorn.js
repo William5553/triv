@@ -12,9 +12,7 @@ exports.run = async (client, msg) => {
     .on('finish', () => {
       msg.member.voice.channel.leave();
     })
-    .on('error', err => {
-      client.logger.error(err);
-    });
+    .on('error', err => client.logger.error(err));
   if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY'])) {
     try {
       await msg.react('🔉');
