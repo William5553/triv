@@ -6,15 +6,14 @@ exports.run = async (client, message) => {
   if (!user) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
   let data;
   try {
-    data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
+    data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`).body;
   } catch (e) {
     message.channel.send('I was unable to find a Roblox account linked with that user');
   }
   message.channel.send(new MessageEmbed()
-    .setTitle('Roblox')
-    .setDescription(`[${data.body.robloxUsername}](https://roblox.com/users/${data.body.robloxId}/profile)`)
+    .setTitle(data.body.robloxUsername)
+    .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
     .setColor(0x00ae86)
-    .setTimestamp()
   );
 };
 
