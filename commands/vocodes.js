@@ -25,7 +25,10 @@ exports.run = async (client, msg, args) => {
         speaker: voice,
         text
       });
-    msg.guild.voice.connection.play(Readable.from([Buffer.from(body.audio_base64, 'base64')]));
+    msg.guild.voice.connection
+      .play(Readable.from([Buffer.from(body.audio_base64, 'base64')]))
+      .on('finish', () => msg.member.voice.channel.leave())
+      .on('error', err => client.logger.error(err));
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('🔉');
     return null;
