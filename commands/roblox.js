@@ -4,11 +4,12 @@ const fetch = require('node-superfetch'),
 exports.run = async (client, message) => {
 const user = message.mentions.users.first();
 if (!user) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
-const { body } = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
-  if (body.status === 'error' && body.errorCode == 404)
-    return message.reply('they have not linked their Roblox account to their Discord account yet');
-  else if (body.status === 'error')
-    return message.reply('an error occurred');
+let data;
+  try {
+    data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
+  } catch (e) {
+    message.channel.send(e.message ? e.message : e);
+  }
 message.channel.send(new MessageEmbed()
                      .setDescription(`[${body.robloxUsername}](https://roblox.com/users/${body.robloxId}/profile)`)
 );
