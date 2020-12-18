@@ -1,7 +1,6 @@
 const request = require('node-superfetch'),
-  path = require('path'),
   { Readable } = require('stream'),
-  voices = require(path.join(process.cwd(), 'assets', 'vocodes.json'));
+  voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
   let voice = args[0].toLowerCase();
