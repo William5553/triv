@@ -62,9 +62,9 @@ exports.run = async (client, msg, args) => {
       for (const answer of correct) {
         const player = pts.get(answer.id);
         if (correct[0].id === answer.id)
-	  player.points += 75;
+          player.points += 75;
         else
-	 player.points += 50;
+          player.points += 50;
       }
       await msg.channel.send(`It was... **${question.correct}**!\n_Fastest Guess: ${correct.length ? `${pts.get(correct[0].id).user.tag} (+75 pts)` : 'no one'}_\n${questions.length ? '_Next round starting in 5 seconds..._' : ''}`);
       if (lastTurnTimeout) lastTurnTimeout = false;
