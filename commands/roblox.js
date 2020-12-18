@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
   } catch (e) {
-    m.edit('I was unable to find a Roblox account linked with that user');
+    return m.edit('I was unable to find a Roblox account linked with that user');
   }
   m.edit('', new MessageEmbed()
     .setTitle(data.body.robloxUsername)
