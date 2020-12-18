@@ -8,7 +8,7 @@ let data;
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
   } catch (e) {
-    message.channel.send(e.message ? e.message : e);
+    message.channel.send('I was unable to find a Roblox account linked with that user');
   }
 message.channel.send(new MessageEmbed()
        .setDescription(`[${data.body.robloxUsername}](https://roblox.com/users/${data.body.robloxId}/profile)`)
