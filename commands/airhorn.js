@@ -14,11 +14,7 @@ exports.run = async (client, msg) => {
     })
     .on('error', err => client.logger.error(err));
   if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY'])) {
-    try {
-      await msg.react('🔉');
-    } catch {
-      return;
-    }
+    await msg.react('🔉');
   }
 };
     
