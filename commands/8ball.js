@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (response === 'Explode') {
     message.channel.send({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] }).catch(client.logger.error);
   } else {
-    message.channel.send(response);
+    message.channel.send(`🎱 ${response}`);
   }
 };
 
