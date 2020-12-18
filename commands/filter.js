@@ -31,6 +31,6 @@ exports.conf = {
 
 exports.help = {
   name: 'filter',
-  description: 'Adds a filter to the music. Valid filters are: bassboost, 8d, vaporwave, nightcore, phaser, tremolo, vibrato, reverse, treble, normalizer, surround, pulsator, subboost, karaoke, flanger, gate, haas, and mcompand.',
+  description: `Adds a filter to the music. Valid filters are: ${filters.join(', ')}`,
   usage: 'filter [list|add|remove] [filter]'
 };
