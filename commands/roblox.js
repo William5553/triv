@@ -11,7 +11,10 @@ exports.run = async (client, message) => {
     message.channel.send('I was unable to find a Roblox account linked with that user');
   }
   message.channel.send(new MessageEmbed()
+    .setTitle('Roblox')
     .setDescription(`[${data.body.robloxUsername}](https://roblox.com/users/${data.body.robloxId}/profile)`)
+    .setColor(0x00ae86)
+    .setTimestamp()
   );
 };
 
