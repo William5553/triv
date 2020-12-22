@@ -10,7 +10,7 @@ exports.conf = {
 
 exports.help = {
   name: 'yomama',
-  description: "Responds with a random \"Yo Mama\" joke",
+  description: 'Responds with a random "Yo Mama" joke',
   usage: 'yomama',
   example: 'yomama'
 };
