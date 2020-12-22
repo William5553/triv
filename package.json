@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.5.3",
+  "version": "3.6.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,7 +16,7 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=12.3.0"
+    "node": ">=12.4.0"
   },
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
