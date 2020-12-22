@@ -26,7 +26,14 @@ exports.run = async (client, msg, args) => {
     );
   } catch (err) {
     if (err.status === 404) return msg.say('Country not found or doesn\'t have any cases.');
-    return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace: \n\`\`\`${err.stack}\`\`\``)
+      .addField('Command:', `${msg.content}`)
+    );
   }
 };
 async function fetchStats(country) {
