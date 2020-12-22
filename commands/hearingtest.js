@@ -1,4 +1,5 @@
 const path = require('path'),
+  { MessageEmbed } = require('discord.js'),    
   data = require('../assets/hearing-test.json');
 
 exports.run = async (client, msg) => {

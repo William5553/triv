@@ -1,5 +1,6 @@
-const request = require('node-superfetch');
-const { Readable } = require('stream');
+const request = require('node-superfetch'),
+  { Readable } = require('stream'),
+  { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, msg, args) => {
   const text = args.join(' ');

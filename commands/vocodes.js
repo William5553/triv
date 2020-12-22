@@ -1,5 +1,6 @@
 const request = require('node-superfetch'),
   { Readable } = require('stream'),
+  { MessageEmbed } = require('discord.js'),
   voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
