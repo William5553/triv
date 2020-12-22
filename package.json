@@ -16,7 +16,7 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=12.3.0"
+    "node": ">=12.4.0"
   },
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
