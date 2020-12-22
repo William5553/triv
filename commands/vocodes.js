@@ -1,5 +1,6 @@
 const request = require('node-superfetch'),
   { Readable } = require('stream'),
+  { MessageEmbed } = require('discord.js'),
   voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
@@ -17,8 +18,6 @@ exports.run = async (client, msg, args) => {
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
     return msg.reply("I'm already in a voice channel");
   try {
-    if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
-      msg.react('💬');
     const { body } = await request
       .post('https://mumble.stream/speak_spectrogram')
       .send({
@@ -35,7 +34,14 @@ exports.run = async (client, msg, args) => {
   } catch (err) {
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('⚠️');
-    return msg.reply(`uh oh, an error occurred: \`${err.message}\`. Try again later!`);
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace: \n\`\`\`${err.stack}\`\`\``)
+      .addField('Command:', `${msg.content}`)
+    );
   }
 };
 

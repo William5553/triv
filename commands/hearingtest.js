@@ -1,4 +1,5 @@
 const path = require('path'),
+  { MessageEmbed } = require('discord.js'),    
   data = require('../assets/hearing-test.json');
 
 exports.run = async (client, msg) => {
@@ -31,8 +32,14 @@ exports.run = async (client, msg) => {
       return msg.channel.send(`You can hear any frequency of which a human is capable. The maximum frequency you were able to hear was **${range}000hz**.`);
     return msg.channel.send(`You have the hearing of someone **${Number.parseInt(age, 10) + 1} or older**. The maximum frequency you were able to hear was **${range}000hz**.`);
   } catch (err) {
-    client.logger.error(err.stack);
-    return msg.reply(`oh no, an error occurred: \`${err.message}\`. Try again later!`);
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace: \n\`\`\`${err.stack}\`\`\``)
+      .addField('Command:', `${msg.content}`)
+    );
   }
 };
 
