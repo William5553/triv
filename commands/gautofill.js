@@ -14,7 +14,13 @@ exports.run = async (client, message, args) => {
     if (!data.length) return message.channel.send('Could not find any results.');
     return message.channel.send(data.join('\n'));
   } catch (err) {
-    return message.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
+    return message.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace: \n\`\`\`${err.stack}\`\`\``)
+      .addField('Command:', `${msg.content}`));
   }
 };
 
