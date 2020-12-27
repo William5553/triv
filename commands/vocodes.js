@@ -4,9 +4,9 @@ const request = require('node-superfetch'),
   voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
-  let voice = args[0].toLowerCase();
+  let voice = args[0];
   const text = args.splice(1).join(' ');
-  if (!voice || !Object.keys(voices).includes(voice))
+  if (!voice || !Object.keys(voices).includes(voice.toLowerCase()))
     return msg.channel.send(`Possible voices: ${Object.keys(voices).join(', ')}`);
   if (!text)
     return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
