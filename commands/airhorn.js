@@ -1,6 +1,6 @@
 const path = require('path'),
   fs = require('fs'),
-  airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn')).random();
+  airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
 exports.run = async (client, msg) => {
   if (!msg.guild.voice || !msg.guild.voice.connection) 
@@ -8,7 +8,7 @@ exports.run = async (client, msg) => {
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
     return msg.reply("I'm already in a voice channel");
   msg.guild.voice.connection
-    .play(path.join(process.cwd(), 'assets', 'airhorn', airhorn))
+    .play(path.join(process.cwd(), 'assets', 'airhorn', airhorn.random()))
     .on('finish', () => msg.member.voice.channel.leave())
     .on('error', err => client.logger.error(err));
   if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY'])) {
