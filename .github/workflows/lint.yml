@@ -11,7 +11,7 @@ jobs:
       - name: Install Node v12
         uses: actions/setup-node@v1
         with:
-          node-version: 12.4.1
+          node-version: 12.20.0
 
       - name: Install pnpm and install dependencies
         uses: pnpm/action-setup@v1.2.1
