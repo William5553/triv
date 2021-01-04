@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
-  "description": "The best discord bot ever!",
+  "description": "Discord bot",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
@@ -41,10 +41,7 @@
     "translate-google-api": "^1.0.4",
     "ytdl-core": "^4.3.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/William5553/triv.git"
-  },
+  "repository": "github:William5553/triv",
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
   },
