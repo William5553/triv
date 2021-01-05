@@ -11,8 +11,8 @@ exports.run = async (client, message, args) => {
   const a1 = getCode(args[0].toProperCase());
   const a2 = getCode(args[1].toProperCase());
 
-  if (!isSupport(a1)) return message.reply(`${args[0]} isn't a language`);
-  if (!isSupport(a2)) return message.reply(`${args[1]} isn't a language`);
+  if (!isSupport(a1)) return message.reply(`${args[0]} isn't a supported language`);
+  if (!isSupport(a2)) return message.reply(`${args[1]} isn't a supported language`);
 
   let t = await translate(text, { from: a1, to: a2 }).catch(err => message.reply(err.toString()));
   t = await client.clean(t[0]);
