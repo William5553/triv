@@ -15,10 +15,10 @@ dependencies:
   node-superfetch: 0.1.10
   simple-youtube-api: 5.2.1
   string-progressbar: 1.0.1
-  translate-google-api: 1.0.4
-  ytdl-core: 4.2.1
+  translate-google-api: github.com/William5553/translate-google-api/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c
+  ytdl-core: 4.4.0
 devDependencies:
-  eslint: 7.16.0
+  eslint: 7.17.0
   eslint-plugin-node: 11.1.0
 packages:
   /@babel/code-frame/7.12.11:
@@ -58,7 +58,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.27
+      mime-types: 2.1.28
     dev: false
     engines:
       node: '>= 6'
@@ -105,10 +105,10 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-EfB5OHNYp1F4px/LI/FEnGylop7nOqkQ1LRzCM0KccA2U8tvV8w01KBv37LbO7nW4H+YhKyo2LcJhRwjjV17QQ==
-  /@types/node/10.17.49:
+  /@types/node/10.17.50:
     dev: false
     resolution:
-      integrity: sha512-PGaJNs5IZz5XgzwJvL/1zRfZB7iaJ5BydZ8/Picm+lUNYoNO9iVTQkVy5eUh0dZDrx3rBOIs3GCbCRmMuYyqwg==
+      integrity: sha512-vwX+/ija9xKc/z9VqMCdbf4WYcMTGsI0I/L/6shIF3qXURxZOhPQlPRHtjTpiNhAwn0paMJzlOQqw6mAGEQnTA==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -154,6 +154,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
+  /ajv/7.0.3:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
+      uri-js: 4.4.0
+    dev: true
+    resolution:
+      integrity: sha512-R50QRlXSxqXcQP5SvKUrw8VZeypvo12i2IX0EeR5PiZ7bEKeHWgzgo264LDadUsCU42lTJVhFikTqJwNeH34gQ==
   /ansi-colors/4.1.1:
     dev: true
     engines:
@@ -400,7 +409,7 @@ packages:
       prism-media: 1.2.3
       setimmediate: 1.0.5
       tweetnacl: 1.0.3
-      ws: 7.4.1
+      ws: 7.4.2
     dev: false
     engines:
       node: '>=12.0.0'
@@ -493,7 +502,7 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
-  /eslint/7.16.0:
+  /eslint/7.17.0:
     dependencies:
       '@babel/code-frame': 7.12.11
       '@eslint/eslintrc': 0.2.2
@@ -529,7 +538,7 @@ packages:
       semver: 7.3.4
       strip-ansi: 6.0.0
       strip-json-comments: 3.1.1
-      table: 6.0.4
+      table: 6.0.7
       text-table: 0.2.0
       v8-compile-cache: 2.2.0
     dev: true
@@ -537,7 +546,7 @@ packages:
       node: ^10.12.0 || >=12.0.0
     hasBin: true
     resolution:
-      integrity: sha512-iVWPS785RuDA4dWuhhgXTNrGxHHK3a8HLSMBgbbU59ruJDubUraXN8N5rn7kb8tG6sjg74eE0RA3YWT51eusEw==
+      integrity: sha512-zJk08MiBgwuGoxes5sSQhOtibZ75pz0J35XTRlZOk9xMffhpA9BTbQZxoXZzOl5zMbleShbGwtw+1kGferfFwQ==
   /espree/7.3.1:
     dependencies:
       acorn: 7.4.1
@@ -659,7 +668,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.27
+      mime-types: 2.1.28
     dev: false
     engines:
       node: '>= 0.12'
@@ -764,7 +773,7 @@ packages:
       integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
   /http-response-object/3.0.2:
     dependencies:
-      '@types/node': 10.17.49
+      '@types/node': 10.17.50
     dev: false
     resolution:
       integrity: sha512-bqX0XTF6fnXSQcEJ2Iuyr75yVakyjIDCqroJQ/aHfSdlM743Cwqoi2nDYMzLGWUcuTWGWy8AAvOKXTfiv6q9RA==
@@ -899,6 +908,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
+  /json-schema-traverse/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
   /json-stable-stringify-without-jsonify/1.0.1:
     dev: true
     resolution:
@@ -932,20 +945,20 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-0nAcdrF8YJKUkb6PzWdvGftTPyCVWgoiot1AkNVbPKTeIGsWs6DrOjifrJ0Zi8WQfQmD2SuVCjkYIOip12igng==
-  /mime-db/1.44.0:
+  /mime-db/1.45.0:
     dev: false
     engines:
       node: '>= 0.6'
     resolution:
-      integrity: sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==
-  /mime-types/2.1.27:
+      integrity: sha512-CkqLUxUk15hofLoLyljJSrukZi8mAtgd+yE5uO4tqRZsdsAJKv0O+rFMhVDRJgozy+yG6md5KwuXhD4ocIoP+w==
+  /mime-types/2.1.28:
     dependencies:
-      mime-db: 1.44.0
+      mime-db: 1.45.0
     dev: false
     engines:
       node: '>= 0.6'
     resolution:
-      integrity: sha512-JIhqnCasI9yD+SsmkquHBxTSEuZdQX5BuQnS2Vc7puQQQ+8yiP5AY5uWhpdv4YL4VM5c6iliiYWPgJ/nJQLp7w==
+      integrity: sha512-0TO2yJ5YHYr7M2zzT7gDU1tbwHxEUWBCLt0lscSNpcdAfFyJOVEpRYNS7EXVcTLNj/25QO8gulHC5JtTzSE2UQ==
   /miniget/4.1.0:
     dev: false
     engines:
@@ -1216,6 +1229,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-ZOIzd8yVsQQA7j8GCSlPGXwg5PfmA1mrq0JP4nGhh54LaKN3xdai/vHUDu74pKwV8OxseMS65u2NImosQcSD0Q==
+  /require-from-string/2.0.2:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
   /resolve-from/4.0.0:
     dev: true
     engines:
@@ -1397,9 +1416,9 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
-  /table/6.0.4:
+  /table/6.0.7:
     dependencies:
-      ajv: 6.12.6
+      ajv: 7.0.3
       lodash: 4.17.20
       slice-ansi: 4.0.0
       string-width: 4.2.0
@@ -1407,7 +1426,7 @@ packages:
     engines:
       node: '>=10.0.0'
     resolution:
-      integrity: sha512-sBT4xRLdALd+NFBvwOz8bw4b15htyythha+q+DVZqy2RS08PPC8O2sZFgJYEY7bJvbCFKccs+WIZ/cd+xxTWCw==
+      integrity: sha512-rxZevLGTUzWna/qBLObOe16kB2RTnnbhciwgPbMMlazz1yZGVEgnZK762xyVdVznhqxrfCeBMmMkgOOaPwjH7g==
   /tar/6.0.5:
     dependencies:
       chownr: 2.0.0
@@ -1425,12 +1444,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
-  /translate-google-api/1.0.4:
-    dependencies:
-      axios: 0.20.0
-    dev: false
-    resolution:
-      integrity: sha512-KVXmo4+64/H1vIbnzf2zNiJ2JLeEB3jrEnNRP2EFNAGNqna/5bmw/Cps3pCHu0n3BzTOoWh9u6wFvrRYdzQ6Iw==
   /tweetnacl/1.0.3:
     dev: false
     resolution:
@@ -1491,7 +1504,7 @@ packages:
   /wrappy/1.0.2:
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
-  /ws/7.4.1:
+  /ws/7.4.2:
     dev: false
     engines:
       node: '>=8.3.0'
@@ -1499,11 +1512,11 @@ packages:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
     resolution:
-      integrity: sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
+      integrity: sha512-T4tewALS3+qsrpGI/8dqNMLIVdq/g/85U98HPMa6F0m6xTbvhXU6RCQLqPH3+SlomNV/LdY6RXEbBpMH6EOJnA==
   /yallist/4.0.0:
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-  /ytdl-core/4.2.1:
+  /ytdl-core/4.4.0:
     dependencies:
       m3u8stream: 0.8.3
       miniget: 4.1.0
@@ -1512,7 +1525,15 @@ packages:
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-7zAoJiWpaBGgiAUCQuvKBuWom7tmSCV0A70gRdrPxR96yQoJOrCZkW6Wg1CofvPtAeQVWTVWThC8bXRsE+SBeA==
+      integrity: sha512-9ceiEL5iM0OULciBySzoZA91YyxqnlHd3aeqf5r3S8rNgPGLDn11fJeEsKO1jQ1t/eYO1dK4zTkrIH7S497cyg==
+  github.com/William5553/translate-google-api/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c:
+    dependencies:
+      axios: 0.20.0
+    dev: false
+    name: translate-google-api
+    resolution:
+      tarball: 'https://codeload.github.com/William5553/translate-google-api/tar.gz/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c'
+    version: 1.0.3
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -1522,7 +1543,7 @@ specifiers:
   cloc: ^2.7.0
   discord-ytdl-core: ^5.0.0
   discord.js: ^12.5.1
-  eslint: ^7.16.0
+  eslint: ^7.17.0
   eslint-plugin-node: ^11.1.0
   esrever: ^0.2.0
   expr-eval: ^2.0.2
@@ -1535,5 +1556,5 @@ specifiers:
   node-superfetch: ^0.1.10
   simple-youtube-api: ^5.2.1
   string-progressbar: ^1.0.1
-  translate-google-api: ^1.0.4
-  ytdl-core: ^4.2.1
+  translate-google-api: 'git+https://github.com/William5553/translate-google-api.git'
+  ytdl-core: ^4.4.0

@@ -1,7 +1,11 @@
 {
   "name": "Triv",
-  "version": "3.6.1",
+  "version": "3.7.0",
   "main": "index.js",
+  "license": "MIT",
+  "author": "William5553 <contact@williamk.ga>",
+  "description": "Discord bot",
+  "repository": "github:William5553/triv",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
@@ -18,9 +22,6 @@
   "engines": {
     "node": ">=12.4.0"
   },
-  "license": "MIT",
-  "author": "William5553 <contact@williamk.ga>",
-  "description": "Discord bot",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
@@ -38,10 +39,9 @@
     "node-superfetch": "^0.1.10",
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
-    "translate-google-api": "^1.0.4",
+    "translate-google-api": "git+https://github.com/William5553/translate-google-api.git",
     "ytdl-core": "^4.4.0"
   },
-  "repository": "github:William5553/triv",
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
   },
