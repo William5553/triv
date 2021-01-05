@@ -15,7 +15,7 @@ dependencies:
   node-superfetch: 0.1.10
   simple-youtube-api: 5.2.1
   string-progressbar: 1.0.1
-  translate-google-api: github.com/William5553/translate-google-api/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c
+  translate-google-api: github.com/William5553/translate-google-api/e7aef030825e698993dfe023d241bc6a71552dcd
   ytdl-core: 4.4.0
 devDependencies:
   eslint: 7.17.0
@@ -1526,14 +1526,14 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-9ceiEL5iM0OULciBySzoZA91YyxqnlHd3aeqf5r3S8rNgPGLDn11fJeEsKO1jQ1t/eYO1dK4zTkrIH7S497cyg==
-  github.com/William5553/translate-google-api/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c:
+  github.com/William5553/translate-google-api/e7aef030825e698993dfe023d241bc6a71552dcd:
     dependencies:
       axios: 0.20.0
     dev: false
     name: translate-google-api
     resolution:
-      tarball: 'https://codeload.github.com/William5553/translate-google-api/tar.gz/93bb6a19ec96a3112bb5f7a3a6c3ff3fbc71243c'
-    version: 1.0.3
+      tarball: 'https://codeload.github.com/William5553/translate-google-api/tar.gz/e7aef030825e698993dfe023d241bc6a71552dcd'
+    version: 1.0.4
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -1556,5 +1556,5 @@ specifiers:
   node-superfetch: ^0.1.10
   simple-youtube-api: ^5.2.1
   string-progressbar: ^1.0.1
-  translate-google-api: 'git+https://github.com/William5553/translate-google-api.git'
+  translate-google-api: 'github:William5553/translate-google-api#patch-1'
   ytdl-core: ^4.4.0
