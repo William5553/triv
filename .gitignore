@@ -1,11 +1,8 @@
-# Directories
-/node_modules/
-
-# Files
+node_modules/
 *.log
 *.tgz
 .npm
 .eslintcache
 .yarn-integrity
-/settings.json
+settings.json
 .env
