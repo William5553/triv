@@ -11,8 +11,8 @@ exports.run = (client, message) => {
   const nowPlaying = new MessageEmbed()
     .setTitle(song.title)
     .setURL(song.url)
-    .setColor('#F8AA2A')
-    .addField(`${getTime(seek)} [${createBar(song.duration == 0 ? seek : song.duration, seek, 20)[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`, false);
+    .setColor('RED')
+    .addField(`${getTime(seek)} [${createBar(song.duration == 0 ? seek : song.duration, seek, 20)[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
 
   if (song.duration > 0)
     nowPlaying.setFooter(`Time Remaining: ${getTime(left)}`);
