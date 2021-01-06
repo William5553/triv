@@ -9,24 +9,20 @@ exports.run = (client, message) => {
     left = song.duration - seek;
 
   const nowPlaying = new MessageEmbed()
-    .setTitle('Now playing')
-    .setDescription(`${song.title}\n${song.url}`)
+    .setTitle(song.title)
+    .setURL(song.url)
     .setColor('#F8AA2A')
-    .setAuthor(client.user.username)
-    .addField(
-      '\u200b',
-      new Date(seek * 1000).toISOString().substr(11, 8) +
-        '[' +
-        createBar(song.duration == 0 ? seek : song.duration, seek, 20)[0] +
-        ']' +
-        (song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)),
-      false
-    );
+    .addField(`${getTime(seek)} [${createBar(song.duration == 0 ? seek : song.duration, seek, 20)[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`, false);
 
-  if (song.duration > 0) nowPlaying.setFooter('Time Remaining: ' + new Date(left * 1000).toISOString().substr(11, 8));
+  if (song.duration > 0)
+    nowPlaying.setFooter(`Time Remaining: ${getTime(left)}`);
 
   return message.channel.send(nowPlaying);
 };
+
+function getTime(time) {
+  return new Date(time * 1000).toISOString().substr(11, 8);
+}
 
 exports.conf = {
   enabled: true,
