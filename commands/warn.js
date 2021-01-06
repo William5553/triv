@@ -9,13 +9,13 @@ exports.run = (client, message, args) => {
     return message.reply('I cannot find a bot-logs channel');
   if (reason.length < 1) return message.reply('supply a reason for the warning');
   if (!userr) return message.reply('tell me who to warn, idiot').catch(client.logger.error);
-  return botlog.send(new MessageEmbed()
-    .setColor(0x00ae86)
-    .setTimestamp()
-    .setDescription(
-      `**Action:** Warning\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`
+  return botlog
+    .send(new MessageEmbed()
+      .setColor(0x00ae86)
+      .setTimestamp()
+      .setDescription(`**Action:** Warning\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.id}`)
     )
-  ).catch(client.logger.error);
+    .catch(client.logger.error);
 };
 
 exports.conf = {
