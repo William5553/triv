@@ -48,7 +48,7 @@ exports.run = async (client, message, args) => {
           .setColor(0x00ae86)
           .setTimestamp()
           .setDescription(
-            `**Action:** Unmute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${userr.user.tag}`
+            `**Action:** Unmute\n**Target:** ${userr.user.tag}\n**Moderator:** ${message.author.tag}\n**User ID:** ${userr.user.tag}`
           )
           .setFooter(`ID ${caseNum}`)).catch(client.logger.error);
       })
@@ -79,5 +79,5 @@ exports.conf = {
 exports.help = {
   name: 'mute',
   description: 'Toggles the mute of a member',
-  usage: 'mute [user] [reason] OR unmute [user] [reason]'
+  usage: 'mute [user] [reason] OR unmute [user]'
 };
