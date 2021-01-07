@@ -79,5 +79,5 @@ exports.conf = {
 exports.help = {
   name: 'mute',
   description: 'Toggles the mute of a member',
-  usage: 'mute [user] OR unmute [user]'
+  usage: 'mute [user] [reason] OR unmute [user] [reason]'
 };
