@@ -4,18 +4,16 @@ const { MessageEmbed } = require('discord.js'),
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
-  parseUser(message, userr);
-  if (userr.user.id == client.user.id) {
+  if (parseUser(message, userr) !== true) return;
+  if (userr.user.id == client.user.id)
     return message.reply('bruh');
-  }
-  if (userr.user.id == client.settings.owner_id) {
+  if (userr.user.id == client.settings.owner_id)
     return message.reply('no.');
-  }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNum = await caseNumber(client, botlog);
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
-  } else if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
+  else if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
 
   await userr.user.send(`you've been kicked from ${message.channel.guild.name}`).catch(client.logger.error);
   userr.kick().catch(client.logger.error);

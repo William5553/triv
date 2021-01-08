@@ -6,3 +6,4 @@ node_modules/
 .yarn-integrity
 settings.json
 .env
+warnings.json
