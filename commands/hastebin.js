@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     
   message.channel.send(new MessageEmbed()
     .setTitle('Hastebin')
-    .setColor('GREEN')
+    .setColor('BLURPLE')
     .setDescription(`${baseURL}/${body.key}`));
 };
 
