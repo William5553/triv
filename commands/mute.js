@@ -4,20 +4,17 @@ const { MessageEmbed } = require('discord.js'),
 exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
   if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
-  parseUser(message, userr);
-  if (userr.user.id === client.settings.owner_id) {
+  if (parseUser(message, userr) !== true) return;
+  if (userr.user.id === client.settings.owner_id)
     return message.reply('absolutely not.');
-  }
-  if (userr.user.id === client.user.id) {
+  if (userr.user.id === client.user.id)
     return message.reply('bruh');
-  }
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   const caseNum = await caseNumber(client, botlog);
-  let muteRole =
-    message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog) {
+  let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
-  } else if (!botlog) return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
+  else if (!botlog) return message.reply('I cannot find a bot-logs channel').catch(client.logger.error);
   if (!message.guild.me.hasPermission('MANAGE_ROLES'))
     return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
   if (!muteRole) {
