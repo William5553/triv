@@ -3,8 +3,17 @@ const { MessageEmbed } = require('discord.js'),
   path = require('path');
 
 exports.run = async (client, message) => {
-  const warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8')),
-    userr = message.mentions.users.first() || message.author;
+  let warnings;
+  const userr = message.mentions.users.first() || message.author;
+  
+  try {
+    warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
+  } catch {
+    await fs.writeFile('warnings.json', '{}', e => {
+      if e throw e;
+    });
+    warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
+  }
   
   if (!warnings[message.guild.id])
     warnings[message.guild.id] = {};
@@ -75,5 +84,5 @@ exports.conf = {
 exports.help = {
   name: 'warnings',
   description: "Gets a user's warnings",
-  usage: 'warninfs [user]'
+  usage: 'warnings [user]'
 };
