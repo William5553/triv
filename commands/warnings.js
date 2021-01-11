@@ -77,7 +77,7 @@ function genEmbeds(message, userr, warnings) {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['infractions'],
   permLevel: 0
 };
 
