@@ -8,6 +8,7 @@ module.exports = client => {
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
+      client.logger.log(`Loading Alias: ${alias}. 👌`);
       client.aliases.set(alias, props.help.name);
     });
   };
@@ -24,6 +25,7 @@ module.exports = client => {
     client.logger.log(`Unloading Command: ${command.help.name}. 👌`);
     client.commands.delete(command.help.name);
     command.conf.aliases.forEach(alias => {
+      client.logger.log(`Unloading Alias: ${alias}. 👌`);
       client.aliases.delete(alias);
     });
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
