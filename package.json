@@ -40,7 +40,7 @@
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
     "translate-google-api": "github:William5553/translate-google-api#patch-1",
-    "ytdl-core": "^4.4.1"
+    "ytdl-core": "^4.4.2"
   },
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
