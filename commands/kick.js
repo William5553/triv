@@ -15,8 +15,9 @@ exports.run = async (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
 
-  await userr.user.send(`you've been kicked from ${message.channel.guild.name}`).catch(client.logger.error);
+  await userr.user.send(`you've been kicked from ${message.guild.name} by ${message.author}`).catch(client.logger.error);
   userr.kick().catch(client.logger.error);
+  message.channel.send(`Kicked ${userr.user}`);
   const reason =
     args.splice(1, args.length).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
