@@ -18,11 +18,12 @@ exports.run = async (client, message, args) => {
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog) return message.reply('I cannot find a channel named bot-logs');
-  await userr.user.send(`you've been banned from ${message.channel.guild.name}`);
+  await userr.user.send(`you've been banned from ${message.channel.guild.name} by ${message.author}`).catch(client.logger.error);
   const reason =
-    args.splice(1, -1).join(' ') ||
+    args.splice(1).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
   message.guild.members.ban(userr, { days: 0, reason: reason });
+  message.channel.send(`Banned ${userr.user}`);
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
