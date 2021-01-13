@@ -3,7 +3,7 @@ exports.run = (client, message, args) => client.formatNumber(args.join(' '));
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['fnum'],
+  aliases: ['fnum', 'fnumber', 'formatnum', 'formatn'],
   permLevel: 0
 };
 
