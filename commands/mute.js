@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js'),
   { caseNumber } = require('../util/caseNumber.js'),
   { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
-  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
+  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]);
   if (!userr) return message.reply('you must mention someone to mute them').catch(client.logger.error);
   if (parseUser(message, userr) !== true) return;
   if (userr.user.id === client.settings.owner_id)
