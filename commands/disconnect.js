@@ -14,7 +14,7 @@ exports.run = async (client, message) => {
   await message.channel.send(texts.random());
   await client.logger.log(`${message.author.tag} is restarting the bot`);
   client.destroy();
-  process.exit(1);
+  process.exit(0);
 };
 
 exports.conf = {
