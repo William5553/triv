@@ -6,8 +6,16 @@ const { MessageEmbed } = require('discord.js'),
 exports.run = (client, message, args) => {
   const reason = args.slice(1).join(' '),
     userr = message.mentions.members.first() || message.guild.members.fetch(args[0]),
-    botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs'),
+    botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
+  let warnings;
+  try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
+  } catch {
+    await fs.writeFile('warnings.json', '{}', e => {
+      if (e) throw e;
+    });
+    warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
+  }
   if (!botlog && message.guild.me.hasPermission('MANAGE_CHANNELS'))
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog)
