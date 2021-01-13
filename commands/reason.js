@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs'),
     caseNumber = args.shift(),
     newReason = args.join(' ');
-
+  if (!botlog) return message.channel.send('there isn\'t even a bot-logs channel');
   await botlog.messages.fetch({ limit: 100 }).then(messages => {
     const caseLog = messages
       .filter(
