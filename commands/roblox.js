@@ -32,7 +32,7 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['rbx', 'rblx'],
   permLevel: 0
 };
 
