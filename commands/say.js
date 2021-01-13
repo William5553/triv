@@ -8,12 +8,12 @@ exports.run = (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['say'],
+  aliases: ['send'],
   permLevel: 3
 };
 
 exports.help = {
-  name: 'send',
+  name: 'say',
   description: 'Sends a message.',
-  usage: 'send [message]'
+  usage: 'say [message]'
 };
