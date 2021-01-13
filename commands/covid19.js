@@ -16,13 +16,13 @@ exports.run = async (client, msg, args) => {
       .setThumbnail(country === 'all' ? null : data.countryInfo.flag || null)
       .setFooter('Last Updated')
       .setTimestamp(data.updated)
-      .addField('❯ Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, true)
-      .addField('❯ Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, true)
+      .addField('❯ Total Cases', `${client.formatNumber(data.cases)} (${client.formatNumber(data.todayCases)} today)`, true)
+      .addField('❯ Total Deaths', `${client.formatNumber(data.deaths)} (${client.formatNumber(data.todayDeaths)} today)`, true)
       .addField('❯ Total Recoveries',
-        `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} today)`, true)
-      .addField('❯ Active Cases', formatNumber(data.active), true)
-      .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
-      .addField('❯ Tests', formatNumber(data.tests), true)
+        `${client.formatNumber(data.recovered)} (${client.formatNumber(data.todayRecovered)} today)`, true)
+      .addField('❯ Active Cases', client.formatNumber(data.active), true)
+      .addField('❯ Active Critical Cases', client.formatNumber(data.critical), true)
+      .addField('❯ Tests', client.formatNumber(data.tests), true)
     );
   } catch (err) {
     if (err.status === 404) return msg.say('Country not found or doesn\'t have any cases.');
@@ -42,12 +42,6 @@ async function fetchStats(country) {
   return body;
 }
   
-function formatNumber(number, minimumFractionDigits = 0) {
-  return Number.parseFloat(number).toLocaleString(undefined, {
-    minimumFractionDigits,
-    maximumFractionDigits: 2
-  });
-}
 exports.conf = {
   enabled: true,
   guildOnly: false,

@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
       .query({ term: word });
     if (!body.list.length) return message.channel.send('Could not find any results');
     const data = body.list[resultN];
-    const embed = new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor(0x32A8F0)
       .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
       .setURL(data.permalink)
@@ -20,8 +20,8 @@ exports.run = async (client, message, args) => {
       .setDescription(data.definition.replace(/\[|\]/g, '').substr(0, 1200))
       .setFooter(`Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}`)
       .setTimestamp(new Date(data.written_on))
-      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0, 800) : 'None');
-    return message.channel.send(embed).catch(client.logger.error);
+      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0, 800) : 'None')
+    ).catch(client.logger.error);
   } catch (err) {
     return message.channel.send(new MessageEmbed()
       .setColor('RED')

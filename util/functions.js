@@ -124,6 +124,13 @@ module.exports = client => {
     }
   });
 
+  client.formatNumber = (number, minimumFractionDigits = 0) => {
+    return Number.parseFloat(number).toLocaleString(undefined, {
+      minimumFractionDigits,
+      maximumFractionDigits: 2
+    });
+  };
+  
   // `await client.wait(1000);` to "pause" for 1 second.
   client.wait = require('util').promisify(setTimeout);
 

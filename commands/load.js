@@ -1,17 +1,16 @@
 exports.run = (client, message, args) => {
+  if (args.length < 1) return message.channel.send('What command should I load, moron?');
   const command = args[0];
-  if (!command) return message.channel.send(`I cannot find the command: ${args[0]}`);
-  else
-    message.channel.send(`Loading: ${command}`).then(m => {
-      client
-        .load(command)
-        .then(() => {
-          m.edit(`Successfully loaded: ${command}`);
-        })
-        .catch(e => {
-          m.edit(`Command load failed: ${command}\n\`\`\`${e.stack}\`\`\``);
-        });
-    });
+  message.channel.send(`Loading: ${command}`).then(m => {
+    client
+      .load(command)
+      .then(() => {
+        m.edit(`Successfully loaded: ${command}`);
+      })
+      .catch(e => {
+        m.edit(`Command load failed: ${command}\n\`\`\`${e.stack}\`\`\``);
+      });
+  });
 };
 
 exports.conf = {
