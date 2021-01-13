@@ -3,12 +3,12 @@ const { MessageEmbed } = require('discord.js'),
   path = require('path'),
   { parseUser } = require('../util/parseUser.js');
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
   let warnings;
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   } catch {
-    fs.writeFile('warnings.json', '{}', e => {
+    await fs.writeFile('warnings.json', '{}', e => {
       if (e) throw e;
     });
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
