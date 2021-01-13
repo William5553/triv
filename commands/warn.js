@@ -4,18 +4,19 @@ const { MessageEmbed } = require('discord.js'),
   { parseUser } = require('../util/parseUser.js');
 
 exports.run = (client, message, args) => {
-  const reason = args.slice(1).join(' '),
-    userr = message.mentions.members.first() || message.guild.members.fetch(args[0]),
-    botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   let warnings;
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   } catch {
-    await fs.writeFile('warnings.json', '{}', e => {
+    fs.writeFile('warnings.json', '{}', e => {
       if (e) throw e;
     });
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   }
+  try {
+    const reason = args.slice(1).join(' '),
+    userr = message.mentions.members.first() || message.guild.members.fetch(args[0]),
+    botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (!botlog && message.guild.me.hasPermission('MANAGE_CHANNELS'))
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog)
@@ -41,6 +42,16 @@ exports.run = (client, message, args) => {
       .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${userr.user.tag}\n**Target's User ID:** ${userr.user.id}\n**Reason:** ${reason}`)
     )
     .catch(client.logger.error);
+  } catch (err) {
+    return message.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace: \n\`\`\`${err.stack}\`\`\``)
+      .addField('Command:', `${message.content}`)
+    );
+  }
 };
 
 exports.conf = {
