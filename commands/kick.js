@@ -10,14 +10,13 @@ exports.run = async (client, message, args) => {
   if (userr.user.id == client.settings.owner_id)
     return message.reply('no.');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  const caseNum = await caseNumber(client, botlog);
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog) return message.channel.send('I cannot find a channel named bot-logs');
-
   await userr.user.send(`you've been kicked from ${message.guild.name} by ${message.author}`).catch(client.logger.error);
   userr.kick().catch(client.logger.error);
   message.channel.send(`Kicked ${userr.user}`);
+  const caseNum = await caseNumber(client, botlog);
   const reason =
     args.splice(1).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
