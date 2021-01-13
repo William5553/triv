@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js'),
   fs = require('fs'),
   path = require('path'),
+  { caseNumber } = require('../util/caseNumber.js'),
   { parseUser } = require('../util/parseUser.js');
 
 exports.run = async (client, message, args) => {
@@ -35,11 +36,13 @@ exports.run = async (client, message, args) => {
     warnings[message.guild.id][userr.id].warnings.push({'timestamp': Date.now(), 'reason': reason, 'modid': message.author.id});
     fs.writeFile(path.resolve(process.cwd(), 'warnings.json'), JSON.stringify(warnings), err => {
       if (err) client.logger.error(err);
-    }); 
+    });
+    const caseNum = await caseNumber(client, botlog);
     return botlog
       .send(new MessageEmbed()
         .setColor(0x00ae86)
         .setTimestamp()
+        .setFooter(`ID ${caseNum}`)
         .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${userr.user.tag}\n**Target's User ID:** ${userr.user.id}\n**Reason:** ${reason}`)
       )
       .catch(client.logger.error);
