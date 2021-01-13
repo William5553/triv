@@ -41,6 +41,7 @@ exports.run = async (client, message, args) => {
     userr.roles
       .remove(muteRole.id, reason)
       .then(() => {
+        message.channel.send(`Unmuted ${userr.user}`);
         botlog.send(new MessageEmbed()
           .setColor(0x00ae86)
           .setTimestamp()
@@ -54,6 +55,7 @@ exports.run = async (client, message, args) => {
     userr.roles
       .add(muteRole.id, reason)
       .then(() => {
+        message.channel.send(`Muted ${userr.user}`);
         botlog.send(new MessageEmbed()
           .setColor(0x00ae86)
           .setTimestamp()
