@@ -8,21 +8,26 @@ exports.run = async (client, message) => {
   let data;
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
-  } catch {
-    
-  }
-  if (!data) {
-    try {
-      data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
-    } catch {
-      return m.edit('I was unable to find a Roblox account linked with that user');
-    }
-  }
-  m.edit('', new MessageEmbed()
+    message.channel.send('Roblox account found on Eryn', new MessageEmbed()
     .setTitle(data.body.robloxUsername)
     .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
     .setColor(0x00ae86)
   );
+  } catch {
+    message.channel.send('No account found for Eryn');
+  }
+    try {
+      data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
+      message.channel.send('Roblox account found on Bloxlink', new MessageEmbed()
+    .setTitle(data.body.primaryAccount)
+    .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
+    .setColor(0x00ae86)
+  );
+    } catch {
+       message.channel.send('No account found for Bloxlink');
+    }
+  m.delete();
+  }
 };
 
 exports.conf = {
