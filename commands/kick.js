@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
   userr.kick().catch(client.logger.error);
   message.channel.send(`Kicked ${userr.user}`);
   const reason =
-    args.splice(1, args.length).join(' ') ||
+    args.splice(1).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
