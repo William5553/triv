@@ -11,6 +11,7 @@ exports.run = async (client, message, args) => {
     await fs.writeFile('warnings.json', '{}', e => {
       if (e) throw e;
     });
+    await client.wait(750);
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   }
   try {
