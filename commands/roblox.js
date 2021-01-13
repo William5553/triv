@@ -8,8 +8,15 @@ exports.run = async (client, message) => {
   let data;
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
-  } catch (e) {
-    return m.edit('I was unable to find a Roblox account linked with that user');
+  } catch {
+    
+  }
+  if (!data) {
+    try {
+      data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
+    } catch {
+      return m.edit('I was unable to find a Roblox account linked with that user');
+    }
   }
   m.edit('', new MessageEmbed()
     .setTitle(data.body.robloxUsername)
