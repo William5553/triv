@@ -18,11 +18,13 @@ exports.run = async (client, message) => {
   }
   try {
     data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
-    message.channel.send('Roblox account found on Bloxlink', new MessageEmbed()
-      .setTitle(data.body.primaryAccount)
-      .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
-      .setColor(0x00ae86)
-    );
+    if (!data.body.error) {
+      message.channel.send('Roblox account found on Bloxlink', new MessageEmbed()
+        .setTitle(data.body.primaryAccount)
+        .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
+        .setColor(0x00ae86)
+      );
+    } else return message.channel.send(data.body.error);
   } catch {
     message.channel.send('No account found for Bloxlink');
   }
@@ -31,7 +33,7 @@ exports.run = async (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: true,
+  guildOnly: false,
   aliases: ['rbx', 'rblx'],
   permLevel: 0
 };
