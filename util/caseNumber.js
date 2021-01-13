@@ -11,7 +11,7 @@ async function caseNumber(client, botlog) {
     )
     .first();
   if (!log) return 1;
-  const thisCase = /Case\s(\d+)/.exec(log.embeds[0].footer.text);
+  const thisCase = /ID\s(\d+)/.exec(log.embeds[0].footer.text);
   return thisCase ? parseInt(thisCase[1]) + 1 : 1;
 }
 
