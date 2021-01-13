@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
       .catch(client.logger.error);
   }
   const reason =
-    args.splice(1, -1).join(' ') ||
+    args.splice(1).join(' ') ||
     `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
 
   message.guild.channels.cache.forEach(f => {
