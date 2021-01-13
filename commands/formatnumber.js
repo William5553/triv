@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
-const number = args.join(' ');
-message.channel.send(Number.parseFloat(number).toLocaleString(undefined, {
+  const number = args.join(' ');
+  message.channel.send(Number.parseFloat(number).toLocaleString(undefined, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
   }));
