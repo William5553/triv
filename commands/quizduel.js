@@ -75,7 +75,14 @@ exports.run = async (client, msg, args) => {
     return msg.channel.send(`Congrats, ${winner}!\n__**Top 10:**__\n${makeLeaderboard(pts).slice(0, 10).join('\n')}`);
   } catch (err) {
     client.games.delete(msg.channel.id);
-    throw err;
+    return message.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${message.content}`)
+    );
   }
 };
 
