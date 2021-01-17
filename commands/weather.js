@@ -1,7 +1,8 @@
-exports.run = async (client, message, args) => {
-  const request = require('node-superfetch'),
-    { MessageEmbed } = require('discord.js');
+const request = require('node-superfetch'),
+  { MessageEmbed } = require('discord.js');
 
+exports.run = async (client, message, args) => {
+  if (!client.settings.openweathermap_key) return message.reply('the bot owner has not set up this command yet');
   let location = args.join(' ');
   if (!location) return message.reply('enter a location next time');
   if (/^[0-9]+$/.test(location))

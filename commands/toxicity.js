@@ -3,6 +3,7 @@ const request = require('node-superfetch'),
 
 exports.run = async (client, msg, args) => {
   try {
+    if (!client.settings.google_api_key) return msg.reply('the bot owner has not set up this command yet');
     const text = args.join(' '),
       { body } = await request
         .post('https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze')

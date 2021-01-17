@@ -1,6 +1,7 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 exports.run = async (c, m, a) => {
+  if (!c.settings.trn_api_key) return m.reply('the bot owner has not set up this command yet');
   if (a.length >= 2) {
     let platform = a[0].toLowerCase();
     const epicName = a.slice(1).join(' '),
