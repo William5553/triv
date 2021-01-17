@@ -17,6 +17,7 @@ exports.run = (client, message, args) => {
     if (ms(time) < 1) return message.channel.send('The duration time has to be atleast 1 second');
     if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     client.blacklist.push(id);
+    message.channel.send(`Blacklisted user ${id} for ${ms(time)/1000} seconds`);
     setTimeout(() => {
       const index = client.blacklist.indexOf(id);
       if (index > -1) {
