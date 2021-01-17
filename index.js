@@ -20,6 +20,8 @@ client.games = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
 
+client.blacklist = [];
+
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);

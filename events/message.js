@@ -4,6 +4,7 @@ module.exports = (client, message) => {
   if (message.content.match(prefixMention))
     return message.reply(`my prefix on this guild is \`${client.settings.prefix}\``);
   if (!message.content.startsWith(client.settings.prefix)) return;
+  if (client.blacklist.includes(message.author.id)) return message.reply('you are temporarily blacklisted');
   const command = message.content.split(' ')[0].slice(client.settings.prefix.length).toLowerCase();
   const args = message.content.split(' ').slice(1);
   let cmd;
