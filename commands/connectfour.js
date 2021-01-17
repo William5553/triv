@@ -1,4 +1,5 @@
-const blankEmoji = '⚪️',
+const { MessageEmbed } = require('discord.js'),
+  blankEmoji = '⚪️',
   playerOneEmoji = '🔴',
   playerTwoEmoji = '🟡',
   nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
@@ -66,7 +67,14 @@ exports.run = async (client, msg) => {
     return msg.channel.send(winner ? `Congrats, ${winner}!` : "Looks like it's a draw...");
   } catch (err) {
     client.games.delete(msg.channel.id);
-    throw err;
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${msg.content}`)
+    );
   }
 };
 
