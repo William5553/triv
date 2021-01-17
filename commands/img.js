@@ -53,5 +53,5 @@ exports.conf = {
 exports.help = {
   name: 'img',
   description: 'Fetches a random image from image results for your search query',
-  usage: 'img [page] [position] [search query]'
+  usage: 'img [page] [position OR random] [search query]'
 };
