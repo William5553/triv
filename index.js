@@ -27,7 +27,7 @@ readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
   files.forEach(file => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) return client.logger.warn(`File not ending with .js found in commands folder: ${file}`);
     client.load(file);
   });
 });
@@ -36,7 +36,7 @@ readdir('./events/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} events.`);
   files.forEach(file => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) return client.logger.warn(`File not ending with .js found in events folder: ${file}`);
     const eventName = file.split('.')[0];
     client.logger.log(`Loading Event: ${eventName}. 👌`);
     const event = require(`./events/${file}`);

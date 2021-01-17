@@ -5,6 +5,7 @@
   "openweathermap_key": "OPENWEATHERMAP.ORG_API_KEY",
   "owner_id": "YOUR_DISCORD_USER_ID_HERE",
   "prefix": "COMMAND_PREFIX",
+  "rapidapi_key": "RAPIDAPI.COM_KEY"
   "token": "DISCORD_BOT_TOKEN",
   "trn_api_key": "TRACKER.GG_API_KEY"
 }

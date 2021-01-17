@@ -1,4 +1,5 @@
-const words = ['fire', 'draw', 'shoot', 'bang', 'pull', 'boom'];
+const words = require('../assets/reaction.json'),
+  { MessageEmbed } = require('discord.js');
 exports.run = async (client, msg) => {
   const current = client.games.get(msg.channel.id);
   if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
@@ -19,7 +20,14 @@ exports.run = async (client, msg) => {
     return msg.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
   } catch (err) {
     client.games.delete(msg.channel.id);
-    throw err;
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${msg.content}`)
+    );
   }
 };
     

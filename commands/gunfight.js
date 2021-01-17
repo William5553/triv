@@ -1,4 +1,5 @@
-const words = ['fire', 'draw', 'shoot', 'bang', 'pull', 'boom'];
+const words = require('../assets/reaction.json'),
+  { MessageEmbed } = require('discord.js');
 exports.run = async (client, msg) => {
   const opponent = msg.mentions.users.first();
   if (opponent.bot) return msg.reply('bots may not be fought.');
@@ -27,7 +28,14 @@ exports.run = async (client, msg) => {
     return msg.channel.send(`The winner is ${winner.first().author}!`);
   } catch (err) {
     client.games.delete(msg.channel.id);
-    throw err;
+    return msg.channel.send(new MessageEmbed()
+      .setColor('RED')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${msg.content}`)
+    );
   }
 };
 

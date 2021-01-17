@@ -40,12 +40,10 @@ exports.run = async (client, message) => {
         }
         await reaction.users.remove(message.author.id);
       } catch (e) {
-        client.logger.error(e.stack ? e.stack : e);
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });
   } catch (e) {
-    client.logger.error(e.stack ? e.stack : e);
     return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
   }
 };
