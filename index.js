@@ -3,18 +3,15 @@ const { Client, Collection } = require('discord.js'),
   client = new Client({ disableMentions: 'everyone' }),
   { readFileSync, readdir } = require('fs');
 
-let settings;
-
 try {
-  settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
+  client.settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
 } catch {
-  settings = null;
+  client.settings = process.env;
 }
 
 client.logger = require('./util/logger');
-client.settings = settings ? settings : process.env;
 
-if (!client.settings.token) throw new Error('Invalid token provided');
+if (!client.settings.token) throw new Error('No token provided');
 
 require('./util/functions')(client);
 
@@ -22,6 +19,8 @@ client.queue = new Collection();
 client.games = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
+
+client.blacklist = [];
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);

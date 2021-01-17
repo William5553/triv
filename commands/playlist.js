@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js'),
   YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
+  if (!client.settings.google_api_key) return message.reply('the bot owner has not set up this command yet');
   const { channel } = message.member.voice,
     youtube = new YouTubeAPI(client.settings.google_api_key),
     serverQueue = client.queue.get(message.guild.id);

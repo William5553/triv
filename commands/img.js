@@ -24,12 +24,12 @@ exports.run = async (client, message, args) => {
     let img;
     if (args[1] != 'random') img = body.value[args[1]];
     else img = body.value.random();
-    if (!img.title || !img.url) return message.reply('no results');
+    if (!img || !img.title || !img.url) return message.reply('no results');
     message.channel.send(new MessageEmbed()
       .setTitle(`**${img.title}**`)
       .setURL(img.webpageUrl)
       .setImage(img.url)
-      .setFooter(`Showing page ${args[0]}, result ${args[1] ? args[1] : 'random'} of ${body.value.length} for query **${query}**`)
+      .setFooter(`Showing page ${args[0]}, result ${args[1] ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
