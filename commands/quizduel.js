@@ -145,9 +145,9 @@ async function awaitPlayers(msg, max) {
     errors: ['time']
   });
   
-  verify.map(misg => {
+  p.map(misg => {
     joined.push(misg.author.id);
-    if (misg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+    if (misg.channel.permissionsFor(msg.client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       misg.react('✅');
   });
   
