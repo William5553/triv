@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     const { body } = await fetch
       .get('https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI')
       .query({
-        q: encodeURIComponent(query),
+        q: query,
         pageNumber: args[0],
         pageSize: 50,
         autoCorrect: false,
@@ -21,15 +21,14 @@ exports.run = async (client, message, args) => {
         'x-rapidapi-host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
         useQueryString: true
       });
-    let img;
-    if (args[1] != 'random') img = body.value[args[1]];
-    else img = body.value.random();
-    if (!(typeof img !== null && typeof img == 'object')) return message.reply('no results');
+    const img = !isNaN(args[1]) ? body.value[args[1]] : body.value.random();
+    if (!body.value || !img || !(typeof img !== null && typeof img == 'object') || !img.url || !img.title) return message.reply('no results');
     message.channel.send(new MessageEmbed()
       .setTitle(`**${img.title}**`)
+      .setColor('BLURPLE')
       .setURL(img.webpageUrl)
       .setImage(img.url)
-      .setFooter(`Showing page ${args[0]}, result ${args[1] ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
+      .setFooter(`Showing page ${args[0]}, result ${!isNaN(args[1]) ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
