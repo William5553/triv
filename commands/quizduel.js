@@ -130,7 +130,7 @@ function makeLeaderboard(pts) {
 }
 
 async function awaitPlayers(msg, max) {
-  if (max === 1) return [msg.author.id];
+  if (max === 0) return [msg.author.id];
   await msg.channel.send(`To join, type \`join game\`. Max players: ${max}`);
   const joined = [msg.author.id];
   const filter = res => {
