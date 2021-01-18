@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     let img;
     if (args[1] != 'random') img = body.value[args[1]];
     else img = body.value.random();
-    if (!img || !img.title || !img.url) return message.reply('no results');
+    if (!(typeof img !== null && typeof img == 'object')) return message.reply('no results');
     message.channel.send(new MessageEmbed()
       .setTitle(`**${img.title}**`)
       .setURL(img.webpageUrl)
