@@ -134,13 +134,13 @@ async function awaitPlayers(msg, max) {
   await msg.channel.send(`To join, type \`join game\`. Max players: ${max}`);
   const joined = [msg.author.id];
   const filter = res => {
-    if (res.author.bot) return false;
-    if (joined.includes(res.author.id)) return false;
-    if (res.content.toLowerCase() !== 'join game') return false;
+    if (res.author.bot) return;
+    if (joined.includes(res.author.id)) return;
+    if (res.content.toLowerCase() !== 'join game') return;
   };
   
   const p = await msg.channel.awaitMessages(filter, {
-    max: max - 1,
+    max: max,
     time: 60000,
     errors: ['time']
   });
