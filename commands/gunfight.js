@@ -42,7 +42,7 @@ exports.run = async (client, msg) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['western', 'wildwest'],
+  aliases: ['western', 'wildwest', 'gunduel'],
   permLevel: 0
 };
 
