@@ -145,11 +145,11 @@ async function awaitPlayers(msg, max, min = 1) {
   };
   const verify = await msg.channel.awaitMessages(filter, {
     max: max - 1,
-    time: 60000
+    time: 60000,
+    errors: ['time']
   });
-  verify.set(msg.id, msg);
   if (verify.size < min) return false;
-  return verify.map(player => player.author.id);
+  return joined;
 }
 
 exports.conf = {
