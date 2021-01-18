@@ -26,5 +26,6 @@ exports.conf = {
 exports.help = {
   name: 'airhorn',
   description: 'Plays an airhorn sound',
-  usage: 'airhorn'
+  usage: 'airhorn',
+  example: 'airhorn'
 };
