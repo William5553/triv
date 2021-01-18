@@ -1,5 +1,5 @@
-const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yis', 'hai', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'];
-const no = ['false', 'no', 'n', 'nah', 'nah foo', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off', 'absolutely not'];
+const yes = ['true', 'yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'];
+const no = ['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off', 'absolutely not'];
 module.exports = client => {
   client.load = async command => {
     const props = require(`../commands/${command}`);
