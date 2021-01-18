@@ -32,7 +32,7 @@ exports.run = async (client, msg, args) => {
         if (!awaitedPlayers.includes(res.author.id)) return false;
         const answer = res.content.toUpperCase();
         if (choices.includes(answer)) {
-          if (msg.channel.permissionsFor(res.author).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+          if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
             msg.react('✅');
           return true;
         }
@@ -80,7 +80,7 @@ exports.run = async (client, msg, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
       .addField('**Command:**', `${msg.content}`)
     );
   }
@@ -137,15 +137,20 @@ async function awaitPlayers(msg, max) {
     if (res.author.bot) return false;
     if (joined.includes(res.author.id)) return false;
     if (res.content.toLowerCase() !== 'join game') return false;
-    joined.push(res.author.id);
-    if (msg.channel.permissionsFor(res.author).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
-      msg.react('✅');
   };
-  await msg.channel.awaitMessages(filter, {
+  
+  const p = await msg.channel.awaitMessages(filter, {
     max: max - 1,
     time: 60000,
     errors: ['time']
   });
+  
+  verify.map(misg => {
+    joined.push(misg.author.id);
+    if (misg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+      misg.react('✅');
+  });
+  
   return joined;
 }
 
