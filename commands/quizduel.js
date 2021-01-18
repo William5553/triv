@@ -141,7 +141,7 @@ async function awaitPlayers(msg, max) {
     if (msg.channel.permissionsFor(res.author).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('✅');
   };
-  const verify = await msg.channel.awaitMessages(filter, {
+  await msg.channel.awaitMessages(filter, {
     max: max - 1,
     time: 60000,
     errors: ['time']

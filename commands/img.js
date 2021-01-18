@@ -22,13 +22,13 @@ exports.run = async (client, message, args) => {
         useQueryString: true
       });
     const img = !isNaN(args[1]) ? body.value[args[1]] : body.value.random();
-    if (!body.value || !img || !(typeof img !== null && typeof img == 'object') || !img.url || !img.title) return message.reply('no results');
+    if (!body.value || !img || !img.url || !img.title) return message.reply('no results');
     message.channel.send(new MessageEmbed()
       .setTitle(`**${img.title}**`)
       .setColor('BLURPLE')
       .setURL(img.webpageUrl)
       .setImage(img.url)
-      .setFooter(`Showing page ${args[0]}, result ${!isNaN(args[1]) ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
+      .setFooter(`Showing page ${args[0]} (50 per page), result ${!isNaN(args[1]) ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
