@@ -129,12 +129,10 @@ function makeLeaderboard(pts) {
     });
 }
 
-async function awaitPlayers(msg, max, min = 1) {
+async function awaitPlayers(msg, max) {
   if (max === 1) return [msg.author.id];
-  const addS = min - 1 === 1 ? '' : 's';
-  await msg.channel.send(`You will need at least ${min - 1} more player${addS} (at max ${max - 1}). To join, type \`join game\`.`);
-  const joined = [];
-  joined.push(msg.author.id);
+  await msg.channel.send(`To join, type \`join game\`. Max players: ${max}`);
+  const joined = [msg.author.id];
   const filter = res => {
     if (res.author.bot) return false;
     if (joined.includes(res.author.id)) return false;
@@ -148,7 +146,6 @@ async function awaitPlayers(msg, max, min = 1) {
     time: 60000,
     errors: ['time']
   });
-  if (verify.size < min) return false;
   return joined;
 }
 
@@ -162,5 +159,5 @@ exports.conf = {
 exports.help = {
   name: 'quizduel',
   description: 'Answer a series of quiz questions against other opponents',
-  usage: 'quizduel [player count]'
+  usage: 'quizduel [max player count]'
 };
