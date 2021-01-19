@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   if (message.author.bot) return;
   const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(prefixMention))
@@ -6,7 +6,8 @@ module.exports = (client, message) => {
   if (!message.content.startsWith(client.settings.prefix)) return;
   if (client.blacklist.includes(message.author.id)) {
     message.delete({ timeout: 1500 });
-    return message.reply('you are temporarily blacklisted').delete({ timeout: 1500 });
+    const a = await message.reply('you are temporarily blacklisted');
+    return a.delete({ timeout: 1500 });
   }
   const command = message.content.split(' ')[0].slice(client.settings.prefix.length).toLowerCase();
   const args = message.content.split(' ').slice(1);
