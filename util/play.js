@@ -118,7 +118,7 @@ module.exports = {
     collector.on('collect', (reaction, user) => {
       if (!queue) return;
       const member = message.guild.member(user);
-      if (!canModifyQueue(member)) return;
+      if (canModifyQueue(member) != true) return;
       reaction.users.remove(user).catch(client.logger.error);
       switch (reaction.emoji.name) {
         case '⏭':
