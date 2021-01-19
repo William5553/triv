@@ -4,6 +4,8 @@ const request = require('node-superfetch'),
   voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
+  const queue = client.queue.get(msg.guild.id);
+  if (queue) return msg.reply("there's currently music playing");
   let voice = args[0];
   const text = args.splice(1).join(' ');
   if (!voice || !Object.keys(voices).includes(voice.toLowerCase()))
