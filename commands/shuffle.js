@@ -3,7 +3,7 @@ const { canModifyQueue } = require('../util/queue');
 exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.channel.send('There is no queue.').catch(client.logger.error);
-  if (!canModifyQueue(message.member)) return;
+  if (canModifyQueue(message.member) != true) return;
 
   const songs = queue.songs;
   for (let i = songs.length - 1; i > 1; i--) {

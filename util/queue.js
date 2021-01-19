@@ -1,9 +1,9 @@
 module.exports = {
   canModifyQueue(member) {
     if (!member || !member.voice || !member.guild.voice) return member.client.logger.error('member.voice or member.guild.voice is not present');
-    const client = member.client;
-    const memChan = member.voice.channelID;
-    const botChan = member.guild.voice.channelID;
+    const client = member.client,
+      memChan = member.voice.channelID,
+      botChan = member.guild.voice.channelID;
     
     if (client.blacklist.includes(member.user.id))
       return member.send('You are temporarily blacklisted').catch(client.logger.error);
