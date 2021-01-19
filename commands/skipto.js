@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
 
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('there is nothing playing').catch(client.logger.error);
-  if (!canModifyQueue(message.member)) return;
+  if (canModifyQueue(message.member) != true) return;
 
   if (args[0] > queue.songs.length)
     return message.reply(`the queue is only ${queue.songs.length} songs long`).catch(client.logger.error);

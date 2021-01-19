@@ -2,7 +2,7 @@ const { canModifyQueue } = require('../util/queue');
 
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
-  if (!canModifyQueue(message.member)) return;
+  if (canModifyQueue(message.member) != true) return;
   if (!queue) return message.reply('there is nothing playing.').catch(client.logger.error);
   if (!args[0]) return message.channel.send(`🔊 The current volume is: **${queue.volume}%**`).catch(client.logger.error);
   if (isNaN(args[0])) return message.reply('input a number, moron').catch(client.logger.error);

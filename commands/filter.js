@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('nothing is playing');
   if (args.length < 1) return message.reply(`Usage: ${client.settings.prefix}${exports.help.usage}`);
-  if (!canModifyQueue(message.member)) return;
+  if (canModifyQueue(message.member) != true) return;
   if (args[0] !== 'list' && !filters.includes(args[1])) return message.reply(`${args[1]} is not a valid filter. Valid filters are: ${filters.join(', ')}.`);
   if (args[0] === 'add')
     queue.filters[args[1]] = true;
