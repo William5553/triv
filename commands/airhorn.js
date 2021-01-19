@@ -3,6 +3,8 @@ const path = require('path'),
   airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
 exports.run = async (client, msg) => {
+  const queue = client.queue.get(msg.guild.id);
+  if (queue) return msg.reply("there's currently music playing");
   if (!msg.guild.voice || !msg.guild.voice.connection) 
     await client.commands.get('join').run(client, msg);
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
