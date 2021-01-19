@@ -12,18 +12,19 @@ exports.run = (client, message, args) => {
     else
       return message.channel.send(`${client.settings.prefix}${exports.help.usage}`);
     const time = args.splice(1).join(' ');
-    if (!time) return message.channel.send(`${client.settings.prefix}${exports.help.usage}`);
-    if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
-    if (ms(time) < 1) return message.channel.send('The duration time has to be atleast 1 second');
-    if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     client.blacklist.push(id);
-    message.channel.send(`Blacklisted user ${id} for ${ms(time)/1000} seconds`);
-    setTimeout(() => {
-      const index = client.blacklist.indexOf(id);
-      if (index > -1) {
-        client.blacklist.splice(index, 1);
-      }
-    }, ms(time));
+    message.channel.send(`Blacklisted user ${id}${time ? ` for ${ms(time)/1000} seconds` : ''}`);
+    if (time) {
+      if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
+      if (ms(time) < 1) return message.channel.send('The duration time has to be atleast 1 second');
+      if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
+      setTimeout(() => {
+        const index = client.blacklist.indexOf(id);
+        if (index > -1) {
+          client.blacklist.splice(index, 1);
+        }
+      }, ms(time));
+    }
   } catch (err) {
     return message.channel.send(new MessageEmbed()
       .setColor('RED')
@@ -46,5 +47,5 @@ exports.conf = {
 exports.help = {
   name: 'tempblacklist',
   description: 'Temporarily prevents a user from using the bot',
-  usage: 'tempblacklist [user] [time]'
+  usage: 'tempblacklist [user] [time (optional)]'
 };
