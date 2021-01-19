@@ -17,7 +17,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['leave'],
+  aliases: ['leave', 'cease'],
   permLevel: 0
 };
 
