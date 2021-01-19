@@ -3,6 +3,8 @@ const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, msg, args) => {
+  const queue = client.queue.get(msg.guild.id);
+  if (queue) return msg.reply("there's currently music playing");
   const text = args.join(' ');
   if (!text)
     return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
