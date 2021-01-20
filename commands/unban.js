@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   const banned = await message.guild.fetchBan(user);
   if (!banned.user || !banned.reason) return message.reply('that user is not banned');
   message.guild.members.unban(user, { reason: reason }).catch(message.channel.send);
-  message.channel.send(`Unbanned ${user} who was previously banned for ${banned.reason}`);
+  message.channel.send(`Unbanned ${banned.user} who was previously banned for ${banned.reason}`);
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
