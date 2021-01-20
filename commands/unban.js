@@ -9,7 +9,12 @@ exports.run = async (client, message, args) => {
     return message.reply('I cannot find a bot-logs channel');
   if (!user || isNaN(user)) return message.reply('you must supply a user ID.').catch(client.logger.error);
   if (reason.length < 1) return message.reply('you must supply a reason for the unban');
-  const banned = await message.guild.fetchBan(user);
+  let banned;
+  try {
+    banned = await message.guild.fetchBan(user);
+  } catch {
+    return message.reply('they are not banned');
+  }
   if (!banned.user || !banned.reason) return message.reply('that user is not banned');
   message.guild.members.unban(user, { reason: reason }).catch(message.channel.send);
   message.channel.send(`Unbanned ${banned.user} who was previously banned for ${banned.reason}`);
