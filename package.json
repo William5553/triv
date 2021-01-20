@@ -1,6 +1,6 @@
 {
   "name": "Triv",
-  "version": "3.8.1",
+  "version": "3.8.2",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -40,7 +40,7 @@
     "simple-youtube-api": "^5.2.1",
     "string-progressbar": "^1.0.1",
     "translate-google-api": "github:William5553/translate-google-api#patch-1",
-    "ytdl-core": "^4.4.3"
+    "ytdl-core": "^4.4.4"
   },
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
