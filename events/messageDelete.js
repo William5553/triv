@@ -9,7 +9,7 @@ module.exports = (client, message) => {
     logs.send(new MessageEmbed()
       .setTitle('**Message Deleted**')
       .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
-      .setFooter(`User ID: ${message.author.id}`)
+      .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
       .setTimestamp()
       .setDescription(message.content)
       .setColor('0xEB5234')

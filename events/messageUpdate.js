@@ -8,7 +8,7 @@ module.exports = (client, oldMessage, newMessage) => {
   if (logs) logs.send(new MessageEmbed()
     .setTitle('**Message Edited**')
     .setAuthor(`@${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.avatarURL())
-    .setFooter(`User ID: ${newMessage.author.id}`)
+    .setFooter(`User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}`)
     .setTimestamp()
     .addField('**Old Message**', oldMessage.content, true)
     .addField('**New Message**', newMessage.content, true)

@@ -15,15 +15,16 @@ exports.run = async (client, message, args) => {
   } catch {
     return message.reply('they are not banned');
   }
-  if (!banned.user || !banned.reason) return message.reply('that user is not banned');
+  if (!banned.user) return message.reply('that user is not banned');
   message.guild.members.unban(user, { reason: reason }).catch(message.channel.send);
-  message.channel.send(`Unbanned ${banned.user} who was previously banned for ${banned.reason}`);
+  message.channel.send(`Unbanned ${banned.user}${banned.reason ? ` who was previously banned for ${banned.reason}` : ''}`);
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
     .setDescription(
-      `**Action:** Unban\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`
+      `**Action:** Unban\n**Target:** ${banned.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`
     )
+    .setFooter(`User ID: ${banned.user.id}`)
   );
 };
 
