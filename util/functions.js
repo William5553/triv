@@ -53,7 +53,7 @@ module.exports = client => {
   };
 
   client.verify = async (channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) => {
-	  if (client.blacklist.includes(user.author.id)) return channel.send('that user is currently blacklisted');
+	  if (client.blacklist.includes(user.id)) return channel.send('that user is currently blacklisted');
     const filter = res => {
       const value = res.content.toLowerCase();
       return (user ? res.author.id === user.id : true)
