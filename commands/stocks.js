@@ -70,7 +70,7 @@ async function search(query) {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['stonks', 'stock'],
+  aliases: ['stonks', 'stonk', 'stock'],
   permLevel: 0
 };
 
