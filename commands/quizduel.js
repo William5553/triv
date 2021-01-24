@@ -9,8 +9,10 @@ exports.run = async (client, msg, args) => {
   client.games.set(msg.channel.id, { name: 'quizduel' });
   try {
     const players = Number(args[0]);
-    if (!players || isNaN(players) || players > 100 || players < 1)
+    if (!players || isNaN(players) || players > 100 || players < 1) {
+      client.games.delete(msg.channel.id);
       return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+    }
     const awaitedPlayers = await awaitPlayers(msg, players);
     let turn = 0;
     const pts = new Collection();
