@@ -14,11 +14,11 @@ exports.run = async (client, msg, args) => {
       .setColor(0x9797FF)
       .setFooter('Last Updated')
       .setTimestamp(stocks.lastRefresh)
-      .addField('❯ Open', `$${formatNumber(stocks.open)}`, true)
-      .addField('❯ Close', `$${formatNumber(stocks.close)}`, true)
-      .addField('❯ Volume', formatNumber(stocks.volume), true)
-      .addField('❯ High', `$${formatNumber(stocks.high)}`, true)
-      .addField('❯ Low', `$${formatNumber(stocks.low)}`, true)
+      .addField('❯ Open', `$${client.formatNumber(stocks.open)}`, true)
+      .addField('❯ Close', `$${client.formatNumber(stocks.close)}`, true)
+      .addField('❯ Volume', client.formatNumber(stocks.volume), true)
+      .addField('❯ High', `$${client.formatNumber(stocks.high)}`, true)
+      .addField('❯ Low', `$${client.formatNumber(stocks.low)}`, true)
       .addField('\u200B', '\u200B', true)
     );
   } catch (err) {
@@ -32,13 +32,6 @@ exports.run = async (client, msg, args) => {
     );
   }
 };
-
-function formatNumber(number, minimumFractionDigits = 0) {
-  return Number.parseFloat(number).toLocaleString(undefined, {
-    minimumFractionDigits,
-    maximumFractionDigits: 2
-  });
-}
 
 async function fetchStocks(symbol, key) {
   const { body } = await request
