@@ -1929,41 +1929,18 @@
       "integrity": "sha1-4fJE7zkzwbKmS9R5kTYGDQ9ZFPg="
     },
     "genius-lyrics": {
-      "version": "4.2.0",
-      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.0.tgz",
-      "integrity": "sha512-fPBxSADKKe12kTT4UMRYtYAg1/pPDh5v4WxaMpgIJgWO9yayxkXsVaWxVO1xNFaPwyB0eElNgt2WQCVfKyTp+A==",
+      "version": "4.2.1",
+      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.1.tgz",
+      "integrity": "sha512-C3gj2glmX7+SLJ/GnKeVU+Ls5cvwlBxoqqsXJ7Hgxp/XFPhImTTMhU3+kpHS7V1WwekQXNntm6IqyzaBNyB8FA==",
       "requires": {
         "axios": "^0.21.1",
         "node-html-parser": "^1.4.9"
-      },
-      "dependencies": {
-        "axios": {
-          "version": "0.21.1",
-          "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
-          "integrity": "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==",
-          "requires": {
-            "follow-redirects": "^1.10.0"
-          }
-        },
-        "follow-redirects": {
-          "version": "1.13.1",
-          "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.1.tgz",
-          "integrity": "sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg=="
-        },
-        "he": {
-          "version": "1.2.0",
-          "resolved": "https://registry.npmjs.org/he/-/he-1.2.0.tgz",
-          "integrity": "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw=="
-        },
-        "node-html-parser": {
-          "version": "1.4.9",
-          "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-1.4.9.tgz",
-          "integrity": "sha512-UVcirFD1Bn0O+TSmloHeHqZZCxHjvtIeGdVdGMhyZ8/PWlEiZaZ5iJzR189yKZr8p0FXN58BUeC7RHRkf/KYGw==",
-          "requires": {
-            "he": "1.2.0"
-          }
-        }
       }
+    },
+    "he": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/he/-/he-1.2.0.tgz",
+      "integrity": "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw=="
     },
     "moment": {
       "version": "2.29.1",
@@ -1979,6 +1956,14 @@
       "version": "2.1.3",
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
+    },
+    "node-html-parser": {
+      "version": "1.4.9",
+      "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-1.4.9.tgz",
+      "integrity": "sha512-UVcirFD1Bn0O+TSmloHeHqZZCxHjvtIeGdVdGMhyZ8/PWlEiZaZ5iJzR189yKZr8p0FXN58BUeC7RHRkf/KYGw==",
+      "requires": {
+        "he": "1.2.0"
+      }
     },
     "node-superfetch": {
       "version": "0.1.10",

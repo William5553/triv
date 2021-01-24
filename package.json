@@ -32,7 +32,7 @@
     "expr-eval": "^2.0.2",
     "ffmpeg-static": "^4.2.7",
     "fs": "^0.0.2",
-    "genius-lyrics": "^4.2.0",
+    "genius-lyrics": "^4.2.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.3",
