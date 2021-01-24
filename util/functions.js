@@ -61,7 +61,8 @@ module.exports = client => {
     };
     const verify = await channel.awaitMessages(filter, {
       max: 1,
-      time
+      time,
+      errors: ['time']
     });
     if (!verify.size) return 0;
     const choice = verify.first().content.toLowerCase();
