@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
 			
     await message.reply(`there ${areIs} currently **${currentString}**. Are you sure?`);
     const verification = await client.verify(message.channel, message.author);
-    if (!verification) return message.channel.send('Aborted restart.');
+    if (verification != true) return message.channel.send('Aborted restart.');
   }
   await message.channel.send(texts.random());
   await client.logger.log(`${message.author.tag} is restarting the bot`);

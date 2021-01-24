@@ -15,7 +15,7 @@ exports.run = async (client, msg) => {
   try {
     await msg.channel.send(`${opponent}, do you accept this challenge?`);
     const verification = await client.verify(msg.channel, opponent);
-    if (!verification) {
+    if (verification != true) {
       client.games.delete(msg.channel.id);
       return msg.channel.send('Looks like they declined...');
     }
