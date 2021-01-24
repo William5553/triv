@@ -14,7 +14,7 @@ dependencies:
   ms: 2.1.3
   node-superfetch: 0.1.10
   simple-youtube-api: 5.2.1
-  string-progressbar: 1.0.1
+  string-progressbar: 1.0.2
   translate-google-api: github.com/William5553/translate-google-api/e7aef030825e698993dfe023d241bc6a71552dcd
   ytdl-core: 4.4.4
 devDependencies:
@@ -1332,10 +1332,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
-  /string-progressbar/1.0.1:
+  /string-progressbar/1.0.2:
     dev: false
     resolution:
-      integrity: sha512-smY1/o7XCBHeYtb1XS4sMSv3L3leToTNasPPxrjJq71BCxVX3u1rII+UDQEmUN/dnQbmjTj1xJiN+3xtjq8Esg==
+      integrity: sha512-q1iU/IG3sYvKudaGRm1HadqkG3ltBVlPcztuT1hp3Ek6bei/+YGA3GAUK7G1Qc622a9O4y0WCLrNAPfJwMJYpg==
   /string-width/1.0.2:
     dependencies:
       code-point-at: 1.1.0
@@ -1562,6 +1562,6 @@ specifiers:
   ms: ^2.1.3
   node-superfetch: ^0.1.10
   simple-youtube-api: ^5.2.1
-  string-progressbar: ^1.0.1
+  string-progressbar: ^1.0.2
   translate-google-api: 'github:William5553/translate-google-api#patch-1'
   ytdl-core: ^4.4.4
