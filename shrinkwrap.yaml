@@ -1,5 +1,5 @@
 dependencies:
-  '@discordjs/opus': 0.3.3
+  '@discordjs/opus': 0.4.0
   chalk: 4.1.0
   cloc: 2.7.0
   discord-ytdl-core: 5.0.0
@@ -15,7 +15,7 @@ dependencies:
   node-superfetch: 0.1.10
   simple-youtube-api: 5.2.1
   translate-google-api: github.com/William5553/translate-google-api/fec5799d5321052187fbb9464dda3c87016514de
-  ytdl-core: 4.4.4
+  ytdl-core: 4.4.5
 devDependencies:
   eslint: 7.18.0
   eslint-plugin-node: 11.1.0
@@ -63,30 +63,29 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-ZfFsbgEXW71Rw/6EtBdrP5VxBJy4dthyC0tpQKGKmYFImlmmrykO14Za+BiIVduwjte0jXEBlhSKf0MWbFp9Eg==
-  /@discordjs/node-pre-gyp/0.1.0:
+  /@discordjs/node-pre-gyp/0.2.0:
     dependencies:
       detect-libc: 1.0.3
       mkdirp: 0.5.5
-      needle: 2.5.2
-      nopt: 4.0.3
-      npm-packlist: 1.4.8
+      needle: 2.6.0
+      nopt: 5.0.0
       npmlog: 4.1.2
       rc: 1.2.8
       rimraf: 3.0.2
       semver: 7.3.4
-      tar: 6.0.5
+      tar: 6.1.0
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-6u3EbK2x+j9bM3iK9/pE7BWLxOXZ1PvcsbDo3ZBdPocu95qPHj8zCVsBBk3Cao7V6o8QpwxUyJl6oVJ6T3ZgAg==
-  /@discordjs/opus/0.3.3:
+      integrity: sha512-2PIodKAuDLZZ8LGVFiQkZicco9PGcUICU/NlMqNMXuy91qMGKosOkDkzj4x+Kl1WYR1r2Y/fyOIgje5zezavYQ==
+  /@discordjs/opus/0.4.0:
     dependencies:
-      '@discordjs/node-pre-gyp': 0.1.0
+      '@discordjs/node-pre-gyp': 0.2.0
       node-addon-api: 3.1.0
     dev: false
     requiresBuild: true
     resolution:
-      integrity: sha512-n3hUs4RY0K8cz8vJ2GiZE4EdJlexoxs1vGsaft5lZlAnU6wsZfncpv4px+HVOMKN8ddtjriGfsrG4lVkAyZcmQ==
+      integrity: sha512-89PRSuvBKBvZLkftVqRnQ9/rPXG9zDjKdbtlGC0RiZ6hJYFdWb4ND/maMgJPkTAvlIrRChm67eZOuIYhiKBDbQ==
   /@eslint/eslintrc/0.3.0:
     dependencies:
       ajv: 6.12.6
@@ -104,10 +103,10 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-1JTKgrOKAHVivSvOYw+sJOunkBjUOvjqWk1DPja7ZFhIS2mX/4EgTT8M7eTK9jrKhL/FvXXEbQwIs3pg1xp3dg==
-  /@types/node/10.17.50:
+  /@types/node/10.17.51:
     dev: false
     resolution:
-      integrity: sha512-vwX+/ija9xKc/z9VqMCdbf4WYcMTGsI0I/L/6shIF3qXURxZOhPQlPRHtjTpiNhAwn0paMJzlOQqw6mAGEQnTA==
+      integrity: sha512-KANw+MkL626tq90l++hGelbl67irOJzGhUJk6a1Bt8QHOeh9tztJx+L0AqttraWKinmZn7Qi5lJZJzx45Gq0dg==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -230,7 +229,7 @@ packages:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
   /axios/0.21.1:
     dependencies:
-      follow-redirects: 1.13.1
+      follow-redirects: 1.13.2
     dev: false
     resolution:
       integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -645,23 +644,23 @@ packages:
       integrity: sha512-fqoO76jZ3ZnYrXLDRxBR1YvOvc0k844kcOg40bgsPrE25LAb/PDqTY+ho64Xh2c8ZXgIKldchCFHczG2UVRcWA==
   /flat-cache/3.0.4:
     dependencies:
-      flatted: 3.1.0
+      flatted: 3.1.1
       rimraf: 3.0.2
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==
-  /flatted/3.1.0:
+  /flatted/3.1.1:
     dev: true
     resolution:
-      integrity: sha512-tW+UkmtNg/jv9CSofAKvgVcO7c2URjhTdW1ZTkcAritblu8tajiYy7YisnIflEwtKssCtOxpnBRoCB7iap0/TA==
-  /follow-redirects/1.13.1:
+      integrity: sha512-zAoAQiudy+r5SvnSw3KJy5os/oRJYHzrzja/tBDqrZtNhUw8bt6y8OBzMWcjWr+8liV8Eb6yOhw8WZ7VFZ5ZzA==
+  /follow-redirects/1.13.2:
     dev: false
     engines:
       node: '>=4.0'
     resolution:
-      integrity: sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
+      integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
   /form-data/2.5.1:
     dependencies:
       asynckit: 0.4.0
@@ -771,7 +770,7 @@ packages:
       integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
   /http-response-object/3.0.2:
     dependencies:
-      '@types/node': 10.17.50
+      '@types/node': 10.17.51
     dev: false
     resolution:
       integrity: sha512-bqX0XTF6fnXSQcEJ2Iuyr75yVakyjIDCqroJQ/aHfSdlM743Cwqoi2nDYMzLGWUcuTWGWy8AAvOKXTfiv6q9RA==
@@ -792,12 +791,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
-  /ignore-walk/3.0.3:
-    dependencies:
-      minimatch: 3.0.4
-    dev: false
-    resolution:
-      integrity: sha512-m7o6xuOaT1aqheYHKf8W6J5pYH85ZI9w077erOzLje3JsB1gkafkAhHHY19dqjulgIZHFm32Cp5uNZgcQqdJKw==
   /ignore/4.0.6:
     dev: true
     engines:
@@ -1022,7 +1015,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
-  /needle/2.5.2:
+  /needle/2.6.0:
     dependencies:
       debug: 3.2.7
       iconv-lite: 0.4.24
@@ -1032,7 +1025,7 @@ packages:
       node: '>= 4.4.x'
     hasBin: true
     resolution:
-      integrity: sha512-LbRIwS9BfkPvNwNHlsA41Q29kL2L/6VaOJ0qisM5lLWsTV3nP15abO5ITL6L81zqFhzjRKDAYjpcBcwM0AVvLQ==
+      integrity: sha512-KKYdza4heMsEfSWD7VPUIz3zX2XDwOyX2d+geb4vrERZMT5RMU6ujjaD+I5Yr54uZxQ2w6XRTAhHBbSCyovZBg==
   /node-addon-api/3.1.0:
     dev: false
     resolution:
@@ -1058,32 +1051,15 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aM+4GmjwCSku1VLsVh/mjnxQHa3StRI8uB7eYSktstlMD6Dxvpk/tT6UFEg2NwlNPjLlwsFmexduNUahckCm2A==
-  /nopt/4.0.3:
+  /nopt/5.0.0:
     dependencies:
       abbrev: 1.1.1
-      osenv: 0.1.5
     dev: false
+    engines:
+      node: '>=6'
     hasBin: true
     resolution:
-      integrity: sha512-CvaGwVMztSMJLOeXPrez7fyfObdZqNUK1cPAEzLHrTybIua9pMdmmPR5YwtfNftIOMv3DPUhFaxsZMNTQO20Kg==
-  /npm-bundled/1.1.1:
-    dependencies:
-      npm-normalize-package-bin: 1.0.1
-    dev: false
-    resolution:
-      integrity: sha512-gqkfgGePhTpAEgUsGEgcq1rqPXA+tv/aVBlgEzfXwA1yiUJF7xtEt3CtVwOjNYQOVknDk0F20w58Fnm3EtG0fA==
-  /npm-normalize-package-bin/1.0.1:
-    dev: false
-    resolution:
-      integrity: sha512-EPfafl6JL5/rU+ot6P3gRSCpPDW5VmIzX959Ob1+ySFUuuYHWHekXpwdUZcKP5C+DS4GEtdJluwBjnsNDl+fSA==
-  /npm-packlist/1.4.8:
-    dependencies:
-      ignore-walk: 3.0.3
-      npm-bundled: 1.1.1
-      npm-normalize-package-bin: 1.0.1
-    dev: false
-    resolution:
-      integrity: sha512-5+AZgwru5IevF5ZdnFglB5wNlHG1AOOuw28WhUq8/8emhBmLv6jX5by4WJCh7lW0uSYZYS6DXqIsyZVIXRZU9A==
+      integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==
   /npmlog/4.1.2:
     dependencies:
       are-we-there-yet: 1.1.5
@@ -1123,25 +1099,6 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==
-  /os-homedir/1.0.2:
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-/7xJiDNuDoM94MFox+8VISGqf7M=
-  /os-tmpdir/1.0.2:
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-u+Z0BseaqFxc/sdm/lc0VV36EnQ=
-  /osenv/0.1.5:
-    dependencies:
-      os-homedir: 1.0.2
-      os-tmpdir: 1.0.2
-    dev: false
-    resolution:
-      integrity: sha512-0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==
   /parent-module/1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -1421,7 +1378,7 @@ packages:
       node: '>=10.0.0'
     resolution:
       integrity: sha512-rxZevLGTUzWna/qBLObOe16kB2RTnnbhciwgPbMMlazz1yZGVEgnZK762xyVdVznhqxrfCeBMmMkgOOaPwjH7g==
-  /tar/6.0.5:
+  /tar/6.1.0:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -1433,7 +1390,7 @@ packages:
     engines:
       node: '>= 10'
     resolution:
-      integrity: sha512-0b4HOimQHj9nXNEAA7zWwMM91Zhhba3pspja6sQbgTpynOJf+bkjBnfybNYzbpLbnwXnbyB4LOREvlyXLkCHSg==
+      integrity: sha512-DUCttfhsnLCjwoDoFcI+B2iJgYa93vBnDUATYEeRx6sntCTdN01VnqsIuTlALXla/LWooNg0yEGeB+Y8WdFxGA==
   /text-table/0.2.0:
     dev: true
     resolution:
@@ -1510,7 +1467,7 @@ packages:
   /yallist/4.0.0:
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-  /ytdl-core/4.4.4:
+  /ytdl-core/4.4.5:
     dependencies:
       m3u8stream: 0.8.3
       miniget: 4.1.0
@@ -1519,7 +1476,7 @@ packages:
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-/IFJTM5RjN20q6RVaE/9rv9tKoBtx95lKZCI/pUPDiDzu9fXyuPbkVzEQJmsYEwzi0zdv4d6iJy0gHWz49o6mw==
+      integrity: sha512-/ugilIF2PskxNfQgkYZ/esvkp+fiB/mOPdIExW/En+1QTbq5VeTVqgf2hETTen0Co2lHMM4eRxPaczDHTmkb7A==
   github.com/William5553/translate-google-api/fec5799d5321052187fbb9464dda3c87016514de:
     dependencies:
       axios: 0.21.1
@@ -1533,7 +1490,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  '@discordjs/opus': ^0.3.2
+  '@discordjs/opus': ^0.4.0
   chalk: ^4.1.0
   cloc: ^2.7.0
   discord-ytdl-core: ^5.0.0
@@ -1551,4 +1508,4 @@ specifiers:
   node-superfetch: ^0.1.10
   simple-youtube-api: ^5.2.1
   translate-google-api: 'github:William5553/translate-google-api#patch-1'
-  ytdl-core: ^4.4.4
+  ytdl-core: ^4.4.5
