@@ -143,8 +143,7 @@ async function awaitPlayers(msg, max) {
   
   const p = await msg.channel.awaitMessages(filter, {
     max: max,
-    time: 60000,
-    errors: ['time']
+    time: 60000
   });
   
   p.map(misg => {
