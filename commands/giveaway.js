@@ -3,11 +3,13 @@ const ms = require('ms'),
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.channel.send('Please enter a duration for the giveaway.');
   const time = args[0],
-    prize = message.content.split(' ').slice(2).join(' ');
+    prize = args.slice(1).join(' ');
+  if (message.channel.type == 'news') return message.channel.send('Giveaways cannot be started in news channels');
   if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
   if (ms(time) < 1) return message.channel.send('The duration time has to be atleast 1 second');
   if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
   if (prize === '') return message.channel.send('You have to enter a prize.');
+  if (prize.length > 250) return message.reply('shorten the prize character count');
   message.delete();
   const msg = await message.channel.send(':tada: **GIVEAWAY** :tada:', new MessageEmbed()
     .setTitle(`${prize}`)
