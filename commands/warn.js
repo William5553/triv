@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   }
   try {
     const reason = args.slice(1).join(' '),
-      userr = message.mentions.members.first() || message.guild.members.fetch(args[0]),
+      userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase()),
       botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
     if (!botlog && message.guild.me.hasPermission('MANAGE_CHANNELS'))
       message.guild.channels.create('bot-logs', { type: 'text' });
