@@ -1,17 +1,10 @@
 {
   "install": {
-    "include": [
-      "^package\\.json$"
-    ]
+    "include": ["^package\\.json$"]
   },
   "restart": {
-    "exclude": [
-      "^assets/"
-    ],
-    "include": [
-      "\\.js$",
-      "\\.json"
-    ]
+    "exclude": ["^assets/"],
+    "include": ["\\.js$", "\\.json"]
   },
   "throttle": 900000
 }
