@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js'),
   { caseNumber } = require('../util/caseNumber.js'),
   { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
-  const userr = message.mentions.members.first() || message.guild.members.fetch(args[0]) || null;
+  const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
   if (parseUser(message, userr) !== true) return;
   if (userr.user.id == client.user.id)
