@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
       );
     }
 
-    user.presence.activities.forEach((activity) => {
+    user.presence.activities.forEach(activity => {
       if (activity.type === 'CUSTOM_STATUS') {
         message.channel.send(new MessageEmbed()
           .setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true }))
