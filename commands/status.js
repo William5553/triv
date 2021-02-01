@@ -23,21 +23,15 @@ exports.run = (client, message, args) => {
         .setTimestamp()
       );
     } else if (activity.type === 'PLAYING') {
-      const name1 = activity.name;
-      const details1 = activity.details;
-      const state1 = activity.state;
-      const image = user.user.displayAvatarURL({ dynamic: true });
-
       message.channel.send(new MessageEmbed()
-        .setAuthor(`${user.user.username}'s Activity`)
+        .setAuthor(`${user.user.username}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
         .setColor(0xFFFF00)
         .addField('**Type**', 'Playing')
-        .addField('**App**', `${name1}`)
-        .addField('**Details**', `${details1 || 'No Details'}`)
-        .addField('**Working on**', `${state1 || 'No Details'}`)
+        .addField('**App**', `${activity.name}`)
+        .addField('**Details**', `${activity.details || 'No Details'}`)
+        .addField('**Working on**', `${activity.state || 'No Details'}`)
       );
-    } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets !== null) {
-
+    } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
       const trackIMG = `https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`;
       const trackURL = `https://open.spotify.com/track/${activity.syncID}`;
 
