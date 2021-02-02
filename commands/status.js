@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
 
     if (!user.presence.activities.length) {
       return message.channel.send(new MessageEmbed()
-        .setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true }))
+        .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
         .setColor('RED')
         .setTitle('**No Status**')
         .setDescription('This user does not have a custom status!')
@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
     user.presence.activities.forEach(activity => {
       if (activity.type === 'CUSTOM_STATUS') {
         message.channel.send(new MessageEmbed()
-          .setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
           .setTitle(`${user.user.username}'s Activity`)
           .setDescription(`**Custom Status**\n${activity.emoji || 'No Emoji'} | ${activity.state || 'No State'}`)
@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
         );
       } else if (activity.type === 'PLAYING') {
         message.channel.send(new MessageEmbed()
-          .setAuthor(`${user.user.username}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
           .addField('**Type**', 'Playing')
           .addField('**App**', `${activity.name}`)
