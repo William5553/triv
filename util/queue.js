@@ -5,10 +5,13 @@ module.exports = {
       memChan = member.voice.channelID,
       botChan = member.guild.voice.channelID;
     
-    if (client.blacklist.includes(member.user.id))
-      return member.send('You are temporarily blacklisted').catch(client.logger.error);
+    if (client.blacklist.includes(member.user.id)) {
+      member.send('You are temporarily blacklisted').catch(client.logger.error);
+      return false;
+    }
     if (memChan === botChan || member.id === client.settings.owner_id)
       return true;
-    return member.send('You need to join the voice channel first!').catch(client.logger.error);
+    member.send('You need to join the voice channel first!').catch(client.logger.error);
+    return false;
   }
 };
