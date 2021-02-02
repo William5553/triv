@@ -10,7 +10,21 @@ exports.run = async (client, message, args) => {
     query = args.join(' ');
   else if (queue && queue.songs)
     query = queue.songs[0].title;
-  else
+  else if (message.author.presence.activities.length) {
+    message.author.presence.activities.forEach(async activity => {
+      if (activity.type === 'LISTENING' && activity.name === 'Spotify') {
+        await message.channel.send(new MessageEmbed()
+          .setColor('GREEN')
+          .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
+          .setDescription(`You are currently listening to [**${activity.details}** by **${activity.state.replace(/;/g, ',')}**](https://open.spotify.com/track/${activity.syncID}) in the album **${activity.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
+        );
+        const verification = await client.verify(message.channel, message.author);
+        if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
+        query = `${activity.details} ${activity.state.replace(/;/g, '')}`;
+      }
+      if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
+    });
+  } else
     return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
   let lyrics, emtitle;
@@ -19,10 +33,8 @@ exports.run = async (client, message, args) => {
 
   try {
     const search = await GClient.search(songtitle);
-    lyrics = await search[0].lyrics(false);
-    emtitle = search[0].fullTitle;
-    if (!lyrics) lyrics = `No lyrics found for ${songtitle}.`;
-    if (!emtitle) emtitle = songtitle;
+    lyrics = await search[0].lyrics(false) || `No lyrics found for ${songtitle}.`;
+    emtitle = search[0].fullTitle || songtitle;
   } catch (error) {
     lyrics = `No lyrics found for ${songtitle}.`;
     emtitle = songtitle;
@@ -33,13 +45,8 @@ exports.run = async (client, message, args) => {
     .setDescription(lyrics)
     .setColor('#F8AA2A');
 
-  if (lyricsEmbed.description.length > 4096) {
-    lyricsEmbed.description = `${lyrics.substr(1995)}...`;
-    message.channel.send(lyricsEmbed).catch(client.logger.error);
-  }
-    
-  for (let i = 0; i * 1950 <= lyrics.length; i++) {
-    lyricsEmbed.description = `${lyrics.substr(i * 1950, i * 1950 + 1950)}`;
+  for (let i = 0; i * 1750 <= lyrics.length; i++) {
+    lyricsEmbed.description = `${lyrics.substr(i * 1750, i * 1750 + 1750)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);
   }
 };
