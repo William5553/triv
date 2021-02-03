@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
   else if (queue && queue.songs)
     query = queue.songs[0].title;
   else if (message.author.presence.activities.length) {
-    await message.author.presence.activities.forEach(async activity => {
+    message.author.presence.activities.forEach(async activity => {
       if (activity.type === 'LISTENING' && activity.name === 'Spotify') {
         await message.channel.send(new MessageEmbed()
           .setColor('GREEN')
