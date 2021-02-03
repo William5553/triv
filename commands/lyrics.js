@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
     message.author.presence.activities.forEach(async activity => {
       if (activity.type === 'LISTENING' && activity.name === 'Spotify') 
         tomato = activity;
-      }
+      });
     await message.channel.send(new MessageEmbed()
           .setColor('GREEN')
           .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
         const verification = await client.verify(message.channel, message.author);
         if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
         query = `${tomato.details} ${tomato.state.replace(/;/g, '')}`;
-    });
+    }
   }
   if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
