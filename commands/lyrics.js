@@ -22,10 +22,9 @@ exports.run = async (client, message, args) => {
         if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
         query = `${activity.details} ${activity.state.replace(/;/g, '')}`;
       }
-      if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
     });
-  } else
-    return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
+  }
+  if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
 
   let lyrics, emtitle;
 
