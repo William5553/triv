@@ -11,17 +11,19 @@ exports.run = async (client, message, args) => {
   else if (queue && queue.songs)
     query = queue.songs[0].title;
   else if (message.author.presence.activities.length) {
+    let tomato;
     message.author.presence.activities.forEach(async activity => {
       if (activity.type === 'LISTENING' && activity.name === 'Spotify') {
-        await message.channel.send(new MessageEmbed()
+        tomato = activity;
+      }
+    await message.channel.send(new MessageEmbed()
           .setColor('GREEN')
           .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
-          .setDescription(`You are currently listening to [**${activity.details}** by **${activity.state.replace(/;/g, ',')}**](https://open.spotify.com/track/${activity.syncID}) in the album **${activity.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
+          .setDescription(`You are currently listening to [**${tomato.details}** by **${tomato.state.replace(/;/g, ',')}**](https://open.spotify.com/track/${tomato.syncID}) in the album **${tomato.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
         );
         const verification = await client.verify(message.channel, message.author);
         if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
         query = `${activity.details} ${activity.state.replace(/;/g, '')}`;
-      } else return;
     });
   }
   if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
