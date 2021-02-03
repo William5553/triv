@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
         const verification = await client.verify(message.channel, message.author);
         if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
         query = `${activity.details} ${activity.state.replace(/;/g, '')}`;
-      } else continue;
+      } else return;
     });
   }
   if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
