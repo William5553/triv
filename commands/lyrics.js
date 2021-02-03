@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   else if (message.author.presence.activities.length) {
     let tomato;
     message.author.presence.activities.forEach(async activity => {
-      if (activity.type === 'LISTENING' && activity.name === 'Spotify') {
+      if (activity.type === 'LISTENING' && activity.name === 'Spotify') 
         tomato = activity;
       }
     await message.channel.send(new MessageEmbed()
