@@ -16,6 +16,7 @@ exports.run = async (client, message, args) => {
       if (activity.type === 'LISTENING' && activity.name === 'Spotify') 
         tomato = activity;
     });
+    if (!tomato) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
     await message.channel.send(new MessageEmbed()
       .setColor('GREEN')
       .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
