@@ -1,4 +1,4 @@
-module.exports = (client, oldState, newState) => {
+module.exports = async (client, oldState, newState) => {
   const queue = client.queue.get(oldState.guild.id);
   if (!queue) return;
 
@@ -14,6 +14,7 @@ module.exports = (client, oldState, newState) => {
   // if there are still members in the vc who are not bots return
   if (!(queue.channel.members.filter((member) => !member.user.bot).size === 0)) return;
   
+  await queue.textChannel.send(`All members left ${queue.channel}, stopping the music...`);
   queue.channel.leave();
-  client.queue.delete(oldState.guild.id);          
+  client.queue.delete(oldState.guild.id);
 };
