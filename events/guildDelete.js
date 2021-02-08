@@ -1,6 +1,6 @@
 const fs = require('fs'),
   path = require('path');
-module.exports = guild => {
+module.exports = (client, guild) => {
   let warnings;
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
@@ -9,6 +9,6 @@ module.exports = guild => {
   }
   if (warnings[guild.id]) delete warnings[guild.id];
   fs.writeFile(path.resolve(process.cwd(), 'warnings.json'), JSON.stringify(warnings), err => {
-    if (err) guild.client.logger.error(err);
+    if (err) client.logger.error(err);
   });
 };
