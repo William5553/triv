@@ -47,7 +47,7 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime + queue.additionalStreamTime : undefined;
+    const seekTime = updFilter ? queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime + queue.additionalStreamTime : 0;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
@@ -118,8 +118,7 @@ module.exports = {
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
     
-    const seek = (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000;
-    const bar = createBar(song.duration == 0 ? seek : song.duration, seek, 20);
+    const bar = createBar(song.duration == 0 ? seekTime : song.duration, seekTime, 20);
     let playingMessage;
     try {
       playingMessage = await queue.textChannel.send(new MessageEmbed()
