@@ -23,6 +23,25 @@ const filters = {
   mcompand: 'mcompand'
 };
 
+function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
+  if (!total) throw new Error('Total value is either not provided or invalid');
+  if (!current) throw new Error('Current value is either not provided or invalid');
+  if (isNaN(total)) throw new Error('Total value is not an integer');
+  if (isNaN(current)) throw new Error('Current value is not an integer');
+  if (isNaN(size)) throw new Error('Size is not an integer');
+  if (current > total) {
+    const bar = line.repeat(size + 2);
+    return bar;
+  } else {
+    const progress = Math.round(size * percentage);
+    const emptyProgress = size - progress;
+    const progressText = line.repeat(progress).replace(/.$/, slider);
+    const emptyProgressText = line.repeat(emptyProgress);
+    const bar = progressText + emptyProgressText;
+    return bar;
+  }
+}
+
 module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
@@ -98,13 +117,16 @@ module.exports = {
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
 
+    const bar = createBar(song.duration == 0 ? (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000 : song.duration, (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000, 20);
     let playingMessage;
     try {
       playingMessage = await queue.textChannel.send(new MessageEmbed()
-        .setTitle(`♫ Started playing **${song.title}** ♪`)
+        .setTitle(`♫ **${song.title}** ♪`)
         .setURL(song.url)
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
+        .setTimestamp()
+        .setDescription(`${new Date(queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime).toISOString().substr(11, 8)} [${bar}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration).toISOString().substr(11, 8)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
