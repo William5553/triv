@@ -1,5 +1,6 @@
-const ytdl = require('discord-ytdl-core');
-const { canModifyQueue } = require('./queue');
+const ytdl = require('discord-ytdl-core'),
+  { MessageEmbed } = require('discord.js'),
+  { canModifyQueue } = require('./queue');
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
@@ -98,7 +99,12 @@ module.exports = {
       queue.additionalStreamTime = seekTime;
 
     try {
-      var playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
+      const playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
+      const playingMessage = await queue.textChannel.send(new MessageEmbed()
+                             .setTitle(`♫ **Started playing **${song.title}** ♪`)
+                                                          .setURL(song.url)
+                                                          .setColor('RED')
+                                                          );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
       await playingMessage.react('🔇');
