@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
       };
     } catch (error) {
       client.logger.error(error.stack ? error.stack : error);
-      return message.reply('no video was found with a matching title').catch(client.logger.error);
+      return message.reply(error.message).catch(client.logger.error);
     }
   }
 
