@@ -23,15 +23,14 @@ const filters = {
   mcompand: 'mcompand'
 };
 
-function createBar(total, size = 40, line = '▬', slider = '🔘') {
-  if (!total) throw new Error('Total value is either not provided or invalid');
+function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
   if (isNaN(total)) throw new Error('Total value is not an integer');
+  if (isNaN(current)) throw new Error('Current value is not an integer');
   if (isNaN(size)) throw new Error('Size is not an integer');
-  if (0 > total) {
-    const bar = line.repeat(size + 2);
-    return bar;
+  if (current > total) {
+    return line.repeat(size + 2);
   } else {
-    const progress = Math.round(size * (0 / total));
+    const progress = Math.round(size * (current / total));
     const emptyProgress = size - progress;
     const progressText = line.repeat(progress).replace(/.$/, slider);
     const emptyProgressText = line.repeat(emptyProgress);
@@ -123,7 +122,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`${new Date(seekTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
+        .setDescription(`${new Date(seekTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, seekTime, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
