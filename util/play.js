@@ -23,22 +23,15 @@ const filters = {
   mcompand: 'mcompand'
 };
 
-function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
+function createBar(total, size = 40, line = '▬', slider = '🔘') {
   if (isNaN(total)) throw new Error('Total value is not an integer');
-  if (isNaN(current)) throw new Error('Current value is not an integer');
   if (isNaN(size)) throw new Error('Size is not an integer');
-  if (current > total) {
-    const bar = line.repeat(size + 2);
-    return bar;
-  } else {
-    const percentage = current / total;
-    const progress = Math.round(size * percentage);
-    const emptyProgress = size - progress;
-    const progressText = line.repeat(progress).replace(/.$/, slider);
-    const emptyProgressText = line.repeat(emptyProgress);
-    const bar = progressText + emptyProgressText;
-    return bar;
-  }
+  const progress = Math.round(size * (0 / total));
+  const emptyProgress = size - progress;
+  const progressText = line.repeat(progress).replace(/.$/, slider);
+  const emptyProgressText = line.repeat(emptyProgress);
+  const bar = progressText + emptyProgressText;
+  return bar;
 }
 
 module.exports = {
@@ -124,7 +117,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`${new Date(queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, seekTime, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration).toISOString().substr(11, 8)}`)
+        .setDescription(`${new Date(queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration).toISOString().substr(11, 8)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
