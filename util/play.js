@@ -99,7 +99,7 @@ module.exports = {
       queue.additionalStreamTime = seekTime;
 
     try {
-      const playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
+      //const playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
       const playingMessage = await queue.textChannel.send(new MessageEmbed()
                              .setTitle(`♫ **Started playing **${song.title}** ♪`)
                                                           .setURL(song.url)
