@@ -100,13 +100,12 @@ module.exports = {
 
     let playingMessage;
     try {
-      //const playingMessage = await queue.textChannel.send(`🎶 Started playing: **${song.title}** ${song.url}`);
       playingMessage = await queue.textChannel.send(new MessageEmbed()
-                             .setTitle(`♫ **Started playing **${song.title}** ♪`)
-                                                          .setURL(song.url)
-                                                          .setColor('RED')
-                                                          .setThumbnail(song.thumbnail.url)
-                                                          );
+        .setTitle(`♫ Started playing **${song.title}** ♪`)
+        .setURL(song.url)
+        .setColor('RED')
+        .setThumbnail(song.thumbnail.url)
+      );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
       await playingMessage.react('🔇');
