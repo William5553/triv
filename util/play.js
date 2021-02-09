@@ -116,7 +116,6 @@ module.exports = {
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
     
-    const bar = createBar(song.duration == 0 ? seekTime : song.duration, seekTime, 20);
     let playingMessage;
     try {
       playingMessage = await queue.textChannel.send(new MessageEmbed()
@@ -125,7 +124,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`${new Date(queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime).toISOString().substr(11, 8)} [${bar}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration).toISOString().substr(11, 8)}`)
+        .setDescription(`${new Date(queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, seekTime, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration).toISOString().substr(11, 8)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
