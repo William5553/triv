@@ -24,14 +24,20 @@ const filters = {
 };
 
 function createBar(total, size = 40, line = '▬', slider = '🔘') {
+  if (!total) throw new Error('Total value is either not provided or invalid');
   if (isNaN(total)) throw new Error('Total value is not an integer');
   if (isNaN(size)) throw new Error('Size is not an integer');
-  const progress = Math.round(size * (0 / total));
-  const emptyProgress = size - progress;
-  const progressText = line.repeat(progress).replace(/.$/, slider);
-  const emptyProgressText = line.repeat(emptyProgress);
-  const bar = progressText + emptyProgressText;
-  return bar;
+  if (0 > total) {
+    const bar = line.repeat(size + 2);
+    return bar;
+  } else {
+    const progress = Math.round(size * (0 / total));
+    const emptyProgress = size - progress;
+    const progressText = line.repeat(progress).replace(/.$/, slider);
+    const emptyProgressText = line.repeat(emptyProgress);
+    const bar = progressText + emptyProgressText;
+    return bar;
+  }
 }
 
 module.exports = {
