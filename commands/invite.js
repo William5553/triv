@@ -3,12 +3,11 @@ exports.run = (client, message) => {
   client
     .generateInvite({ permissions: 2146958591 })
     .then(link => {
-      const embed = new MessageEmbed()
+      message.channel.send(new MessageEmbed()
         .setColor(0x00ae86)
         .setTitle(client.user.username)
-        .setURL(link)
-        .setDescription(`[Invite me](${link})`);
-      message.channel.send(embed);
+        .setDescription(`[Invite me](${link})`)
+      );
     })
     .catch(client.logger.error);
 };
