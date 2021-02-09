@@ -105,7 +105,7 @@ module.exports = {
                              .setTitle(`♫ **Started playing **${song.title}** ♪`)
                                                           .setURL(song.url)
                                                           .setColor('RED')
-                                                          .setDescription(song.thumbnail)
+                                                          .setThumbnail(song.thumbnail.url)
                                                           );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
