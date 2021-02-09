@@ -31,7 +31,6 @@ function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
   if (isNaN(size)) throw new Error('Size is not an integer');
   if (current > total) {
     const bar = line.repeat(size + 2);
-    const percentage = current / total * 100;
     return bar;
   } else {
     const percentage = current / total;
@@ -40,7 +39,6 @@ function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
     const progressText = line.repeat(progress).replace(/.$/, slider);
     const emptyProgressText = line.repeat(emptyProgress);
     const bar = progressText + emptyProgressText;
-    const calculated = percentage * 100;
     return bar;
   }
 }
@@ -91,7 +89,7 @@ module.exports = {
 
     queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
-    queue.connection
+    await queue.connection
       .play(stream, {
         type: 'opus',
         bitrate: 'auto',
