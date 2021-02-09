@@ -116,8 +116,9 @@ module.exports = {
       });
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
-
-    const bar = createBar(song.duration == 0 ? (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000 : song.duration, (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000, 20);
+    
+    const seek = (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000;
+    const bar = createBar(song.duration == 0 ? seek : song.duration, seek, 20);
     let playingMessage;
     try {
       playingMessage = await queue.textChannel.send(new MessageEmbed()
