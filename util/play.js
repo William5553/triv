@@ -117,7 +117,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`${new Date(seekTime*1000).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
+        .setDescription(`${new Date(seekTime).toISOString().substr(11, 8)} [${createBar(song.duration == 0 ? seekTime : song.duration, 20)}] ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
