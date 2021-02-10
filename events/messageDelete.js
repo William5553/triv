@@ -11,9 +11,12 @@ module.exports = (client, message) => {
       .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
       .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
       .setTimestamp()
-      .setDescription(message.content)
+      .setDescription(`${message.content} ${message.embeds ? `\n${message.embeds.length} embeds in message found, sending` : ''}`)
       .setColor('0xEB5234')
     );
+    message.embeds.forEach(embed => {
+      logs.send(embed);
+    });
     logs.updateOverwrite(message.channel.guild.roles.everyone, {
       SEND_MESSAGES: false
     });
