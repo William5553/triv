@@ -1,6 +1,6 @@
 const request = require('node-superfetch'),
   { Readable } = require('stream'),
-  { MessageEmbed } = require('discord.js');
+  { MessageEmbed, Message } = require('discord.js');
 
 exports.run = async (client, msg, args) => {
   const queue = client.queue.get(msg.guild.id);
@@ -10,8 +10,10 @@ exports.run = async (client, msg, args) => {
     return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
   if (text.length > 1024)
     return msg.reply('keep the message under 1024 characters man');
-  if (!msg.guild.voice || !msg.guild.voice.connection) 
-    await client.commands.get('join').run(client, msg);
+  if (!msg.guild.voice || !msg.guild.voice.connection) {
+    const connection = await client.commands.get('join').run(client, msg);
+    if (connection instanceof Message) return;
+  }
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
     return msg.reply("I'm already in a voice channel");
   try {
@@ -24,7 +26,7 @@ exports.run = async (client, msg, args) => {
       .on('error', err => client.logger.error(err));
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('🔉');
-    return null;
+    return;
   } catch (err) {
     if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       msg.react('⚠️');
