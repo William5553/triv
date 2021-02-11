@@ -104,7 +104,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`Video length: ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
+        .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}\nVideo length: ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
         .setAuthor(song.channel.name, song.channel.thumbnails[song.channel.thumbnails.length - 1].url, song.channel.user_url)
         .setFooter(`Published on ${song.publishDate}`)
       );
