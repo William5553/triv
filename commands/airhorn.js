@@ -1,4 +1,5 @@
 const path = require('path'),
+  { VoiceConnection } = require('discord.js'),
   fs = require('fs'),
   airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
