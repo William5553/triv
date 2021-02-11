@@ -202,6 +202,7 @@ module.exports = {
           
         case '🎤':
           const result = client.commands.get('lyrics').run(client, message);
+          message.channel.send(result);
           if (result === 'no lyrics') reaction.users.remove(client.user).catch(client.logger.error);
           break;
 
