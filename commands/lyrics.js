@@ -34,11 +34,11 @@ exports.run = async (client, message, args) => {
 
   try {
     const search = await GClient.search(songtitle);
-    lyrics = await search[0].lyrics(false) || `No lyrics found for ${songtitle}.`;
-    emtitle = search[0].fullTitle || songtitle;
+    lyrics = await search[0].lyrics(false);
+    emtitle = search[0].fullTitle;
   } catch (error) {
-    lyrics = `No lyrics found for ${songtitle}.`;
-    emtitle = songtitle;
+    message.channel.send(`No lyrics found for ${songtitle}.`);
+    return 'no lyrics found';
   }
 
   const lyricsEmbed = new MessageEmbed()
@@ -50,8 +50,6 @@ exports.run = async (client, message, args) => {
     lyricsEmbed.description = `${lyrics.substr(i * 1750, i * 1750 + 1750)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);
   }
-  
-  if (lyrics == `No lyrics found for ${songtitle}.`) return 'no lyrics';
 };
 
 exports.conf = {
