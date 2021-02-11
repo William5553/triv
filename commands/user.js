@@ -49,7 +49,7 @@ exports.run = async (client, msg) => {
 		return msg.channel.send(embed);
 };
 
-function trimArray(arr) {
+function trimArray(arr, maxLen) {
 if (arr.length > maxLen) {
 			const len = arr.length - maxLen;
 			arr = arr.slice(0, maxLen);
