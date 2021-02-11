@@ -43,7 +43,7 @@ function getCode(language) {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['gt'],
+  aliases: ['googletranslate', 'gt', 'tr'],
   permLevel: 0
 };
 
