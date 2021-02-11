@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   if (!queue || !queue.connection) return message.reply('nothing is playing');
   if (isNaN(args[0])) return message.reply(`Usage: ${client.settings.prefix}${exports.help.usage}`);
   if (canModifyQueue(message.member) != true) return;
-  queue.additionalTime += Number(args[0])*1000;
+  queue.additionalStreamTime += Number(args[0])*1000;
   if (queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime > queue.songs[0].duration*1000) return message.reply("you can't fast forward past the song's end");
   play(queue.songs[0], message, true); 
 };
