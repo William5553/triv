@@ -50,6 +50,8 @@ exports.run = async (client, message, args) => {
     lyricsEmbed.description = `${lyrics.substr(i * 1750, i * 1750 + 1750)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);
   }
+  
+  if (lyrics == `No lyrics found for ${songtitle}.`) return 'no lyrics';
 };
 
 exports.conf = {
