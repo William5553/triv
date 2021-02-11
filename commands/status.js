@@ -17,9 +17,8 @@ exports.run = (client, message, args) => {
     user.presence.activities.forEach(activity => {
       if (activity.type === 'CUSTOM_STATUS') {
         message.channel.send(new MessageEmbed()
-          .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
-          .setTitle(`${user.user.username}'s Activity`)
           .setDescription(`**Custom Status**\n${activity.emoji || 'No Emoji'} | ${activity.state || 'No State'}`)
           .setTimestamp()
         );
