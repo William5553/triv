@@ -53,7 +53,8 @@ module.exports = {
         encoderArgs,
         highWaterMark: 1 << 25,
         seek: seekTime / 1000,
-        opusEncoded: true
+        opusEncoded: true,
+        dlChunkSize: 0
       });
       queue.stream = stream;
     } catch (error) {
