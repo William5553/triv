@@ -100,8 +100,6 @@ module.exports = {
     
     let playingMessage;
     try {
-      message.channel.send(song.channel);
-      message.channel.send(JSON.stringify(song.channel));
       playingMessage = await queue.textChannel.send(new MessageEmbed()
         .setTitle(song.title)
         .setURL(song.url)
@@ -109,7 +107,7 @@ module.exports = {
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
         .setDescription(`Video length: ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
-        .setAuthor(song.channel)
+        .setAuthor(song.channel.name, song.channel.thumbnails[song.channel.thumbnails.length - 1], song.channel.user_url)
         .setFooter(`Published on ${song.publishDate}`)
       );
       await playingMessage.react('⏭');
