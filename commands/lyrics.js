@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   const GClient = new Genius.SongsClient(client.settings.genius_api_key);
   let query, queue;
   if (message.guild) queue = client.queue.get(message.guild.id);
-  if (args.length >= 1)
+  if (args && args.length >= 1)
     query = args.join(' ');
   else if (queue && queue.songs)
     query = queue.songs[0].title;
