@@ -1,6 +1,6 @@
 const request = require('node-superfetch'),
   { Readable } = require('stream'),
-  { MessageEmbed } = require('discord.js'),
+  { MessageEmbed, Message } = require('discord.js'),
   voices = require('../assets/vocodes.json');
 
 exports.run = async (client, msg, args) => {
@@ -15,8 +15,10 @@ exports.run = async (client, msg, args) => {
   if (text.length > 500)
     return msg.reply('keep the message under 500 characters man');
   voice = voices[voice.toLowerCase()];
-  if (!msg.guild.voice || !msg.guild.voice.connection) 
-    await client.commands.get('join').run(client, msg);
+  if (!msg.guild.voice || !msg.guild.voice.connection) {
+    const connection = await client.commands.get('join').run(client, msg);
+    if (connection instanceof Message) return;
+  }
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
     return msg.reply("I'm already in a voice channel");
   try {
