@@ -201,7 +201,8 @@ module.exports = {
           break;
           
         case '🎤':
-          client.commands.get('lyrics').run(client, message);
+          const result = client.commands.get('lyrics').run(client, message);
+          if (result === 'no lyrics') reaction.users.remove(client.user).catch(client.logger.error);
           break;
 
         default:
