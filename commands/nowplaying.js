@@ -4,7 +4,7 @@ exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue || !queue.connection || !queue.connection.dispatcher) return message.reply('there is nothing playing.').catch(client.logger.error);
   const song = queue.songs[0],
-    seek = (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000,
+    seek = (queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime) / 1000,
     left = song.duration - seek;
 
   const bar = createBar(song.duration == 0 ? seek : song.duration, seek, 20);
