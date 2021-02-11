@@ -100,13 +100,15 @@ module.exports = {
     
     let playingMessage;
     try {
+      message.channel.send(song.channel);
+      message.channel.send(JSON.stringify(song.channel));
       playingMessage = await queue.textChannel.send(new MessageEmbed()
         .setTitle(song.title)
         .setURL(song.url)
         .setColor('RED')
         .setThumbnail(song.thumbnail.url)
         .setTimestamp()
-        .setDescription(`${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
+        .setDescription(`Video length: ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)}`)
         .setAuthor(song.channel)
         .setFooter(`Published on ${song.publishDate}`)
       );
@@ -203,9 +205,8 @@ module.exports = {
           break;
           
         case '🎤':
-          const result = client.commands.get('lyrics').run(client, message);
-          message.channel.send(result);
-          if (result === 'no lyrics found') reaction.users.remove(client.user).catch(client.logger.error);
+          reaction.users.remove(client.user).catch(client.logger.error);
+          client.commands.get('lyrics').run(client, message);
           break;
 
         default:
