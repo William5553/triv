@@ -201,7 +201,7 @@ module.exports = {
           break;
           
         case '🎤':
-          client.commands.get('lyrics').run(client, message, queue.songs[0].title);
+          client.commands.get('lyrics').run(client, message);
           break;
 
         default:
