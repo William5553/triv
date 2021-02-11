@@ -1,4 +1,4 @@
-exports.run = (client, message, args) => client.formatNumber(args.join(' '));
+exports.run = (client, message, args) => message.channel.send(client.formatNumber(args.join(' ')));
 
 exports.conf = {
   enabled: true,
