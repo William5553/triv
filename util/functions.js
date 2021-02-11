@@ -10,7 +10,10 @@ module.exports = client => {
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.logger.log(`Loading Alias: ${alias}. 👌`);
-      client.aliases.set(alias, props.help.name);
+      if (client.aliases.has(alias))
+        client.logger.warn(`${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.get(alias)}`);
+      else
+        client.aliases.set(alias, props.help.name);
     });
   };
 
