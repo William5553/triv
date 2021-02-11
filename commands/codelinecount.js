@@ -32,12 +32,12 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['clc', 'codelinecount'],
+  aliases: ['clc', 'cloc'],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'cloc',
+  name: 'codelinecount',
   description: 'Count lines of code',
-  usage: 'cloc'
+  usage: 'codelinecount'
 };
