@@ -27,7 +27,7 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime + queue.additionalStreamTime : 0;
+    const seekTime = updFilter ? queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime : 0;
     if (!song) {
       queue.channel.leave();
       client.queue.delete(message.guild.id);
@@ -35,9 +35,8 @@ module.exports = {
     }
     const encoderArgsFilters = [];
     Object.keys(queue.filters).forEach((filterName) => {
-      if (queue.filters[filterName]) {
+      if (queue.filters[filterName])
         encoderArgsFilters.push(filters[filterName]);
-      }
     });
     let encoderArgs;
     if (encoderArgsFilters.length < 1) {
@@ -47,7 +46,6 @@ module.exports = {
     }
 
     let stream;
-    
     try {
       if (queue.stream) await queue.stream.destroy();
       stream = await ytdl(song.url, {
