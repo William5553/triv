@@ -72,7 +72,8 @@ exports.run = async (client, message, args) => {
         url: songInfo.videoDetails.video_url,
         duration: songInfo.videoDetails.lengthSeconds,
         thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-        channel: songInfo.videoDetails.author
+        channel: songInfo.videoDetails.author,
+        publishDate: songInfo.microformat.publishDate
       };
     } catch (error) {
       client.logger.error(error.stack ? error.stack : error);
@@ -87,7 +88,8 @@ exports.run = async (client, message, args) => {
         url: songInfo.videoDetails.video_url,
         duration: songInfo.videoDetails.lengthSeconds,
         thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-        channel: songInfo.videoDetails.author
+        channel: songInfo.videoDetails.author,
+        publishDate: songInfo.microformat.publishDate
       };
     } catch (error) {
       client.logger.error(error.stack ? error.stack : error);
