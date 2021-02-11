@@ -35,7 +35,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['rbx', 'rblx'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {
