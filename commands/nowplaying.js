@@ -12,7 +12,7 @@ exports.run = (client, message) => {
     .setTitle(song.title)
     .setURL(song.url)
     .setColor('RED')
-    .setDescription(`**${bar[1]}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
+    .setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
 
   if (song.duration > 0)
     nowPlaying.setFooter(`Time Remaining: ${getTime(left)}`);
