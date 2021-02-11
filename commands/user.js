@@ -18,7 +18,7 @@ const flags = {
 const deprecated = ['DISCORD_PARTNER', 'VERIFIED_DEVELOPER'];
 
 exports.run = async (client, msg) => {
-  const user = message.mentions.users.first() || message.author;
+  const user = msg.mentions.users.first() || msg.author;
   const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
 		const embed = new MessageEmbed()
 			.setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true }))
