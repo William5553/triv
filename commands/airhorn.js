@@ -1,5 +1,5 @@
 const path = require('path'),
-  { VoiceConnection } = require('discord.js'),
+  { Message } = require('discord.js'),
   fs = require('fs'),
   airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
@@ -8,7 +8,7 @@ exports.run = async (client, msg) => {
   if (queue) return msg.reply("there's currently music playing");
   if (!msg.guild.voice || !msg.guild.voice.connection) {
     const connection = await client.commands.get('join').run(client, msg);
-    if (!connection instanceof VoiceConnection) return;
+    if (connection instanceof Message) return;
   }
   else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
     return msg.reply("I'm already in a voice channel");
