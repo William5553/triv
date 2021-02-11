@@ -100,7 +100,6 @@ module.exports = {
     
     let playingMessage;
     try {
-      client.logger.log(JSON.stringify(song.channel.thumbnails));
       playingMessage = await queue.textChannel.send(new MessageEmbed()
         .setTitle(song.title)
         .setURL(song.url)
