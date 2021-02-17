@@ -7,3 +7,4 @@ node_modules/
 settings.json
 .env
 warnings.json
+*.sqlite
