@@ -5,10 +5,6 @@ exports.run = async (client, message, args) => {
   const userr = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
   if (!userr) return message.reply('tag someone to kick next time before I kick you');
   if (parseUser(message, userr) !== true) return;
-  if (userr.user.id == client.user.id)
-    return message.reply('bruh');
-  if (userr.user.id == client.settings.owner_id)
-    return message.reply('no.');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
