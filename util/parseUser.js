@@ -1,4 +1,6 @@
 exports.parseUser = (message, member) => {
+  if (member.user === message.client.user)
+    return message.reply('you are an idiot');
   if (member.user === message.author)
     return message.reply("you can't do that to yourself, why did you try? you are an idiot.");
   if (member && member.roles && member.roles.highest.position >= message.member.roles.highest.position)
