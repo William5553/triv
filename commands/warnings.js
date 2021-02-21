@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js'),
 
 exports.run = async (client, message) => {
   let warnings;
-  const userr = message.mentions.users.first() || message.author;
+  const user = message.mentions.users.first() || message.author;
   
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
@@ -18,13 +18,13 @@ exports.run = async (client, message) => {
   
   if (!warnings[message.guild.id])
     warnings[message.guild.id] = {};
-  if (!warnings[message.guild.id][userr.id])
-    warnings[message.guild.id][userr.id] = {};
-  if (!warnings[message.guild.id][userr.id].warnings)
-    warnings[message.guild.id][userr.id].warnings = [];
+  if (!warnings[message.guild.id][user.id])
+    warnings[message.guild.id][user.id] = {};
+  if (!warnings[message.guild.id][user.id].warnings)
+    warnings[message.guild.id][user.id].warnings = [];
   
-  const embeds = await genEmbeds(message, userr, warnings);
-  if (embeds.length < 1) return message.channel.send(`${userr} has 0 warnings`);
+  const embeds = await genEmbeds(message, user, warnings);
+  if (embeds.length < 1) return message.channel.send(`${user} has 0 warnings`);
   let currPage = 0;
   
   const emb = await message.channel.send(`**Current Page - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
@@ -58,14 +58,14 @@ exports.run = async (client, message) => {
   });
 };
 
-function genEmbeds(message, userr, warnings) {
-  if (warnings[message.guild.id][userr.id].warnings.size < 1)
-    return message.channel.send(`${userr} has 0 warnings`);
+function genEmbeds(message, user, warnings) {
+  if (warnings[message.guild.id][user.id].warnings.size < 1)
+    return message.channel.send(`${user} has 0 warnings`);
   const embeds = [];
-  for (var warning of warnings[message.guild.id][userr.id].warnings) {
+  for (var warning of warnings[message.guild.id][user.id].warnings) {
     const mod = message.guild.members.cache.get(warning.modid);
     const embed = new MessageEmbed()
-      .setTitle(`${userr}'s warnings`)
+      .setTitle(`${user}'s warnings`)
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL())
       .addField('Reason', warning.reason, true)
       .setColor(0x902b93)
