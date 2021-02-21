@@ -2,22 +2,22 @@ const path = require('path'),
   { Message, MessageEmbed } = require('discord.js'),    
   data = require('../assets/hearing-test.json');
 
-exports.run = async (client, msg) => {
+exports.run = async (client, message) => {
   try {
     let age, range,
       previousAge = 'all',
       previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
-      if (!msg.guild.voice || !msg.guild.voice.connection) {
-        const connection = await client.commands.get('join').run(client, msg);
+      if (!message.guild.voice || !message.guild.voice.connection) {
+        const connection = await client.commands.get('join').run(client, message);
         if (connection instanceof Message) return;
-      } else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
-        return msg.reply("I'm already in a voice channel");
-      msg.guild.voice.connection.dispatcher.setVolumeLogarithmic(1);
-      msg.guild.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
+      } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+        return message.reply("I'm already in a voice channel");
+      message.guild.voice.connection.dispatcher.setVolumeLogarithmic(1);
+      message.guild.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
       await client.wait(3500);
-      msg.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
-      const heard = await client.verify(msg.channel, msg.author);
+      message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
+      const heard = await client.verify(message.channel, message.author);
       if (heard != true || file === data[data.length - 1].file) {
         age = previousAge;
         range = previousRange;
@@ -26,20 +26,20 @@ exports.run = async (client, msg) => {
       previousAge = dataAge;
       previousRange = khz;
     }
-    msg.member.voice.channel.leave();
+    message.member.voice.channel.leave();
     if (age === 'all')
-      return msg.channel.send('Everyone should be able to hear that. You cannot hear.');
+      return message.channel.send('Everyone should be able to hear that. You cannot hear.');
     if (age === 'max') 
-      return msg.channel.send(`You can hear any frequency of which a human is capable. The maximum frequency you were able to hear was **${range}000hz**.`);
-    return msg.channel.send(`You have the hearing of someone **${Number.parseInt(age, 10) + 1} or older**. The maximum frequency you were able to hear was **${range}000hz**.`);
+      return message.channel.send(`You can hear any frequency of which a human is capable. The maximum frequency you were able to hear was **${range}000hz**.`);
+    return message.channel.send(`You have the hearing of someone **${Number.parseInt(age, 10) + 1} or older**. The maximum frequency you were able to hear was **${range}000hz**.`);
   } catch (err) {
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

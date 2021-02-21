@@ -1,14 +1,14 @@
 const { MessageEmbed } = require('discord.js'),
   request = require('node-superfetch');
 
-exports.run = async (client, msg, args) => {
+exports.run = async (client, message, args) => {
   try {
     let query = args.join(' ');
-    if (query.length < 1) return msg.reply('tell me a country moron');
+    if (query.length < 1) return message.reply('tell me a country moron');
     query = encodeURIComponent(query);
     const { body } = await request.get(`https://restcountries.eu/rest/v2/name/${query}`);
     const data = body[0];
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor(0x00AE86)
       .setTitle(data.name)
       .setThumbnail(`https://www.countryflags.io/${data.alpha2Code}/flat/64.png`)
@@ -22,14 +22,14 @@ exports.run = async (client, msg, args) => {
       .addField('❯ Languages', data.languages.map(lang => lang.name).join('/'))
     );
   } catch (err) {
-    if (err.status === 404) return msg.channel.send('Could not find any results.');
-    return msg.channel.send(new MessageEmbed()
+    if (err.status === 404) return message.channel.send('Could not find any results.');
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

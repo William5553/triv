@@ -1,32 +1,32 @@
 const words = require('../assets/reaction.json'),
   { MessageEmbed } = require('discord.js');
-exports.run = async (client, msg) => {
-  const current = client.games.get(msg.channel.id);
-  if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
-  client.games.set(msg.channel.id, { name: 'reactiontime' });
+exports.run = async (client, message) => {
+  const current = client.games.get(message.channel.id);
+  if (current) return message.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+  client.games.set(message.channel.id, { name: 'reactiontime' });
   try {
-    await msg.channel.send('Get Ready...');
+    await message.channel.send('Get Ready...');
     await client.wait(Math.floor(Math.random() * (10000 - 1500 + 1)) + 1500);
     const word = words.random();
-    await msg.reply(`TYPE \`${word.toUpperCase()}\` NOW!`);
-    const filter = res => msg.author.id === res.author.id && res.content.toLowerCase() === word;
+    await message.reply(`TYPE \`${word.toUpperCase()}\` NOW!`);
+    const filter = res => message.author.id === res.author.id && res.content.toLowerCase() === word;
     const now = Date.now();
-    const msgs = await msg.channel.awaitMessages(filter, {
+    const messages = await message.channel.awaitMessages(filter, {
       max: 1,
       time: 20000
     });
-    client.games.delete(msg.channel.id);
-    if (!msgs.size) return msg.channel.send('Failed to answer within 20 seconds.');
-    return msg.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
+    client.games.delete(message.channel.id);
+    if (!messages.size) return message.channel.send('Failed to answer within 20 seconds.');
+    return message.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
   } catch (err) {
-    client.games.delete(msg.channel.id);
-    return msg.channel.send(new MessageEmbed()
+    client.games.delete(message.channel.id);
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

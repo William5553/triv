@@ -1,23 +1,23 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = async (client, msg, args) => {
+exports.run = async (client, message, args) => {
   try {
     const name = args.join(' ');
-    if (!name) return msg.reply('say a name, moron');
+    if (!name) return message.reply('say a name, moron');
     const { body } = await request
       .get('https://api.genderize.io/')
       .query({ name });
-    if (!body.gender) return msg.channel.send(`I have no idea what gender ${body.name} is.`);
-    return msg.channel.send(`I'm ${Math.round(body.probability * 100)}% sure ${body.name} is a ${body.gender} name.`);
+    if (!body.gender) return message.channel.send(`I have no idea what gender ${body.name} is.`);
+    return message.channel.send(`I'm ${Math.round(body.probability * 100)}% sure ${body.name} is a ${body.gender} name.`);
   } catch (err) {
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`));
+      .addField('**Command:**', `${message.content}`));
   }
 };
     

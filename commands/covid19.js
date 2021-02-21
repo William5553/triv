@@ -1,12 +1,12 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = async (client, msg, args) => {
+exports.run = async (client, message, args) => {
   try {
-    if (args.size < 1) return msg.reply(`${client.settings.prefix}${exports.help.usage}`);
+    if (args.size < 1) return message.reply(`${client.settings.prefix}${exports.help.usage}`);
     const country = args[0];
     const data = await fetchStats(country);
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor(0xA2D84E)
       .setAuthor('Worldometers', 'https://i.imgur.com/IoaBMuK.jpg', 'https://www.worldometers.info/coronavirus/')
       .setTitle(`Stats for ${country === 'all' ? 'The World' : data.country}`)
@@ -25,14 +25,14 @@ exports.run = async (client, msg, args) => {
       .addField('❯ Tests', client.formatNumber(data.tests), true)
     );
   } catch (err) {
-    if (err.status === 404) return msg.say('Country not found or doesn\'t have any cases.');
-    return msg.channel.send(new MessageEmbed()
+    if (err.status === 404) return message.say('Country not found or doesn\'t have any cases.');
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

@@ -1,6 +1,6 @@
 const request = require('node-superfetch');
 
-exports.run = (client, msg, args) => {
+exports.run = (client, message, args) => {
   let [title, contents] = args.join(' ').split('|');
   if (!contents) {
     [title, contents] = ['Achievement Get!', title];
@@ -9,10 +9,10 @@ exports.run = (client, msg, args) => {
   if (args.join(' ').toLowerCase().includes('burn')) rnd = 38;
   if (args.join(' ').toLowerCase().includes('cake')) rnd = 10;
 
-  if (title.length > 22 || contents.length > 22) return msg.reply('max length: 22 characters');
+  if (title.length > 22 || contents.length > 22) return message.reply('max length: 22 characters');
   request
     .get(`https://www.minecraftskinstealer.com/achievement/${rnd}/${encodeURIComponent(title)}/${encodeURIComponent(contents)}`)
-    .then(ach => msg.channel.send({files:[{attachment: ach.body}]}));
+    .then(ach => message.channel.send({files:[{attachment: ach.body}]}));
 };
 
 exports.conf = {

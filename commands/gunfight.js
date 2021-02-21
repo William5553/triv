@@ -1,40 +1,40 @@
 const words = require('../assets/reaction.json'),
   { MessageEmbed } = require('discord.js');
-exports.run = async (client, msg) => {
-  const opponent = msg.mentions.users.first();
-  if (opponent.bot) return msg.reply('bots may not be fought.');
-  if (opponent.id === msg.author.id) return msg.reply('you may not fight yourself.');
-  const current = client.games.get(msg.channel.id);
-  if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
-  client.games.set(msg.channel.id, { name: 'gunfight' });
+exports.run = async (client, message) => {
+  const opponent = message.mentions.users.first();
+  if (opponent.bot) return message.reply('bots may not be fought.');
+  if (opponent.id === message.author.id) return message.reply('you may not fight yourself.');
+  const current = client.games.get(message.channel.id);
+  if (current) return message.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+  client.games.set(message.channel.id, { name: 'gunfight' });
   try {
-    await msg.channel.send(`${opponent}, do you accept this challenge?`);
-    const verification = await client.verify(msg.channel, opponent);
+    await message.channel.send(`${opponent}, do you accept this challenge?`);
+    const verification = await client.verify(message.channel, opponent);
     if (verification != true) {
-      client.games.delete(msg.channel.id);
-      return msg.channel.send('Looks like they declined...');
+      client.games.delete(message.channel.id);
+      return message.channel.send('Looks like they declined...');
     }
-    await msg.channel.send('Get Ready...');
+    await message.channel.send('Get Ready...');
     await client.wait(Math.random(2700, 30000));
     const word = words.random();
-    await msg.channel.send(`TYPE \`${word.toUpperCase()}\` NOW!`);
-    const filter = res => [opponent.id, msg.author.id].includes(res.author.id) && res.content.toLowerCase() === word;
-    const winner = await msg.channel.awaitMessages(filter, {
+    await message.channel.send(`TYPE \`${word.toUpperCase()}\` NOW!`);
+    const filter = res => [opponent.id, message.author.id].includes(res.author.id) && res.content.toLowerCase() === word;
+    const winner = await message.channel.awaitMessages(filter, {
       max: 1,
       time: 30000
     });
-    client.games.delete(msg.channel.id);
-    if (!winner.size) return msg.say('Oh... No one won.');
-    return msg.channel.send(`The winner is ${winner.first().author}!`);
+    client.games.delete(message.channel.id);
+    if (!winner.size) return message.say('Oh... No one won.');
+    return message.channel.send(`The winner is ${winner.first().author}!`);
   } catch (err) {
-    client.games.delete(msg.channel.id);
-    return msg.channel.send(new MessageEmbed()
+    client.games.delete(message.channel.id);
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };
