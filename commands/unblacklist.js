@@ -24,6 +24,6 @@ exports.conf = {
 exports.help = {
   name: 'unblacklist',
   description: 'Unblacklists a user or server',
-  usage: 'unblacklist [user]'
+  usage: 'unblacklist [type] [id]'
 };
   

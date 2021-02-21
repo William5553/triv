@@ -46,6 +46,6 @@ exports.conf = {
 exports.help = {
   name: 'blacklist',
   description: 'Blacklists a user or server',
-  usage: 'blacklist [type] [user]'
+  usage: 'blacklist [type] [id]'
 };
   
