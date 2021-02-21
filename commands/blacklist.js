@@ -19,20 +19,21 @@ exports.run = async (client, message, args) => {
     }
   }
   if (type === 'user') {
-    let guildsLeft = 0;
+    const guildsLeft = [];
     const failedToLeave = [];
     for (const guild of client.guilds.cache.values()) {
       if (guild.ownerID === target) {
         try {
           await guild.leave();
-          guildsLeft++;
+          guildsLeft.push(guild.name);
         } catch {
           failedToLeave.push(guild.id);
         }
       }
     }
     const formatFailed = failedToLeave.length ? failedToLeave.map(id => `\`${id}\``).join(', ') : '_None_';
-    await message.channel.send(`🔨 Left ${guildsLeft} guilds owner by this user. Failed to leave: ${formatFailed}`);
+    await message.channel.send(`🔨 Left ${guildsLeft.length} guilds owned by this user. Failed to leave: ${formatFailed}`);
+    if (guildsLeft.length > 0) message.channel.send(`Left the guilds ${guildsLeft.map(name => `**${name}**`).join(', ')}`);
   }
   return message.channel.send(`🔨 Blacklisted ${type} \`${target}\`.`);
 };
