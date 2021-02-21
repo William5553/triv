@@ -1,12 +1,12 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = async (c, m, a) => {
-  if (!c.settings.trn_api_key) return m.reply('the bot owner has not set up this command yet');
+exports.run = async (client, message, args) => {
+  if (!client.settings.trn_api_key) return message.reply('the bot owner has not set up this command yet');
   try {
-    if (a.length >= 2) {
-      let platform = a[0].toLowerCase();
-      const epicName = a.slice(1).join(' '),
+    if (args.length >= 2) {
+      let platform = args[0].toLowerCase();
+      const epicName = args.slice(1).join(' '),
         gamepadA = ['xbox', 'xb', 'xb1', 'xbl', 'psn', 'ps4', 'ps5', 'ps', 'playstation', 'controller'],
         kbmA = ['pc', 'computer', 'laptop', 'desktop', 'keyboard', 'mouse', 'keyboardmouse'],
         touchA = ['ipad', 'iphone', 'apple', 'android', 'samsung', 'mobile'];
@@ -14,7 +14,7 @@ exports.run = async (c, m, a) => {
       if (gamepadA.includes(platform)) platform = 'gamepad';
       if (touchA.includes(platform)) platform = 'touch';
       if (!(platform == 'kbm' || platform == 'gamepad' || platform == 'touch')) {
-        return m.reply({
+        return message.reply({
           embed: new MessageEmbed()
             .setAuthor(
               '400: Invalid platform',
@@ -24,7 +24,7 @@ exports.run = async (c, m, a) => {
             .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
         });
       }
-      const e = await m.reply({
+      const e = await message.reply({
         embed: new MessageEmbed()
           .setTitle('Working...')
           .setDescription('Please wait a few seconds')
@@ -32,7 +32,7 @@ exports.run = async (c, m, a) => {
       });
       const { body } = await request
         .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
-        .set({'TRN-Api-Key': c.settings.trn_api_key});
+        .set({'TRN-Api-Key': client.settings.trn_api_key});
       if (body.error) {
         if (body.error == 'Player Not Found') {
           return e.edit({
@@ -45,7 +45,7 @@ exports.run = async (c, m, a) => {
               .setFooter("Make sure you've got the name correct!")
           });
         } else {
-          c.logger.error(body.error);
+          client.logger.error(body.error);
           return e.edit({
             embed: new MessageEmbed()
               .setAuthor(
@@ -70,8 +70,8 @@ exports.run = async (c, m, a) => {
           embed: emb
         });
       }
-    } else if (a.length < 2) {
-      return m.reply({
+    } else if (args.length < 2) {
+      return message.reply({
         embed: new MessageEmbed()
           .setAuthor(
             '400: Too few arguments.',
@@ -79,18 +79,18 @@ exports.run = async (c, m, a) => {
           )
           .setColor('#ff3860')
           .setDescription(
-            `This command requires 2 arguments, **platform** and **epic username**. Try this **${c.settings.prefix}${exports.help.example}**`
+            `This command requires 2 arguments, **platform** and **epic username**. Try this **${client.settings.prefix}${exports.help.example}**`
           )
       });
     }
   } catch (err) {
-    return m.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${m.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };
@@ -104,7 +104,7 @@ exports.conf = {
 
 exports.help = {
   name: 'fortnite',
-  description: 'Gets a players fortnite stats',
+  description: 'Gets args players fortnite stats',
   usage: 'fortnite [platform] [username]',
   example: 'fortnite gamepad william5553yt'
 };
