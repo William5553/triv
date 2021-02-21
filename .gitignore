@@ -9,3 +9,4 @@ node_modules/
 settings.json
 warnings.json
 blacklist.json
+pnpm-lock.yaml
