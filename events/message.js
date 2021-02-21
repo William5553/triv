@@ -23,7 +23,9 @@ module.exports = async (client, message) => {
       const cooldownDb = await db.fetch(`cooldown_${cmd.help.name}_${message.author.id}`);
       if (cooldownDb !== null && cmd.conf.cooldown - (Date.now() - cooldownDb) > 0) {
         const time = ms(cmd.conf.cooldown - (Date.now() - cooldownDb));
-        return message.reply(`you must wait **${time}** before using this command again!`);
+        const m = await message.reply(`you must wait **${time}** before using this command again!`);
+        m.delete({ timeout: cmd.conf.cooldown - (Date.now() - cooldownDb) });
+        return;
       }
     }
     if (!message.guild) {
