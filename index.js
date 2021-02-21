@@ -85,3 +85,16 @@ readdir('./events/', (err, files) => {
 })();
 
 client.login(client.settings.token);
+
+/*
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send(`Triv running Node.js ${process.version}`);
+})
+
+app.listen(8080);
+
+*/

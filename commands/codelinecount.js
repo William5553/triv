@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js'),
   exec = promisify(require('child_process').execFile),
   path = require('path');
 
+let cache;
 async function clc() {
   if (cache) return cache;
   const { stdout, stderr } = await exec(
