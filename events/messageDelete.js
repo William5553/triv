@@ -11,10 +11,13 @@ module.exports = (client, message) => {
       .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
       .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
       .setTimestamp()
-      .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
+      .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}${message.attachments.length >= 1 ? `\n${message.attachments.length} attachment${message.attachments.length == 1 ? '' : 's'} in message found, sending` : ''}`)
       .setColor('0xEB5234')
     );
     message.embeds.forEach(embed => {
+      logs.send(embed);
+    });
+    message.attachments.forEach(embed => {
       logs.send(embed);
     });
     logs.updateOverwrite(message.channel.guild.roles.everyone, {
