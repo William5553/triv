@@ -143,20 +143,27 @@ module.exports = client => {
     });
   };
   
-  client.importBlacklist = () => {
-    const read = fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }),
-      file = JSON.parse(read);
+  client.importBlacklist = async () => {
+    let file;
+    try {
+      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }));
+    } catch {
+      await fs.writeFile('blacklist.json', '{}', e => {
+        if (e) throw e;
+      });
+      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }));
+    }
     if (typeof file !== 'object' || Array.isArray(file)) return null;
     if (!file.guild || !file.user) return null;
     for (const id of file.guild) {
       if (typeof id !== 'string') continue;
-      if (this.blacklist.guild.includes(id)) continue;
-      this.blacklist.guild.push(id);
+      if (client.blacklist.guild.includes(id)) continue;
+      client.blacklist.guild.push(id);
     }
     for (const id of file.user) {
       if (typeof id !== 'string') continue;
-      if (this.blacklist.user.includes(id)) continue;
-      this.blacklist.user.push(id);
+      if (client.blacklist.user.includes(id)) continue;
+      client.blacklist.user.push(id);
     }
     return file;
   };
@@ -170,7 +177,7 @@ module.exports = client => {
       text = text.slice(0, -4);
     }
     text += '\n	],\n	"user": [\n		';
-    if (this.blacklist.user.length) {
+    if (client.blacklist.user.length) {
       for (const id of client.blacklist.user) {
         text += `"${id}",\n		`;
       }
