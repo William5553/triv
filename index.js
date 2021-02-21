@@ -17,6 +17,8 @@ if (!client.settings.token) throw new Error('No token provided');
 
 require('./util/functions')(client);
 
+client.owners = [];
+
 client.queue = new Collection();
 client.games = new Collection();
 client.commands = new Collection();

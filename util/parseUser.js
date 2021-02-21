@@ -1,5 +1,5 @@
 exports.parseUser = (message, member) => {
-  if (member.user.id === message.client.settings.owner_id)
+  if (message.client.owners.includes(member.user.id))
     return message.reply('no!');
   if (member.user === message.client.user)
     return message.reply('you are an idiot');

@@ -54,7 +54,7 @@ module.exports = client => {
     if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_GUILD'))
       permlvl = 3;
     if (message.author.id == message.guild.ownerID) permlvl = 4;
-    if (message.author.id === client.settings.owner_id) permlvl = 10;
+    if (client.owners.includes(message.author.id)) permlvl = 10;
     return permlvl;
   };
 
