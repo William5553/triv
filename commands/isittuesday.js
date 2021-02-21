@@ -4,7 +4,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['tuesday', 'tues', 'isittues'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {

@@ -34,7 +34,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['clc', 'cloc'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {

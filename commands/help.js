@@ -1,3 +1,5 @@
+const ms = require('ms');
+
 exports.run = (client, message, args, perms) => {
   if (!args[0]) {
     const longest = Array.from(client.commands.keys()).reduce((long, str) => Math.max(long, str.length), 0),
@@ -28,10 +30,8 @@ exports.run = (client, message, args, perms) => {
       command = client.commands.get(client.aliases.get(args[0]));
     }
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
-    const aliases = command.conf.aliases.join(', ') || 'none';
-    const example = command.help.example ? `${client.settings.prefix}${command.help.example}` : 'to be added';
     message.channel.send(
-      `= ${command.help.name} = \n${command.help.description}\nusage   :: ${client.settings.prefix}${command.help.usage}\naliases :: ${aliases}\nexample :: ${example}`,
+      `= ${command.help.name} = \n${command.help.description}\nusage    :: ${client.settings.prefix}${command.help.usage}\naliases  :: ${command.conf.aliases.join(', ') || 'none'}\nexample  :: ${command.help.example ? `${client.settings.prefix}${command.help.example}` : 'no example provided'}\ncooldown :: ${command.conf.cooldown ? ms(command.conf.cooldown) : '0s'}`,
       {
         code: 'asciidoc'
       }
