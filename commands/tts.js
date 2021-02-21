@@ -2,40 +2,40 @@ const request = require('node-superfetch'),
   { Readable } = require('stream'),
   { MessageEmbed, Message } = require('discord.js');
 
-exports.run = async (client, msg, args) => {
-  const queue = client.queue.get(msg.guild.id);
-  if (queue) return msg.reply("there's currently music playing");
+exports.run = async (client, message, args) => {
+  const queue = client.queue.get(message.guild.id);
+  if (queue) return message.reply("there's currently music playing");
   const text = args.join(' ');
   if (!text)
-    return msg.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+    return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
   if (text.length > 1024)
-    return msg.reply('keep the message under 1024 characters man');
-  if (!msg.guild.voice || !msg.guild.voice.connection) {
-    const connection = await client.commands.get('join').run(client, msg);
+    return message.reply('keep the message under 1024 characters man');
+  if (!message.guild.voice || !message.guild.voice.connection) {
+    const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
-  } else if (msg.member.voice.channelID !== msg.guild.voice.channelID)
-    return msg.reply("I'm already in a voice channel");
+  } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+    return message.reply("I'm already in a voice channel");
   try {
     const { body } = await request
       .get('http://tts.cyzon.us/tts')
       .query({ text });
-    msg.guild.voice.connection
+    message.guild.voice.connection
       .play(Readable.from([body]))
-      .on('finish', () => msg.member.voice.channel.leave())
+      .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));
-    if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
-      msg.react('🔉');
+    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+      message.react('🔉');
     return;
   } catch (err) {
-    if (msg.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
-      msg.react('⚠️');
-    return msg.channel.send(new MessageEmbed()
+    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+      message.react('⚠️');
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

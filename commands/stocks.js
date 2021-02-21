@@ -1,15 +1,15 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = async (client, msg, args) => {
+exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1) return msg.channel.send(`${client.settings.prefix}${exports.help.usage}`);
+    if (args.length < 1) return message.channel.send(`${client.settings.prefix}${exports.help.usage}`);
     const query = args.join(' ');
     const company = await search(query);
-    if (!company) return msg.channel.send('Could not find any results.');
+    if (!company) return message.channel.send('Could not find any results.');
     const stocks = await fetchStocks(company.symbol, client.settings.alphavantage_key);
-    if (!stocks) return msg.channel.send('Could not find any results.');
-    return msg.channel.send(new MessageEmbed()
+    if (!stocks) return message.channel.send('Could not find any results.');
+    return message.channel.send(new MessageEmbed()
       .setTitle(`Stocks for ${company.name} (${stocks.symbol.toUpperCase()})`)
       .setColor(0x9797FF)
       .setFooter('Last Updated')
@@ -22,13 +22,13 @@ exports.run = async (client, msg, args) => {
       .addField('\u200B', '\u200B', true)
     );
   } catch (err) {
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };

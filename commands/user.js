@@ -17,8 +17,8 @@ const flags = {
 };
 const deprecated = ['DISCORD_PARTNER', 'VERIFIED_DEVELOPER'];
 
-exports.run = async (client, msg) => {
-  const user = msg.mentions.users.first() || msg.author;
+exports.run = async (client, message) => {
+  const user = message.mentions.users.first() || message.author;
   const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true }))
@@ -27,10 +27,10 @@ exports.run = async (client, msg) => {
     .addField('❯ ID', user.id, true)
     .addField('❯ Bot', user.bot ? 'Yes' : 'No', true)
     .addField('❯ Flags', userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
-  if (msg.guild) {
+  if (message.guild) {
     try {
-      const member = await msg.guild.members.fetch(user.id);
-      const defaultRole = msg.guild.roles.cache.get(msg.guild.id);
+      const member = await message.guild.members.fetch(user.id);
+      const defaultRole = message.guild.roles.cache.get(message.guild.id);
       const roles = member.roles.cache
         .filter(role => role.id !== defaultRole.id)
         .sort((a, b) => b.position - a.position)
@@ -46,7 +46,7 @@ exports.run = async (client, msg) => {
       embed.setFooter('Failed to resolve member, showing basic user information instead.');
     }
   }
-  return msg.channel.send(embed);
+  return message.channel.send(embed);
 };
 
 function trimArray(arr, maxLen) {

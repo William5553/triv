@@ -1,9 +1,9 @@
 const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
-exports.run = async (client, msg, args) => {
+exports.run = async (client, message, args) => {
   try {
-    if (!client.settings.google_api_key) return msg.reply('the bot owner has not set up this command yet');
+    if (!client.settings.google_api_key) return message.reply('the bot owner has not set up this command yet');
     const text = args.join(' '),
       { body } = await request
         .post('https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze')
@@ -14,17 +14,17 @@ exports.run = async (client, msg, args) => {
           requestedAttributes: { TOXICITY: {} }
         }),
       toxicity = Math.round(body.attributeScores.TOXICITY.summaryScore.value * 100);
-    if (toxicity >= 70) return msg.reply(`Likely to be perceived as toxic. (${toxicity}%)`);
-    if (toxicity >= 40) return msg.reply(`Unsure if this will be perceived as toxic. (${toxicity}%)`);
-    return msg.reply(`Unlikely to be perceived as toxic. (${toxicity}%)`);
+    if (toxicity >= 70) return message.reply(`Likely to be perceived as toxic. (${toxicity}%)`);
+    if (toxicity >= 40) return message.reply(`Unsure if this will be perceived as toxic. (${toxicity}%)`);
+    return message.reply(`Unlikely to be perceived as toxic. (${toxicity}%)`);
   } catch (err) {
-    return msg.channel.send(new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor('RED')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${msg.content}`)
+      .addField('**Command:**', `${message.content}`)
     );
   }
 };
