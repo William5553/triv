@@ -11,8 +11,8 @@ exports.run = (client, message) => {
     queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
     if (queue.stream) queue.stream.destroy();
   } else {
-		if (!message.channel.permissionsFor(message.author).has('MOVE_MEMBERS') && message.guild.voice.connection.channel.members.size > 2)
-			return message.reply('you need the **MOVE MEMBERS** permission');
+    if (!message.channel.permissionsFor(message.author).has('MOVE_MEMBERS') && message.guild.voice.connection.channel.members.size > 2)
+      return message.reply('you need the **MOVE MEMBERS** permission');
     message.member.voice.channel.leave();
   }
 };

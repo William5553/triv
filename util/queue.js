@@ -5,7 +5,7 @@ module.exports = {
       memChan = member.voice.channelID,
       botChan = member.guild.voice.channelID;
     
-    if (client.blacklist.includes(member.user.id)) {
+    if (client.blacklist.user.includes(member.user.id)) {
       member.send('You are temporarily blacklisted').catch(client.logger.error);
       return false;
     }

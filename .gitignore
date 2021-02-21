@@ -1,10 +1,11 @@
 node_modules/
 *.log
 *.tgz
+*.sqlite
 .npm
 .eslintcache
 .yarn-integrity
-settings.json
 .env
+settings.json
 warnings.json
-*.sqlite
+blacklist.json

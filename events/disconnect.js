@@ -1,1 +1,1 @@
-module.exports = client => client.logger.log(`You have been disconnected at ${new Date()}`);
+module.exports = (client, event) => client.logger.log(`You have been disconnected at ${new Date()} with code ${event.code}`);

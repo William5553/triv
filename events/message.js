@@ -6,7 +6,7 @@ module.exports = async (client, message) => {
   if (message.content.match(prefixMention))
     return message.reply(`my prefix on this guild is \`${client.settings.prefix}\``);
   if (!message.content.startsWith(client.settings.prefix)) return;
-  if (client.blacklist.includes(message.author.id)) {
+  if (client.blacklist.user.includes(message.author.id)) {
     message.delete({ timeout: 1500 });
     const a = await message.reply('you are temporarily blacklisted');
     return a.delete({ timeout: 1500 });

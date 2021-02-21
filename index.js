@@ -22,7 +22,7 @@ client.games = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
 
-client.blacklist = [];
+client.blacklist = { guild: [], user: [] };
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
@@ -47,5 +47,41 @@ readdir('./events/', (err, files) => {
     client.on(eventName, event.bind(null, client));
   });
 });
+
+(async function() {
+  // Import blacklist
+  try {
+    const results = client.importBlacklist();
+    if (!results) client.logger.error('[BLACKLIST] blacklist.json is not formatted correctly.');
+  } catch (err) {
+    client.logger.error(`[BLACKLIST] Could not parse blacklist.json:\n${err.stack}`);
+  }
+
+  // Make sure bot is not in any blacklisted guilds
+  for (const id of client.blacklist.guild) {
+    try {
+      const guild = await client.guilds.fetch(id, false);
+      await guild.leave();
+      client.logger.log(`[BLACKLIST] Left blacklisted guild ${id}.`);
+    } catch {
+      if (!client.guilds.cache.has(id)) continue;
+      client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${id}.`);
+    }
+  }
+
+  // Make sure bot is not in any guilds owned by a blacklisted user
+  let guildsLeft = 0;
+  for (const guild of client.guilds.cache.values()) {
+    if (client.blacklist.user.includes(guild.ownerID)) {
+      try {
+        await guild.leave();
+        guildsLeft++;
+      } catch {
+        client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${guild.id}.`);
+      }
+    }
+  }
+  client.logger.log(`[BLACKLIST] Left ${guildsLeft} guilds owned by blacklisted users.`);
+})();
 
 client.login(client.settings.token);
