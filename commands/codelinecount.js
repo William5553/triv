@@ -4,14 +4,14 @@ const { MessageEmbed } = require('discord.js'),
   path = require('path');
 
 async function clc() {
-  if (this.cache) return this.cache;
+  if (cache) return cache;
   const { stdout, stderr } = await exec(
     path.join(process.cwd(), 'node_modules', '.bin', 'cloc'),
     ['--json', '--exclude-dir=node_modules', path.join(process.cwd())]
   );
   if (stderr) throw new Error(stderr.trim());
-  this.cache = JSON.parse(stdout.trim());
-  return this.cache;
+  cache = JSON.parse(stdout.trim());
+  return cache;
 }
 
 exports.run = async (client, message) => {
