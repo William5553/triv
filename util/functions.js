@@ -151,7 +151,7 @@ module.exports = client => {
       fs.writeFile('blacklist.json', '{}', e => {
         if (e) throw e;
       });
-      await client.wait(500);
+      await client.wait(750);
       file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }));
     }
     if (typeof file !== 'object' || Array.isArray(file)) return null;

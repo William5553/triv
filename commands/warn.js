@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   } catch {
-    await fs.writeFile('warnings.json', '{}', e => {
+    fs.writeFile('warnings.json', '{}', e => {
       if (e) throw e;
     });
     await client.wait(750);
