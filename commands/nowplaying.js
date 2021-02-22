@@ -13,6 +13,9 @@ exports.run = async (client, message) => {
     .setTitle(song.title)
     .setURL(song.url)
     .setColor('RED')
+    .setThumbnail(song.thumbnail.url)
+    .setTimestamp()
+    .setAuthor(song.channel.name, song.channel.thumbnails[song.channel.thumbnails.length - 1].url, song.channel.user_url)
     .setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
 
   if (song.duration > 0)
