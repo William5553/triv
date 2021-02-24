@@ -4,11 +4,9 @@ const { MessageEmbed } = require('discord.js'),
 exports.run = async (client, message, args) => {
   try {
     const { body } = await request.get('https://www.reddit.com/r/memes/random/.json');
-	
-	  const [list] = JSON.parse(body);
-	  const [post] = list.data.children;
+    const [post] = body.data.children;
 
-		message.channel.send(new MessageEmbed()
+    message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
 		  .setURL(`https://reddit.com${post.data.permalink}`)
   		.setColor('RED')
