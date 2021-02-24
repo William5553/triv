@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js'),
   request = require('node-superfetch');
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
   try {
     const { body } = await request.get('https://www.reddit.com/r/memes/random/.json');
-    const [post] = body.data.children;
+    const [post] = body[0].data.children;
 
     message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
