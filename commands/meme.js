@@ -8,10 +8,10 @@ exports.run = async (client, message) => {
 
     message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
-		  .setURL(`https://reddit.com${post.data.permalink}`)
-  		.setColor('RED')
-  		.setImage(post.data.url)
-	  	.setFooter(`👍 ${post.data.ups} 💬 ${post.data.num_comments}`)
+      .setURL(`https://reddit.com${post.data.permalink}`)
+      .setColor('RED')
+      .setImage(post.data.url)
+      .setFooter(`👍 ${post.data.ups} 💬 ${post.data.num_comments}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
