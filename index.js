@@ -95,7 +95,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send(`Triv running Node.js ${process.version}`);
-})
+});
 
 app.listen(8080);
 
