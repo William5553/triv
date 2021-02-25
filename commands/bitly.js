@@ -29,7 +29,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['urlshorten', 'bit.ly', 'shortenurl'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 20000
 };
   
 exports.help = {
