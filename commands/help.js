@@ -39,6 +39,6 @@ exports.conf = {
 
 exports.help = {
   name: 'help',
-  description: 'Displays all the available commands for your permission level in the current guild. If used in DMs, it shows all commands',
+  description: 'Displays all the available commands for your permission level. If used in DMs, shows all commands',
   usage: 'help [command]'
 };
