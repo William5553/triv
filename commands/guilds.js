@@ -1,15 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
-  client.generateInvite({permissions: 2146958591}).then(link => {
+  const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
     message.channel.send(new MessageEmbed()
       .setColor(0x00ff5c)
       .setAuthor(client.user.username, client.user.avatarURL())
       .setTitle(`**${client.guilds.cache.size} guild(s)**`)
       .setDescription(`${client.guilds.cache.map(g => `${g.name} - ${g.id}`).join('\n')}`)
-      .setURL(link)
+      .setURL(client.application.botPublic ? link : 'https://github.com/william5553/triv')
       .setTimestamp()
     );
-  });
 };
 
 exports.conf = {
