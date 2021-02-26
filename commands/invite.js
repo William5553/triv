@@ -1,16 +1,12 @@
 const { MessageEmbed } = require('discord.js');
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   if (client.application.botPublic) {
-  client
-    .generateInvite({ permissions: 2146958591 })
-    .then(link => {
-      message.channel.send(new MessageEmbed()
-        .setColor(0x00ae86)
-        .setTitle(client.user.username)
-        .setDescription(`[Invite me](${link})`)
-      );
-    })
-    .catch(client.logger.error);
+    const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
+    message.channel.send(new MessageEmbed()
+      .setColor(0x00ae86)
+      .setAuthor(client.user.username, client.user.avatarURL())
+      .setDescription(`[Invite me](${link})`)
+    );
   } else return message.reply('the bot is private.');
 };
 
@@ -18,7 +14,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['inv'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1500
 };
 
 exports.help = {
