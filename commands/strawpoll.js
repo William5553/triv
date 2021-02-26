@@ -2,10 +2,10 @@ const request = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!args || args.join(' ').split(',').length < 2) return message.reply(`usage: ${client.settings.prefix}${exports.help.usage}`);
+  if (!args || args.join(' ').split(',').length < 2) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
   const title = args.join(' ').split(',')[0];
   const options = args.splice(1).join(' ').split(',');
-  if (!title || !options) return message.reply(`usage: ${client.settings.prefix}${exports.help.usage}`);
+  if (!title || !options) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
   if (title.length > 200) return message.reply('the character limit for the title is 200 characters');
   if (options.length > 140) return message.reply('the character limit for the choices are 140 characters');
   if (options.length < 2) return message.reply('Please provide more than one choice.');

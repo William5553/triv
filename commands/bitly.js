@@ -2,15 +2,15 @@ const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!client.settings.bitly_key) return message.reply('the bot owner has not set up this command yet');
-  if (!args) return message.reply(`usage: ${client.settings.prefix}${exports.help.usage}`);
+  if (!process.env.bitly_key) return message.reply('the bot owner has not set up this command yet');
+  if (!args) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
   const url = args.join(' ');
   if (encodeURI(url).length > 2083) return message.reply('your URL is too long');
   try {
     const { body } = await request
       .post('https://api-ssl.bitly.com/v4/shorten')
       .send({ long_url: url })
-      .set({ Authorization: `Bearer ${client.settings.bitly_key}` });
+      .set({ Authorization: `Bearer ${process.env.bitly_key}` });
     return message.channel.send(body.link);
   } catch (err) {
     if (err.status === 400) return message.reply('You provided an invalid URL. Please try again.');

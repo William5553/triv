@@ -28,6 +28,7 @@
     "cloc": "^2.7.0",
     "discord-ytdl-core": "^5.0.1",
     "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
     "esrever": "^0.2.0",
     "expr-eval": "^2.0.2",
     "ffmpeg-static": "^4.2.7",

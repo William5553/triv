@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   const caseNum = await caseNumber(client, botlog);
   const reason =
     args.splice(1).join(' ') ||
-    `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
+    `Awaiting moderator's input. Use ${process.env.prefix}reason ${caseNum} <reason>.`;
   return botlog.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()

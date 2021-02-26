@@ -1,7 +1,7 @@
 const { canModifyQueue } = require('../util/queue');
 
 exports.run = (client, message, args) => {
-  if (args.length < 1 || isNaN(args[0])) return message.reply(`${client.settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+  if (args.length < 1 || isNaN(args[0])) return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
 
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply('there is nothing playing').catch(client.logger.error);

@@ -9,7 +9,7 @@ module.exports = async (client, guild) => {
     }
   } else if (guild.systemChannel && guild.systemChannel.permissionsFor(client.user).has('SEND_MESSAGES')) {
     try {
-      await guild.systemChannel.send(`Hi! I'm ${client.user.username}, use ${client.settings.prefix}help to see my commands.`);
+      await guild.systemChannel.send(`Hi! I'm ${client.user.username}, use ${process.env.prefix}help to see my commands.`);
     } catch {
       // do nothing
     }

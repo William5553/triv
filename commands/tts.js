@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   if (queue) return message.reply("there's currently music playing");
   const text = args.join(' ');
   if (!text)
-    return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+    return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`);
   if (text.length > 1024)
     return message.reply('keep the message under 1024 characters man');
   if (!message.guild.voice || !message.guild.voice.connection) {

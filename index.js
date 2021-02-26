@@ -1,19 +1,15 @@
 if (Number(process.version.slice(1).split('.')[0]) < 12)
   throw new Error('Node 12.0.0 or higher is required. Update Node on your system.');
 
+require('dotenv').config();
+
 const { Client, Collection } = require('discord.js'),
   client = new Client({ disableMentions: 'everyone' }),
-  { readFileSync, readdir } = require('fs');
-
-try {
-  client.settings = JSON.parse(readFileSync('./settings.json', 'utf-8'));
-} catch {
-  client.settings = process.env;
-}
+  { readdir } = require('fs');
 
 client.logger = require('./util/logger');
 
-if (!client.settings.token) throw new Error('No token provided');
+if (!process.env.token) throw new Error('No token provided');
 
 require('./util/functions')(client);
 
@@ -86,7 +82,7 @@ readdir('./events/', (err, files) => {
   client.logger.log(`[BLACKLIST] Left ${guildsLeft} guilds owned by blacklisted users.`);
 })();
 
-client.login(client.settings.token);
+client.login(process.env.token);
 
 /*
 

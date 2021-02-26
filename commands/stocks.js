@@ -3,11 +3,11 @@ const request = require('node-superfetch'),
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1) return message.channel.send(`${client.settings.prefix}${exports.help.usage}`);
+    if (args.length < 1) return message.channel.send(`${process.env.prefix}${exports.help.usage}`);
     const query = args.join(' ');
     const company = await search(query);
     if (!company) return message.channel.send('Could not find any results.');
-    const stocks = await fetchStocks(company.symbol, client.settings.alphavantage_key);
+    const stocks = await fetchStocks(company.symbol, process.env.alphavantage_key);
     if (!stocks) return message.channel.send('Could not find any results.');
     return message.channel.send(new MessageEmbed()
       .setTitle(`Stocks for ${company.name} (${stocks.symbol.toUpperCase()})`)

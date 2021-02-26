@@ -3,7 +3,6 @@
     "ecmaVersion": 2020
   },
   "env": {
-    "es6": true,
     "node": true
   },
   "extends": ["eslint:recommended", "plugin:node/recommended"],
@@ -31,7 +30,6 @@
     "comma-style": "error",
     "yoda": ["error", "never", { "exceptRange": true }],
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["warn", "unix"],
     "quotes": ["warn", "single", { "avoidEscape": true }],
     "semi": ["warn", "always"],
     "keyword-spacing": [

@@ -2,7 +2,7 @@ const request = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!client.settings.trn_api_key) return message.reply('the bot owner has not set up this command yet');
+  if (!process.env.trn_api_key) return message.reply('the bot owner has not set up this command yet');
   try {
     if (args.length >= 2) {
       let platform = args[0].toLowerCase();
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
       });
       const { body } = await request
         .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
-        .set({'TRN-Api-Key': client.settings.trn_api_key});
+        .set({'TRN-Api-Key': process.env.trn_api_key});
       if (body.error) {
         if (body.error == 'Player Not Found') {
           return e.edit({
@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
           )
           .setColor('#ff3860')
           .setDescription(
-            `This command requires 2 arguments, **platform** and **epic username**. Try this **${client.settings.prefix}${exports.help.example}**`
+            `This command requires 2 arguments, **platform** and **epic username**. Try this **${process.env.prefix}${exports.help.example}**`
           )
       });
     }

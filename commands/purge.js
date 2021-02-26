@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const user = message.mentions.users.first();
   await message.delete(); // delete the command message, so it doesn't interfere with the messages we are going to delete.
   let mgct = Number(args[0]);
-  if (!mgct || isNaN(mgct) || mgct < 1) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`).then(m => m.delete({ timeout: 4500 }));
+  if (!mgct || isNaN(mgct) || mgct < 1) return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`).then(m => m.delete({ timeout: 4500 }));
   if (mgct > 100) mgct = 100;
   message.channel.messages
     .fetch({ limit: 100 })

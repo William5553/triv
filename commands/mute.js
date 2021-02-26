@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
   }
   const reason =
     args.splice(1).join(' ') ||
-    `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
+    `Awaiting moderator's input. Use ${process.env.prefix}reason ${caseNum} <reason>.`;
 
   message.guild.channels.cache.forEach(f => {
     f.updateOverwrite(muteRole, {

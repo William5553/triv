@@ -3,7 +3,7 @@ const request = require('node-superfetch'),
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.size < 1) return message.reply(`${client.settings.prefix}${exports.help.usage}`);
+    if (args.size < 1) return message.reply(`${process.env.prefix}${exports.help.usage}`);
     const country = args[0];
     const data = await fetchStats(country);
     return message.channel.send(new MessageEmbed()

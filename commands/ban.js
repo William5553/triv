@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
     message.guild.channels.create('bot-logs', { type: 'text' });
   else if (!botlog) return message.reply('I cannot find a channel named bot-logs');
   if (!member.bannable) return message.reply("I can't ban that user");
-  const reason = args.splice(1).join(' ') || `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNum} <reason>.`;
+  const reason = args.splice(1).join(' ') || `Awaiting moderator's input. Use ${process.env.prefix}reason ${caseNum} <reason>.`;
   await member.user.send(`you've been banned from ${message.channel.guild.name} by ${message.author}`).catch(client.logger.error);
   message.guild.members.ban(member, { days: 0, reason: reason });
   message.channel.send(`Banned ${member.user}`);

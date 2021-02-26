@@ -3,7 +3,7 @@ const fetch = require('node-superfetch'),
 
 exports.run = async (client, message) => {
   const user = message.mentions.users.first();
-  if (!user) return message.channel.send(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+  if (!user) return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`);
   const m = await message.channel.send('Getting...');
   let data;
   try {

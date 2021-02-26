@@ -3,7 +3,7 @@ const { play } = require('../util/play'),
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue || !queue.connection) return message.reply('nothing is playing');
-  if (isNaN(args[0])) return message.reply(`Usage: ${client.settings.prefix}${exports.help.usage}`);
+  if (isNaN(args[0])) return message.reply(`Usage: ${process.env.prefix}${exports.help.usage}`);
   if (canModifyQueue(message.member) != true) return;
   if (Number(args[0]) > 1000) return message.reply('you can only fast forward up to 1000 seconds.');
   queue.additionalStreamTime += Number(args[0])*1000;

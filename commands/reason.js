@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
       const embed = logMsg.embeds[0];
       embedSan(embed);
       embed.description = embed.description.replace(
-        `Awaiting moderator's input. Use ${client.settings.prefix}reason ${caseNumber} <reason>.`,
+        `Awaiting moderator's input. Use ${process.env.prefix}reason ${caseNumber} <reason>.`,
         newReason
       );
       logMsg.edit({ embed });

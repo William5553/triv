@@ -17,7 +17,7 @@ const months = [
 ];
 
 exports.run = (client, message, args) => {
-  if (args.length < 2) return message.reply(`${client.settings.prefix}${exports.help.usage}`);
+  if (args.length < 2) return message.reply(`${process.env.prefix}${exports.help.usage}`);
   let month = args[0];
   if (!validate(month)) return message.reply(`${month} is not a valid month`);
   else month = parse(month);

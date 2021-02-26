@@ -3,8 +3,8 @@ const fetch = require('node-superfetch'),
 
 exports.run = async (client, message, args) => {
   try {
-    if (!client.settings.rapidapi_key) return message.reply('the bot owner has not set up this command yet');
-    if (args.length < 3 || isNaN(args[0])) return message.channel.send(`${client.settings.prefix}${exports.help.usage}`);
+    if (!process.env.rapidapi_key) return message.reply('the bot owner has not set up this command yet');
+    if (args.length < 3 || isNaN(args[0])) return message.channel.send(`${process.env.prefix}${exports.help.usage}`);
     const safeSearch = !message.channel.nsfw;
     const query = args.splice(2).join(' ');
     const { body } = await fetch
@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         safeSearch
       })
       .set({
-        'x-rapidapi-key': client.settings.rapidapi_key,
+        'x-rapidapi-key': process.env.rapidapi_key,
         'x-rapidapi-host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
         useQueryString: true
       });

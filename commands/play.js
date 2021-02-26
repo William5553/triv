@@ -3,16 +3,16 @@ const { play } = require('../util/play'),
   YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  if (!client.settings.google_api_key) return message.reply('the bot owner has not set up this command yet');
+  if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
   const { channel } = message.member.voice,
     serverQueue = client.queue.get(message.guild.id),
-    youtube = new YouTubeAPI(client.settings.google_api_key);
+    youtube = new YouTubeAPI(process.env.google_api_key);
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
 
   if (!args.length)
-    return message.reply(`${client.settings.prefix}${exports.help.usage}`).catch(client.logger.error);
+    return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
 
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
