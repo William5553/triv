@@ -426,18 +426,11 @@
       "integrity": "sha1-+hN8S9aY7fVc1c0CrFWfkaTEups="
     },
     "discord-ytdl-core": {
-      "version": "5.0.0",
-      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.0.tgz",
-      "integrity": "sha512-lhk3VabO3vC+57ZIL0yOCaB5eyco9qmygmXwHoAr9c4VVzG9e02iGCvLAYzMIxOoBtuIggavNLwFTZ6gO6byJA==",
+      "version": "5.0.1",
+      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.1.tgz",
+      "integrity": "sha512-rFMTjVbTLegWozQlGoxRIzz2rP4zX6CKKDPycDeAiqjj/3g7V/mc+GIt/flghVnht0q7zlL9NsodSL7dAN53eA==",
       "requires": {
-        "prism-media": "^1.2.2"
-      },
-      "dependencies": {
-        "prism-media": {
-          "version": "1.2.3",
-          "resolved": "https://registry.npmjs.org/prism-media/-/prism-media-1.2.3.tgz",
-          "integrity": "sha512-fSrR66n0l6roW9Rx4rSLMyTPTjRTiXy5RVqDOurACQ6si1rKHHKDU5gwBJoCsIV0R3o9gi+K50akl/qyw1C74A=="
-        }
+        "prism-media": "^1.2.7"
       }
     },
     "discord.js": {
@@ -1634,6 +1627,11 @@
       "resolved": "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz",
       "integrity": "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==",
       "dev": true
+    },
+    "prism-media": {
+      "version": "1.2.7",
+      "resolved": "https://registry.npmjs.org/prism-media/-/prism-media-1.2.7.tgz",
+      "integrity": "sha512-thS1z3L6BDmf724sqLC73bHGjSYArFTYHa7cqInyS3EdDNTHKgDCXy7l+IhRvlnX7aFNiUb8jJcC+R8ezxwgMA=="
     },
     "process-nextick-args": {
       "version": "2.0.1",
