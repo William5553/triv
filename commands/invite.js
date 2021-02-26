@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
+  if (client.application.botPublic) {
   client
     .generateInvite({ permissions: 2146958591 })
     .then(link => {
@@ -10,6 +11,7 @@ exports.run = (client, message) => {
       );
     })
     .catch(client.logger.error);
+  } else return message.reply('the bot is private.');
 };
 
 exports.conf = {
