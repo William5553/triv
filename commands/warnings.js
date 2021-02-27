@@ -2,9 +2,8 @@ const { MessageEmbed } = require('discord.js'),
   fs = require('fs'),
   path = require('path');
 
-exports.run = async (client, message) => {
+exports.run = async (client, message, args) => {
   let warnings;
-  const user = message.mentions.users.first() || message.author;
   
   try {
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
@@ -15,6 +14,9 @@ exports.run = async (client, message) => {
     await client.wait(750);
     warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
   }
+  
+  let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+  user = user.user;
   
   if (!warnings[message.guild.id])
     warnings[message.guild.id] = {};
