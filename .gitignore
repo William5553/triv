@@ -6,7 +6,6 @@ node_modules/
 .eslintcache
 .yarn-integrity
 .env
-settings.json
 warnings.json
 blacklist.json
 pnpm-lock.yaml
