@@ -2,8 +2,8 @@ const fetch = require('node-superfetch'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
-  const user = member.user || message.author;
+  let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+  user = user.user;
   if (!user) return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`);
   const m = await message.channel.send('Getting...');
   let data;
