@@ -21,6 +21,6 @@ exports.conf = {
 
 exports.help = {
   name: 'edit',
-  description: "Edits a message sent by the bot",
+  description: 'Edits a message sent by the bot',
   usage: 'edit [message id] [content]'
 };
