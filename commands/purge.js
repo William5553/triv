@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   message.channel.messages
     .fetch({ limit: 100 })
     .then(messages => {
-      if (member.user)
+      if (member && member.user)
         messages = messages.filter(m => m.author.id === member.user.id).array().slice(0, mgct);
       else
         messages = messages.array().slice(0, mgct);
