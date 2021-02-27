@@ -17,8 +17,9 @@ const flags = {
 };
 const deprecated = ['DISCORD_PARTNER', 'VERIFIED_DEVELOPER'];
 
-exports.run = async (client, message) => {
-  const user = message.mentions.users.first() || message.author;
+exports.run = async (client, message, args) => {
+  const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
+  const user = member.user || message.author;
   const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true }))
