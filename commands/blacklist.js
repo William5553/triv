@@ -4,7 +4,8 @@ exports.run = async (client, message, args) => {
   if (args.length < 2) return message.reply(`Usage: ${process.env.prefix}${exports.help.usage}`);
   const type = args[0].toLowerCase();
   if (!type || !types.includes(type)) return message.reply(`First argument should be ${types.join(' OR ')}.`);
-  const target = args[1];
+  let target = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.slice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.slice(1).join(' ').toLowerCase());
+  target = target.user.id;
   if (!target || isNaN(target)) return message.reply(`Usage: ${process.env.prefix}${exports.help.usage}`);
   if (type === 'user' && client.owners.includes(target)) return message.reply("don't be an idiot.");
   if (client.blacklist[type].includes(target)) return message.channel.send(`🔨 \`${target}\` is already blacklisted.`);
