@@ -12,7 +12,7 @@ exports.run = async (client, message) => {
   const nowPlaying = new MessageEmbed()
     .setTitle(song.title)
     .setURL(song.url)
-    .setColor('RED')
+    .setColor('#FF0000')
     .setThumbnail(song.thumbnail.url)
     .setTimestamp()
     .setAuthor(song.channel.name, song.channel.thumbnails[song.channel.thumbnails.length - 1].url, song.channel.user_url)

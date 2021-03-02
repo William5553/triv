@@ -34,7 +34,7 @@ exports.run = async (client, message) => {
     return message.channel.send(`You have the hearing of someone **${Number.parseInt(age, 10) + 1} or older**. The maximum frequency you were able to hear was **${range}000hz**.`);
   } catch (err) {
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')

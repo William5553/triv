@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     return message.channel.send(`I'm ${Math.round(body.probability * 100)}% sure ${body.name} is a ${body.gender} name.`);
   } catch (err) {
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')

@@ -3,19 +3,19 @@ const { MessageEmbed } = require('discord.js'),
 
 exports.run = async (client, message) => {
   try {
-    const { body } = await request.get('https://www.reddit.com/r/memes/random/.json');
+    const { body } = await request.get('https://www.#FF0000dit.com/r/memes/random/.json');
     const [post] = body[0].data.children;
 
     message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
-      .setURL(`https://reddit.com${post.data.permalink}`)
+      .setURL(`https://#FF0000dit.com${post.data.permalink}`)
       .setColor('RED')
       .setImage(post.data.url)
       .setFooter(`👍 ${post.data.ups} 💬 ${post.data.num_comments}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')

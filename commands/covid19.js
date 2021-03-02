@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
       .addField('❯ Total Cases', `${client.formatNumber(data.cases)} (${client.formatNumber(data.todayCases)} today)`, true)
       .addField('❯ Total Deaths', `${client.formatNumber(data.deaths)} (${client.formatNumber(data.todayDeaths)} today)`, true)
       .addField('❯ Total Recoveries',
-        `${client.formatNumber(data.recovered)} (${client.formatNumber(data.todayRecovered)} today)`, true)
+        `${client.formatNumber(data.recove#FF0000)} (${client.formatNumber(data.todayRecove#FF0000)} today)`, true)
       .addField('❯ Active Cases', client.formatNumber(data.active), true)
       .addField('❯ Active Critical Cases', client.formatNumber(data.critical), true)
       .addField('❯ Tests', client.formatNumber(data.tests), true)
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     if (err.status === 404) return message.say('Country not found or doesn\'t have any cases.');
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')

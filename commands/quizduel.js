@@ -78,7 +78,7 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     client.games.delete(message.channel.id);
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')

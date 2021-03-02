@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     if (err.status === 404) return message.channel.send('Could not find any results.');
     return message.channel.send(new MessageEmbed()
-      .setColor('RED')
+      .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
