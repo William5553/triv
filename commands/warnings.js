@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
   let currPage = 0;
   
   const emb = await message.channel.send(`**Current Page - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
-  if (embeds.length === 0) return;
+  if (embeds.length < 2) return;
   await emb.react('⬅️');
   await emb.react('➡️');
 
