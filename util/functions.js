@@ -8,11 +8,13 @@ module.exports = client => {
     if (props.conf.enabled !== true) return client.logger.log(`${props.help.name} is disabled.`);
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     if (props.help.name !== command.split('.')[0]) client.logger.warn(`File name ${command} has a different command name ${props.help.name}`);
+    if (client.aliases.has(props.help.name))
+      client.logger.warn(`${props.help.name} tried to load but it's already being used as an alias for ${client.aliases.get(props.help.name)}`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.logger.log(`Loading Alias: ${alias}. 👌`);
-      if (client.aliases.has(alias))
-        client.logger.warn(`${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.get(alias)}`);
+      if (client.aliases.has(alias) || client.commands.has(alias))
+        client.logger.warn(`${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.has(alias) ? client.aliases.get(alias) : 'a command'}`);
       else
         client.aliases.set(alias, props.help.name);
     });
