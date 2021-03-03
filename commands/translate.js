@@ -1,6 +1,6 @@
 const translate = require('translate-google-api'),
   langs = require('../assets/languages.json'),
-  { clean } = require('../util/util');
+  { clean } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   if (args.length < 3)

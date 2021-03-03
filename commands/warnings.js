@@ -35,9 +35,7 @@ exports.run = async (client, message, args) => {
   await emb.react('➡️');
 
   const filter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && message.author.id === user.id;
-  const collector = emb.createReactionCollector(filter, {
-    time: 60000
-  });
+  const collector = emb.createReactionCollector(filter, {});
   
   collector.on('collect', async reaction => {
     try {

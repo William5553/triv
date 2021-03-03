@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/util'),
+  { verify } = require('../util/Util'),
   blankEmoji = '⚪️',
   playerOneEmoji = '🔴',
   playerTwoEmoji = '🟡',

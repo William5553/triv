@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/util'),
+  { verify } = require('../util/Util'),
   Genius = require('genius-lyrics');
 
 exports.run = async (client, message, args) => {

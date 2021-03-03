@@ -1,6 +1,6 @@
 const path = require('path'),
   { Message, MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/util'),  
+  { verify } = require('../util/Util'),  
   data = require('../assets/hearing-test.json');
 
 exports.run = async (client, message) => {
