@@ -48,15 +48,15 @@ module.exports = client => {
   4 = guild owner
   10 = bot owner
   */
-  client.elevation = message => {
+  client.elevation = member => {
     let permlvl = 0;
-    if (message.member.hasPermission('MANAGE_MESSAGES'))
+    if (member.hasPermission('MANAGE_MESSAGES'))
       permlvl = 2;
-    if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_GUILD'))
+    if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD'))
       permlvl = 3;
-    if (message.author.id == message.guild.ownerID)
+    if (member.id == member.guild.ownerID)
       permlvl = 4;
-    if (client.owners.includes(message.author.id))
+    if (client.owners.includes(member.id))
       permlvl = 10;
     return permlvl;
   };

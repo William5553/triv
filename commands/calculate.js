@@ -54,7 +54,7 @@ function genEmbeds(message, steps, embeds = []) {
       .addField('Before change', step.oldNode.toString(), true)
       .addField('After change', step.newNode.toString(), true)
       .setColor('#FF0000')
-      .setTimestamp(); 
+      .setTimestamp();
     embeds.push(embed);
   }
   return embeds;
