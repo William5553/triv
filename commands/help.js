@@ -32,7 +32,7 @@ exports.run = (client, message, args, perms) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['commands'],
+  aliases: ['commands', 'usage'],
   permLevel: 0,
   cooldown: 1500
 };
