@@ -8,15 +8,13 @@ exports.run = async (client, message, args) => {
     if (embeds.length < 1) return message.channel.send('A solution could not be found');
     let currPage = 0;
     
-    const emb = await message.channel.send(`**Current Step - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+    const emb = await message.channel.send(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
     if (embeds.length < 2) return;
     await emb.react('⬅️');
     await emb.react('➡️');
   
     const filter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && message.author.id === user.id;
-    const collector = emb.createReactionCollector(filter, {
-      time: 60000
-    });
+    const collector = emb.createReactionCollector(filter, {});
     
     collector.on('collect', async reaction => {
       try {
@@ -24,12 +22,12 @@ exports.run = async (client, message, args) => {
         if (reaction.emoji.name === '➡️') {
           if (currPage < embeds.length - 1) {
             currPage++;
-            emb.edit(`**Current Step - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+            emb.edit(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
           }
         } else if (reaction.emoji.name === '⬅️') {
           if (currPage !== 0) {
             --currPage;
-            emb.edit(`**Current Step - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+            emb.edit(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
           }
         }
       } catch (e) {
@@ -47,10 +45,9 @@ function genEmbeds(message, steps) {
     return message.channel.send('A solution could not be found.');
   const embeds = [];
   for (var step of steps) {
-    
     const embed = new MessageEmbed()
+      .setTitle(`**${step.changeType}**`)
       .addField('Before change', step.oldNode.toString(), true)
-      .addField('Change type', step.changeType, true)
       .addField('After change', step.newNode.toString(), true)
       .setColor('#FF0000')
       .setTimestamp();
