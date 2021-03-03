@@ -1,5 +1,6 @@
 const translate = require('translate-google-api'),
-  langs = require('../assets/languages.json');
+  langs = require('../assets/languages.json'),
+  { clean } = require('../util/util');
 
 exports.run = async (client, message, args) => {
   if (args.length < 3)
@@ -15,7 +16,7 @@ exports.run = async (client, message, args) => {
   if (!isSupport(a2)) return message.reply(`${args[1]} isn't a supported language`);
 
   let t = await translate(text, { from: a1, to: a2 }).catch(err => message.reply(err.toString()));
-  t = await client.clean(t[0]);
+  t = await clean(t[0]);
   if (t) message.channel.send(t).catch(client.logger.error);
 };
 

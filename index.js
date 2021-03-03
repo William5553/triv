@@ -28,7 +28,7 @@ readdir('./commands/', (err, files) => {
   files.forEach(file => {
     if (!file.endsWith('.js'))
       return client.logger.warn(`File not ending with .js found in commands folder: ${file}`);
-    client.load(file);
+    client.loadCommand(file);
   });
 });
 
@@ -96,3 +96,15 @@ app.get('/', (req, res) => {
 app.listen(8080);
 
 */
+
+// These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
+process.on('uncaughtException', err => {
+  client.logger.error(`UNCAUGHT EXCEPTION: ${err.message}`);
+  client.logger.error(err.stack);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', err => {
+  client.logger.error(`UNHANDLED REJECTION: ${err.message}`);
+  client.logger.error(err.stack);
+});

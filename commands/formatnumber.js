@@ -1,4 +1,5 @@
-exports.run = (client, message, args) => message.channel.send(client.formatNumber(args.join(' ')));
+const { formatNumber } = require('../util/Util');
+exports.run = (client, message, args) => message.channel.send(formatNumber(args.join(' ')));
 
 exports.conf = {
   enabled: true,

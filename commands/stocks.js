@@ -1,4 +1,5 @@
 const request = require('node-superfetch'),
+  { formatNumber } = require('../util/Util'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
@@ -14,11 +15,11 @@ exports.run = async (client, message, args) => {
       .setColor(0x9797FF)
       .setFooter('Last Updated')
       .setTimestamp(stocks.lastRefresh)
-      .addField('❯ Open', `$${client.formatNumber(stocks.open)}`, true)
-      .addField('❯ Close', `$${client.formatNumber(stocks.close)}`, true)
-      .addField('❯ Volume', client.formatNumber(stocks.volume), true)
-      .addField('❯ High', `$${client.formatNumber(stocks.high)}`, true)
-      .addField('❯ Low', `$${client.formatNumber(stocks.low)}`, true)
+      .addField('❯ Open', `$${formatNumber(stocks.open)}`, true)
+      .addField('❯ Close', `$${formatNumber(stocks.close)}`, true)
+      .addField('❯ Volume', formatNumber(stocks.volume), true)
+      .addField('❯ High', `$${formatNumber(stocks.high)}`, true)
+      .addField('❯ Low', `$${formatNumber(stocks.low)}`, true)
       .addField('\u200B', '\u200B', true)
     );
   } catch (err) {

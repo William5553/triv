@@ -1,5 +1,6 @@
 const path = require('path'),
-  { Message, MessageEmbed } = require('discord.js'),    
+  { Message, MessageEmbed } = require('discord.js'),
+  { verify } = require('../util/util'),  
   data = require('../assets/hearing-test.json');
 
 exports.run = async (client, message) => {
@@ -17,7 +18,7 @@ exports.run = async (client, message) => {
       message.guild.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
       await client.wait(3500);
       message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
-      const heard = await client.verify(message.channel, message.author);
+      const heard = await verify(message.channel, message.author);
       if (heard != true || file === data[data.length - 1].file) {
         age = previousAge;
         range = previousRange;

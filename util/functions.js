@@ -1,10 +1,8 @@
 const fs = require('fs'),
   path = require('path');
 
-const yes = ['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'],
-  no = ['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not'];
 module.exports = client => {
-  client.load = async command => {
+  client.loadCommand = async command => {
     const props = require(`../commands/${command}`);
     if (!props.conf || !props.help) return client.logger.error(`${command} failed to load as it is missing required command configuration`);
     if (props.conf.enabled !== true) return client.logger.log(`${props.help.name} is disabled.`);
@@ -38,6 +36,7 @@ module.exports = client => {
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
     return `Successfully unloaded ${command.help.name}`;
   };
+
   /*
   PERMISSION LEVEL FUNCTION
   This is a very basic permission system for commands which uses "levels"
@@ -58,91 +57,6 @@ module.exports = client => {
     if (client.owners.includes(message.author.id))
       permlvl = 10;
     return permlvl;
-  };
-
-  client.verify = async (channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) => {
-    if (client.blacklist.user.includes(user.id)) {
-      channel.send(`${user.tag} is currently blacklisted`);
-      return false;
-    }
-    const filter = res => {
-      const value = res.content.toLowerCase();
-      return (user ? res.author.id === user.id : true)
-				&& (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
-    };
-    const verify = await channel.awaitMessages(filter, {
-      max: 1,
-      time,
-      errors: ['time']
-    });
-    if (!verify.size) return 0;
-    const choice = verify.first().content.toLowerCase();
-    if (yes.includes(choice) || extraYes.includes(choice)) return true;
-    if (no.includes(choice) || extraNo.includes(choice)) return false;
-    return false;
-  };
-  /*
-  MESSAGE CLEAN FUNCTION
-  "Clean" removes @everyone pings, as well as tokens, and makes code blocks
-  escaped so they're shown more easily. As a bonus it resolves promises
-  and stringifies objects!
-  This is mostly only used by the Eval and Exec commands.
-  */
-  client.clean = async (text) => {
-    if (text && text.constructor.name == 'Promise')
-      text = await text;
-    if (typeof text !== 'string')
-      text = require('util').inspect(text, {depth: 1});
-
-    text = text
-      .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(client.token, 'NO TOKEN');
-
-    return text;
-  };
-
-  /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
-
-  // EXTENDING NATIVE TYPES IS BAD PRACTICE. Why? Because if JavaScript adds this
-  // later, this conflicts with native code. Also, if some other lib you use does
-  // this, a conflict also occurs. KNOWING THIS however, the following 2 methods
-  // are, we feel, very useful in code.
-
-  // <String>.toPropercase() returns a proper-cased string such as: 
-  // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
-  Object.defineProperty(String.prototype, 'toProperCase', {
-    value: function() {
-      return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-    }
-  });
-
-  // <Array>.random() returns a single random element from an array
-  // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
-  Object.defineProperty(Array.prototype, 'random', {
-    value: function() {
-      return this[Math.floor(Math.random() * this.length)];
-    }
-  });
-  
-  
-  Object.defineProperty(Array.prototype, 'shuffle', {
-    value: function() {
-      const arr = this.slice(0);
-      for (let i = arr.length - 1; i >= 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-      }
-      return arr;
-    }
-  });
-
-  client.formatNumber = (number, minimumFractionDigits = 0) => {
-    return Number.parseFloat(number).toLocaleString(undefined, {
-      minimumFractionDigits,
-      maximumFractionDigits: 2
-    });
   };
   
   client.importBlacklist = async () => {
@@ -195,15 +109,40 @@ module.exports = client => {
   // `await client.wait(1000);` to "pause" for 1 second.
   client.wait = require('util').promisify(setTimeout);
 
-  // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
-  process.on('uncaughtException', err => {
-    client.logger.error(`UNCAUGHT EXCEPTION: ${err.message}`);
-    client.logger.error(err.stack);
-    process.exit(1);
+  /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
+
+  // EXTENDING NATIVE TYPES IS BAD PRACTICE. Why? Because if JavaScript adds this
+  // later, this conflicts with native code. Also, if some other lib you use does
+  // this, a conflict also occurs. KNOWING THIS however, the following 2 methods
+  // are, we feel, very useful in code.
+
+  // <String>.toPropercase() returns a proper-cased string such as: 
+  // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
+  Object.defineProperty(String.prototype, 'toProperCase', {
+    value: function() {
+      return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+    }
   });
 
-  process.on('unhandledRejection', err => {
-    client.logger.error(`UNHANDLED REJECTION: ${err.message}`);
-    client.logger.error(err.stack);
+  // <Array>.random() returns a single random element from an array
+  // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
+  Object.defineProperty(Array.prototype, 'random', {
+    value: function() {
+      return this[Math.floor(Math.random() * this.length)];
+    }
+  });
+  
+  
+  Object.defineProperty(Array.prototype, 'shuffle', {
+    value: function() {
+      const arr = this.slice(0);
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
   });
 };

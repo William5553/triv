@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
       client
         .unloadCommand(command)
         .then(() => {
-          client.load(command);
+          client.loadCommand(command);
         })
         .then(() => {
           m.edit(`Successfully reloaded: ${command}`);

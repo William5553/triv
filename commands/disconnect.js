@@ -1,4 +1,5 @@
-const texts = require('../assets/shutdown.json');
+const texts = require('../assets/shutdown.json'),
+  { verify } = require('../util/util');
 
 exports.run = async (client, message) => {
   const games = client.games.size;
@@ -8,7 +9,7 @@ exports.run = async (client, message) => {
     if (games === 1) areIs = 'is';
 			
     await message.reply(`there ${areIs} currently **${currentString}**. Are you sure?`);
-    const verification = await client.verify(message.channel, message.author);
+    const verification = await verify(message.channel, message.author);
     if (verification != true) return message.channel.send('Aborted restart.');
   }
   await message.channel.send(texts.random());

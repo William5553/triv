@@ -1,4 +1,5 @@
 const request = require('node-superfetch'),
+  { formatNumber } = require('../util/Util'),
   { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
@@ -16,13 +17,13 @@ exports.run = async (client, message, args) => {
       .setThumbnail(country === 'all' ? null : data.countryInfo.flag || null)
       .setFooter('Last Updated')
       .setTimestamp(data.updated)
-      .addField('❯ Total Cases', `${client.formatNumber(data.cases)} (${client.formatNumber(data.todayCases)} today)`, true)
-      .addField('❯ Total Deaths', `${client.formatNumber(data.deaths)} (${client.formatNumber(data.todayDeaths)} today)`, true)
+      .addField('❯ Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, true)
+      .addField('❯ Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, true)
       .addField('❯ Total Recoveries',
-        `${client.formatNumber(data.recovered)} (${client.formatNumber(data.todayRecovered)} today)`, true)
-      .addField('❯ Active Cases', client.formatNumber(data.active), true)
-      .addField('❯ Active Critical Cases', client.formatNumber(data.critical), true)
-      .addField('❯ Tests', client.formatNumber(data.tests), true)
+        `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} today)`, true)
+      .addField('❯ Active Cases', formatNumber(data.active), true)
+      .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
+      .addField('❯ Tests', formatNumber(data.tests), true)
     );
   } catch (err) {
     if (err.status === 404) return message.say('Country not found or doesn\'t have any cases.');

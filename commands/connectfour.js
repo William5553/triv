@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js'),
+  { verify } = require('../util/util'),
   blankEmoji = '⚪️',
   playerOneEmoji = '🔴',
   playerTwoEmoji = '🟡',
@@ -14,7 +15,7 @@ exports.run = async (client, message) => {
   client.games.set(message.channel.id, { name: 'connectfour' });
   try {
     await message.channel.send(`${opponent}, do you accept this challenge?`);
-    const verification = await client.verify(message.channel, opponent);
+    const verification = await verify(message.channel, opponent);
     if (verification != true) {
       client.games.delete(message.channel.id);
       return message.channel.send('Looks like they declined...');
