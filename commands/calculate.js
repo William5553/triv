@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     
     collector.on('collect', async reaction => {
       try {
-        await reaction.users.remove(message.author.id);
+        await reaction.users.remove(message.author);
         if (reaction.emoji.name === '➡️') {
           if (currPage < embeds.length - 1) {
             currPage++;
