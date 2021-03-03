@@ -62,7 +62,7 @@ function genEmbeds(message, steps) {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['calc', 'solve'],
+  aliases: ['calc', 'simplify', 'evaluate', 'solve'],
   permLevel: 0
 };
 
