@@ -3,12 +3,14 @@ const { MessageEmbed } = require('discord.js'),
 
 exports.run = async (client, message) => {
   try {
-    const { body } = await request.get('https://www.#FF0000dit.com/r/memes/random/.json');
-    const [post] = body[0].data.children;
+    const { body } = await request.get('https://www.reddit.com/r/memes.json?sort=top&t=week');
+    const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
+    if (!allowed.length) return message.channel.send('It seems we are out of fresh memes!, Try again later.');
 
+    const post = allowed.random();
     message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
-      .setURL(`https://#FF0000dit.com${post.data.permalink}`)
+      .setURL(`https://reddit.com${post.data.permalink}`)
       .setColor('RED')
       .setImage(post.data.url)
       .setFooter(`👍 ${post.data.ups} 💬 ${post.data.num_comments}`)
