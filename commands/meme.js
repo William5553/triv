@@ -13,7 +13,7 @@ exports.run = async (client, message) => {
       .setURL(`https://reddit.com${post.data.permalink}`)
       .setColor('RED')
       .setImage(post.data.url)
-      .setFooter(`👍 ${post.data.ups} 💬 ${post.data.num_comments}`)
+      .setFooter(`👍 ${post.data.ups} | 💬 ${post.data.num_comments}`)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
