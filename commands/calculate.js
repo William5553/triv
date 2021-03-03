@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   try {
     const steps = mathsteps.simplifyExpression(args.join(' '));
     const embeds = await genEmbeds(message, steps);
-    if (embeds.length < 1) return message.channel.send('A solution could not be found');
+    if (!embeds || embeds.length < 1) return message.channel.send('A solution could not be found');
     let currPage = 0;
     
     const emb = await message.channel.send(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
@@ -36,17 +36,23 @@ exports.run = async (client, message, args) => {
       }
     });
   } catch (err) {
-    message.channel.send(err.message ? err.message : err).catch(message.channel.send);
+    return message.channel.send(new MessageEmbed()
+      .setColor('#FF0000')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${message.content}`)
+    );
   }
 };
 
 function genEmbeds(message, steps) {
-  if (steps.length < 1)
-    return message.channel.send('A solution could not be found.');
+  if (steps.length < 1) return;
   const embeds = [];
   for (var step of steps) {
     const embed = new MessageEmbed()
-      .setTitle(`**${step.changeType}**`)
+      .setTitle(`**${step.changeType.replace(/_/gi, ' ')}**`)
       .addField('Before change', step.oldNode.toString(), true)
       .addField('After change', step.newNode.toString(), true)
       .setColor('#FF0000')
