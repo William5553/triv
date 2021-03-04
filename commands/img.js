@@ -3,32 +3,22 @@ const fetch = require('node-superfetch'),
 
 exports.run = async (client, message, args) => {
   try {
-    if (!process.env.rapidapi_key) return message.reply('the bot owner has not set up this command yet');
-    if (args.length < 3 || isNaN(args[0])) return message.channel.send(`${process.env.prefix}${exports.help.usage}`);
-    const safeSearch = !message.channel.nsfw;
-    const query = args.splice(2).join(' ');
+    if (!process.env.imgur_key) return message.reply('the bot owner has not set up this command yet.');
+    if (!args) return message.channel.send(`${process.env.prefix}${exports.help.usage}`);
     const { body } = await fetch
-      .get('https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI')
-      .query({
-        q: query,
-        pageNumber: args[0],
-        pageSize: 50,
-        autoCorrect: false,
-        safeSearch
-      })
-      .set({
-        'x-rapidapi-key': process.env.rapidapi_key,
-        'x-rapidapi-host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
-        useQueryString: true
-      });
-    const img = !isNaN(args[1]) ? body.value[args[1]] : body.value.random();
-    if (!body.value || !img || !img.url || !img.title) return message.reply('no results');
+      .get('https://api.imgur.com/3/gallery/search/top/year')
+      .query({ q: args.join(' ') })
+      .set({ Authorization: `Client-ID ${process.env.imgur_key}` });
+    const images = body.data.filter(image => image.images && !image.images[0].type.includes('video') && (message.channel.nsfw ? true : !image.nsfw));
+    if (!images.length) return message.channel.send('Could not find any results.');
+    const image = images.random();
     message.channel.send(new MessageEmbed()
-      .setTitle(`**${img.title}**`)
-      .setColor('BLURPLE')
-      .setURL(img.webpageUrl)
-      .setImage(img.url)
-      .setFooter(`Showing page ${args[0]} (50 per page), result ${!isNaN(args[1]) ? args[1] : 'random'} of ${body.value.length} for query ${query}`)
+      .setTitle(image.title)
+      .setURL(image.link)
+      .setColor('GREEN')
+      .setImage(image.images[0].link)
+      .setFooter(`👁️ ${image.views} | 👍 ${image.ups} | 👎 ${image.downs}`)
+      .setTimestamp(image.images[0].datetime)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
@@ -46,11 +36,12 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['image'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {
   name: 'img',
-  description: 'Fetches a random image from image results for your search query',
-  usage: 'img [page] [position OR random] [search query]'
+  description: 'Fetches a random image from imgur for your search query',
+  usage: 'img [search query]'
 };
