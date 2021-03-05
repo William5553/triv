@@ -18,7 +18,6 @@ exports.run = async (client, message, args) => {
       .setColor('GREEN')
       .setImage(image.images[0].link)
       .setFooter(`👁️ ${image.views} | 👍 ${image.ups} | 👎 ${image.downs}`)
-      .setTimestamp(image.images[0].datetime)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
