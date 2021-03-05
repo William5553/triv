@@ -2,7 +2,7 @@ const ms = require('ms'),
   db = require('quick.db');
 module.exports = async (client, message) => {
   if (message.author.bot) return;
-  const prefixMention = new RegExp(`/^<@!?${client.user.id}>( |)$/g`);
+  const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(prefixMention))
     return message.reply(`my prefix on this guild is \`${process.env.prefix}\``);
   if (!message.content.startsWith(process.env.prefix)) return;
