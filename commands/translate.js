@@ -1,4 +1,4 @@
-const translate = require('translate-google-api');
+const translate = require('@william5553/translate-google-api');
 const langs = require('../assets/languages.json');
 const { clean } = require('../util/Util');
 

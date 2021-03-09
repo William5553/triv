@@ -1,8 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { caseNumber } = require('../util/caseNumber.js');
-const { parseUser } = require('../util/Util.js');
+const { parseUser, caseNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   let warnings;

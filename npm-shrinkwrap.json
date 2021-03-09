@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "3.12.0",
+  "version": "3.13.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -106,6 +106,14 @@
           "integrity": "sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==",
           "dev": true
         }
+      }
+    },
+    "@william5553/translate-google-api": {
+      "version": "1.0.6",
+      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.6.tgz",
+      "integrity": "sha512-ZORmMrylq3l3oD+iETPGyXCQEJu0VlCl9kWgFnSA/VCwxiLHmj80ctD98gUYIqR3DkozokfG+e3Uzp/Kuo5ysw==",
+      "requires": {
+        "axios": "^0.21.1"
       }
     },
     "abbrev": {
@@ -2137,13 +2145,6 @@
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-1.0.2.tgz",
       "integrity": "sha1-jklHDT9V+J4kchA2imu5+1GqFgE="
-    },
-    "translate-google-api": {
-      "version": "github:William5553/translate-google-api#fec5799d5321052187fbb9464dda3c87016514de",
-      "from": "github:William5553/translate-google-api#patch-1",
-      "requires": {
-        "axios": "^0.21.1"
-      }
     },
     "tunnel-agent": {
       "version": "0.6.0",

@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { caseNumber } = require('../util/caseNumber.js');
-const { parseUser } = require('../util/Util.js');
+const { parseUser, caseNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   if (args.length < 2) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
