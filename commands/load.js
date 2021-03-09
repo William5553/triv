@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
   const command = args[0];
   message.channel.send(`Loading: ${command}`).then(m => {
     client
-      .load(command)
+      .loadCommand(command)
       .then(() => {
         m.edit(`Successfully loaded: ${command}`);
       })

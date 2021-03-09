@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js'),
-  { caseNumber } = require('../util/caseNumber.js'),
-  { parseUser } = require('../util/parseUser.js');
+const { MessageEmbed } = require('discord.js');
+const { caseNumber } = require('../util/caseNumber.js');
+const { parseUser } = require('../util/parseUser.js');
 exports.run = async (client, message, args) => {
   if (args.length < 2) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
   if (!message.member.permissions.has('BAN_MEMBERS'))

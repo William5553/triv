@@ -1,9 +1,9 @@
-const { MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/Util'),
-  blankEmoji = '⚪️',
-  playerOneEmoji = '🔴',
-  playerTwoEmoji = '🟡',
-  nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
+const { MessageEmbed } = require('discord.js');
+const { verify } = require('../util/Util');
+const blankEmoji = '⚪️';
+const playerOneEmoji = '🔴';
+const playerTwoEmoji = '🟡';
+const nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
 
 exports.run = async (client, message) => {
   const opponent = message.mentions.users.first();

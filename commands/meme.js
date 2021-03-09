@@ -5,15 +5,16 @@ exports.run = async (client, message) => {
   try {
     const { body } = await request.get('https://www.reddit.com/r/memes.json?sort=top&t=week');
     const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
-    if (!allowed.length) return message.channel.send('It seems we are out of fresh memes!, Try again later.');
+    if (!allowed.length) return message.channel.send('It seems we are out of fresh memes! Try again later.');
 
     const post = allowed.random();
     message.channel.send(new MessageEmbed()
       .setTitle(post.data.title)
       .setURL(`https://reddit.com${post.data.permalink}`)
       .setColor('RED')
-      .setImage(post.data.url)
+      .setImage(post.data.url || post.data.url_overridden_by_dest)
       .setFooter(`👍 ${post.data.ups} | 💬 ${post.data.num_comments}`)
+      .setTimestamp(post.created_utc)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
@@ -31,7 +32,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {

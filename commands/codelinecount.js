@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js'),
-  { promisify } = require('util'),
-  exec = promisify(require('child_process').execFile),
-  path = require('path');
+const { MessageEmbed } = require('discord.js');
+const { promisify } = require('util');
+const exec = promisify(require('child_process').execFile);
+const path = require('path');
 
 let cache, filename;
 if (process.platform === 'win32')

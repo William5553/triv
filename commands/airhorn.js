@@ -1,7 +1,7 @@
-const path = require('path'),
-  { Message } = require('discord.js'),
-  fs = require('fs'),
-  airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
+const path = require('path');
+const { Message } = require('discord.js');
+const fs = require('fs');
+const airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 
 exports.run = async (client, message) => {
   const queue = client.queue.get(message.guild.id);
