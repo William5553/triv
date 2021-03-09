@@ -1,4 +1,5 @@
-const { canModifyQueue } = require('../util/queue');
+const { canModifyQueue } = require('../util/Util');
+
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply("there ain't a queue").catch(client.logger.error);

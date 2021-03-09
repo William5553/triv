@@ -1,6 +1,7 @@
-const { MessageEmbed } = require('discord.js'),
-  { caseNumber } = require('../util/caseNumber.js'),
-  { parseUser } = require('../util/parseUser.js');
+const { MessageEmbed } = require('discord.js');
+const { caseNumber } = require('../util/caseNumber.js');
+const { parseUser } = require('../util/Util.js');
+
 exports.run = async (client, message, args) => {
   if (args.length < 2) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());

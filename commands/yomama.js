@@ -1,4 +1,5 @@
 const joke = require('../assets/yomama.json');
+
 exports.run = async (client, message) => message.channel.send(joke.random());
 
 exports.conf = {

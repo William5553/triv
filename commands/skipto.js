@@ -1,4 +1,4 @@
-const { canModifyQueue } = require('../util/queue');
+const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message, args) => {
   if (args.length < 1 || isNaN(args[0])) return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);

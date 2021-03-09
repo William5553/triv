@@ -1,5 +1,6 @@
-const words = require('../assets/reaction.json'),
-  { MessageEmbed } = require('discord.js');
+const words = require('../assets/reaction.json');
+const { MessageEmbed } = require('discord.js');
+
 exports.run = async (client, message) => {
   const current = client.games.get(message.channel.id);
   if (current) return message.reply(`Please wait until the current game of \`${current.name}\` is finished.`);

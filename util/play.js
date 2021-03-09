@@ -1,6 +1,6 @@
 const ytdl = require('discord-ytdl-core'),
   { MessageEmbed } = require('discord.js'),
-  { canModifyQueue } = require('./queue');
+  { canModifyQueue } = require('./Util');
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
@@ -121,7 +121,7 @@ module.exports = {
     }
 
     const filter = (reaction, user) => user.id !== client.user.id;
-    var collector = playingMessage.createReactionCollector(filter, {
+    const collector = playingMessage.createReactionCollector(filter, {
       time: song.duration > 0 ? song.duration * 1000 : 600000
     });
 

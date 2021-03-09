@@ -1,7 +1,7 @@
-const request = require('node-superfetch'),
-  { Readable } = require('stream'),
-  { MessageEmbed, Message } = require('discord.js'),
-  voices = require('../assets/vocodes.json');
+const request = require('node-superfetch');
+const { Readable } = require('stream');
+const { MessageEmbed, Message } = require('discord.js');
+const voices = require('../assets/vocodes.json');
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);

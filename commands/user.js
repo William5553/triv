@@ -1,5 +1,5 @@
-const moment = require('moment'),
-  { MessageEmbed } = require('discord.js');
+const moment = require('moment');
+const { MessageEmbed } = require('discord.js');
 const flags = {
   DISCORD_EMPLOYEE: 'Discord Employee',
   PARTNERED_SERVER_OWNER: 'Discord Partner',

@@ -1,6 +1,6 @@
-const translate = require('translate-google-api'),
-  langs = require('../assets/languages.json'),
-  { clean } = require('../util/Util');
+const translate = require('translate-google-api');
+const langs = require('../assets/languages.json');
+const { clean } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   if (args.length < 3)
@@ -31,8 +31,8 @@ function getCode(language) {
   if (langs[language]) {
     return langs[language];
   }
-  var keys = Object.keys(langs).filter(function(item) {
-    var lowerLan = language.toLowerCase();
+  const keys = Object.keys(langs).filter(function(item) {
+    const lowerLan = language.toLowerCase();
     return langs[item] === lowerLan;
   });
   if (keys[0]) {

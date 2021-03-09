@@ -1,5 +1,5 @@
-const texts = require('../assets/shutdown.json'),
-  { verify } = require('../util/Util');
+const texts = require('../assets/shutdown.json');
+const { verify } = require('../util/Util');
 
 exports.run = async (client, message) => {
   const games = client.games.size;

@@ -1,17 +1,16 @@
-const fetch = require('node-superfetch'),
-  { MessageEmbed } = require('discord.js'),
-  EscapeMarkdown = (text) => text.replace(/(\*|~+|`)/g, ''),
-  baseURL = 'https://hastebin.com';
+const fetch = require('node-superfetch');
+const { MessageEmbed } = require('discord.js');
+const EscapeMarkdown = (text) => text.replace(/(\*|~+|`)/g, '');
 
 exports.run = async (client, message, args) => {
   const { body } = await fetch
-    .post(`${baseURL}/documents`)
+    .post('https://hastebin.com/documents')
     .send(EscapeMarkdown(args.join(' ')));
 
   message.channel.send(new MessageEmbed()
     .setTitle('Hastebin')
     .setColor('BLURPLE')
-    .setDescription(`${baseURL}/${body.key}`));
+    .setDescription(`https://hastebin.com/${body.key}`));
 };
 
 exports.conf = {

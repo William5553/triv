@@ -1,5 +1,5 @@
-const request = require('node-superfetch'),
-  { MessageEmbed } = require('discord.js');
+const request = require('node-superfetch');
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   if (!process.env.openweathermap_key) return message.reply('the bot owner has not set up this command yet');

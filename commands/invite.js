@@ -1,13 +1,13 @@
 const { MessageEmbed } = require('discord.js');
+
 exports.run = async (client, message) => {
-  if (client.application.botPublic) {
-    const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
-    message.channel.send(new MessageEmbed()
-      .setColor(0x00ae86)
-      .setAuthor(client.user.username, client.user.avatarURL())
-      .setDescription(`[Invite me](${link})`)
-    );
-  } else return message.reply('the bot is private.');
+  if (!client.application.botPublic) return message.reply('the bot is private.');
+  const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
+  message.channel.send(new MessageEmbed()
+    .setColor(0x00ae86)
+    .setAuthor(client.user.username, client.user.avatarURL())
+    .setDescription(`[Invite me](${link})`)
+  );
 };
 
 exports.conf = {

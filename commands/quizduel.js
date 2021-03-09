@@ -1,6 +1,6 @@
-const request = require('node-superfetch'),
-  { Collection, MessageEmbed } = require('discord.js'),
-  choices = ['A', 'B', 'C', 'D'];
+const request = require('node-superfetch');
+const { Collection, MessageEmbed } = require('discord.js');
+const choices = ['A', 'B', 'C', 'D'];
 
 exports.run = async (client, message, args) => {
   const current = client.games.get(message.channel.id);

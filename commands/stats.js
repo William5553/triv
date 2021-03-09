@@ -1,5 +1,5 @@
-const Discord = require('discord.js'),
-  moment = require('moment');
+const Discord = require('discord.js');
+const moment = require('moment');
 require('moment-duration-format');
 
 exports.run = (client, message) => {

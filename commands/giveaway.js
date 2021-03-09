@@ -1,5 +1,6 @@
-const ms = require('ms'),
-  { MessageEmbed } = require('discord.js');
+const ms = require('ms');
+const { MessageEmbed } = require('discord.js');
+
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.channel.send('Please enter a duration for the giveaway.');
   const time = args[0],

@@ -1,6 +1,7 @@
-const words = require('../assets/reaction.json'),
-  { MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/Util');
+const words = require('../assets/reaction.json');
+const { MessageEmbed } = require('discord.js');
+const { verify } = require('../util/Util');
+
 exports.run = async (client, message) => {
   const opponent = message.mentions.users.first();
   if (opponent.bot) return message.reply('bots may not be fought.');

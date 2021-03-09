@@ -1,10 +1,10 @@
-const { play } = require('../util/play'),
-  { canModifyQueue } = require('../util/queue'),
-  filters = [
-    'bassboost', '8D', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
-    'treble', 'normalizer', 'surround', 'pulsator', 'subboost', 'karaoke', 'flanger', 'gate',
-    'haas', 'mcompand'
-  ];
+const { play } = require('../util/play');
+const { canModifyQueue } = require('../util/Util');
+const filters = [
+  'bassboost', '8D', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
+  'treble', 'normalizer', 'surround', 'pulsator', 'subboost', 'karaoke', 'flanger', 'gate',
+  'haas', 'mcompand'
+];
 
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);

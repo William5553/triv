@@ -1,5 +1,5 @@
 const { play } = require('../util/play'),
-  { canModifyQueue } = require('../util/queue');
+  { canModifyQueue } = require('../util/Util');
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue || !queue.connection) return message.reply('nothing is playing');

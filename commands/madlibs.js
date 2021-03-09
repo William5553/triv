@@ -1,5 +1,5 @@
-const libs = require('../assets/mad-libs.json'),
-  { MessageEmbed } = require('discord.js');
+const libs = require('../assets/mad-libs.json');
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   const current = client.games.get(message.channel.id);

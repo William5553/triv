@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js'),
-  { verify } = require('../util/Util'),
-  Genius = require('genius-lyrics');
+const { MessageEmbed } = require('discord.js');
+const { verify } = require('../util/Util');
+const Genius = require('genius-lyrics');
 
 exports.run = async (client, message, args) => {
   const GClient = new Genius.SongsClient(process.env.genius_api_key || '');

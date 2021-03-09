@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js'),
-  YouTubeAPI = require('simple-youtube-api');
+const { MessageEmbed } = require('discord.js');
+const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');

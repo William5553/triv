@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+
 exports.run = async (client, message, args) => {
   const reason = args.slice(1).join(' '),
     user = args[0],

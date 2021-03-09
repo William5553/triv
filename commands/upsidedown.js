@@ -1,5 +1,5 @@
-const esrever = require('esrever'),
-  replaceD = require('../assets/upsidedown.json');
+const esrever = require('esrever');
+const replaceD = require('../assets/upsidedown.json');
 
 exports.run = (client, message, args) => message.channel.send(esrever.reverse(args.join(' ').replace(/[a-z0-9&_.,!"?']/gi, match => {
   return typeof replaceD[match] != 'undefined' ? replaceD[match] : match;

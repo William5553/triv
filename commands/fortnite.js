@@ -1,5 +1,5 @@
-const request = require('node-superfetch'),
-  { MessageEmbed } = require('discord.js');
+const request = require('node-superfetch');
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   if (!process.env.trn_api_key) return message.reply('the bot owner has not set up this command yet');
@@ -63,7 +63,7 @@ exports.run = async (client, message, args) => {
           .setFooter('Epic Account ID: ' + body.accountId)
           .setThumbnail('https://i.imgur.com/QDzGMB8.png')
           .setURL(`https://fortnitetracker.com/profile/${encodeURIComponent(body.platformName)}/${encodeURIComponent(body.epicUserHandle)}`);
-        for (var stat of body.lifeTimeStats) {
+        for (const stat of body.lifeTimeStats) {
           emb.addField(stat.key, stat.value, true);
         }
         return e.edit({

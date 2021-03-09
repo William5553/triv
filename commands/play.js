@@ -1,6 +1,6 @@
-const { play } = require('../util/play'),
-  ytdl = require('ytdl-core'),
-  YouTubeAPI = require('simple-youtube-api');
+const { play } = require('../util/play');
+const ytdl = require('ytdl-core');
+const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');

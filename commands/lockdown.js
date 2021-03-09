@@ -1,4 +1,5 @@
 const ms = require('ms');
+
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];
   const time = args.join(' '),

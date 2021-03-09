@@ -1,5 +1,5 @@
-const fetch = require('node-superfetch'),
-  { MessageEmbed } = require('discord.js');
+const fetch = require('node-superfetch');
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;

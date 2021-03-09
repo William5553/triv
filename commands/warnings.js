@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js'),
-  fs = require('fs'),
-  path = require('path');
+const { MessageEmbed } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
 exports.run = async (client, message, args) => {
   let warnings;
@@ -62,7 +62,7 @@ function genEmbeds(message, user, warnings) {
   if (warnings[message.guild.id][user.id].warnings.size < 1)
     return message.channel.send(`${user} has 0 warnings`);
   const embeds = [];
-  for (var warning of warnings[message.guild.id][user.id].warnings) {
+  for (const warning of warnings[message.guild.id][user.id].warnings) {
     const mod = message.guild.members.cache.get(warning.modid);
     const embed = new MessageEmbed()
       .setTitle(`${user}'s warnings`)

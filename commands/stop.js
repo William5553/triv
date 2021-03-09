@@ -1,4 +1,4 @@
-const { canModifyQueue } = require('../util/queue');
+const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message) => {
   if (!message.guild.voice.channel) return message.reply("i'm not in a voice channel moron");

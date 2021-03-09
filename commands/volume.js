@@ -1,4 +1,4 @@
-const { canModifyQueue } = require('../util/queue');
+const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
