@@ -3,7 +3,7 @@ const { verify } = require('../util/Util');
 const blankEmoji = '⚪️';
 const playerOneEmoji = '🔴';
 const playerTwoEmoji = '🟡';
-const nums = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣'];
+const nums = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:'];
 
 exports.run = async (client, message) => {
   const opponent = message.mentions.users.first();
