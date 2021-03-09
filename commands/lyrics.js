@@ -3,8 +3,7 @@ const { MessageEmbed } = require('discord.js'),
   Genius = require('genius-lyrics');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.genius_api_key) return message.reply('the bot owner has not set up this command yet');
-  const GClient = new Genius.SongsClient(process.env.genius_api_key);
+  const GClient = new Genius.SongsClient(process.env.genius_api_key || '');
   let query, queue;
   if (message.guild) queue = client.queue.get(message.guild.id);
   if (args && args.length >= 1)
