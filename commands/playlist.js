@@ -84,7 +84,7 @@ exports.run = async (client, message, args) => {
     return {
       title: video.title,
       url: video.url,
-      duration: video.durationSeconds // TODO: fix so it's not -1
+      duration: 1 // TODO: fix so it's not -1
     };
   });
 
@@ -94,7 +94,7 @@ exports.run = async (client, message, args) => {
     .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     }))
-    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url}) (${new Date(song.duration * 1000).toISOString().substr(11, 8)})`))
+    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`))
     .setURL(playlist.url)
     .setColor('#F8AA2A')
     .setTimestamp();
