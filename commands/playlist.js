@@ -4,9 +4,9 @@ const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
-  const { channel } = message.member.voice,
-    youtube = new YouTubeAPI(process.env.google_api_key),
-    serverQueue = client.queue.get(message.guild.id);
+  const { channel } = message.member.voice;
+  const youtube = new YouTubeAPI(process.env.google_api_key);
+  const serverQueue = client.queue.get(message.guild.id);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
   if (!args.length)
@@ -80,13 +80,15 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  const newSongs = videos.map(video => {
-    return {
-      title: video.title,
-      url: video.url,
-      duration: 1 // TODO: fix so it's not -1
-    };
-  });
+      const newSongs = videos
+      .filter((video) => video.title != "Private video" && video.title != "Deleted video")
+      .map((video) => {
+        return {
+          title: video.title,
+          url: video.url,
+          duration: video.durationSeconds // TODO: fix so it's not -1
+        };
+      });
 
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
