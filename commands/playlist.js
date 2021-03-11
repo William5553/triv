@@ -81,8 +81,8 @@ exports.run = async (client, message, args) => {
   }
 
       const newSongs = videos
-      .filter((video) => video.title != "Private video" && video.title != "Deleted video")
-      .map((video) => {
+      .filter(video => video.title != "Private video" && video.title != "Deleted video")
+      .map(video => {
         return {
           title: video.title,
           url: video.url,
