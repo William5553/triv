@@ -14,7 +14,6 @@ exports.run = async (client, message) => {
       .setColor('RED')
       .setImage(post.data.url || post.data.url_overridden_by_dest)
       .setFooter(`👍 ${post.data.ups} | 💬 ${post.data.num_comments}`)
-      .setTimestamp(post.created_utc)
     );
   } catch (err) {
     return message.channel.send(new MessageEmbed()
