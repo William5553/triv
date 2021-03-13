@@ -80,15 +80,15 @@ exports.run = async (client, message, args) => {
     }
   }
 
-      const newSongs = videos
-      .filter(video => video.title != "Private video" && video.title != "Deleted video")
-      .map(video => {
-        return {
-          title: video.title,
-          url: video.url,
-          duration: video.durationSeconds // TODO: fix so it's not -1
-        };
-      });
+  const newSongs = videos
+    .filter(video => video.title != 'Private video' && video.title != 'Deleted video')
+    .map(video => {
+      return {
+        title: video.title,
+        url: video.url,
+        duration: video.durationSeconds // TODO: fix so it's not -1
+      };
+    });
 
   serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
