@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
     warnings[message.guild.id][user.id].warnings = [];
   
   const embeds = await genEmbeds(message, user, warnings);
-  if (embeds.length < 1) return message.channel.send(`${user} has 0 warnings`);
+  if (!embeds || embeds.length < 1) return message.channel.send(`${user} has 0 warnings`);
   let currPage = 0;
   
   const emb = await message.channel.send(`**Current Page - ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
@@ -59,8 +59,7 @@ exports.run = async (client, message, args) => {
 };
 
 function genEmbeds(message, user, warnings) {
-  if (warnings[message.guild.id][user.id].warnings.size < 1)
-    return message.channel.send(`${user} has 0 warnings`);
+  if (warnings[message.guild.id][user.id].warnings.size < 1) return;
   const embeds = [];
   for (const warning of warnings[message.guild.id][user.id].warnings) {
     const mod = message.guild.members.cache.get(warning.modid);
