@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
   if (!member) return message.reply('you must mention someone to ban them.');
   if (member.permissions.has('BAN_MEMBERS'))
-    return message.reply('the person you tried to ban is too op (they also have the ban members permission)');
+    return message.reply('the person you tried to also has the ban members permission, sorry.');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (parseUser(message, member) !== true) return;
   const caseNum = await caseNumber(client, botlog);
