@@ -7,10 +7,10 @@ exports.run = async (client, message, args) => {
     return message.reply("you don't have the permission **BAN MEMBERS**");
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
   if (!member) return message.reply('you must mention someone to ban them.');
+  if (parseUser(message, member) !== true) return;
   if (member.permissions.has('BAN_MEMBERS'))
     return message.reply('the person you tried to also has the ban members permission, sorry.');
   const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  if (parseUser(message, member) !== true) return;
   const caseNum = await caseNumber(client, botlog);
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !botlog)
     message.guild.channels.create('bot-logs', { type: 'text' });
