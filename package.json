@@ -31,7 +31,7 @@
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "esrever": "^0.2.0",
-    "ffmpeg-static": "^4.2.7",
+    "ffmpeg-static": "^4.2.8",
     "fs": "^0.0.2",
     "genius-lyrics": "^4.2.5",
     "mathsteps": "^0.2.0",
