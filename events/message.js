@@ -11,7 +11,7 @@ module.exports = async (client, message) => {
     const a = await message.reply('you are blacklisted');
     return a.delete({ timeout: 1500 });
   }
-  if (client.owneronlymode) return message.reply('The bot is currently in owner only mode.');
+  if (client.owneronlymode && !client.owners.includes(message.author.id)) return message.reply('The bot is currently in owner only mode.');
   const command = message.content.split(' ')[0].slice(process.env.prefix.length).toLowerCase();
   const args = message.content.split(' ').slice(1);
   let cmd;
