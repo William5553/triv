@@ -60,6 +60,10 @@ module.exports = class Util {
       member.send('You are blacklisted').catch(client.logger.error);
       return false;
     }
+    if (client.owneronlymode) {
+      member.send('The bot is currently in owner only mode').catch(client.logger.error);
+      return false;
+    }
     if (memChan === botChan || client.owners.includes(member.user.id))
       return true;
     member.send('You need to join the voice channel first!').catch(client.logger.error);
