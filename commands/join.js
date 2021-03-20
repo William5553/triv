@@ -1,6 +1,6 @@
-exports.run = async (client, message) => {
+exports.run = async (client, message, args) => {
   if (!message.guild.voice || !message.guild.voice.connection) {
-    const vc = message.member.voice.channel;
+    const vc = message.member.voice.channel || (!isNaN(args[0]) ? await message.guild.channels.resolve(args[0]) : null);
 
     if (vc) {
       if (!vc.joinable) return message.channel.send('I cannot join the vc');
@@ -30,5 +30,5 @@ exports.conf = {
 exports.help = {
   name: 'join',
   description: 'Joins the voice channel',
-  usage: 'join'
+  usage: 'join [channel id]'
 };
