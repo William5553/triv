@@ -4,34 +4,35 @@ const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
-  const { channel } = message.member.voice,
-    serverQueue = client.queue.get(message.guild.id),
-    youtube = new YouTubeAPI(process.env.google_api_key);
+  if (!args.length)
+    return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
+  let { channel } = message.member.voice;
+  const serverQueue = client.queue.get(message.guild.id);
+  const youtube = new YouTubeAPI(process.env.google_api_key);
+  // the owner can play a video to any channel if they put the channel id in ampersands
+  let forced = false;
+  if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
+    channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/&/g, ''));
+    forced = true;
+  }
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
-
-  if (!args.length)
-    return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
-
   const permissions = channel.permissionsFor(client.user);
   if (!permissions.has('CONNECT'))
     return message.reply('cannot connect to voice channel, missing the **CONNECT** permission');
   if (!permissions.has('SPEAK'))
     return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
-  const search = args.join(' ');
+  const search = args.join(' ').replace(`&${channel.id}&`, '');
   const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
-  const playlistPattern = /^.*(list=)([^#&?]*).*/gi;
-  const url = args[0];
-  const urlValid = videoPattern.test(args[0]);
 
   // Start the playlist if playlist url was provided
-  if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
+  if (!videoPattern.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
     return client.commands.get('playlist').run(client, message, args);
-  }
 
   const queueConstruct = {
+    forced,
     textChannel: message.channel,
     channel,
     connection: null,
@@ -64,15 +65,16 @@ exports.run = async (client, message, args) => {
 
   let songInfo, song;
 
-  if (urlValid) {
+  // if url was inputted
+  if (videoPattern.test(args[0])) {
     try {
-      songInfo = await ytdl.getInfo(url);
+      songInfo = await ytdl.getInfo(args[0]);
       song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,
         duration: songInfo.videoDetails.lengthSeconds,
         thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-        channel: songInfo.videoDetails.author,
+        channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
         publishDate: songInfo.videoDetails.publishDate
       };
     } catch (error) {
@@ -80,6 +82,7 @@ exports.run = async (client, message, args) => {
       return message.reply(error.message).catch(client.logger.error);
     }
   } else {
+    // if search query was inputted
     try {
       const results = await youtube.searchVideos(search, 1);
       songInfo = await ytdl.getInfo(results[0].url);
@@ -88,7 +91,7 @@ exports.run = async (client, message, args) => {
         url: songInfo.videoDetails.video_url,
         duration: songInfo.videoDetails.lengthSeconds,
         thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-        channel: songInfo.videoDetails.author,
+        channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
         publishDate: songInfo.videoDetails.publishDate
       };
     } catch (error) {

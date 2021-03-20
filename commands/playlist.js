@@ -69,9 +69,7 @@ exports.run = async (client, message, args) => {
     }
   } else {
     try {
-      const results = await youtube.searchPlaylists(search, 1, {
-        part: 'snippet'
-      });
+      const results = await youtube.searchPlaylists(search, 1, { part: 'snippet' });
       playlist = results[0];
       videos = await playlist.getVideos(100, { part: 'snippet' });
     } catch (error) {
@@ -80,13 +78,17 @@ exports.run = async (client, message, args) => {
     }
   }
 
+
   const newSongs = videos
     .filter(video => video.title != 'Private video' && video.title != 'Deleted video')
     .map(video => {
       return {
         title: video.title,
         url: video.url,
-        duration: video.durationSeconds // TODO: fix so it's not -1
+        duration: 0, // TODO: fix so it's not -1
+        thumbnail: video.maxRes,
+        channel: {name: video.channel.raw.snippet.videoOwnerChannelTitle, profile_pic: video.channel.raw.snippet.thumbnails.high.url, url: `https://youtube.com/channel/${video.channel.raw.snippet.videoOwnerChannelId}`}, // profile pic url is not available so using video thumbnail
+        publishDate: '???'
       };
     });
 

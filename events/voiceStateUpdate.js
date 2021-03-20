@@ -1,6 +1,6 @@
 module.exports = async (client, oldState, newState) => {
   const queue = client.queue.get(oldState.guild.id);
-  if (!queue) return;
+  if (!queue || queue.forced) return;
 
   // when bot gets kicked
   if (newState.member.id === client.user.id && !newState.channelID) {

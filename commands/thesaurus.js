@@ -2,42 +2,54 @@ const { MessageEmbed } = require('discord.js');
 const request = require('node-superfetch');
 
 exports.run = async (client, message, args) => {
-  if (args.length < 1) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
-  const { body } = await request
-    .get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${args.join(' ')}`)
-    .query({key: process.env.merriam_webster_thesaurus_key});
+  if (!process.env.merriam_webster_thesaurus_key) return message.reply('the bot owner has not set up this command yet.');
+  try {
+    if (args.length < 1) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
+    const { body } = await request
+      .get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${args.join(' ')}`)
+      .query({key: process.env.merriam_webster_thesaurus_key});
 
-  const embeds = await genEmbeds(body);
-  if (!embeds || embeds.length < 1) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
-  let currPage = 0;
+    const embeds = await genEmbeds(body);
+    if (!embeds || embeds.length < 1) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
+    let currPage = 0;
   
-  const emb = await message.channel.send(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
-  if (embeds.length < 2) return;
-  await emb.react('⬅️');
-  await emb.react('➡️');
+    const emb = await message.channel.send(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+    if (embeds.length < 2) return;
+    await emb.react('⬅️');
+    await emb.react('➡️');
 
-  const filter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && message.author.id === user.id;
-  const collector = emb.createReactionCollector(filter, {});
+    const filter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && message.author.id === user.id;
+    const collector = emb.createReactionCollector(filter, {});
   
-  collector.on('collect', async reaction => {
-    try {
-      if (reaction.emoji.name === '➡️') {
-        if (currPage < embeds.length - 1) {
-          currPage++;
-          emb.edit(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+    collector.on('collect', async reaction => {
+      try {
+        if (reaction.emoji.name === '➡️') {
+          if (currPage < embeds.length - 1) {
+            currPage++;
+            emb.edit(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+          }
+        } else if (reaction.emoji.name === '⬅️') {
+          if (currPage !== 0) {
+            --currPage;
+            emb.edit(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+          }
         }
-      } else if (reaction.emoji.name === '⬅️') {
-        if (currPage !== 0) {
-          --currPage;
-          emb.edit(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
-        }
+        await reaction.users.remove(message.author.id);
+      } catch (e) {
+        client.logger.error(e.stack ? e.stack : e);
+        return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
-      await reaction.users.remove(message.author.id);
-    } catch (e) {
-      client.logger.error(e.stack ? e.stack : e);
-      return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
-    }
-  });
+    });
+  } catch (err) {
+    return message.channel.send(new MessageEmbed()
+      .setColor('#FF0000')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${message.content}`)
+    );
+  }
 };
 
 function genEmbeds(body) {
