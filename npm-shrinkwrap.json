@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "3.14.0",
+  "version": "3.15.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -546,9 +546,9 @@
       "integrity": "sha1-+hN8S9aY7fVc1c0CrFWfkaTEups="
     },
     "discord-ytdl-core": {
-      "version": "5.0.1",
-      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.1.tgz",
-      "integrity": "sha512-rFMTjVbTLegWozQlGoxRIzz2rP4zX6CKKDPycDeAiqjj/3g7V/mc+GIt/flghVnht0q7zlL9NsodSL7dAN53eA==",
+      "version": "5.0.2",
+      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.2.tgz",
+      "integrity": "sha512-tuu+skr0cA89Li7sCH+L1p3TwdfSOunmC9BFzSa0Jj567B1F2leVVbjKQ5ZKpsW1cXKv0fh0PdQA2/Fnu6WcQA==",
       "requires": {
         "prism-media": "^1.2.7"
       }
@@ -1728,9 +1728,9 @@
       "dev": true
     },
     "prism-media": {
-      "version": "1.2.7",
-      "resolved": "https://registry.npmjs.org/prism-media/-/prism-media-1.2.7.tgz",
-      "integrity": "sha512-thS1z3L6BDmf724sqLC73bHGjSYArFTYHa7cqInyS3EdDNTHKgDCXy7l+IhRvlnX7aFNiUb8jJcC+R8ezxwgMA=="
+      "version": "1.2.9",
+      "resolved": "https://registry.npmjs.org/prism-media/-/prism-media-1.2.9.tgz",
+      "integrity": "sha512-UHCYuqHipbTR1ZsXr5eg4JUmHER8Ss4YEb9Azn+9zzJ7/jlTtD1h0lc4g6tNx3eMlB8Mp6bfll0LPMAV4R6r3Q=="
     },
     "process-nextick-args": {
       "version": "2.0.1",

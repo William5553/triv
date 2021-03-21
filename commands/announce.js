@@ -23,6 +23,8 @@ exports.run = (client, message, args) => {
       .setTimestamp()
       .setColor('FF0000')
     );
+  } else {
+    message.channel.send('Successfully announced message to all guilds.');
   }
 }; 
 
