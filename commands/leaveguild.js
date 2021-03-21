@@ -6,12 +6,11 @@ exports.run = async (client, message, args) => {
     if (!/^(?:<@!?)?(\d+)>?$/.test(guildId))
       return message.reply('please provide a valid guild ID.');
     const guild = client.guilds.cache.get(guildId);
-    if (!guild) return this.sendErrorMessage(message, 0, 'Unable to find server, please check the provided ID');
+    if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     await guild.leave();
     message.channel.send(new MessageEmbed()
       .setTitle('Left Guild')
       .setDescription(`I have successfully left **${guild.name}**.`)
-      .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor('FF0000')
     );

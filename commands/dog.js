@@ -3,10 +3,10 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   try {
-    const { body } = await fetch.get('http://shibe.online/api/birds');
+    const { text } = await fetch.get('http://random.dog/woof');
     const embed = new MessageEmbed()
-      .setTitle('🐦 Chirp! 🐦')
-      .setImage(body[0])
+      .setTitle(':dog: Woof! :dog:')
+      .setImage(`http://random.dog/${text}`)
       .setTimestamp()
       .setColor('FF0000');
     message.channel.send(embed);
@@ -21,17 +21,17 @@ exports.run = async (client, message) => {
     );
   }
 };
-
+  
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['chirp'],
+  aliases: ['woof', 'bark'],
   permLevel: 0
 };
-      
+  
 exports.help = {
-  name: 'bird',
-  description: 'Finds a random bird for your viewing pleasure.',
-  usage: 'bird'
+  name: 'dog',
+  description: 'Finds a random dog for your viewing pleasure.',
+  usage: 'dog'
 };
-      
+  

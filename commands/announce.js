@@ -19,7 +19,6 @@ exports.run = (client, message, args) => {
     message.channel.send(new MessageEmbed()
       .setTitle('Announcement Failures')
       .setDescription(guilds.join('\n'))
-      .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor('FF0000')
     );
