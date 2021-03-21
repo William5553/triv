@@ -3,10 +3,10 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   try {
-    const { body } = await fetch.get('http://shibe.online/api/birds');
+    const { body } = await fetch.get('https://randomfox.ca/floof/');
     const embed = new MessageEmbed()
-      .setTitle(':bird: Chirp! :bird:')
-      .setImage(body[0])
+      .setTitle(':fox: What does the fox say? :fox:')
+      .setImage(body.image)
       .setTimestamp()
       .setColor('FF0000');
     message.channel.send(embed);
@@ -21,17 +21,17 @@ exports.run = async (client, message) => {
     );
   }
 };
-
+  
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['chirp'],
+  aliases: [],
   permLevel: 0
 };
-      
+  
 exports.help = {
-  name: 'bird',
-  description: 'Finds a random bird for your viewing pleasure.',
-  usage: 'bird'
+  name: 'fox',
+  description: 'Find a random fox for your viewing pleasure. What does the fox say?',
+  usage: 'fox'
 };
-      
+  
