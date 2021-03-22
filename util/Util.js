@@ -52,19 +52,24 @@ module.exports = class Util {
 
   static canModifyQueue(member) {
     if (!member || !member.voice || !member.guild.voice) return member.client.logger.error('member.voice or member.guild.voice is not present');
-    const client = member.client,
-      memChan = member.voice.channelID,
-      botChan = member.guild.voice.channelID;
+    const client = member.client;
+    const memChan = member.voice.channelID;
+    const botChan = member.guild.voice.channelID;
+    const queue = client.queue.get(member.guild.id);
     
-    if (client.blacklist.user.includes(member.user.id)) {
+    if (queue && queue.forced) {
+      member.send('no.');
+      return false;
+    }
+    if (client.blacklist.user.includes(member.id)) {
       member.send('You are blacklisted').catch(client.logger.error);
       return false;
     }
-    if (client.owneronlymode) {
+    if (client.owneronlymode && !client.owners.includes(member.id)) {
       member.send('The bot is currently in owner only mode').catch(client.logger.error);
       return false;
     }
-    if (memChan === botChan || client.owners.includes(member.user.id))
+    if (memChan === botChan || client.owners.includes(member.id))
       return true;
     member.send('You need to join the voice channel first!').catch(client.logger.error);
     return false;
