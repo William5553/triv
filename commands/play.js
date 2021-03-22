@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   // the owner can play a video to any channel if they put the channel id in ampersands
   let forced = false;
   if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
-    channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/&( |)/g, ''));
+    channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
     forced = true;
   }
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
