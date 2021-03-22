@@ -26,7 +26,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['chirp'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
       
 exports.help = {
