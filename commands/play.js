@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   // the owner can play a video to any channel if they put the channel id in ampersands
   let forced = false;
   if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
-    channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/&/g, ''));
+    channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/&( |)/g, ''));
     forced = true;
   }
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
   if (!permissions.has('SPEAK'))
     return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
-  const search = args.join(' ').replace(`&${channel.id}&`, '');
+  const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
   const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
 
   // Start the playlist if playlist url was provided
@@ -66,9 +66,9 @@ exports.run = async (client, message, args) => {
   let songInfo, song;
 
   // if url was inputted
-  if (videoPattern.test(args[0])) {
+  if (videoPattern.test(search)) {
     try {
-      songInfo = await ytdl.getInfo(args[0]);
+      songInfo = await ytdl.getInfo(search);
       song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,

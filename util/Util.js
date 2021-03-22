@@ -57,7 +57,7 @@ module.exports = class Util {
     const botChan = member.guild.voice.channelID;
     const queue = client.queue.get(member.guild.id);
     
-    if (queue && queue.forced) {
+    if (queue && queue.forced && !client.owners.includes(member.id)) {
       member.send('no.');
       return false;
     }
