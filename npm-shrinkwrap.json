@@ -687,9 +687,9 @@
       }
     },
     "domutils": {
-      "version": "2.4.4",
-      "resolved": "https://registry.npmjs.org/domutils/-/domutils-2.4.4.tgz",
-      "integrity": "sha512-jBC0vOsECI4OMdD0GC9mGn7NXPLb+Qt6KW1YDQzeQYRUFKmNG8lh7mO5HiELfr+lLQE7loDVI4QcAxV80HS+RA==",
+      "version": "2.5.0",
+      "resolved": "https://registry.npmjs.org/domutils/-/domutils-2.5.0.tgz",
+      "integrity": "sha512-Ho16rzNMOFk2fPwChGh3D2D9OEHAfG19HgmRR2l+WLSsIstNsAYBzePH412bL0y5T44ejABIVfTHQ8nqi/tBCg==",
       "requires": {
         "dom-serializer": "^1.0.1",
         "domelementtype": "^2.0.1",
@@ -1197,9 +1197,9 @@
       }
     },
     "genius-lyrics": {
-      "version": "4.2.5",
-      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.5.tgz",
-      "integrity": "sha512-epotejNxppGbM/VAeY7xwTclGwACdW/NkE4cPG/NMakDYpmrvJmtUEypepaa7qscCWzdt3pBdItFR0EmnHFPkg==",
+      "version": "4.2.6",
+      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.6.tgz",
+      "integrity": "sha512-zOZENgJ+tsDxXp3ujnWzIubUbdeZpRXHh6v9HRLZnxDs56v4+bRbxjvz5uuWoHrREmz2FWURJmIcjByz+HyCvQ==",
       "requires": {
         "axios": "^0.21.1",
         "node-html-parser": "^3.0.4"
@@ -1593,9 +1593,9 @@
       "integrity": "sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw=="
     },
     "node-html-parser": {
-      "version": "3.0.4",
-      "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-3.0.4.tgz",
-      "integrity": "sha512-ak6DtofMLXnXHZZ0aAst1gX5+S5mYru9QhVQZoAZ0S8b7HrtaEHVsZoNsMfrN1WeEe4iUUblzhOZy05w8Sz7Tg==",
+      "version": "3.1.1",
+      "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-3.1.1.tgz",
+      "integrity": "sha512-V+9bmEAO3qYk1/C+JtLLR2WBG0BiLpyTtxKqomo1ug/IZqT2eNOef0kTePtWIjvbfUKseExL0K9g9bD5dh+SdA==",
       "requires": {
         "css-select": "^3.1.2",
         "he": "1.2.0"
