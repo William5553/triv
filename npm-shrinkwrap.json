@@ -139,9 +139,9 @@
       "integrity": "sha512-koZJ89uLZufDvToeWO5BrC4CR4OUfHnUz2qoPs/daQH6qq3IN62QFxCTZ+bKaCE0xaoCAJYE4AXre8AbghCrhg=="
     },
     "@william5553/translate-google-api": {
-      "version": "1.0.6",
-      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.6.tgz",
-      "integrity": "sha512-ZORmMrylq3l3oD+iETPGyXCQEJu0VlCl9kWgFnSA/VCwxiLHmj80ctD98gUYIqR3DkozokfG+e3Uzp/Kuo5ysw==",
+      "version": "1.0.7",
+      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.7.tgz",
+      "integrity": "sha512-fYacz8BZyqqI6RXdMztkXKVDRG8XQfrt0tbHv+FWJHnY5YQl6PC11GGrlQ3Ap8KpHzuKlH1k7wMjkNS0PVOgvg==",
       "requires": {
         "axios": "^0.21.1"
       }
