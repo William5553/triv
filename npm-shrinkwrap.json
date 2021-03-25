@@ -1197,9 +1197,9 @@
       }
     },
     "genius-lyrics": {
-      "version": "4.2.6",
-      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.6.tgz",
-      "integrity": "sha512-zOZENgJ+tsDxXp3ujnWzIubUbdeZpRXHh6v9HRLZnxDs56v4+bRbxjvz5uuWoHrREmz2FWURJmIcjByz+HyCvQ==",
+      "version": "4.2.7",
+      "resolved": "https://registry.npmjs.org/genius-lyrics/-/genius-lyrics-4.2.7.tgz",
+      "integrity": "sha512-laoeF2/P+Ed4uewuG6OeqymKTNdfGuymkCohMHIgr3g2DwziW49USXcEGCog1vnEDCpf2LhznNi3WOeLeSmAww==",
       "requires": {
         "axios": "^0.21.1",
         "node-html-parser": "^3.0.4"
@@ -1593,9 +1593,9 @@
       "integrity": "sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw=="
     },
     "node-html-parser": {
-      "version": "3.1.1",
-      "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-3.1.1.tgz",
-      "integrity": "sha512-V+9bmEAO3qYk1/C+JtLLR2WBG0BiLpyTtxKqomo1ug/IZqT2eNOef0kTePtWIjvbfUKseExL0K9g9bD5dh+SdA==",
+      "version": "3.1.2",
+      "resolved": "https://registry.npmjs.org/node-html-parser/-/node-html-parser-3.1.2.tgz",
+      "integrity": "sha512-t1FyoT8/3GTs1kgP70SsXAdQzxA0etXsBc8fPQYRwETucmgkD9f+1A7jVhSngUavEueR3fF8BkfDv3dRGWOOWQ==",
       "requires": {
         "css-select": "^3.1.2",
         "he": "1.2.0"
