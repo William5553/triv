@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "3.15.0",
+  "version": "3.15.1",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -139,9 +139,9 @@
       "integrity": "sha512-koZJ89uLZufDvToeWO5BrC4CR4OUfHnUz2qoPs/daQH6qq3IN62QFxCTZ+bKaCE0xaoCAJYE4AXre8AbghCrhg=="
     },
     "@william5553/translate-google-api": {
-      "version": "1.0.7",
-      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.7.tgz",
-      "integrity": "sha512-fYacz8BZyqqI6RXdMztkXKVDRG8XQfrt0tbHv+FWJHnY5YQl6PC11GGrlQ3Ap8KpHzuKlH1k7wMjkNS0PVOgvg==",
+      "version": "1.0.8",
+      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.8.tgz",
+      "integrity": "sha512-gx2QRqsD92t/eQ5tiBP5pjJ5JWjuiRx0JrC1/WWoYBTOb/GeJ3+UccIoTIGa/m1lbdWnwlzYslAS19HjjI4B3g==",
       "requires": {
         "axios": "^0.21.1"
       }
