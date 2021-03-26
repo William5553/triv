@@ -9,11 +9,13 @@ module.exports = async (client, oldState, newState) => {
   }
   
   // when member joins vc return
-  if ((!oldState.channelID || newState.channelID) && newState.channelID === queue.channel) return;
+  if ((!oldState.channelID || newState.channelID) && newState.channel === queue.channel) return;
   
+  if (oldState.channelID && newState.channelID && newState.channel != queue.channel && newState.member.id === client.user.id) return queue.channel = newState.channel;
+
   // if there are still members in the vc who are not bots return
   if (!(queue.channel.members.filter((member) => !member.user.bot).size === 0)) return;
-  
+
   await queue.textChannel.send(`All members left ${queue.channel}, stopping the music...`);
   queue.channel.leave();
   client.queue.delete(oldState.guild.id);
