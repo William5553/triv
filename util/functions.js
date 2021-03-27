@@ -134,7 +134,6 @@ module.exports = client => {
     }
   });
   
-  
   Object.defineProperty(Array.prototype, 'shuffle', {
     value: function() {
       const arr = this.slice(0);
