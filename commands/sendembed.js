@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
     if (!channel) return message.channel.send('**Invalid channel!**');
 
     const embed = new MessageEmbed();
-    const color = await awaitReply(message, 'You can leave a field to the default by typing `LEAVE DEFAULT`\nWhat colour would you like your embed? *You can do RGB with square brackets, for example, [255, 0, 255] or you can specify a hex code.*');
+    const color = await awaitReply(message, 'You can leave a field to the default by typing `LEAVE DEFAULT`\nWhat colour would you like your embed? *You can specify a hex code.*');
     if (color && color.content != 'LEAVE DEFAULT') embed.setColor(color.content);
     const title = await awaitReply(message, 'What would you like the **title** to be?');
     if (title && title.content != 'LEAVE DEFAULT') embed.setTitle(title.content);
