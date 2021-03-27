@@ -15,8 +15,8 @@ exports.run = async (client, message, args) => {
     try {
       const guild = await client.guilds.fetch(target, false);
       await guild.leave();
-    } catch {
-      await message.channel.send('🔨 Failed to leave guild.');
+    } catch (err) {
+      await message.channel.send(`🔨 Failed to leave guild: ${err.message || err}`);
     }
   }
   if (type === 'user') {

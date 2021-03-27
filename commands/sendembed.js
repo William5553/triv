@@ -30,7 +30,7 @@ exports.run = async (client, message) => {
 
     channel.send(embed);
   } catch (err) {
-    message.channel.send(`There was an error making your embed: ${err.message}`);
+    message.channel.send(`There was an error making your embed: ${err.message || err}`);
   }
 };
   
