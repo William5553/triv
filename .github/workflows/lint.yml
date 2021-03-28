@@ -16,7 +16,7 @@ jobs:
       - name: Install pnpm and install dependencies
         uses: pnpm/action-setup@v1.2.1
         with:
-         version: 5.18.6
+         version: 5.18.9
          run_install: true
 
       - name: Run ESLint

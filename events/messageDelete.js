@@ -8,7 +8,7 @@ module.exports = (client, message) => {
   if (logs) {
     logs.send(new MessageEmbed()
       .setTitle('**Message Deleted**')
-      .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.avatarURL())
+      .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.displayAvatarURL({ dynamic: true }))
       .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
       .setTimestamp()
       .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}${message.attachments.length >= 1 ? `\n${message.attachments.length} attachment${message.attachments.length == 1 ? '' : 's'} in message found, sending` : ''}`)

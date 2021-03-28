@@ -65,7 +65,7 @@ function genEmbeds(message, user, warnings) {
     const mod = message.guild.members.cache.get(warning.modid);
     const embed = new MessageEmbed()
       .setTitle(`${user}'s warnings`)
-      .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL())
+      .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Reason', warning.reason, true)
       .setColor(0x902b93)
       .setTimestamp(warning.timestamp);

@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
   const user = member.user || message.author;
   const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
   const embed = new MessageEmbed()
-    .setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true }))
+    .setThumbnail(user.displayAvatarURL({ dynamic: true }))
     .setAuthor(user.tag)
     .addField('❯ Discord Join Date', moment.utc(user.createdAt).format('MM/DD/YYYY h:mm A'), true)
     .addField('❯ ID', user.id, true)

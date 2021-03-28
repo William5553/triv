@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
   return client.channels.cache.get(process.env.feedback_channel_id).send(new MessageEmbed()
     .setColor(0x00ae86)
     .setTimestamp()
-    .setAuthor(message.author.tag, message.author.avatarURL())
+    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
     .setFooter(`User ID: ${message.author.id}`)
     .setDescription(args.join(' '))
   ).catch(client.logger.error);

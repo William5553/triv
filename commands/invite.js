@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
   const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ae86)
-    .setAuthor(client.user.username, client.user.avatarURL())
+    .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
     .setDescription(`[Invite me](${link})`)
   );
 };
