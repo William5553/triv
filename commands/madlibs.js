@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
     const lib = libs.random();
     const choices = [];
     for (const word of lib.needed) {
-      await message.reply(`Give me a **${word}**.`);
+      await message.reply(`give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`);
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
