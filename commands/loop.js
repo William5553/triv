@@ -17,7 +17,7 @@ exports.conf = {
 
 exports.help = {
   name: 'loop',
-  description: 'Toggles music loop',
+  description: 'Toggles music looping',
   usage: 'loop',
   example: 'loop'
 };
