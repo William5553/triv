@@ -27,7 +27,7 @@ exports.conf = {
   
 exports.help = {
   name: 'fact',
-  description: "Gets a user's ID",
+  description: 'Sends a random fact',
   usage: 'fact',
   example: 'fact'
 };
