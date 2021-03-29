@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
   try {
     const chan = await awaitReply(message, 'Which channel should I send this embed to? *You can specify a channel by saying `#general` or by saying `general` or by specifying the ID.*');
-    const channel = chan.mentions.channels.first() || message.guild.channels.resolve(chan.content) || message.guild.channels.cache.find(c => c.name.toLowerCase() === chan.content.toLowerCase());
+    const channel = chan.mentions.channels.first() || message.guild.channels.cache.find(c => c.name.toLowerCase() === chan.content.toLowerCase() && c.type != 'voice') || message.guild.channels.resolve(chan.content);
 
     if (!channel) return message.channel.send('**Invalid channel!**');
 
