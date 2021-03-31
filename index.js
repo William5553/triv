@@ -17,6 +17,7 @@ client.owners = [];
 
 client.queue = new Collection();
 client.games = new Collection();
+client.snipes = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
 

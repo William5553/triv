@@ -1,6 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = (client, message) => {
   if (!message.guild) return;
+
+  client.snipes.set(message.channel.id, {
+    content: message.content,
+    author: message.author,
+    image: message.attachments.first() ? message.attachments.first().proxyURL : null,
+    date: message.createdAt
+  });
+
   const logs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
   if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs)
     message.guild.channels.create('bot-logs', { type: 'text' });
