@@ -1,9 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
-  user = user.user;
+  const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+  const user = member.user;
   
+  if (!client.infractions.has(message.guild.id) || !client.infractions.has(message.guild.id, user.id)) return message.channel.send(`${user} has 0 infractions`);
+
   const embeds = await genEmbeds(message, user, client.infractions.get(message.guild.id, user.id));
   if (!embeds || embeds.length < 1) return message.channel.send(`${user} has 0 infractions`);
   let currPage = 0;
@@ -49,6 +51,11 @@ function genEmbeds(message, user, infractions) {
       .setColor(0x902b93)
       .setTimestamp(infraction.timestamp);
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
+    if (infraction.additional) {
+      infraction.additional.forEach(info => {
+        embed.addField(info.title, info.body, true);
+      });
+    }
     embeds.push(embed);
   }
   return embeds;
