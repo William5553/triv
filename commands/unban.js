@@ -17,6 +17,9 @@ exports.run = async (client, message, args) => {
   message.guild.members.unban(user, { reason: reason }).catch(message.channel.send);
   message.channel.send(`Unbanned ${banned.user}${banned.reason ? ` who was previously banned for ${banned.reason}` : ''}`);
   
+  client.infractions.ensure(message.guild.id, { [user.id]: [] });
+  client.infractions.push(message.guild.id, {'type': 'Unban', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, user.id);
+
   if (client.settings.get(message.guild.id).logsID) {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
     return botlog.send(new MessageEmbed()

@@ -22,7 +22,7 @@ client.commands = new Collection();
 client.aliases = new Collection();
 client.blacklist = new Enmap({ name: 'blacklist' });
 client.cooldowns = new Enmap({ name: 'cooldowns', fetchAll: false, autoFetch: true });
-client.warnings = new Enmap({ name: 'warnings', fetchAll: false, autoFetch: true });
+client.infractions = new Enmap({ name: 'infractions', fetchAll: false, autoFetch: true });
 client.settings = new Enmap({ name: 'settings', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { prefix: process.env.prefix, muteRoleID: null, logsID: null }});
 
 readdir('./commands/', (err, files) => {

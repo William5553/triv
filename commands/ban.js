@@ -15,6 +15,10 @@ exports.run = async (client, message, args) => {
     await member.user.send(`you've been banned from ${message.channel.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
     message.guild.members.ban(member, { days: 0, reason: reason });
     message.channel.send(`Banned ${member.user}`);
+
+    client.infractions.ensure(message.guild.id, { [member.id]: [] });
+    client.infractions.push(message.guild.id, {'type': 'Ban', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
+
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
       const caseNum = await caseNumber(client, botlog);

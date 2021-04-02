@@ -7,10 +7,13 @@ exports.run = async (client, message, args) => {
     if (!member) return message.reply('tag someone to kick next time before I kick you');
     if (parseUser(message, member) !== true) return;
 
-    const reason = args.splice(1).join(' ');
+    const reason = args.splice(1).join(' ') || 'No reason provided.';
     await member.user.send(`you've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
     member.kick().catch(client.logger.error);
     message.channel.send(`Kicked ${member.user}`);
+
+    client.infractions.ensure(message.guild.id, { [member.id]: [] });
+    client.infractions.push(message.guild.id, {'type': 'Kick', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
 
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);

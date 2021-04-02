@@ -2,7 +2,7 @@ const ms = require('ms');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  // TODO: use the discord-giveaways npm package https://github.com/Androz2091/discord-giveaways
+  // TODO: use the discord-giveaways npm package instead https://github.com/Androz2091/discord-giveaways
   if (!args[0]) return message.channel.send('Please enter a duration for the giveaway.');
   const time = args[0],
     prize = args.slice(1).join(' ');

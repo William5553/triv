@@ -13,8 +13,8 @@ exports.run = async (client, message, args) => {
 
     message.channel.send(`Warned ${member} for **${reason}**`);
 
-    client.warnings.ensure(message.guild.id, { [member.id]: [] });
-    client.warnings.push(message.guild.id, {'timestamp': Date.now(), 'reason': reason, 'modid': message.author.id}, member.id);
+    client.infractions.ensure(message.guild.id, { [member.id]: [] });
+    client.infractions.push(message.guild.id, {'type': 'Warn', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
 
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);

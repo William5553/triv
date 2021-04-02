@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
     if (!client.settings.get(message.guild.id).muteRoleID) 
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
 
-    const reason = args.splice(1).join(' ');
+    const reason = args.splice(1).join(' ') || 'No reason provided.';
 
     message.guild.channels.cache.forEach(chan => {
       chan.updateOverwrite(muteRole, {
@@ -42,6 +42,8 @@ exports.run = async (client, message, args) => {
         .remove(muteRole.id, reason)
         .then(async () => {
           message.channel.send(`Unmuted ${member.user}`);
+          client.infractions.ensure(message.guild.id, { [member.id]: [] });
+          client.infractions.push(message.guild.id, {'type': 'Mute', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
           if (client.settings.get(message.guild.id).logsID) {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
@@ -58,6 +60,8 @@ exports.run = async (client, message, args) => {
         .add(muteRole.id, reason)
         .then(async () => {
           message.channel.send(`Muted ${member.user}`);
+          client.infractions.ensure(message.guild.id, { [member.id]: [] });
+          client.infractions.push(message.guild.id, {'type': 'Unmute', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
           if (client.settings.get(message.guild.id).logsID) {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);

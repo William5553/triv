@@ -1,4 +1,4 @@
-async function embedSan(embed) {
+async function sanitizeEmbed(embed) {
   embed.message ? delete embed.message : null;
   embed.footer ? delete embed.footer.embed : null;
   embed.provider ? delete embed.provider.embed : null;
@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
       .first();
     botlog.messages.fetch(caseLog.id).then(logMsg => {
       const embed = logMsg.embeds[0];
-      embedSan(embed);
+      sanitizeEmbed(embed);
       embed.description = embed.description.replace(
         `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNumber} <reason>.`,
         newReason

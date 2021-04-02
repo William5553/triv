@@ -1,4 +1,4 @@
 module.exports = (client, guild) => {
-  client.warnings.delete(guild.id);
+  client.infractions.delete(guild.id);
   client.settings.delete(guild.id);
 };
