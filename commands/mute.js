@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     if (parseUser(message, member) !== true) return;
   
     let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted') || message.guild.roles.resolve(client.settings.get(message.guild.id).muteRoleID);
-  
+
     if (!message.guild.me.hasPermission('MANAGE_ROLES'))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 
@@ -25,6 +25,9 @@ exports.run = async (client, message, args) => {
         .catch(client.logger.error);
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
     }
+
+    if (!client.settings.get(message.guild.id).muteRoleID) 
+      client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
 
     const reason = args.splice(1).join(' ');
 
