@@ -1,5 +1,5 @@
 module.exports = async (client, guild) => {
-  if (client.blacklist.guild.includes(guild.id) || client.blacklist.user.includes(guild.ownerID)) {
+  if (client.blacklist.get('blacklist', 'guild').includes(guild.id) || client.blacklist.get('blacklist', 'user').includes(guild.ownerID)) {
     try {
       if (guild.systemChannel && guild.systemChannel.permissionsFor(client.user).has('SEND_MESSAGES')) await guild.systemChannel.send('This guild is blacklisted.');
       guild.leave();

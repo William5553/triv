@@ -3,7 +3,7 @@ const yes = ['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas'
 
 module.exports = class Util {
   static async verify(channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) {
-    if (channel.client.blacklist.user.includes(user.id)) {
+    if (channel.client.blacklist.get('blacklist', 'user').includes(user.id)) {
       channel.send(`${user.tag} is currently blacklisted`);
       return false;
     }
@@ -61,7 +61,7 @@ module.exports = class Util {
       member.send('no.');
       return false;
     }
-    if (client.blacklist.user.includes(member.id)) {
+    if (client.blacklist.get('blacklist', 'user').includes(member.id)) {
       member.send('You are blacklisted').catch(client.logger.error);
       return false;
     }

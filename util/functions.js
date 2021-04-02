@@ -63,53 +63,6 @@ module.exports = client => {
       permlvl = 10;
     return permlvl;
   };
-  
-  client.importBlacklist = async () => {
-    let file;
-    try {
-      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), { encoding: 'utf8' }));
-    } catch {
-      fs.writeFile('./data/blacklist.json', '{\n  "guild": [],\n  "user": []\n}', e => {
-        if (e) throw e;
-      });
-      await client.wait(750);
-      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), { encoding: 'utf8' }));
-    }
-    if (typeof file !== 'object' || Array.isArray(file)) return null;
-    if (!file.guild || !file.user) return null;
-    for (const id of file.guild) {
-      if (typeof id !== 'string') continue;
-      if (client.blacklist.guild.includes(id)) continue;
-      client.blacklist.guild.push(id);
-    }
-    for (const id of file.user) {
-      if (typeof id !== 'string') continue;
-      if (client.blacklist.user.includes(id)) continue;
-      client.blacklist.user.push(id);
-    }
-    return file;
-  };
-
-  client.exportBlacklist = () => {
-    let text = '{\n	"guild": [\n		';
-    if (client.blacklist.guild.length) {
-      for (const id of client.blacklist.guild) {
-        text += `"${id}",\n		`;
-      }
-      text = text.slice(0, -4);
-    }
-    text += '\n	],\n	"user": [\n		';
-    if (client.blacklist.user.length) {
-      for (const id of client.blacklist.user) {
-        text += `"${id}",\n		`;
-      }
-      text = text.slice(0, -4);
-    }
-    text += '\n	]\n}\n';
-    const buf = Buffer.from(text);
-    fs.writeFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), buf, { encoding: 'utf8' });
-    return buf;
-  };
 
   // `await client.wait(1000);` to "pause" for 1 second.
   client.wait = require('util').promisify(setTimeout);

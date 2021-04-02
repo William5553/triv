@@ -20,17 +20,9 @@ client.games = new Collection();
 client.snipes = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
-client.blacklist = { guild: [], user: [] };
-client.cooldowns = new Enmap({
-  name: 'cooldowns',
-  fetchAll: false,
-  autoFetch: true
-});
-client.warnings = new Enmap({
-  name: 'warnings',
-  fetchAll: false,
-  autoFetch: true
-});
+client.blacklist = new Enmap({ name: 'blacklist' });
+client.cooldowns = new Enmap({ name: 'cooldowns', fetchAll: false, autoFetch: true });
+client.warnings = new Enmap({ name: 'warnings', fetchAll: false, autoFetch: true });
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
@@ -58,16 +50,9 @@ readdir('./events/', (err, files) => {
 });
 
 (async function() {
-  // Import blacklist
-  try {
-    const results = client.importBlacklist();
-    if (!results) client.logger.error('[BLACKLIST] blacklist.json is not formatted correctly.');
-  } catch (err) {
-    client.logger.error(`[BLACKLIST] Could not parse blacklist.json:\n${err.stack}`);
-  }
-
+  client.blacklist.ensure('blacklist', { guild: [], user: [] });
   // Make sure bot is not in any blacklisted guilds
-  for (const id of client.blacklist.guild) {
+  for (const id of client.blacklist.get('blacklist', 'user')) {
     try {
       const guild = await client.guilds.fetch(id, false);
       await guild.leave();
@@ -81,7 +66,7 @@ readdir('./events/', (err, files) => {
   // Make sure bot is not in any guilds owned by a blacklisted user
   let guildsLeft = 0;
   for (const guild of client.guilds.cache.values()) {
-    if (client.blacklist.user.includes(guild.ownerID)) {
+    if (client.blacklist.get('blacklist', 'user').includes(guild.ownerID)) {
       try {
         await guild.leave();
         guildsLeft++;

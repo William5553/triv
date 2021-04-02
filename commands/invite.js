@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
-  if (!client.application.botPublic) return message.reply('the bot is private.');
+  if (!client.application.botPublic && !client.owners.includes(message.author.id)) return message.reply('the bot is private.');
   const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ae86)
