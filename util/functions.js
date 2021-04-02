@@ -1,6 +1,3 @@
-const fs = require('fs'),
-  path = require('path');
-
 module.exports = client => {
   client.loadCommand = async command => {
     const props = require(`../commands/${command}`);
