@@ -61,7 +61,7 @@ function trimArray(arr, maxLen) {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ['userinfo', 'member', 'memberinfo', 'profile', 'whois', 'who'],
   permLevel: 0
 };
