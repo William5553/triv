@@ -28,7 +28,7 @@
     "chalk": "^4.1.0",
     "cloc": "^2.7.0",
     "discord-ytdl-core": "^5.0.2",
-    "discord.js": "^12.5.2",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "enmap": "^5.8.4",
     "esrever": "^0.2.0",
