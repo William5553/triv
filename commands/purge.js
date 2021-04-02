@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.slice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.slice(1).join(' ').toLowerCase());
   let mgct = Number(args[0]);
-  if (!mgct || isNaN(mgct) || mgct < 1) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
+  if (!mgct || isNaN(mgct) || mgct < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   await message.delete(); // delete the command message, so it doesn't interfere with the messages we are going to delete.
   if (mgct > 100) mgct = 100;
   message.channel.messages

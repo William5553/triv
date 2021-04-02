@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
           .send(
             `Channel locked down for ${ms(ms(time), {
               long: true
-            })}. To lift, run **${process.env.prefix}lockdown ${validUnlocks.random()}**`
+            })}. To lift, run **${client.getPrefix(message)}lockdown ${validUnlocks.random()}**`
           )
           .then(() => {
             client.lockit[message.channel.id] = setTimeout(() => {

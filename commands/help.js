@@ -11,7 +11,7 @@ exports.run = (client, message, args, perms) => {
     })
       .filter(a => a !== null)
       .join('\n');
-    const m =`= Command List =\n\n[Use ${process.env.prefix}help <commandname> for details]\n\n${fonk}`;
+    const m =`= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`;
     for (let i = 0; i * 1980 <= m.length; i++) {
       message.author
         .send(m.substring(i * 1980, i * 1980 + 1980), { code: 'asciidoc' })
@@ -25,7 +25,7 @@ exports.run = (client, message, args, perms) => {
     else if (client.aliases.has(args[0]))
       command = client.commands.get(client.aliases.get(args[0]));
     if (!command) return message.channel.send(`${args[0]} is not a valid command`);
-    message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage    :: ${process.env.prefix}${command.help.usage}\naliases  :: ${command.conf.aliases.join(', ') || 'none'}\nexample  :: ${command.help.example ? `${process.env.prefix}${command.help.example}` : 'no example provided'}\ncooldown :: ${command.conf.cooldown ? ms(command.conf.cooldown) : '0s'}`, { code: 'asciidoc' });
+    message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage    :: ${command.help.usage}\naliases  :: ${command.conf.aliases.join(', ') || 'none'}\nexample  :: ${command.help.example || 'no example provided'}\ncooldown :: ${command.conf.cooldown ? ms(command.conf.cooldown) : '0s'}`, { code: 'asciidoc' });
   }
 };
 

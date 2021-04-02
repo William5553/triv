@@ -2,17 +2,16 @@ const ms = require('ms');
 
 module.exports = async (client, message) => {
   if (message.author.bot) return;
-  const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
-  if (message.content.match(prefixMention))
-    return message.reply(`my prefix on this guild is \`${process.env.prefix}\``);
-  if (!message.content.startsWith(process.env.prefix)) return;
+  if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`)))
+    return message.reply(`my prefix on this guild is \`${client.getPrefix(message)}\``);
+  if (!message.content.startsWith(client.getPrefix(message))) return;
   if (client.blacklist.get('blacklist', 'user').includes(message.author.id)) {
     message.delete({ timeout: 1500 });
     const a = await message.reply('you are blacklisted');
     return a.delete({ timeout: 1500 });
   }
   if (client.owneronlymode && !client.owners.includes(message.author.id)) return message.reply('The bot is currently in owner only mode.');
-  const command = message.content.split(' ')[0].slice(process.env.prefix.length).toLowerCase();
+  const command = message.content.split(' ')[0].slice(client.getPrefix(message).length).toLowerCase();
   const args = message.content.split(' ').slice(1);
   let cmd;
   if (client.commands.has(command))

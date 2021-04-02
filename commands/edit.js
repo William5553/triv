@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  if (args.length < 2) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
+  if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   let m;
   try {
     m = await message.channel.messages.fetch(args[0]);

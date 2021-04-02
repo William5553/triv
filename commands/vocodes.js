@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
   if (!voice || !Object.keys(voices).includes(voice.toLowerCase()))
     return message.channel.send(`Possible voices: ${Object.keys(voices).join(', ')}`);
   if (!text)
-    return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`);
+    return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (text.length > 500)
     return message.reply('keep the message under 500 characters man');
   voice = voices[voice.toLowerCase()];

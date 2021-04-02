@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1) return message.channel.send(`${process.env.prefix}${exports.help.usage}`);
+    if (args.length < 1) return message.channel.send(`${client.getPrefix(message)}${exports.help.usage}`);
     const query = args.join(' ');
     const company = await search(query);
     if (!company) return message.channel.send('Could not find any results.');

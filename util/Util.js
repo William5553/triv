@@ -86,6 +86,8 @@ module.exports = class Util {
       return message.reply('that member is higher or equal to you. L');
     if (member && member.roles && member.roles.highest.position >= message.guild.me.roles.highest.position)
       return message.reply('that member is higher or equal to me, try moving my role higher');
+    if (!member.manageable)
+      return message.reply('I can\'t.');
     return true;
   }
 

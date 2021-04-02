@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
-  const link = await client.generateInvite({ permissions: 2146958591 }).catch(message.channel.send);
+  const link = await client.generateInvite({ permissions: 6442450943 }).catch(message.channel.send);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ff5c)
     .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))

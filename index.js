@@ -4,8 +4,6 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
 require('dotenv').config();
 if (!process.env.token) throw new Error('No token provided');
 
-// TODO: per guild settings https://enmap.evie.dev/complete-examples/per-server-settings
-
 const { Client, Collection } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
 const { readdir } = require('fs');
@@ -25,6 +23,7 @@ client.aliases = new Collection();
 client.blacklist = new Enmap({ name: 'blacklist' });
 client.cooldowns = new Enmap({ name: 'cooldowns', fetchAll: false, autoFetch: true });
 client.warnings = new Enmap({ name: 'warnings', fetchAll: false, autoFetch: true });
+client.settings = new Enmap({ name: 'settings', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { prefix: process.env.prefix, muteRoleID: null, logsID: null }});
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);

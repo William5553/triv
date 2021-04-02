@@ -64,6 +64,11 @@ module.exports = client => {
   // `await client.wait(1000);` to "pause" for 1 second.
   client.wait = require('util').promisify(setTimeout);
 
+  client.getPrefix = message => {
+    return message.guild ? client.settings.get(message.guild.id).prefix : process.env.prefix;
+  };
+
+
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
 
   // EXTENDING NATIVE TYPES IS BAD PRACTICE. Why? Because if JavaScript adds this

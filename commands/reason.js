@@ -13,11 +13,14 @@ async function embedSan(embed) {
   return embed;
 }
 
+// TODO: make bans, mutes, kicks etc part of warnings command and make this also edit those reasons
+
 exports.run = async (client, message, args) => {
-  const botlog = message.guild.channels.cache.find(channel => channel.name === 'bot-logs'),
-    caseNumber = args.shift(),
-    newReason = args.join(' ');
-  if (!botlog) return message.channel.send('there isn\'t even a bot-logs channel');
+  const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
+  const caseNumber = args.shift();
+  const newReason = args.join(' ');
+
+  if (!botlog) return message.channel.send("there isn't even a logs channel configured");
   await botlog.messages.fetch({ limit: 100 }).then(messages => {
     const caseLog = messages
       .filter(
@@ -33,7 +36,7 @@ exports.run = async (client, message, args) => {
       const embed = logMsg.embeds[0];
       embedSan(embed);
       embed.description = embed.description.replace(
-        `Awaiting moderator's input. Use ${process.env.prefix}reason ${caseNumber} <reason>.`,
+        `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNumber} <reason>.`,
         newReason
       );
       logMsg.edit({ embed });

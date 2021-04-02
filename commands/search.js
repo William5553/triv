@@ -4,7 +4,7 @@ const YouTubeAPI = require('simple-youtube-api');
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
   const youtube = new YouTubeAPI(process.env.google_api_key);
-  if (!args.length) return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
+  if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
   if (message.channel.activeCollector) return message.reply('a message collector is already active in this channel.');
   if (!message.member.voice.channel)
     return message.reply('you need to join a voice channel first!').catch(client.logger.error);

@@ -9,11 +9,8 @@ module.exports = (client, message) => {
     date: message.createdAt
   });
 
-  const logs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs');
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs)
-    message.guild.channels.create('bot-logs', { type: 'text' });
-
-  if (logs) {
+  if (client.settings.get(message.guild.id).logsID) {
+    const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
     logs.send(new MessageEmbed()
       .setTitle('**Message Deleted**')
       .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.displayAvatarURL({ dynamic: true }))

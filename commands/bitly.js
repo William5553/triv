@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   if (!process.env.bitly_key) return message.reply('the bot owner has not set up this command yet');
-  if (!args) return message.reply(`usage: ${process.env.prefix}${exports.help.usage}`);
+  if (!args) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   const url = args.join(' ');
   if (encodeURI(url).length > 2083) return message.reply('your URL is too long');
   try {

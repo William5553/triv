@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
           )
           .setColor('#ff3860')
           .setDescription(
-            `This command requires 2 arguments, **platform** and **epic username**. Try this **${process.env.prefix}${exports.help.example}**`
+            `This command requires 2 arguments, **platform** and **epic username**. Try this **${client.getPrefix(message)}${exports.help.example}**`
           )
       });
     }

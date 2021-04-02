@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
     const players = Number(args[0]);
     if (!players || isNaN(players) || players > 100 || players < 1) {
       client.games.delete(message.channel.id);
-      return message.channel.send(`Usage: ${process.env.prefix}${exports.help.usage}`);
+      return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     }
     const awaitedPlayers = await awaitPlayers(message, players);
     let turn = 0;

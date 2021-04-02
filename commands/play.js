@@ -5,7 +5,7 @@ const YouTubeAPI = require('simple-youtube-api');
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
   if (!args.length)
-    return message.reply(`${process.env.prefix}${exports.help.usage}`).catch(client.logger.error);
+    return message.reply(`${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
   let { channel } = message.member.voice;
   const serverQueue = client.queue.get(message.guild.id);
   const youtube = new YouTubeAPI(process.env.google_api_key);
