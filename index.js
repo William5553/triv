@@ -20,13 +20,17 @@ client.games = new Collection();
 client.snipes = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
+client.blacklist = { guild: [], user: [] };
 client.cooldowns = new Enmap({
   name: 'cooldowns',
   fetchAll: false,
   autoFetch: true
 });
-
-client.blacklist = { guild: [], user: [] };
+client.warnings = new Enmap({
+  name: 'warnings',
+  fetchAll: false,
+  autoFetch: true
+});
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);

@@ -1,31 +1,10 @@
 const { MessageEmbed } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
 
 exports.run = async (client, message, args) => {
-  let warnings;
-  
-  try {
-    warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
-  } catch {
-    fs.writeFile('warnings.json', '{}', e => {
-      if (e) throw e;
-    });
-    await client.wait(750);
-    warnings = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'warnings.json'), 'utf-8'));
-  }
-  
   let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
   user = user.user;
   
-  if (!warnings[message.guild.id])
-    warnings[message.guild.id] = {};
-  if (!warnings[message.guild.id][user.id])
-    warnings[message.guild.id][user.id] = {};
-  if (!warnings[message.guild.id][user.id].warnings)
-    warnings[message.guild.id][user.id].warnings = [];
-  
-  const embeds = await genEmbeds(message, user, warnings);
+  const embeds = await genEmbeds(message, user, client.warnings.get(message.guild.id, user.id));
   if (!embeds || embeds.length < 1) return message.channel.send(`${user} has 0 warnings`);
   let currPage = 0;
   
@@ -59,12 +38,12 @@ exports.run = async (client, message, args) => {
 };
 
 function genEmbeds(message, user, warnings) {
-  if (warnings[message.guild.id][user.id].warnings.size < 1) return;
+  if (warnings.length < 1) return;
   const embeds = [];
-  for (const warning of warnings[message.guild.id][user.id].warnings) {
+  for (const warning of warnings) {
     const mod = message.guild.members.cache.get(warning.modid);
     const embed = new MessageEmbed()
-      .setTitle(`${user}'s warnings`)
+      .setTitle(`${user.username}'s warnings`)
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Reason', warning.reason, true)
       .setColor(0x902b93)

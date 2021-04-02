@@ -67,13 +67,13 @@ module.exports = client => {
   client.importBlacklist = async () => {
     let file;
     try {
-      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }));
+      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), { encoding: 'utf8' }));
     } catch {
-      fs.writeFile('blacklist.json', '{\n  "guild": [],\n  "user": []\n}', e => {
+      fs.writeFile('./data/blacklist.json', '{\n  "guild": [],\n  "user": []\n}', e => {
         if (e) throw e;
       });
       await client.wait(750);
-      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'blacklist.json'), { encoding: 'utf8' }));
+      file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), { encoding: 'utf8' }));
     }
     if (typeof file !== 'object' || Array.isArray(file)) return null;
     if (!file.guild || !file.user) return null;
@@ -107,7 +107,7 @@ module.exports = client => {
     }
     text += '\n	]\n}\n';
     const buf = Buffer.from(text);
-    fs.writeFileSync(path.join(process.cwd(), 'blacklist.json'), buf, { encoding: 'utf8' });
+    fs.writeFileSync(path.join(process.cwd(), 'data', 'blacklist.json'), buf, { encoding: 'utf8' });
     return buf;
   };
 

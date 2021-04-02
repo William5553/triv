@@ -8,7 +8,5 @@ data/
 .yarn-integrity
 .env
 .vscode
-warnings.json
-blacklist.json
 pnpm-lock.yaml
 shrinkwrap.yaml
