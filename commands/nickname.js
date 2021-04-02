@@ -3,8 +3,8 @@ const { parseUser } = require('../util/Util');
 
 exports.run = (client, message, args) => {
   try {
-    if (parseUser(message, member) !== true) return;
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
+    if (parseUser(message, member) !== true) return;
     const oldNick = member.displayName;
     const newNick = args.splice(1).join(' ');
     member.setNickname(newNick);
