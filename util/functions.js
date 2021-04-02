@@ -4,17 +4,20 @@ const fs = require('fs'),
 module.exports = client => {
   client.loadCommand = async command => {
     const props = require(`../commands/${command}`);
-    if (!props.conf || !props.help) return client.logger.error(`${command} failed to load as it is missing required command configuration`);
-    if (props.conf.enabled !== true) return client.logger.log(`${props.help.name} is disabled.`);
+    if (!props.conf || !props.help)
+      return `${command} failed to load as it is missing required command configuration`;
+    if (props.conf.enabled !== true)
+      return `${props.help.name} is disabled.`;
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
-    if (props.help.name !== command.split('.')[0]) client.logger.warn(`File name ${command} has a different command name ${props.help.name}`);
+    if (props.help.name !== command.split('.')[0])
+      return `File name ${command} has a different command name ${props.help.name}`;
     if (client.aliases.has(props.help.name))
-      return client.logger.warn(`${props.help.name} tried to load but it's already being used as an alias for ${client.aliases.get(props.help.name)}`);
+      return `${props.help.name} tried to load but it's already being used as an alias for ${client.aliases.get(props.help.name)}`;
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.logger.log(`Loading Alias: ${alias}. 👌`);
       if (client.aliases.has(alias) || client.commands.has(alias))
-        client.logger.warn(`${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.has(alias) ? client.aliases.get(alias) : 'a command'}`);
+        return `${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.has(alias) ? client.aliases.get(alias) : 'a command'}`;
       else
         client.aliases.set(alias, props.help.name);
     });

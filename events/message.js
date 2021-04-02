@@ -24,9 +24,9 @@ module.exports = async (client, message) => {
     client.cooldowns.ensure(message.author.id, {});
     const cooldownDb = client.cooldowns.get(message.author.id, cmd.help.name);
     if (cooldownDb !== null && cmd.conf.cooldown - (Date.now() - cooldownDb) > 0) {
-      const time = ms(cmd.conf.cooldown - (Date.now() - cooldownDb));
-      const m = await message.reply(`you must wait **${time}** before using this command again!`);
-      m.delete({ timeout: cmd.conf.cooldown - (Date.now() - cooldownDb) });
+      const time = cmd.conf.cooldown - (Date.now() - cooldownDb);
+      const m = await message.reply(`you must wait **${ms(time)}** before using this command again!`);
+      m.delete({ timeout: time });
       return;
     }
   }

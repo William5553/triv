@@ -2,6 +2,7 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
   throw new Error('Node 12.0.0 or higher is required. Update Node on your system.');
 
 require('dotenv').config();
+if (!process.env.token) throw new Error('No token provided');
 
 const { Client, Collection } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' });
@@ -9,8 +10,6 @@ const { readdir } = require('fs');
 const Enmap = require('enmap');
 
 client.logger = require('./util/logger');
-
-if (!process.env.token) throw new Error('No token provided');
 
 require('./util/functions')(client);
 
@@ -32,10 +31,11 @@ client.blacklist = { guild: [], user: [] };
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
   client.logger.log(`Loading a total of ${files.length} commands.`);
-  files.forEach(file => {
+  files.forEach(async file => {
     if (!file.endsWith('.js'))
       return client.logger.warn(`File not ending with .js found in commands folder: ${file}`);
-    client.loadCommand(file);
+    const res = await client.loadCommand(file);
+    if (res) client.logger.warn(res);
   });
 });
 
