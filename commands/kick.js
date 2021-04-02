@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!member) return message.reply('tag someone to kick next time before I kick you');
     if (parseUser(message, member) !== true) return;
 
-    const reason = args.splice(1).join(' ') || 'No reason provided.';
+    const reason = args.splice(1).join(' ');
     await member.user.send(`you've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
     member.kick().catch(client.logger.error);
     message.channel.send(`Kicked ${member.user}`);
@@ -44,7 +44,8 @@ exports.conf = {
   enabled: true,
   aliases: [],
   guildOnly: true,
-  permLevel: 2
+  permLevel: 2,
+  cooldown: 1000
 };
 
 exports.help = {

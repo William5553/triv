@@ -46,9 +46,9 @@ function genEmbeds(message, user, infractions) {
       .setTitle(`${user.username}'s infractions`)
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Infraction', infraction.type, true)
-      .addField('Reason', infraction.reason, true)
       .setColor(0x902b93)
       .setTimestamp(infraction.timestamp);
+    if (infraction.reason) embed.addField('Reason', infraction.reason, true);
     embeds.push(embed);
   }
   return embeds;
@@ -58,7 +58,8 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['warnings'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {

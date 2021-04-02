@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
     if (!client.settings.get(message.guild.id).muteRoleID) 
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
 
-    const reason = args.splice(1).join(' ') || 'No reason provided.';
+    const reason = args.splice(1).join(' ');
 
     message.guild.channels.cache.forEach(chan => {
       chan.updateOverwrite(muteRole, {
@@ -90,7 +90,8 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['unmute'],
-  permLevel: 2
+  permLevel: 2,
+  cooldown: 750
 };
 
 exports.help = {
