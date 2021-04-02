@@ -1,5 +1,5 @@
-const ms = require('ms'),
-  db = require('quick.db');
+const ms = require('ms');
+
 module.exports = async (client, message) => {
   if (message.author.bot) return;
   const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
@@ -21,7 +21,8 @@ module.exports = async (client, message) => {
     cmd = client.commands.get(client.aliases.get(command));
   if (!cmd) return;
   if (cmd.conf.cooldown && cmd.conf.cooldown > 0) {
-    const cooldownDb = await db.fetch(`cooldown_${cmd.help.name}_${message.author.id}`);
+    client.cooldowns.ensure(message.author.id, {});
+    const cooldownDb = client.cooldowns.get(message.author.id, cmd.help.name);
     if (cooldownDb !== null && cmd.conf.cooldown - (Date.now() - cooldownDb) > 0) {
       const time = ms(cmd.conf.cooldown - (Date.now() - cooldownDb));
       const m = await message.reply(`you must wait **${time}** before using this command again!`);
@@ -33,7 +34,7 @@ module.exports = async (client, message) => {
     if (!cmd.conf.guildOnly) {
       if (cmd.conf.permLevel >= 10 && !client.owners.includes(message.author.id))
         return message.reply("you don't have the perms for that");
-      db.set(`cooldown_${cmd.help.name}_${message.author.id}`, Date.now());
+      if (cmd.conf.cooldown && cmd.conf.cooldown > 0) client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
       return cmd.run(client, message, args, 9);
     } else if (cmd.conf.guildOnly)
       return message.reply('that command can only be used in a guild, get some friends.');
@@ -41,7 +42,7 @@ module.exports = async (client, message) => {
     const perms = client.elevation(message.member);
     if (perms < cmd.conf.permLevel)
       return message.reply("you don't have the perms for that");
-    db.set(`cooldown_${cmd.help.name}_${message.author.id}`, Date.now());
+    if (cmd.conf.cooldown && cmd.conf.cooldown > 0) client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
     return cmd.run(client, message, args, perms);
   }
 };

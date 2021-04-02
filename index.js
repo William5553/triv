@@ -3,9 +3,10 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
 
 require('dotenv').config();
 
-const { Client, Collection } = require('discord.js'),
-  client = new Client({ disableMentions: 'everyone' }),
-  { readdir } = require('fs');
+const { Client, Collection } = require('discord.js');
+const client = new Client({ disableMentions: 'everyone' });
+const { readdir } = require('fs');
+const Enmap = require('enmap');
 
 client.logger = require('./util/logger');
 
@@ -20,6 +21,11 @@ client.games = new Collection();
 client.snipes = new Collection();
 client.commands = new Collection();
 client.aliases = new Collection();
+client.cooldowns = new Enmap({
+  name: 'cooldowns',
+  fetchAll: false,
+  autoFetch: true
+});
 
 client.blacklist = { guild: [], user: [] };
 
