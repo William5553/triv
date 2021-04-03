@@ -4,7 +4,8 @@ const { caseNumber, parseUser } = require('../util/Util');
 exports.run = async (client, message, args) => { 
   if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (!message.member.permissions.has('BAN_MEMBERS'))
-    return message.reply("you don't have the permission **BAN MEMBERS**"); try {
+    return message.reply("you don't have the permission **BAN MEMBERS**");
+  try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     if (!member) return message.reply('you must mention someone to ban them.');
     if (parseUser(message, member) !== true) return;
