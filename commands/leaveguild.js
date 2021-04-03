@@ -2,18 +2,17 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    const guildId = args[0];
-    if (!/^(?:<@!?)?(\d+)>?$/.test(guildId))
-      return message.reply('please provide a valid guild ID.');
-    const guild = client.guilds.cache.get(guildId);
+    if (isNaN(args[0])) return message.reply('please provide a valid guild ID.');
+    const guild = client.guilds.resolve(args[0]);
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     await guild.leave();
-    message.channel.send(new MessageEmbed()
-      .setTitle('Left Guild')
-      .setDescription(`I have successfully left **${guild.name}**.`)
-      .setTimestamp()
-      .setColor('FF0000')
-    );
+    if (message.guild != guild)
+      message.channel.send(new MessageEmbed()
+        .setTitle('Left Guild')
+        .setDescription(`I have successfully left **${guild.name}**.`)
+        .setTimestamp()
+        .setColor('FF0000')
+      );
   } catch (error) {
     return message.reply(`there was an error leaving the specified guild: ${error.stack || error}`);
   }
