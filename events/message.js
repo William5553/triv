@@ -2,7 +2,7 @@ const ms = require('ms');
 
 module.exports = async (client, message) => {
   if (message.author.bot) return;
-  if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`)))
+  if (message.content.match(new RegExp(`^<@!?${client.user.id}>`, 'i')))
     return message.reply(`my prefix on this guild is \`${client.getPrefix(message)}\``);
   if (!message.content.startsWith(client.getPrefix(message))) return;
   if (client.blacklist.get('blacklist', 'user').includes(message.author.id)) {
