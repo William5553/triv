@@ -4,6 +4,7 @@ exports.run = (client, message, args) => {
   try {
     if (args.length < 1) return message.reply(`usage: ${client.getPrefix()}${exports.help.usage}`);
     const member = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+    if (!member) return message.reply(`usage: ${client.getPrefix()}${exports.help.usage}`);
     message.channel.send(member.user.displayAvatarURL({size: 4096, dynamic: true}));
   } catch (err) {
     return message.channel.send(new MessageEmbed()
