@@ -38,7 +38,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['ud', 'define'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1500
 };
 
 exports.help = {

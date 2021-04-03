@@ -9,7 +9,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['send'],
-  permLevel: 3
+  permLevel: 3,
+  cooldown: 300
 };
 
 exports.help = {

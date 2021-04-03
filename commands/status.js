@@ -61,7 +61,8 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['activity', 'presence'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {
