@@ -5,8 +5,10 @@ exports.run = async (client, message, args) => {
   try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     if (!member) return message.reply('you must mention someone to mute them').catch(client.logger.error);
-    if (parseUser(message, member) !== true) return;
-  
+    if (message.content.split(' ')[0].slice(client.getPrefix(message).length).toLowerCase() !== 'unmute') {
+      if (parseUser(message, member) !== true) return;
+    }
+    
     let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted') || message.guild.roles.resolve(client.settings.get(message.guild.id).muteRoleID);
 
     if (!message.guild.me.hasPermission('MANAGE_ROLES'))

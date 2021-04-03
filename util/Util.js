@@ -82,7 +82,7 @@ module.exports = class Util {
       return message.reply("you can't do that to yourself, why did you try? you are an idiot.");
     if (message.client.owners.includes(member.user.id))
       return message.reply('no!');
-    if (member && member.roles && member.roles.highest.position >= message.member.roles.highest.position)
+    if (member && member.roles && member.roles.highest.position >= message.member.roles.highest.position && !message.client.owners.includes(message.member.id))
       return message.reply('that member is higher or equal to you. L');
     if (member && member.roles && member.roles.highest.position >= message.guild.me.roles.highest.position)
       return message.reply('that member is higher or equal to me, try moving my role higher');
