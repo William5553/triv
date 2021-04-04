@@ -1,5 +1,6 @@
-const yes = ['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'],
-  no = ['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not'];
+const yes = ['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'];
+const no = ['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not'];
+const langs = require('../assets/languages.json');
 
 module.exports = class Util {
   static async verify(channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) {
@@ -106,6 +107,23 @@ module.exports = class Util {
     if (!log) return 1;
     const thisCase = /ID\s(\d+)/.exec(log.embeds[0].footer.text);
     return thisCase ? parseInt(thisCase[1]) + 1 : 1;
+  }
+
+  static getCode(language) {
+    if (!language) {
+      return false;
+    }
+    if (langs[language]) {
+      return langs[language];
+    }
+    const keys = Object.keys(langs).filter(function(item) {
+      const lowerLan = language.toLowerCase();
+      return langs[item] === lowerLan;
+    });
+    if (keys[0]) {
+      return langs[keys[0]];
+    }
+    return false;
   }
 
   /*
