@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "3.21.0",
+  "version": "3.22.0",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -36,6 +36,7 @@
     "fs": "^0.0.2",
     "genius-lyrics": "^4.2.7",
     "mathsteps": "^0.2.0",
+    "md5": "^2.3.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.3",
