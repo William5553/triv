@@ -39,8 +39,9 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
-  permLevel: 0
+  aliases: ['pron'],
+  permLevel: 0,
+  cooldown: 10000
 };
 
 exports.help = {

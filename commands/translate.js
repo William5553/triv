@@ -20,7 +20,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['googletranslate', 'gt', 'tr'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1500
 };
 
 exports.help = {
