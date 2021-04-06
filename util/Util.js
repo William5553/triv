@@ -17,7 +17,7 @@ module.exports = class Util {
       time,
       errors: ['time']
     });
-    if (!verify.size) return 0;
+    if (!verify.size) return false;
     const choice = verify.first().content.toLowerCase();
     if (yes.includes(choice) || extraYes.includes(choice)) return true;
     if (no.includes(choice) || extraNo.includes(choice)) return false;
