@@ -2,8 +2,9 @@ const words = require('../assets/reaction.json');
 const { MessageEmbed } = require('discord.js');
 const { verify } = require('../util/Util');
 
-exports.run = async (client, message) => {
-  const opponent = message.mentions.users.first();
+exports.run = async (client, message, args) => {
+  const member = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+  const opponent = member.user;
   if (opponent.bot) return message.reply('bots may not be fought.');
   if (opponent.id === message.author.id) return message.reply('you may not fight yourself.');
   const current = client.games.get(message.channel.id);

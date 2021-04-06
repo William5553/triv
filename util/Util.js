@@ -14,8 +14,7 @@ module.exports = class Util {
     };
     const verify = await channel.awaitMessages(filter, {
       max: 1,
-      time,
-      errors: ['time']
+      time
     });
     if (!verify.size) return false;
     const choice = verify.first().content.toLowerCase();

@@ -5,8 +5,9 @@ const playerOneEmoji = '🔴';
 const playerTwoEmoji = '🟡';
 const nums = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:'];
 
-exports.run = async (client, message) => {
-  const opponent = message.mentions.users.first();
+exports.run = async (client, message, args) => {
+  const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+  const opponent = member.user;
   if (!opponent) return message.reply('tag someone, moron');
   if (opponent.bot) return message.reply('make some friends, you loser.');
   if (opponent.id === message.author.id) return message.reply('you may not play against yourself.');
@@ -73,7 +74,7 @@ exports.run = async (client, message) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
     );
   }
