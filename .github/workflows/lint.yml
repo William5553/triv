@@ -6,17 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Install Node v14
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: 14.16.0
 
       - name: Install pnpm and install dependencies
-        uses: pnpm/action-setup@v1.2.1
+        uses: pnpm/action-setup@v2.0.0
         with:
-         version: 5.18.9
+         version: 6.0.1
          run_install: true
 
       - name: Run ESLint
