@@ -8,7 +8,8 @@ npm i -g node-gyp@latest
 npm i
 ```
 
-3. Rename the .env.example file to .env and modify the file with the necessary API keys
+3. Rename the .env.example file to .env and modify the file with the necessary API keys (The only required ones are token and prefix)
+
 [Get a discord token here](https://discord.com/developers/applications)
 
 4. Run this command in a command prompt to start the bot
