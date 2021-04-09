@@ -41,4 +41,4 @@ node index.js
 ```
 
 # Inviting your bot
-[https://discordapi.com/permissions.html#8589934591](Go to this link) and enter your application ID from when you got your bot token
+[Go to this link](https://discordapi.com/permissions.html#8589934591) and enter your application ID from earlier
