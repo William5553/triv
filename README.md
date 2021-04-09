@@ -1,10 +1,16 @@
 # Installation instructions for Windows
 1. [Download and install Node.js](https://nodejs.org/en/), version 12.3.0 and up is required.
 
-2. Run these 3 commands in a command prompt ran as administrator (make sure your cmd path is where the bot folder is)
+2. Run these 3 commands in a command prompt ran as administrator (press Windows + X then click PowerShell (Administrator) or Command Prompt (Administrator))
 ```shell
 npm i -g --add-python-to-path --vs2015 --production windows-build-tools
 npm i -g node-gyp@latest
+```
+
+Once that's finished, close the command prompt or powershell, open the bot folder with explorer and click the file path and type in cmd
+
+In the command prompt run
+```shell
 npm i
 ```
 
