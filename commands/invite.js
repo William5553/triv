@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   if (!client.application.botPublic && !client.owners.includes(message.author.id)) return message.reply('the bot is private.');
-  const link = await client.generateInvite({ permissions: 6442450943 }).catch(message.channel.send);
+  const link = await client.generateInvite({ permissions: 8589934591 }).catch(message.channel.send);
   message.channel.send(new MessageEmbed()
     .setColor(0x00ae86)
     .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
