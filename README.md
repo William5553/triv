@@ -18,11 +18,13 @@ Click new application
 
 Name your bot
 
+Save your application ID for later
+
 Click the 3 lines in the top left
 
 Click Bot
 
-Click add bot
+Click Add Bot
 
 Copy the token and put it in your .env file
 
@@ -37,3 +39,6 @@ Run this command in a command prompt to start the bot
 ```shell
 node index.js
 ```
+
+# Inviting your bot
+[https://discordapi.com/permissions.html#8589934591](Go to this link) and enter your application ID from when you got your bot token
