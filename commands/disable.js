@@ -11,8 +11,6 @@ exports.run = async (client, message, args) => {
     
     if (!command) return message.reply(`${args[0]} is not a valid command`);
 
-    client.disabled.ensure(message.guild.id, {});
-
     if (client.disabled.has(message.guild.id, command)) {
       client.disabled.set(message.guild.id, false, command);
       message.channel.send(`Enabled \`${command}\``);
