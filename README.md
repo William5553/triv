@@ -26,8 +26,6 @@ Name your bot
 
 Save your application ID for later
 
-Click the 3 lines in the top left
-
 Click Bot
 
 Click Add Bot
