@@ -41,7 +41,10 @@ module.exports = async (client, message) => {
     const perms = client.elevation(message.member);
     if (perms < cmd.conf.permLevel)
       return message.reply("you don't have the perms for that");
-    if (cmd.conf.cooldown && cmd.conf.cooldown > 0) client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
+    if (client.disabled.get(message.guild.id, cmd.help.name) == true)
+      return message.reply(`\`${cmd.help.name}\` has been disabled by a server admin`);
+    if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
+      client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
     return cmd.run(client, message, args, perms);
   }
 };
