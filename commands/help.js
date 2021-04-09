@@ -4,14 +4,13 @@ const { MessageEmbed } = require('discord.js');
 exports.run = (client, message, args, perms) => {
   try {
     if (!args[0]) {
-      const longest = Array.from(client.commands.keys()).reduce((long, str) => Math.max(long, str.length), 0);
-      const fonk = client.commands.map(c => {
-        return perms < c.conf.permLevel ? null : `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
-      })
-        .filter(a => a !== null)
+      const longest = client.commands.keyArray().reduce((long, str) => Math.max(long, str.length), 0);
+      const fonk = client.commands.filter(command => command.conf.permLevel < perms)
+        .map(c => {
+          return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
+        })
         .join('\n');
-      const m =`= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`;
-      message.author.send(m, { code: 'asciidoc', split: true }).catch(message.channel.send);
+      message.author.send(`= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`, { code: 'asciidoc', split: true });
       if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     } else {
       let command;
