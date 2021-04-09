@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
     lyrics = await search[0].lyrics(false);
     emtitle = search[0].fullTitle;
   } catch (error) {
-    message.channel.send(`No lyrics found for ${songtitle}.`);
+    message.channel.send(`No lyrics found for ${songtitle}: ${error.message || error}`);
     return 'no lyrics found';
   }
 
@@ -46,8 +46,8 @@ exports.run = async (client, message, args) => {
     .setDescription(lyrics)
     .setColor('#F8AA2A');
 
-  for (let i = 0; i * 1750 <= lyrics.length; i++) {
-    lyricsEmbed.description = `${lyrics.substr(i * 1750, i * 1750 + 1750)}`;
+  for (let i = 0; i * 1850 <= lyrics.length; i++) {
+    lyricsEmbed.description = `${lyrics.substr(i * 1850, i * 1850 + 1850)}`;
     message.channel.send(lyricsEmbed).catch(client.logger.error);
   }
 };
