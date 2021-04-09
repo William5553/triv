@@ -10,7 +10,27 @@ npm i
 
 3. Rename the .env.example file to .env and modify the file with the necessary API keys (The only required ones are token and prefix)
 
-[Get a discord token here](https://discord.com/developers/applications)
+# Getting a token
+
+[Go to this link](https://discord.com/developers/applications)
+
+Click new application
+
+Name your bot
+
+Click the 3 lines in the top left
+
+Click Bot
+
+Click add bot
+
+Copy the token and put it in your .env file
+
+Scroll down to priviliged intents
+
+Turn on presence intent and server members intent
+
+Save your changes
 
 4. Run this command in a command prompt to start the bot
 ```shell
