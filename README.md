@@ -32,7 +32,8 @@ Turn on presence intent and server members intent
 
 Save your changes
 
-4. Run this command in a command prompt to start the bot
+# Starting the bot
+Run this command in a command prompt to start the bot
 ```shell
 node index.js
 ```
