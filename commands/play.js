@@ -6,8 +6,8 @@ exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
   if (!args.length)
     return message.reply(`${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
-  let { channel } = message.member.voice;
   const youtube = new YouTubeAPI(process.env.google_api_key);
+  let { channel } = message.member.voice;
   // the owner can play a video to any channel if they put the channel id in ampersands
   let forced = false;
   if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
