@@ -16,22 +16,16 @@ module.exports = (client, message) => {
 
   if (client.settings.get(message.guild.id).logsID) {
     const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
-    logs.send(new MessageEmbed()
+    logs.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false });
+    const embed = new MessageEmbed()
       .setTitle('**Message Deleted**')
       .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.displayAvatarURL({ dynamic: true }))
       .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
       .setTimestamp()
-      .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}${message.attachments.length >= 1 ? `\n${message.attachments.length} attachment${message.attachments.length == 1 ? '' : 's'} in message found, sending` : ''}`)
-      .setColor(0xEB5234)
-    );
-    message.embeds.forEach(embed => {
-      logs.send(embed);
-    });
-    message.attachments.forEach(embed => {
-      logs.send(embed);
-    });
-    logs.updateOverwrite(message.channel.guild.roles.everyone, {
-      SEND_MESSAGES: false
-    });
+      .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
+      .setColor(0xEB5234);
+    message.attachments.forEach(attachment => embed.addField('**Attachments**', `[Attachment](${attachment.url})`, true));
+    logs.send(embed);
+    message.embeds.forEach(embedd => logs.send(embedd));
   }
 };
