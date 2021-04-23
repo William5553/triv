@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
     "@william5553/translate-google-api": "^1.0.8",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "cloc": "^2.7.0",
     "discord-ytdl-core": "^5.0.2",
     "discord.js": "12.5.3",
