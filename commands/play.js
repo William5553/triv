@@ -6,9 +6,8 @@ exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
   if (!args.length)
     return message.reply(`${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
-  let { channel } = message.member.voice;
-  const serverQueue = client.queue.get(message.guild.id);
   const youtube = new YouTubeAPI(process.env.google_api_key);
+  let { channel } = message.member.voice;
   // the owner can play a video to any channel if they put the channel id in ampersands
   let forced = false;
   if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
@@ -16,6 +15,7 @@ exports.run = async (client, message, args) => {
     forced = true;
   }
   if (!channel) return message.reply('you need to join a voice channel first!').catch(client.logger.error);
+  const serverQueue = client.queue.get(channel.guild.id);
   if (serverQueue && channel !== message.guild.me.voice.channel)
     return message.reply(`you must be in the same channel as ${client.user}`).catch(client.logger.error);
   const permissions = channel.permissionsFor(client.user);
