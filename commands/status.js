@@ -23,14 +23,29 @@ exports.run = (client, message, args) => {
           .setTimestamp()
         );
       } else if (activity.type === 'PLAYING') {
-        message.channel.send(new MessageEmbed()
+        const embed = new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
           .addField('**Type**', 'Playing')
-          .addField('**App**', `${activity.name}`)
-          .addField('**Details**', `${activity.details || 'No Details'}`)
-          .addField('**Working on**', `${activity.state || 'No Details'}`)
-        );
+          .addField('**App**', activity.name);
+        if (activity.details)
+          embed.addField('**Details**', activity.details);
+        if (activity.state)
+          embed.addField('**State**', activity.state);
+        if (activity.assets && activity.assets.largeText)
+          embed.addField('**Large Text**', activity.assets.largeText);
+        if (activity.assets && activity.assets.smallText)
+          embed.addField('**Small Text**', activity.assets.smallText);
+        if (activity.url)
+          embed.setURL(activity.url);
+        if (activity.timestamps && activity.timestamps.start) {
+          embed.setFooter('Started at');
+          embed.setTimestamp(new Date(activity.timestamps.start));
+        } else if (activity.createdTimestamp) {
+          embed.setFooter('Started at');
+          embed.setTimestamp(activity.createdTimestamp);
+        }
+        message.channel.send(embed);
       } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
         message.channel.send(new MessageEmbed()
           .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
