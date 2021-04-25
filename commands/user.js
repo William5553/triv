@@ -18,8 +18,8 @@ const flags = {
 const deprecated = ['DISCORD_PARTNER', 'VERIFIED_DEVELOPER'];
 
 exports.run = async (client, message, args) => {
-  const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
-  const user = member.user || message.author;
+  const member = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+  const user = member.user;
   const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
