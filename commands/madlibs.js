@@ -8,8 +8,9 @@ exports.run = async (client, message) => {
   try {
     const lib = libs.random();
     const choices = [];
+    const m = await message.channel.send('Please wait..');
     for (const word of lib.needed) {
-      await message.reply(`give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`);
+      await m.edit(`give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`);
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
@@ -24,7 +25,9 @@ exports.run = async (client, message) => {
       });
       if (!choice.size) break;
       choices.push(choice.first().content);
+      choice.first().delete();
     }
+    await m.delete();
     client.games.delete(message.channel.id);
     let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {

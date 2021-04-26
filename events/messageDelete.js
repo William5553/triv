@@ -24,15 +24,9 @@ module.exports = (client, message) => {
       .setTimestamp()
       .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
       .setColor(0xEB5234);
-const attachments = [];
-if (message.attachments[0]) {
-message.attachments.forEach((attachment, i) => {
-attachments.push(`[Attachment ${i+1}](attachment.url)`);
-})
-
-    embed.addField('**Attachments**', attachments.join('\n'), true);
-    }
-logs.send(embed);
+    if (message.attachments.size > 0)
+      embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
+    logs.send(embed);
     message.embeds.forEach(embedd => logs.send(embedd));
   }
 };
