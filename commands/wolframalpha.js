@@ -4,6 +4,7 @@ const Wolfram = require('@william5553/wolframalpha');
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.wolfram_api_key) return message.reply('the bot owner has not set up this command yet');
+    if (args.length < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const wolfram = new Wolfram(process.env.wolfram_api_key);
     const m = await message.channel.send('*Querying Wolfram Alpha...*');
     wolfram.query(args.join(' '), async (error, result) => {
