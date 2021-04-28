@@ -14,18 +14,20 @@ module.exports = (client, message) => {
     client.settings.set(message.guild.id, findLogs.id, 'logsID');
 
   if (client.settings.get(message.guild.id).logsID) {
-    const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
-    logs.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false });
-    const embed = new MessageEmbed()
-      .setTitle('**Message Deleted**')
-      .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.displayAvatarURL({ dynamic: true }))
-      .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
-      .setTimestamp()
-      .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
-      .setColor(0xEB5234);
-    if (message.attachments.size > 0)
-      embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-    logs.send(embed);
-    message.embeds.forEach(embedd => logs.send(embedd));
+    if (message.guild.channels.cache.some(channel => channel.id == client.settings.get(message.guild.id).logsID)) {
+      const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
+      logs.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false });
+      const embed = new MessageEmbed()
+        .setTitle('**Message Deleted**')
+        .setAuthor(`@${message.author.tag} - #${message.channel.name}`, message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
+        .setTimestamp()
+        .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
+        .setColor(0xEB5234);
+      if (message.attachments.size > 0)
+        embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
+      logs.send(embed);
+      message.embeds.forEach(embedd => logs.send(embedd));
+    } else client.settings.set(message.guild.id, '', 'logsID');
   }
 };
