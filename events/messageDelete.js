@@ -10,9 +10,8 @@ module.exports = (client, message) => {
   });
 
   const findLogs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs') || message.guild.channels.cache.find(channel => channel.name === 'logs');
-  if (findLogs) {
+  if (findLogs)
     client.settings.set(message.guild.id, findLogs.id, 'logsID');
-  }
 
   if (client.settings.get(message.guild.id).logsID) {
     const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);

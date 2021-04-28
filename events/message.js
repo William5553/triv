@@ -33,7 +33,8 @@ module.exports = async (client, message) => {
     if (!cmd.conf.guildOnly) {
       if (cmd.conf.permLevel >= 10 && !client.owners.includes(message.author.id))
         return message.reply("you don't have the perms for that");
-      if (cmd.conf.cooldown && cmd.conf.cooldown > 0) client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
+      if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
+        client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
       return cmd.run(client, message, args, 9);
     } else if (cmd.conf.guildOnly)
       return message.reply('that command can only be used in a guild, get some friends.');

@@ -3,9 +3,8 @@ module.exports = (client, oldMessage, newMessage) => {
   if (!newMessage.content || !oldMessage.content || !newMessage.guild) return;
   
   const findLogs = newMessage.guild.channels.cache.find(channel => channel.name === 'bot-logs') || newMessage.guild.channels.cache.find(channel => channel.name === 'logs');
-  if (findLogs) {
+  if (findLogs)
     client.settings.set(newMessage.guild.id, findLogs.id, 'logsID');
-  }
   
   if (client.settings.get(newMessage.guild.id).logsID) {
     const logs = newMessage.guild.channels.resolve(client.settings.get(newMessage.guild.id).logsID);
