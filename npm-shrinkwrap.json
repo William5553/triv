@@ -139,17 +139,17 @@
       "integrity": "sha512-LuAa6t1t0Bfw4CuSR0UITsm1hP17YL+u82kfHGrHUWdhlBtH7sa7jGY5z7glGaIj/WDYDkRtgGd+KCjCzxBW1w=="
     },
     "@william5553/translate-google-api": {
-      "version": "1.0.8",
-      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.0.8.tgz",
-      "integrity": "sha512-gx2QRqsD92t/eQ5tiBP5pjJ5JWjuiRx0JrC1/WWoYBTOb/GeJ3+UccIoTIGa/m1lbdWnwlzYslAS19HjjI4B3g==",
+      "version": "1.1.2",
+      "resolved": "https://registry.npmjs.org/@william5553/translate-google-api/-/translate-google-api-1.1.2.tgz",
+      "integrity": "sha512-aDf9SmCiZyyJ80GR/zqmdTtrH0+IJrikrWhzOE48yicE/XXl20wkdLXH4KjgxZ6rdNkcLGgQ8/e4JcqRg8ECwg==",
       "requires": {
         "axios": "^0.21.1"
       }
     },
     "@william5553/wolframalpha": {
-      "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/@william5553/wolframalpha/-/wolframalpha-1.0.3.tgz",
-      "integrity": "sha512-OngpOtr+2SNLiUFV1HfJnDqefLuHwHnqc5QCAgjzbtEI5BDkKDGsozfRID7kRlfjohZhmawRCPWQ0CAg7C5XhQ==",
+      "version": "1.0.4",
+      "resolved": "https://registry.npmjs.org/@william5553/wolframalpha/-/wolframalpha-1.0.4.tgz",
+      "integrity": "sha512-59urCmOQCSoobK5kLrM/73k9FpWpPz1Ooub8BkR4IKQrTCI8m8iRko8wnvZ0vfC0sCf7GpoC5+boUYLqxEeZ3w==",
       "requires": {
         "node-superfetch": "^0.2.2",
         "xml2js": "^0.4.23"
