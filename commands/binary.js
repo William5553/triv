@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-  if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (args[0] === 'decode') {
     if (args[1] === 'decimal') {
       const final = [];
@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
         .join('')
       );
     } else
-      return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+      return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   } else if (args[0] === 'encode') {
     if (args[1] === 'decimal') {
       const final = [];
@@ -26,9 +26,9 @@ exports.run = (client, message, args) => {
       }).join(' ')
       );
     } else
-      return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+      return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   } else
-    return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
 };
 
 exports.conf = {
