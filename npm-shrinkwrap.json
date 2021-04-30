@@ -146,15 +146,6 @@
         "axios": "^0.21.1"
       }
     },
-    "@william5553/wolframalpha": {
-      "version": "1.0.4",
-      "resolved": "https://registry.npmjs.org/@william5553/wolframalpha/-/wolframalpha-1.0.4.tgz",
-      "integrity": "sha512-59urCmOQCSoobK5kLrM/73k9FpWpPz1Ooub8BkR4IKQrTCI8m8iRko8wnvZ0vfC0sCf7GpoC5+boUYLqxEeZ3w==",
-      "requires": {
-        "node-superfetch": "^0.2.2",
-        "xml2js": "^0.4.23"
-      }
-    },
     "abbrev": {
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",
@@ -2196,20 +2187,6 @@
       "version": "7.4.4",
       "resolved": "https://registry.npmjs.org/ws/-/ws-7.4.4.tgz",
       "integrity": "sha512-Qm8k8ojNQIMx7S+Zp8u/uHOx7Qazv3Yv4q68MiWWWOJhiwG5W3x7iqmRtJo8xxrciZUY4vRxUTJCKuRnF28ZZw=="
-    },
-    "xml2js": {
-      "version": "0.4.23",
-      "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz",
-      "integrity": "sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==",
-      "requires": {
-        "sax": ">=0.6.0",
-        "xmlbuilder": "~11.0.0"
-      }
-    },
-    "xmlbuilder": {
-      "version": "11.0.1",
-      "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz",
-      "integrity": "sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA=="
     },
     "yallist": {
       "version": "4.0.0",
