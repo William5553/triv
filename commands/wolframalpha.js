@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     body = JSON.parse(body);
     if (body.queryresult.success == true) {
       m.delete();
-      if (Object.prototype.hasOwnProperty.call(body.queryresult, 'warnings')) {
+      if (body.queryresult.warnings) {
         for (const i in body.queryresult.warnings) {
           for (const j in body.queryresult.warnings[i]) {
             if (j != '$') {
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
           }
         }
       }
-      if (Object.prototype.hasOwnProperty.call(body.queryresult, 'assumptions')) {
+      if (body.queryresult.assumptions) {
         for (const i in body.queryresult.assumptions) {
           for (const j in body.queryresult.assumptions[i]) {
             if (j == 'assumption') {
@@ -57,25 +57,38 @@ exports.run = async (client, message, args) => {
             embed.description = subpod.title;
           embeds.push(embed);
         }
-        if (Object.prototype.hasOwnProperty.call(pod, 'infos')) {
+        if (pod.infos) {
           messagee = `${title}\nAdditional Info:`;
-          for (const infos of pod.infos) {	
-            for (const info of infos.info) {
-              if (Object.prototype.hasOwnProperty.call(info, '$') && Object.prototype.hasOwnProperty.call(info, 'text')) 
-                message += '\n' + info.text;
-              if (Object.prototype.hasOwnProperty.call(info, 'link')) {
+          if (Array.isArray(pod.infos)) {
+            for (const info of pod.infos) {
+              if (info.text) 
+                messagee += '\n' + info.text;
+              if (info.link) {
                 for (const link of info.link) 
-                  messagee += '\n' + `${link.title} ${link.text}: ${link.url}`;
+                  messagee += `\n${link.title} ${link.text}: ${link.url}`;
               }
-              if (Object.prototype.hasOwnProperty.call(info, 'img')) {
-                for (const img of info.img) 
-                  embedz.push(new MessageEmbed()
-                    .setDescription(img.title)
-                    .setImage(img.src.url)
-                    .setColor(0xffc230)
-                  );
+              if (info.img) {
+                embedz.push(new MessageEmbed()
+                  .setDescription(info.img.title)
+                  .setImage(info.img.src.url)
+                  .setColor(0xffc230)
+                );
               }	
             }
+          } else if (typeof pod.infos == 'object') {
+            if (pod.infos.text) 
+              messagee += '\n' + pod.infos.text;
+            if (pod.infos.link) {
+              for (const link of pod.infos.link) 
+                messagee += `\n${link.title} ${link.text}: ${link.url}`;
+            }
+            if (pod.infos.img) {
+              embedz.push(new MessageEmbed()
+                .setDescription(pod.infos.img.title)
+                .setImage(pod.infos.img.src.url)
+                .setColor(0xffc230)
+              );
+            }	
           }
           message.channel.send(messagee, embedz);
         }
@@ -111,7 +124,7 @@ exports.run = async (client, message, args) => {
           }
         });
       }
-    } else if (Object.prototype.hasOwnProperty.call(body.queryresult, 'didyoumeans')) {
+    } else if (body.queryresult.didyoumeans) {
       const msg = [];
       for (const i in body.queryresult.didyoumeans) {
         for (const j in body.queryresult.didyoumeans[i].didyoumean)
@@ -121,13 +134,14 @@ exports.run = async (client, message, args) => {
     } else
       m.edit('No results from Wolfram Alpha');
   } catch (err) {
+    client.logger.error(err.stack);
     return message.channel.send(new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+      .addField('**Command:**', message.content)
     );
   }
 };
