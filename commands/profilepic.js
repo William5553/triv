@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
   try {
     if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage} (formats: ${possibleFormats.join(', ')})`);
     if (!possibleFormats.includes(args[0])) return message.reply(`Invalid format, valid formats: ${possibleFormats.join(', ')}`);
-    const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.splice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.splice(1).join(' ').toLowerCase());
+    const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.splice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.splice(1).join(' ').toLowerCase()) || message.member;
     if (!member) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
     message.channel.send(member.user.displayAvatarURL({ size: 4096, dynamic: true, format: args[0] }));
   } catch (err) {
@@ -25,7 +25,7 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 0,
-  cooldown: 1000
+  cooldown: 1250
 };
 
 exports.help = {
