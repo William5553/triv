@@ -41,6 +41,7 @@ exports.run = async (client, message, args) => {
         }
         const embeds = [];
         const embedz = [];
+        let messagee;
         for (let a = 0; a < result.queryresult.pod.length; a++) {
           const pod = result.queryresult.pod[a];
           const title = `**${pod.$.title}**`;
@@ -61,8 +62,7 @@ exports.run = async (client, message, args) => {
             }
           }
           if (Object.prototype.hasOwnProperty.call(pod, 'infos')) {
-            let messagee = title;
-            messagee += '\nAdditional Info:';
+            messagee = `${title}\nAdditional Info:`;
             for (const infos of pod.infos) {	
               for (const info of infos.info) {
                 if (Object.prototype.hasOwnProperty.call(info, '$') && Object.prototype.hasOwnProperty.call(info.$, 'text')) 
@@ -81,7 +81,6 @@ exports.run = async (client, message, args) => {
                 }	
               }
             }
-            message.channel.send(messagee, embedz);
           }
         }
         if (!embeds || embeds.length < 1) return message.channel.send('No results from Wolfram Alpha.');
@@ -114,6 +113,7 @@ exports.run = async (client, message, args) => {
               return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
             }
           });
+          message.channel.send(messagee, embedz);
         }
       } else if (Object.prototype.hasOwnProperty.call(result.queryresult, 'didyoumeans')) {
         const msg = [];
