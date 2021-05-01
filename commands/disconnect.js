@@ -13,7 +13,7 @@ exports.run = async (client, message) => {
     if (verification != true) return message.channel.send('Aborted restart.');
   }
   await message.channel.send(texts.random());
-  await client.logger.log(`${message.author.tag} is restarting the bot`);
+  await client.logger.warn(`${message.author.tag} is restarting the bot`);
   client.destroy();
   process.exit(0);
 };
