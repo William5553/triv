@@ -1,11 +1,11 @@
 const ms = require('ms');
 const { MessageEmbed } = require('discord.js');
 const perm = {
-  0: 'member',
-  2: 'moderator',
-  3: 'administrator',
-  4: 'guild owner',
-  10: 'bot owner'
+  0: 'Member',
+  2: 'Moderator',
+  3: 'Administrator',
+  4: 'Guild Owner',
+  10: 'Bot Owner'
 };
 
 exports.run = (client, message, args, perms) => {
@@ -26,7 +26,15 @@ exports.run = (client, message, args, perms) => {
       else if (client.aliases.has(args[0]))
         command = client.commands.get(client.aliases.get(args[0]));
       if (!command) return message.channel.send(`${args[0]} is not a valid command`);
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage       :: ${command.help.usage}\naliases     :: ${command.conf.aliases.join(', ') || 'none'}\nexample     :: ${command.help.example || 'no example provided'}\ncooldown    :: ${command.conf.cooldown ? ms(command.conf.cooldown) : '0s'}\npermissions :: ${perm[command.conf.permLevel]}`, { code: 'asciidoc' });
+      message.channel.send(new MessageEmbed()
+        .setTitle(`= **${command.help.name}** =`)
+        .addField('**Description**', command.help.description)
+        .addField('**Usage**', command.help.usage)
+        .addField('**Aliases**', command.conf.aliases.join(', ') || 'No aliases')
+        .addField('**Example**', command.help.example || 'No examples')
+        .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
+        .addField('**Permissions**', perm[command.conf.permLevel])
+      );
     }
   } catch (err) {
     return message.channel.send(new MessageEmbed()
