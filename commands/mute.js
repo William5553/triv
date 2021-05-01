@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
     if (!client.settings.get(message.guild.id).muteRoleID) 
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
 
-    const reason = args.splice(1).join(' ');
+    const reason = args.slice(1).join(' ');
 
     message.guild.channels.cache.forEach(chan => {
       chan.updateOverwrite(muteRole, {

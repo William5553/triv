@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (queue) return message.reply("there's currently music playing");
   let voice = args[0];
-  const text = args.splice(1).join(' ');
+  const text = args.slice(1).join(' ');
   if (!voice || !Object.keys(voices).includes(voice.toLowerCase()))
     return message.channel.send(`Possible voices: ${Object.keys(voices).join(', ')}`);
   if (!text)

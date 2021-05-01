@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     if (member.permissions.has('BAN_MEMBERS'))
       return message.reply('the person you tried to also has the ban members permission, sorry.');
     if (!member.bannable) return message.reply("I can't ban that user");
-    const reason = args.splice(1).join(' ');
+    const reason = args.slice(1).join(' ');
     await member.user.send(`you've been banned from ${message.channel.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
     message.guild.members.ban(member, { days: 0, reason: reason });
     message.channel.send(`Banned ${member.user}`);

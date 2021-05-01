@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   if (!args || args.join(' ').split(',').length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   const title = args.join(' ').split(',')[0];
-  const options = args.splice(1).join(' ').split(',');
+  const options = args.slice(1).join(' ').split(',');
   if (!title || !options) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (title.length > 200) return message.reply('the character limit for the title is 200 characters');
   if (options.length > 140) return message.reply('the character limit for the choices are 140 characters');

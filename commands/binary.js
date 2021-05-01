@@ -3,11 +3,11 @@ exports.run = (client, message, args) => {
   if (args[0] === 'decode') {
     if (args[1] === 'decimal') {
       const final = [];
-      for (const binary of args.splice(2))
+      for (const binary of args.slice(2))
         final.push(parseInt(binary, 2));
       message.channel.send(final.join(' '));
     } else if (args[1] === 'text') {
-      message.channel.send(args.splice(2).map(elem => {
+      message.channel.send(args.slice(2).map(elem => {
         return String.fromCharCode(parseInt(elem, 2));
       })
         .join('')
@@ -17,11 +17,11 @@ exports.run = (client, message, args) => {
   } else if (args[0] === 'encode') {
     if (args[1] === 'decimal') {
       const final = [];
-      for (const dec of args.splice(2))
+      for (const dec of args.slice(2))
         final.push((dec >>> 0).toString(2));
       message.channel.send(final.join(' '));
     } else if (args[1] === 'text') {
-      message.channel.send(args.splice(2).join(' ').split('').map(char => {
+      message.channel.send(args.slice(2).join(' ').split('').map(char => {
         return char.charCodeAt(0).toString(2);
       }).join(' ')
       );

@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!member) return message.reply('tag someone to kick next time before I kick you');
     if (parseUser(message, member) !== true) return;
 
-    const reason = args.splice(1).join(' ');
+    const reason = args.slice(1).join(' ');
     await member.user.send(`you've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
     member.kick().catch(client.logger.error);
     message.channel.send(`Kicked ${member.user}`);
