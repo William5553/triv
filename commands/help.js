@@ -53,7 +53,7 @@ exports.conf = {
   guildOnly: false,
   aliases: ['commands', 'usage', 'halp'],
   permLevel: 0,
-  cooldown: 1500
+  cooldown: 2000
 };
 
 exports.help = {
