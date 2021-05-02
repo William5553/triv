@@ -97,12 +97,10 @@ app.listen(8080);
 
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on('uncaughtException', err => {
-  client.logger.error(`UNCAUGHT EXCEPTION: ${err.message}`);
-  client.logger.error(err.stack);
+  client.logger.error(`UNCAUGHT EXCEPTION:\n${err.stack}`);
   process.exit(1);
 });
 
 process.on('unhandledRejection', err => {
-  client.logger.error(`UNHANDLED REJECTION: ${err.message}`);
-  client.logger.error(err.stack);
+  client.logger.error(`UNHANDLED REJECTION:\n${err.stack}`);
 });
