@@ -36,11 +36,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['reaction', 'react'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {
   name: 'reactiontime',
   description: 'Test your reaction speed',
-  usage: 'reactiontime'
+  usage: 'reactiontime',
+  example: 'reactiontime'
 };

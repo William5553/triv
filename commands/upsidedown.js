@@ -9,11 +9,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['fliptext', 'upsidedownify'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'upsidedown',
   description: 'Flips text upside down',
-  usage: 'upsidedown [text]'
+  usage: 'upsidedown [text]',
+  example: 'upsidedown Triv is a good bot'
 };

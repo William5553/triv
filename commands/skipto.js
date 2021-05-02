@@ -24,11 +24,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 30000
 };
 
 exports.help = {
   name: 'skipto',
   description: 'Skip to the selected queue number',
-  usage: 'skipto [queue number]'
+  usage: 'skipto [queue number]',
+  example: 'skipto 5'
 };

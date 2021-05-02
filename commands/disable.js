@@ -41,5 +41,6 @@ exports.conf = {
 exports.help = {
   name: 'disable',
   description: 'Disables and enables commands in the guild',
-  usage: 'disable [command] OR enable [command]'
+  usage: 'disable [command] OR enable [command]',
+  example: 'disable fortnite'
 };

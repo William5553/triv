@@ -73,5 +73,6 @@ exports.conf = {
 exports.help = {
   name: 'infractions',
   description: "Gets a user's infractions",
-  usage: 'infractions [user]'
+  usage: 'infractions [user]',
+  example: 'infractions @Rulebreaker'
 };

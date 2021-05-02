@@ -26,11 +26,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'filter',
   description: `Adds a filter to the music. Valid filters are: ${filters.join(', ')}`,
-  usage: 'filter [list|add|remove] [filter]'
+  usage: 'filter [list|add|remove] [filter]',
+  example: 'filter add nightcore'
 };

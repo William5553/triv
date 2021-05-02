@@ -48,11 +48,12 @@ exports.conf = {
   guildOnly: false,
   aliases: ['clc', 'cloc'],
   permLevel: 0,
-  cooldown: 5000
+  cooldown: 120000
 };
 
 exports.help = {
   name: 'codelinecount',
   description: 'Counts lines of code in the bot',
-  usage: 'codelinecount'
+  usage: 'codelinecount',
+  example: 'codelinecount'
 };

@@ -8,11 +8,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['reverse'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {
   name: 'reversetext',
   description: 'Reverses text',
-  usage: 'reversetext [text]'
+  usage: 'reversetext [text]',
+  example: 'reversetext racecar'
 };

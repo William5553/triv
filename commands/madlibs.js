@@ -53,11 +53,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'madlibs',
   description: 'Choose words that fill in the blanks to create a crazy story',
-  usage: 'madlibs'
+  usage: 'madlibs',
+  example: 'madlibs'
 };

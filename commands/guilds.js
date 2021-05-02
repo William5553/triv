@@ -21,6 +21,7 @@ exports.conf = {
 
 exports.help = {
   name: 'guilds',
-  description: 'Shows all my guilds.',
-  usage: 'guilds'
+  description: "Shows all the guilds I'm in",
+  usage: 'guilds',
+  example: 'guilds'
 };

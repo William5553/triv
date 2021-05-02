@@ -11,11 +11,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 10
+  permLevel: 10,
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'unload',
   description: 'Unloads a command',
-  usage: 'unload [command]'
+  usage: 'unload [command]',
+  example: 'unload fortnite'
 };

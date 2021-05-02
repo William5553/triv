@@ -23,5 +23,6 @@ exports.conf = {
 exports.help = {
   name: 'fastforward',
   description: 'Fast forwards the current song by the specified seconds',
-  usage: 'fastforward [seconds]'
+  usage: 'fastforward [seconds]',
+  example: 'fastforward 60'
 };

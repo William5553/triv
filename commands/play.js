@@ -133,5 +133,6 @@ exports.conf = {
 exports.help = {
   name: 'play',
   description: 'Plays audio from YouTube',
-  usage: 'play [YouTube URL | Video Name]'
+  usage: 'play [YouTube URL OR Video Name]',
+  example: 'play https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 };

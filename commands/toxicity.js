@@ -15,8 +15,8 @@ exports.run = async (client, message, args) => {
           requestedAttributes: { TOXICITY: {} }
         }),
       toxicity = Math.round(body.attributeScores.TOXICITY.summaryScore.value * 100);
-    if (toxicity >= 70) return message.reply(`Likely to be perceived as toxic. (${toxicity}%)`);
-    if (toxicity >= 40) return message.reply(`Unsure if this will be perceived as toxic. (${toxicity}%)`);
+    if (toxicity >= 70) return message.reply(`likely to be perceived as toxic. (${toxicity}%)`);
+    if (toxicity >= 40) return message.reply(`unsure if this will be perceived as toxic. (${toxicity}%)`);
     return message.reply(`Unlikely to be perceived as toxic. (${toxicity}%)`);
   } catch (err) {
     return message.channel.send(new MessageEmbed()
@@ -34,11 +34,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['toxic'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'toxicity',
   description: 'Determines the toxicity of text',
-  usage: 'toxicity [text]'
+  usage: 'toxicity [text]',
+  example: 'toxicity fart'
 };

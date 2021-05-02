@@ -48,5 +48,5 @@ exports.help = {
   name: 'pronounce',
   description: 'Pronounces text using Google Translate',
   usage: 'pronounce [language] [text]',
-  example: 'pronounce es Hola'
+  example: 'pronounce Spanish Hola'
 };

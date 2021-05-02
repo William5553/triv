@@ -62,5 +62,6 @@ exports.conf = {
 exports.help = {
   name: 'lyrics',
   description: 'Gets the lyrics for the currently playing song or specified song',
-  usage: 'lyrics [song title]'
+  usage: 'lyrics [song title]',
+  example: 'lyrics Mo Bamba'
 };

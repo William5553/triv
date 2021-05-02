@@ -27,12 +27,13 @@ exports.conf = {
   guildOnly: false,
   aliases: [],
   permLevel: 0,
-  cooldown: 1000
+  cooldown: 1500
 };
   
 exports.help = {
   name: 'fox',
   description: 'Find a random fox for your viewing pleasure. What does the fox say?',
-  usage: 'fox'
+  usage: 'fox',
+  example: 'fox'
 };
   

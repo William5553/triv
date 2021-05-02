@@ -11,5 +11,6 @@ exports.conf = {
 exports.help = {
   name: 'formatnumber',
   description: 'Adds commas to a number',
-  usage: 'formatnumber [number]'
+  usage: 'formatnumber [number]',
+  example: 'formatnumber 4392674'
 };

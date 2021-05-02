@@ -15,11 +15,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'skip',
-  description: 'Skips the currently playing music',
-  usage: 'skip'
+  description: 'Skips the currently playing song',
+  usage: 'skip',
+  example: 'skip'
 };

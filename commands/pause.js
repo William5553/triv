@@ -20,11 +20,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['unpause', 'resume'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {
   name: 'pause',
   description: 'Pauses the music',
-  usage: 'pause'
+  usage: 'pause',
+  example: 'pause'
 };

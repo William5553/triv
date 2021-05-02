@@ -1,14 +1,12 @@
-const moment = require('moment');
 const fetch = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.reply('tell me a Minecraft username next time, idiot');
-  const name = args[0];
   let findPlayer;
   
   try {
-    findPlayer = await nameToUUID(name) || await uuidToName(name);
+    findPlayer = await nameToUUID(args[0]) || await uuidToName(args[0]);
   } catch (e) {
     return message.channel.send('User not found');
   }
@@ -27,7 +25,7 @@ exports.run = async (client, message, args) => {
 };
 
 async function nameToUUID(name) {
-  const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}?at=${moment().format('x')}`);
+  const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}}`);
   if (body.id) return { uuid: body.id, name: body.name };
   return false;
 }
@@ -42,11 +40,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {
   name: 'mcskin',
   description: "Retrieves a user's Minecraft skin",
-  usage: 'mcskin [minecraft username]'
+  usage: 'mcskin [minecraft username]',
+  example: 'mcskin Dream'
 };

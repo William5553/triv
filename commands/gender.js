@@ -26,7 +26,7 @@ exports.conf = {
   guildOnly: false,
   aliases: [],
   permLevel: 0,
-  cooldown: 1200
+  cooldown: 2000
 };
 
 exports.help = {

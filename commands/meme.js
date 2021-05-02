@@ -38,5 +38,6 @@ exports.conf = {
 exports.help = {
   name: 'meme',
   description: 'Gets a random meme from r/memes',
-  usage: 'meme'
+  usage: 'meme',
+  example: 'meme'
 };

@@ -16,5 +16,6 @@ exports.conf = {
 exports.help = {
   name: 'say',
   description: 'Sends a message.',
-  usage: 'say [message]'
+  usage: 'say [message]',
+  example: 'say waffles'
 };

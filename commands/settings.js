@@ -1,10 +1,10 @@
+const { MessageEmbed } = require('discord.js');
+
 exports.run = (client, message, args) => {
   if (args.length < 1) {
-    const end = [];
-    Object.keys(client.settings.get(message.guild.id)).forEach(function(key) {
-      end.push(`\`${key}\`: \`${client.settings.get(message.guild.id)[key] || ' '}\``);
-    });
-    return message.channel.send(`To edit a value, run ${client.getPrefix(message)}${exports.help.name} [name] [value]\n${end.join('\n')}`);
+    const end = new MessageEmbed().setTitle(`**${message.guild.name}'s Settings**`);
+    Object.keys(client.settings.get(message.guild.id)).forEach(key => end.addField(`**${key}**`, client.settings.get(message.guild.id)[key] || 'No value set'));
+    return message.channel.send(`To edit a value, run ${client.getPrefix(message)}${exports.help.name} [name] [value]`, end);
   }
   // Let's get our key and value from the arguments. 
   // This is array destructuring, by the way. 
@@ -23,7 +23,6 @@ exports.run = (client, message, args) => {
   // so we won't bother trying to make sure it's the right type and such. 
   client.settings.set(message.guild.id, value.join(' '), key);
 
-  // We can confirm everything's done to the client.
   message.channel.send(`${key} has been changed to: \`${value.join(' ')}\``);
 };
   
@@ -32,12 +31,13 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 3,
-  cooldown: 500
+  cooldown: 1000
 };
   
 exports.help = {
   name: 'settings',
   description: 'Modify the bot settings',
-  usage: 'settings'
+  usage: 'settings',
+  example: 'settings prefix !'
 };
   

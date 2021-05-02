@@ -21,12 +21,12 @@ exports.conf = {
   guildOnly: false,
   aliases: ['googletranslate', 'gt', 'tr'],
   permLevel: 0,
-  cooldown: 1500
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'translate',
   description: 'Translates text using Google Translate',
   usage: 'translate [language from] [language to] [text]',
-  example: 'translate en french i like waffles'
+  example: 'translate en french I like waffles'
 };

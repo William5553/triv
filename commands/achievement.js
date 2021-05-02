@@ -1,7 +1,7 @@
 const request = require('node-superfetch');
 
 exports.run = (client, message, args) => {
-  let [title, contents] = args.join(' ').split('|');
+  let [title, contents] = args.join(' ').split(',');
   if (!contents) {
     [title, contents] = ['Achievement Get!', title];
   }
@@ -25,6 +25,6 @@ exports.conf = {
 exports.help = {
   name: 'achievement',
   description: 'Send a Minecraft achievement image to the channel',
-  usage: 'achievement [Title|Text]',
-  example: 'achievement Achievement Get|Used a Command!'
+  usage: 'achievement [title,text]',
+  example: 'achievement Achievement Get,Used a Command!'
 };

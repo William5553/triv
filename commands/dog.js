@@ -27,12 +27,13 @@ exports.conf = {
   guildOnly: false,
   aliases: ['woof', 'bark'],
   permLevel: 0,
-  cooldown: 1000
+  cooldown: 1500
 };
   
 exports.help = {
   name: 'dog',
   description: 'Finds a random dog for your viewing pleasure.',
-  usage: 'dog'
+  usage: 'dog',
+  example: 'dog'
 };
   

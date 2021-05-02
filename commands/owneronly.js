@@ -13,6 +13,7 @@ exports.conf = {
 exports.help = {
   name: 'owneronly',
   description: 'Makes it so only the owner can run commands',
-  usage: 'owneronly'
+  usage: 'owneronly',
+  example: 'owneronly'
 };
     

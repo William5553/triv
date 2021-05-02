@@ -2,7 +2,7 @@ const fetch = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+  let user = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
   user = user.user;
   if (!user) return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   const m = await message.channel.send('Getting...');
@@ -43,5 +43,6 @@ exports.conf = {
 exports.help = {
   name: 'roblox',
   description: "Attempts to get a discord user's roblox username",
-  usage: 'roblox [discord user]'
+  usage: 'roblox [discord user]',
+  example: 'roblox @Robloxian'
 };

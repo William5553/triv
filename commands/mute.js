@@ -93,11 +93,12 @@ exports.conf = {
   guildOnly: true,
   aliases: ['unmute'],
   permLevel: 2,
-  cooldown: 750
+  cooldown: 1000
 };
 
 exports.help = {
   name: 'mute',
   description: 'Toggles the mute of a member',
-  usage: 'mute [user] [reason] OR unmute [user] [reason]'
+  usage: 'mute [user] [reason] OR unmute [user] [reason]',
+  example: 'mute @Spammer spamming'
 };

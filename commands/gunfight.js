@@ -46,11 +46,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['western', 'wildwest', 'gunduel'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {
   name: 'gunfight',
   description: "Engage in a western gunfight against another user. It's high noon.",
-  usage: 'gunfight [user]'
+  usage: 'gunfight [user]',
+  example: 'gunfight @Joe'
 };

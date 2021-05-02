@@ -99,12 +99,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['fnbr', 'fn'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'fortnite',
   description: 'Gets args players fortnite stats',
   usage: 'fortnite [platform] [username]',
-  example: 'fortnite gamepad william5553yt'
+  example: 'fortnite pc Ninja'
 };

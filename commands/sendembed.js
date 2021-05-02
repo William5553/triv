@@ -38,12 +38,14 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 10000
 };
   
 exports.help = {
   name: 'sendembed',
   description: 'Sends a customizble embed to a channel of your choosing',
-  usage: 'sendembed'
+  usage: 'sendembed',
+  example: 'sendembed'
 };
   

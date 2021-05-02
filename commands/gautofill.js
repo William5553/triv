@@ -29,7 +29,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['gauto', 'autofill'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {

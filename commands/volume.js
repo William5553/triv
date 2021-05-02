@@ -19,11 +19,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['vol'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 500
 };
 
 exports.help = {
   name: 'volume',
   description: 'Change volume of currently playing music',
-  usage: 'volume'
+  usage: 'volume',
+  example: 'volume 50'
 };

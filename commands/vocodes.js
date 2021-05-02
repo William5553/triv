@@ -59,5 +59,6 @@ exports.conf = {
 exports.help = {
   name: 'vocodes',
   description: 'Speak text like a variety of famous figures',
-  usage: 'vocodes [voice] [text]'
+  usage: 'vocodes [voice] [text]',
+  example: 'vocodes homer hey'
 };

@@ -35,11 +35,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 500
 };
 
 exports.help = {
   name: 'binary',
   description: 'Encodes and decodes binary',
-  usage: 'binary [decode|encode] [text|decimal] [text]'
+  usage: 'binary [decode|encode] [text|decimal] [text]',
+  example: 'binary encode text triv'
 };

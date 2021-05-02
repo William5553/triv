@@ -49,11 +49,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['hearing', 'hear'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 10000
 };
 
 exports.help = {
   name: 'hearingtest',
   description: 'Tests your hearing',
-  usage: 'hearingtest'
+  usage: 'hearingtest',
+  example: 'hearingtest'
 };

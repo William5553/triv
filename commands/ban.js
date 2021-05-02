@@ -55,5 +55,6 @@ exports.conf = {
 exports.help = {
   name: 'ban',
   description: 'Bans the mentioned user.',
-  usage: 'ban [user] [reason]'
+  usage: 'ban [user] [reason]',
+  example: 'ban @Joe repeated spamming'
 };

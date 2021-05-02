@@ -31,8 +31,8 @@ exports.run = (client, message, args, perms) => {
         .addField('**Description**', command.help.description)
         .addField('**Usage**', command.help.usage)
         .addField('**Aliases**', command.conf.aliases.join(', ') || 'No aliases')
-        .addField('**Example**', command.help.example || 'No examples')
         .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
+        .addField('**Example**', command.help.example || 'No examples')
         .addField('**Permissions**', perm[command.conf.permLevel])
       );
     }
@@ -59,5 +59,6 @@ exports.conf = {
 exports.help = {
   name: 'help',
   description: 'Displays all the available commands for your permission level. If used in DMs, shows all commands',
-  usage: 'help [command]'
+  usage: 'help [command]',
+  example: 'help help'
 };

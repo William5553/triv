@@ -64,11 +64,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['calc', 'simplify', 'evaluate', 'solve'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'calculate',
   description: 'Solves a math question',
-  usage: 'calculate [expression]'
+  usage: 'calculate [expression]',
+  example: 'calculate 2 + 2'
 };

@@ -43,11 +43,12 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 2,
-  cooldown: 500
+  cooldown: 1000
 };
 
 exports.help = {
   name: 'warn',
   description: 'Issues a warning to the mentioned user.',
-  usage: 'warn [user] [reason]'
+  usage: 'warn [user] [reason]',
+  example: 'warn @User swearing'
 };

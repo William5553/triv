@@ -72,11 +72,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['stock', 'stonk', 'stonks'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'stocks',
   description: 'Responds with the current stocks for a company',
-  usage: 'stocks [company]'
+  usage: 'stocks [company]',
+  example: 'stocks TSLA'
 };

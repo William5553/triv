@@ -17,12 +17,14 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 3000
 };
   
 exports.help = {
   name: 'snipe',
   description: "Gets a user's ID",
-  usage: 'snipe'
+  usage: 'snipe',
+  example: 'snipe'
 };
   

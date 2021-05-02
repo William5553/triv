@@ -54,7 +54,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['daysuntil', 'daystil'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2500
 };
 
 exports.help = {

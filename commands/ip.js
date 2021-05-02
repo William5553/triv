@@ -19,5 +19,6 @@ exports.conf = {
 exports.help = {
   name: 'ip',
   description: "Responds with the IP address the bot's server is running on",
-  usage: 'ip'
+  usage: 'ip',
+  example: 'ip'
 };

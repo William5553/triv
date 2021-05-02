@@ -20,12 +20,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 600000
 };
 
 exports.help = {
   name: 'feedback',
-  description: 'Sends feedback, if you abuse this you will be blacklisted.',
+  description: 'Send feedback about the bot',
   usage: 'feedback [feedback]',
   example: 'feedback this bot sucks'
 };

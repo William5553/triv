@@ -51,5 +51,6 @@ exports.conf = {
 exports.help = {
   name: 'tts',
   description: "The world's best text-to-speech",
-  usage: 'tts [text]'
+  usage: 'tts [text]',
+  example: 'tts waffles'
 };

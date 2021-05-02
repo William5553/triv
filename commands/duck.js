@@ -27,12 +27,13 @@ exports.conf = {
   guildOnly: false,
   aliases: ['quack'],
   permLevel: 0,
-  cooldown: 1000
+  cooldown: 1500
 };
         
 exports.help = {
   name: 'duck',
   description: 'Finds a random duck for your viewing pleasure.',
-  usage: 'duck'
+  usage: 'duck',
+  example: 'duck'
 };
         

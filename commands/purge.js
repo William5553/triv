@@ -36,11 +36,12 @@ exports.conf = {
   guildOnly: true,
   aliases: ['prune'],
   permLevel: 2,
-  cooldown: 1000
+  cooldown: 1500
 };
 
 exports.help = {
   name: 'purge',
   description: 'Deletes the specified amount of messages.',
-  usage: 'purge [amount] [user (optional)]'
+  usage: 'purge [amount] [user (optional)]',
+  example: 'purge 100'
 };

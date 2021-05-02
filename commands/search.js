@@ -48,11 +48,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'search',
   description: 'Search and select videos to listen to',
-  usage: 'search [video name]'
+  usage: 'search [video name]',
+  example: 'search rick roll'
 };

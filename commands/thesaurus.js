@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
       .query({key: process.env.merriam_webster_thesaurus_key});
 
     const embeds = await genEmbeds(body);
-    if (!embeds || embeds.length < 1) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
+    if (!embeds || embeds.length < 1) return message.reply(`word not found, related words: **${body.join(', ')}**`);
     let currPage = 0;
   
     const emb = await message.channel.send(`**Word ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
@@ -72,11 +72,12 @@ exports.conf = {
   guildOnly: false,
   aliases: ['synonym', 'antonym'],
   permLevel: 0,
-  cooldown: 2000
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'thesaurus',
   description: 'Gets the synonyms and antonyms of a word.',
-  usage: 'thesaurus [word]'
+  usage: 'thesaurus [word]',
+  example: 'thesaurus smart'
 };

@@ -50,11 +50,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2500
 };
 
 exports.help = {
   name: 'dayssince',
   description: 'Responds with how many days there have been since a certain date',
-  usage: 'dayssince [month] [day] [year]'
+  usage: 'dayssince [month] [day] [year]',
+  example: 'dayssince October 10 2015'
 };

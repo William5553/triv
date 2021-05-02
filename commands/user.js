@@ -63,7 +63,8 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ['userinfo', 'member', 'memberinfo', 'profile', 'whois', 'who'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 1000
 };
 
 exports.help = {

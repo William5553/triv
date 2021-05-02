@@ -27,12 +27,13 @@ exports.conf = {
   guildOnly: false,
   aliases: ['chirp'],
   permLevel: 0,
-  cooldown: 1000
+  cooldown: 1500
 };
       
 exports.help = {
   name: 'bird',
   description: 'Finds a random bird for your viewing pleasure.',
-  usage: 'bird'
+  usage: 'bird',
+  example: 'bird'
 };
       

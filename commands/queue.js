@@ -66,11 +66,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'queue',
   description: 'Show the music queue and now playing',
-  usage: 'queue'
+  usage: 'queue',
+  example: 'queue'
 };

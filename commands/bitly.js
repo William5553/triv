@@ -36,6 +36,7 @@ exports.conf = {
 exports.help = {
   name: 'bitly',
   description: 'Shortens a URL using bit.ly',
-  usage: 'bitly [url]'
+  usage: 'bitly [url]',
+  example: 'bitly https://github.com/william5553/triv'
 };
   

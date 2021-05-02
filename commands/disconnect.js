@@ -28,5 +28,6 @@ exports.conf = {
 exports.help = {
   name: 'disconnect',
   description: 'Kills the bot',
-  usage: 'disconnect'
+  usage: 'disconnect',
+  example: 'disconnect'
 };

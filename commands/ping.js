@@ -17,5 +17,6 @@ exports.conf = {
 exports.help = {
   name: 'ping',
   description: 'Ping command. I wonder what this does?',
-  usage: 'ping'
+  usage: 'ping',
+  example: 'ping'
 };

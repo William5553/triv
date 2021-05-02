@@ -15,7 +15,7 @@ exports.conf = {
   guildOnly: false,
   aliases: ['inv'],
   permLevel: 0,
-  cooldown: 1500
+  cooldown: 2000
 };
 
 exports.help = {

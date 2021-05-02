@@ -26,6 +26,7 @@ exports.conf = {
 
 exports.help = {
   name: 'eval',
-  description: 'Evaluates arbitrary javascript',
-  usage: 'eval [code]'
+  description: 'Evaluates arbitrary JavaScript',
+  usage: 'eval [code]',
+  example: "eval message.channel.send('turtle');"
 };

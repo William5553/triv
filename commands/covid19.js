@@ -47,11 +47,13 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['covid', 'corona', 'coronavirus'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'covid19',
   description: 'Responds with stats for COVID-19',
-  usage: 'covid19 [country]'
+  usage: 'covid19 [country]',
+  example: 'covid19 USA'
 };

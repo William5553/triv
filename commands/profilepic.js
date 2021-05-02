@@ -31,5 +31,6 @@ exports.conf = {
 exports.help = {
   name: 'profilepic',
   description: 'Gets the profile picture of a user',
-  usage: 'profilepic [format] [user]'
+  usage: 'profilepic [format] [user]',
+  example: 'profilepic gif @William5553'
 };

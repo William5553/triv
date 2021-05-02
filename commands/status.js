@@ -83,5 +83,6 @@ exports.conf = {
 exports.help = {
   name: 'status',
   description: "Gets a user's status",
-  usage: 'status [user]'
+  usage: 'status [user]',
+  example: 'status'
 };

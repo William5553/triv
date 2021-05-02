@@ -159,11 +159,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 5000
 };
 
 exports.help = {
   name: 'quizduel',
   description: 'Answer a series of quiz questions against other opponents',
-  usage: 'quizduel [max player count]'
+  usage: 'quizduel [max player count]',
+  example: 'quizduel 3'
 };
