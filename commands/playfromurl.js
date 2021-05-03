@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
   try {
     const queue = client.queue.get(message.guild.id);
     if (queue) return message.reply("there's currently music playing");
-    if (args.length < 1) return message.reply(`usage: ${client.getPrefix()}${exports.help.usage}`);
+    if (args.length < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
     if (!message.guild.voice || !message.guild.voice.connection) {
       const connection = await client.commands.get('join').run(client, message);
       if (connection instanceof Message) return;
