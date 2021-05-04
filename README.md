@@ -1,3 +1,4 @@
+[![Build Status]](https://github.com/william5553/triv/workflows/lint/badge.svg?branch=discord.js-12)
 # Installation instructions for Windows
 1. [Download and install Node.js](https://nodejs.org/en/), version 12.3.0 and up is required.
 
