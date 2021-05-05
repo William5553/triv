@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
       .addField('Following', formatNumber(data.stats.followingCount), true)
       .addField('Hearts', formatNumber(data.stats.heartCount), true)
       .addField('Video Count', formatNumber(data.stats.videoCount), true)
-      .setURL(`https://www.tiktok.com/@${data.user.uniqueId}`)
+      .setURL(`https://www.tiktok.com/@${data.user.id}`)
       .setThumbnail(data.user.avatarLarger)
       .setFooter('Account created at')
       .setTimestamp(data.user.createTime*1000);
@@ -49,6 +49,6 @@ exports.help = {
   name: 'tiktok',
   description: 'Gets information about a TikToker',
   usage: 'tiktok [user]',
-  example: 'tiktok charlidamelio'
+  example: 'tiktok MS4wLjABAAAAvxZZ7J2liPXabeP_Y5TTBZiE-ezJQHhwL4MXiE50hkm7MTfnk4DbXbCoBL13EaeS'
 };
   
