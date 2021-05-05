@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
   if (!time) return message.reply('you must specify a duration for the lockdown');
   if (validUnlocks.includes(time)) {
     message.channel
-      .updateOverwrite(message.channel.guild.roles.everyone, {
+      .updateOverwrite(message.guild.roles.everyone, {
         SEND_MESSAGES: null
       })
       .then(() => {
@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
   } else {
     if (ms(time) >= 2147483647) return message.reply('specified duration is too long');
     message.channel
-      .updateOverwrite(message.channel.guild.roles.everyone, {
+      .updateOverwrite(message.guild.roles.everyone, {
         SEND_MESSAGES: false
       })
       .then(() => {
@@ -32,7 +32,7 @@ exports.run = (client, message, args) => {
           .then(() => {
             client.lockit[message.channel.id] = setTimeout(() => {
               message.channel
-                .updateOverwrite(message.channel.guild.roles.everyone, {
+                .updateOverwrite(message.guild.roles.everyone, {
                   SEND_MESSAGES: null
                 })
                 .then(message.channel.send('Lockdown lifted.'))
