@@ -16,13 +16,11 @@ module.exports = async (client, message) => {
   if (client.settings.get(message.guild.id).logsID) {
     if (message.guild.channels.cache.some(channel => channel.id == client.settings.get(message.guild.id).logsID)) {
       const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
-      logs.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false });
+      logs.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
       
       await client.wait(900);
       // Fetch a couple audit logs than just one as new entries could've been added right after this event was emitted.
-      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 8, type: 'MESSAGE_DELETE' }).catch(() => ({
-        entries: []
-      }));
+      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 8, type: 'MESSAGE_DELETE', user: message.author });
 
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
@@ -30,7 +28,7 @@ module.exports = async (client, message) => {
 
       const embed = new MessageEmbed()
         .setTitle('**Message Deleted**')
-        .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by ${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
+        .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
         .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
         .setTimestamp()
         .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
