@@ -26,7 +26,7 @@
     "@discordjs/opus": "^0.5.0",
     "@william5553/translate-google-api": "^1.1.2",
     "chalk": "^4.1.1",
-    "cloc": "^2.7.0",
+    "cloc": "^2.8.0",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "12.5.3",
     "dotenv": "^9.0.0",
