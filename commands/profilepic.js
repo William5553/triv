@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['pfp'],
   permLevel: 0,
   cooldown: 1250
 };
