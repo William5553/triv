@@ -652,9 +652,9 @@
       "integrity": "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
     },
     "complex.js": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/complex.js/-/complex.js-2.0.1.tgz",
-      "integrity": "sha1-6pDHoFrs6vOjdtLA9qeEIXJ9aHk="
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/complex.js/-/complex.js-2.0.4.tgz",
+      "integrity": "sha512-Syl95HpxUTS0QjwNxencZsKukgh1zdS9uXeXX2Us0pHaqBR6kiZZi0AkZ9VpZFwHJyVIUVzI4EumjWdXP3fy6w=="
     },
     "compress-commons": {
       "version": "2.1.1",
@@ -814,9 +814,9 @@
       "integrity": "sha1-9lNNFRSCabIDUue+4m9QH5oZEpA="
     },
     "decimal.js": {
-      "version": "7.1.1",
-      "resolved": "https://registry.npmjs.org/decimal.js/-/decimal.js-7.1.1.tgz",
-      "integrity": "sha1-GtytfXDXqRxCbXVvHrZWbDvmy88="
+      "version": "9.0.1",
+      "resolved": "https://registry.npmjs.org/decimal.js/-/decimal.js-9.0.1.tgz",
+      "integrity": "sha512-2h0iKbJwnImBk4TGk7CG1xadoA0g3LDPlQhQzbZ221zvG0p2YVUedbKIPsOZXKZGx6YmZMJKYOalpCMxSdDqTQ=="
     },
     "decompress-response": {
       "version": "4.2.1",
@@ -996,6 +996,11 @@
       "version": "2.2.1",
       "resolved": "https://registry.npmjs.org/env-paths/-/env-paths-2.2.1.tgz",
       "integrity": "sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A=="
+    },
+    "escape-latex": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/escape-latex/-/escape-latex-1.2.0.tgz",
+      "integrity": "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw=="
     },
     "escape-string-regexp": {
       "version": "1.0.5",
@@ -1466,9 +1471,9 @@
       }
     },
     "fraction.js": {
-      "version": "4.0.0",
-      "resolved": "https://registry.npmjs.org/fraction.js/-/fraction.js-4.0.0.tgz",
-      "integrity": "sha1-c5dOL4tR73CVNtYkzJB4Liu2EnQ="
+      "version": "4.0.4",
+      "resolved": "https://registry.npmjs.org/fraction.js/-/fraction.js-4.0.4.tgz",
+      "integrity": "sha512-aK/oGatyYLTtXRHjfEsytX5fieeR5H4s8sLorzcT12taFS+dbMZejnvm9gRa8mZAPwci24ucjq9epDyaq5u8Iw=="
     },
     "fs": {
       "version": "0.0.2",
@@ -1785,6 +1790,11 @@
       "resolved": "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz",
       "integrity": "sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo="
     },
+    "javascript-natural-sort": {
+      "version": "0.7.1",
+      "resolved": "https://registry.npmjs.org/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz",
+      "integrity": "sha1-+eIwPUUH9tdDVac2ZNFED7Wg71k="
+    },
     "js-tokens": {
       "version": "4.0.0",
       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz",
@@ -2025,24 +2035,25 @@
       }
     },
     "mathjs": {
-      "version": "3.11.2",
-      "resolved": "https://registry.npmjs.org/mathjs/-/mathjs-3.11.2.tgz",
-      "integrity": "sha1-0spyPX6SVMxY0UIaWmHYz6yP9kI=",
+      "version": "3.20.2",
+      "resolved": "https://registry.npmjs.org/mathjs/-/mathjs-3.20.2.tgz",
+      "integrity": "sha512-3f6/+uf1cUtIz1rYFz775wekl/UEDSQ3mU6xdxW7qzpvvhc2v28i3UtLsGTRB+u8OqDWoSX6Dz8gehaGFs6tCA==",
       "requires": {
-        "complex.js": "2.0.1",
-        "decimal.js": "7.1.1",
-        "fraction.js": "4.0.0",
+        "complex.js": "2.0.4",
+        "decimal.js": "9.0.1",
+        "escape-latex": "^1.0.0",
+        "fraction.js": "4.0.4",
+        "javascript-natural-sort": "0.7.1",
         "seed-random": "2.2.0",
-        "tiny-emitter": "1.0.2",
-        "typed-function": "0.10.5"
+        "tiny-emitter": "2.0.2",
+        "typed-function": "0.10.7"
       }
     },
     "mathsteps": {
-      "version": "0.2.0",
-      "resolved": "https://registry.npmjs.org/mathsteps/-/mathsteps-0.2.0.tgz",
-      "integrity": "sha512-x/BBVJ7n+RsUj4EOcKuCBCvrQWWvP8i6v5x8nr73qYU8yph6LZWT1ELPKnnUDEEqxe6lrncQB7HacknStMJJ5g==",
+      "version": "github:william5553/mathsteps#57705da64d81a01dbf77dce009541f4d3ae2a9a9",
+      "from": "github:william5553/mathsteps",
       "requires": {
-        "mathjs": "3.11.2"
+        "mathjs": "3.20.2"
       }
     },
     "md5": {
@@ -3241,9 +3252,9 @@
       }
     },
     "tiny-emitter": {
-      "version": "1.0.2",
-      "resolved": "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-1.0.2.tgz",
-      "integrity": "sha1-jklHDT9V+J4kchA2imu5+1GqFgE="
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.0.2.tgz",
+      "integrity": "sha512-2NM0auVBGft5tee/OxP4PI3d8WItkDM+fPnaRAVo6xTDI2knbz9eC5ArWGqtGlYqiH3RU5yMpdyTTO7MguC4ow=="
     },
     "tough-cookie": {
       "version": "4.0.0",
@@ -3292,9 +3303,9 @@
       "dev": true
     },
     "typed-function": {
-      "version": "0.10.5",
-      "resolved": "https://registry.npmjs.org/typed-function/-/typed-function-0.10.5.tgz",
-      "integrity": "sha1-Lg8Yq9BlIZ+raUpEamXG0ZgYMsA="
+      "version": "0.10.7",
+      "resolved": "https://registry.npmjs.org/typed-function/-/typed-function-0.10.7.tgz",
+      "integrity": "sha512-3mlZ5AwRMbLvUKkc8a1TI4RUJUS2H27pmD5q0lHRObgsoWzhDAX01yg82kwSP1FUw922/4Y9ZliIEh0qJZcz+g=="
     },
     "typedarray": {
       "version": "0.0.6",
