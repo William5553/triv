@@ -3,7 +3,7 @@ const possibleFormats = ['webp', 'png', 'jpg', 'jpeg', 'gif'];
 
 exports.run = (client, message, args) => {
   try {
-    if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage} (formats: ${possibleFormats.join(', ')})`);
+    if (args.length < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage} (formats: ${possibleFormats.join(', ')})`);
     if (!possibleFormats.includes(args[0])) return message.reply(`Invalid format, valid formats: ${possibleFormats.join(', ')}`);
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.slice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.slice(1).join(' ').toLowerCase()) || message.member;
     if (!member) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
