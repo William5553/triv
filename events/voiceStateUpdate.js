@@ -21,10 +21,10 @@ module.exports = async (client, oldState, newState) => {
         .setFooter(`Executor: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
         .setTimestamp(entries.first().createdTimestamp);
 
-      if (oldState.serverDeaf != newState.serverDeaf && entries.first().changes[0].key == 'deaf')
-        embed.setTitle(`**Server ${newState.serverDeaf == true ? 'D' : 'Und'}eafened**`);
-      else if (oldState.serverMute != newState.serverMute && entries.first().changes[0].key == 'mute')
-        embed.setTitle(`**Server ${newState.serverMute == true ? 'M' : 'Unm'}uted**`);
+      if (oldState.serverDeaf != newState.serverDeaf || entries.first().changes[0].key == 'deaf')
+        embed.setTitle(`**Server ${newState.serverDeaf ? 'D' : 'Und'}eafened**`);
+      else if (oldState.serverMute != newState.serverMute || entries.first().changes[0].key == 'mute')
+        embed.setTitle(`**Server ${newState.serverMute ? 'M' : 'Unm'}uted**`);
       logs.send(embed);
     } else client.settings.set(guild.id, '', 'logsID');
   }
