@@ -18,13 +18,14 @@ module.exports = async (client, oldState, newState) => {
       const embed = new MessageEmbed()
         .setColor('FFCC00')
         .setAuthor(`@${newState.member.user.tag}`, newState.member.user.displayAvatarURL({ dynamic: true }))
-        .setFooter(`Executor: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
+        .setFooter(`Moderator: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
         .setTimestamp(entries.first().createdTimestamp);
-
+    
       if (oldState.serverDeaf != newState.serverDeaf || entries.first().changes[0].key == 'deaf')
-        embed.setTitle(`**Server ${newState.serverDeaf ? 'D' : 'Und'}eafened**`);
+        embed.setTitle(`**Server ${entries.first().changes[0].new == 'true' ? 'D' : 'Und'}eafened**`);
+        // TODO: use audit log instead of new state
       else if (oldState.serverMute != newState.serverMute || entries.first().changes[0].key == 'mute')
-        embed.setTitle(`**Server ${newState.serverMute ? 'M' : 'Unm'}uted**`);
+        embed.setTitle(`**Server ${entries.first().changes[0].new == 'true' ? 'M' : 'Unm'}uted**`);
       logs.send(embed);
     } else client.settings.set(guild.id, '', 'logsID');
   }
