@@ -2050,8 +2050,8 @@
       }
     },
     "mathsteps": {
-      "version": "github:william5553/mathsteps#57705da64d81a01dbf77dce009541f4d3ae2a9a9",
-      "from": "github:william5553/mathsteps",
+      "version": "github:william5553/mathsteps#6fc359cc17e6463a7eef258cf9659ac3113a8440",
+      "from": "github:william5553/mathsteps#6fc359cc17e6463a7eef258cf9659ac3113a8440",
       "requires": {
         "mathjs": "3.20.2"
       }
