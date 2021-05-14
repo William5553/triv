@@ -43,7 +43,7 @@
     "node-superfetch": "^0.2.3",
     "simple-youtube-api": "^5.2.1",
     "tiktok-scraper": "^1.4.23",
-    "ytdl-core": "^4.7.0"
+    "ytdl-core": "^4.8.0"
   },
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
