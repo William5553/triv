@@ -32,7 +32,6 @@
     "discord.js": "12.5.3",
     "dotenv": "^9.0.2",
     "enmap": "^5.8.5",
-    "erlpack": "^0.1.3",
     "esrever": "^0.2.0",
     "ffmpeg-static": "^4.3.0",
     "fs": "^0.0.2",
@@ -47,8 +46,7 @@
     "simple-youtube-api": "^5.2.1",
     "tiktok-scraper": "^1.4.23",
     "utf-8-validate": "^5.0.5",
-    "ytdl-core": "^4.8.0",
-    "zlib-sync": "^0.1.7"
+    "ytdl-core": "^4.8.0"
   },
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
