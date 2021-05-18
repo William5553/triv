@@ -43,9 +43,9 @@ module.exports = class Util {
     return text;
   }
 
-  static formatNumber(number, minimumFractionDigits = 0) {
+  static formatNumber(number) {
     return Number.parseFloat(number).toLocaleString(undefined, {
-      minimumFractionDigits,
+      minimumFractionDigits: 0,
       maximumFractionDigits: 2
     });
   }
