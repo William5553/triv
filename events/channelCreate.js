@@ -1,4 +1,5 @@
 module.exports = (client, channel) => {
+  if (!channel.guild) return;
   const { guild } = channel;
   if (client.guildData.get(guild.id).verificationSetUp == true && channel.name != 'verify' && client.settings.get(guild.id).verifiedRoleID) {
     channel.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
