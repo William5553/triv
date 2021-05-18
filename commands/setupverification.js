@@ -1,0 +1,58 @@
+const { MessageEmbed } = require('discord.js');
+
+exports.run = async (client, message) => {
+  try {
+    if (client.guildData.get(message.guild.id).verificationSetUp == true)
+      return message.reply('verification was already set up.');
+
+    let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
+
+    if (!role) {
+      role = await message.guild.roles
+        .create({
+          data: {
+            name: 'Verified User',
+            color: 'BLURPLE'
+          }
+        })
+        .catch(client.logger.error);
+      client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
+    }
+
+    message.guild.channels.cache.forEach(chan => {
+      if (chan.name != 'verify') {
+        chan.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
+        chan.updateOverwrite(role, { SEND_MESSAGES: true, VIEW_CHANNEL: true });
+      }
+    });
+
+    const verifyChannel = message.guild.channels.cache.find(c => c.name.toLowerCase() === 'verify') || await message.guild.channels.create('verify');
+    verifyChannel.updateOverwrite(role, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
+    client.guildData.set(message.guild.id, true, 'verificationSetUp');
+    message.channel.send('Set up verification successfully.');
+  } catch (err) {
+    return message.channel.send(new MessageEmbed()
+      .setColor('#FF0000')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${message.content}`)
+    );
+  }
+};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: true,
+  aliases: [],
+  permLevel: 3,
+  cooldown: 5000
+};
+
+exports.help = {
+  name: 'setupverification',
+  description: 'Sets up verification',
+  usage: 'setupverification',
+  example: 'setupverification'
+};

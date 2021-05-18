@@ -23,8 +23,14 @@ client.aliases = new Collection();
 client.blacklist = new Enmap({ name: 'blacklist' });
 client.cooldowns = new Enmap({ name: 'cooldowns', fetchAll: false, autoFetch: true });
 client.infractions = new Enmap({ name: 'infractions', fetchAll: false, autoFetch: true });
-client.settings = new Enmap({ name: 'settings', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { prefix: process.env.prefix, joinRoleID: null, muteRoleID: null, logsID: null }});
-client.disabled = new Enmap({ name: 'disabled', fetchAll: false, autoFetch: true, cloneLevel: 'deep' });
+client.settings = new Enmap({ name: 'settings', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: {
+  prefix: process.env.prefix,
+  joinRoleID: null,
+  logsID: null,
+  muteRoleID: null,
+  verifiedRoleID: null
+}});
+client.guildData = new Enmap({ name: 'guilddata', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { 'disabled': [], 'verificationSetUp': false } });
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);

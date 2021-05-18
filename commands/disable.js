@@ -11,11 +11,11 @@ exports.run = async (client, message, args) => {
     
     if (!command) return message.reply(`${args[0]} is not a valid command`);
 
-    if (client.disabled.has(message.guild.id, command)) {
-      client.disabled.set(message.guild.id, false, command);
+    if (client.guildData.includes(message.guild.id, command, 'disabled')) {
+      client.guildData.remove(message.guild.id, command, 'disabled');
       message.channel.send(`Enabled \`${command}\``);
     } else {
-      client.disabled.set(message.guild.id, true, command);
+      client.guildData.push(message.guild.id, command, 'disabled');
       message.channel.send(`Disabled \`${command}\``);
     }
   } catch (err) {
@@ -40,7 +40,7 @@ exports.conf = {
 
 exports.help = {
   name: 'disable',
-  description: 'Disables and enables commands in the guild',
+  description: 'Disables and enables commands for the guild',
   usage: 'disable [command] OR enable [command]',
   example: 'disable fortnite'
 };

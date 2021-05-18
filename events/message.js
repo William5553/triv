@@ -39,11 +39,11 @@ module.exports = async (client, message) => {
     } else if (cmd.conf.guildOnly)
       return message.reply('that command can only be used in a guild, get some friends.');
   } else {
-    client.disabled.ensure(message.guild.id, {});
+    client.guildData.ensure(message.guild.id);
     const perms = client.elevation(message.member);
     if (perms < cmd.conf.permLevel)
       return message.reply("you don't have the perms for that");
-    if (client.disabled.get(message.guild.id, cmd.help.name) == true)
+    if (client.guildData.includes(message.guild.id, cmd.help.name, 'disabled'))
       return message.reply(`\`${cmd.help.name}\` has been disabled by a server admin`);
     if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
       client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
