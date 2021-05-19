@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   if (!process.env.openweathermap_key) return message.reply('the bot owner has not set up this command yet');
   let location = args.join(' ');
-  if (!location) return message.reply('enter a location next time');
+  if (!location) return message.reply('enter a location next time, fart face');
   if (/^[0-9]+$/.test(location))
     location = { type: 'zip', data: location };
   else

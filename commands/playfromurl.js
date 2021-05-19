@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['playfromlink'],
+  aliases: ['playfromlink', 'purl'],
   permLevel: 10,
   cooldown: 10000
 };
