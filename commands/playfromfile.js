@@ -36,7 +36,7 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['pfile'],
+  aliases: ['pfile', 'pattachment'],
   permLevel: 10,
   cooldown: 10000
 };
