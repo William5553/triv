@@ -30,7 +30,7 @@
     "cloc": "^2.8.0",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "12.5.3",
-    "dotenv": "^9.0.2",
+    "dotenv": "^10.0.0",
     "enmap": "^5.8.5",
     "esrever": "^0.2.0",
     "ffmpeg-static": "^4.3.0",
