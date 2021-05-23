@@ -5,10 +5,22 @@ exports.run = async (client, message) => {
     if (client.guildData.get(message.guild.id).verificationSetUp != true)
       return message.reply('this server has not set up verification yet.');
 
-    const role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
+    let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
 
     if (!message.guild.me.hasPermission('MANAGE_ROLES'))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
+
+    if (!role) {
+      role = await message.guild.roles
+        .create({
+          data: {
+            name: 'Verified User',
+            color: 'BLURPLE'
+          }
+        })
+        .catch(client.logger.error);
+      client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
+    }
 
     if (message.guild.me.roles.highest.comparePositionTo(role) < 1) return message.reply("I don't have control over the verified role, move my role above the verified role.");
 
@@ -16,7 +28,7 @@ exports.run = async (client, message) => {
       return message.reply("you've already been verified.");
     
     message.member.roles
-      .add(role.id, 'Verified')
+      .add(role.id, `Verified - ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' })}`)
       .then(async () => message.reply('you have been verified.'));
   } catch (err) {
     return message.channel.send(new MessageEmbed()
