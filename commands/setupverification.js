@@ -23,11 +23,13 @@ exports.run = async (client, message) => {
       if (chan.name != 'verify') {
         chan.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
         chan.updateOverwrite(role, { SEND_MESSAGES: true, VIEW_CHANNEL: true });
+        // TODO: make it so that it doesn't do this to private channels
       }
     });
 
     const verifyChannel = message.guild.channels.cache.find(c => c.name.toLowerCase() === 'verify') || await message.guild.channels.create('verify');
     verifyChannel.updateOverwrite(role, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
+    verifyChannel.updateOverwrite(message.guild.roles.everyone, { READ_MESSAGE_HISTORY: false });
     client.guildData.set(message.guild.id, true, 'verificationSetUp');
     message.channel.send('Set up verification successfully.');
   } catch (err) {
