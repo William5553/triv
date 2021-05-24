@@ -2117,8 +2117,8 @@
       }
     },
     "mathsteps": {
-      "version": "github:william5553/mathsteps#6fc359cc17e6463a7eef258cf9659ac3113a8440",
-      "from": "github:william5553/mathsteps",
+      "version": "github:william5553/mathsteps#1fda508afa21e1cae72837167b7ee827ff7d808f",
+      "from": "github:william5553/mathsteps#1fda508afa21e1cae72837167b7ee827ff7d808f",
       "requires": {
         "mathjs": "3.20.2"
       }
