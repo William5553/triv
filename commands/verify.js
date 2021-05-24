@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
   try {
+// TODO: check if there's a verify channel and force it to be ran in there
     if (client.guildData.get(message.guild.id).verificationSetUp != true)
       return message.reply('this server has not set up verification yet.');
 
@@ -24,12 +25,16 @@ exports.run = async (client, message) => {
 
     if (message.guild.me.roles.highest.comparePositionTo(role) < 1) return message.reply("I don't have control over the verified role, move my role above the verified role.");
 
-    if (message.member.roles.cache.has(role.id))
-      return message.reply("you've already been verified.");
-    
+    if (message.member.roles.cache.has(role.id)) {
+      const m = await message.reply("you've already been verified.");
+   m.delete({ timeout: 3500 });
+ }
     message.member.roles
       .add(role.id, `Verified - ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' })}`)
-      .then(async () => message.reply('you have been verified.'));
+      .then(async () => {
+const m = await message.reply('you have been verified.');
+m.delete({ timeout: 3500 });
+});
   } catch (err) {
     return message.channel.send(new MessageEmbed()
       .setColor('#FF0000')
