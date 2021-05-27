@@ -48,6 +48,9 @@
     "utf-8-validate": "^5.0.5",
     "ytdl-core": "^4.8.0"
   },
+  "optionalDependencies": {
+    "express": "^4.17.1"
+  },
   "bugs": {
     "url": "https://github.com/William5553/triv/issues"
   },
