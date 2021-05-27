@@ -16,14 +16,7 @@ exports.run = async (client, message, args) => {
     if (message.guild.me.roles.highest.comparePositionTo(muteRole) < 1) return message.reply("I don't have control over the muted role, move my role above the muted role.");
 
     if (!muteRole) {
-      muteRole = await message.guild.roles
-        .create({
-          data: {
-            name: 'muted',
-            color: [255, 0, 0]
-          }
-        })
-        .catch(client.logger.error);
+      muteRole = await message.guild.roles.create({ data: { name: 'muted', color: [255, 0, 0] } });
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
     }
 

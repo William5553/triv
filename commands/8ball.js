@@ -1,12 +1,11 @@
 const path = require('path');
 
 exports.run = (client, message, args) => {
-  const question = args.join(' '),
-    response = require('../assets/8ball.json').random();
+  if (args.length < 1) return message.reply('ask me a question, moron');
+  const response = require('../assets/8ball.json').random();
 
-  if (question.length < 1) return message.reply('ask me a question moron');
   if (response === 'Explode')
-    message.channel.send({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] }).catch(client.logger.error);
+    message.channel.send({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] });
   else
     message.channel.send(`🎱 ${response}`);
 };

@@ -4,12 +4,8 @@ exports.run = (client, message, args) => {
   message.channel.send(`Loading: ${command}`).then(m => {
     client
       .loadCommand(command)
-      .then(() => {
-        m.edit(`Successfully loaded: ${command}`);
-      })
-      .catch(e => {
-        m.edit(`Command load failed: ${command}\n\`\`\`${e.stack}\`\`\``);
-      });
+      .then(() => m.edit(`Successfully loaded: ${command}`))
+      .catch(e => m.edit(`Command load failed: ${command}\n\`\`\`${e.stack}\`\`\``));
   });
 };
 

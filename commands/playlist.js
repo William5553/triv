@@ -3,124 +3,135 @@ const { play } = require('../util/play');
 const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
-  const { channel } = message.member.voice;
-  const youtube = new YouTubeAPI(process.env.google_api_key);
-  const serverQueue = client.queue.get(message.guild.id);
-  if (serverQueue && channel !== message.guild.me.voice.channel)
-    return message.reply(`You must be in the same channel as ${client.user}`).catch(client.logger.error);
-  if (!args.length)
-    return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
-  if (!channel)
-    return message.reply('you need to join a voice channel first!').catch(client.logger.error);
+  try {
+    if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
+    const { channel } = message.member.voice;
+    const youtube = new YouTubeAPI(process.env.google_api_key);
+    const serverQueue = client.queue.get(message.guild.id);
+    if (serverQueue && channel !== message.guild.me.voice.channel)
+      return message.reply(`you must be in the same channel as me (${message.guild.me.voice.channel})`);
+    if (!args.length)
+      return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (!channel)
+      return message.reply('you need to join a voice channel first!');
 
-  const permissions = channel.permissionsFor(client.user);
-  if (!permissions.has('CONNECT'))
-    return message.reply('cannot connect to voice channel, missing **CONNECT** permission');
-  if (!permissions.has('SPEAK'))
-    return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
+    const permissions = channel.permissionsFor(client.user);
+    if (!permissions.has('CONNECT'))
+      return message.reply('cannot connect to voice channel, missing **CONNECT** permission');
+    if (!permissions.has('SPEAK'))
+      return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
 
-  const search = args.join(' '),
-    pattern = /^.*(youtu.be\/|list=)([^#&?]*).*/gi,
-    url = args[0],
-    urlValid = pattern.test(args[0]);
+    const search = args.join(' '),
+      pattern = /^.*(youtu.be\/|list=)([^#&?]*).*/gi,
+      url = args[0],
+      urlValid = pattern.test(args[0]);
 
-  const queueConstruct = {
-    textChannel: message.channel,
-    channel,
-    connection: null,
-    songs: [],
-    loop: false,
-    volume: 100,
-    playing: true,
-    additionalStreamTime: 0,
-    filters: {
-      bassboost: false,
-      '8D': false,
-      vaporwave: false,
-      nightcore: false,
-      phaser: false,
-      tremolo: false,
-      vibrato: false,
-      reverse: false,
-      treble: false,
-      normalizer: false,
-      surround: false,
-      pulsator: false,
-      subboost: false,
-      karaoke: false,
-      flanger: false,
-      gate: false,
-      haas: false,
-      mcompand: false
+    const queueConstruct = {
+      textChannel: message.channel,
+      channel,
+      connection: null,
+      songs: [],
+      loop: false,
+      volume: 100,
+      playing: true,
+      additionalStreamTime: 0,
+      filters: {
+        bassboost: false,
+        '8D': false,
+        vaporwave: false,
+        nightcore: false,
+        phaser: false,
+        tremolo: false,
+        vibrato: false,
+        reverse: false,
+        treble: false,
+        normalizer: false,
+        surround: false,
+        pulsator: false,
+        subboost: false,
+        karaoke: false,
+        flanger: false,
+        gate: false,
+        haas: false,
+        mcompand: false
+      }
+    };
+
+    let playlist = null,
+      videos = [];
+
+    if (urlValid) {
+      try {
+        playlist = await youtube.getPlaylist(url, { part: 'snippet' });
+        videos = await playlist.getVideos(100, { part: 'snippet' });
+      } catch (error) {
+        client.logger.error(error);
+        return message.reply('Playlist not found :(');
+      }
+    } else {
+      try {
+        const results = await youtube.searchPlaylists(search, 1, { part: 'snippet' });
+        playlist = results[0];
+        videos = await playlist.getVideos(100, { part: 'snippet' });
+      } catch (error) {
+        client.logger.error(error);
+        return message.reply('Playlist not found :(');
+      }
     }
-  };
-
-  let playlist = null,
-    videos = [];
-
-  if (urlValid) {
-    try {
-      playlist = await youtube.getPlaylist(url, { part: 'snippet' });
-      videos = await playlist.getVideos(100, { part: 'snippet' });
-    } catch (error) {
-      client.logger.error(error);
-      return message.reply('Playlist not found :(').catch(client.logger.error);
-    }
-  } else {
-    try {
-      const results = await youtube.searchPlaylists(search, 1, { part: 'snippet' });
-      playlist = results[0];
-      videos = await playlist.getVideos(100, { part: 'snippet' });
-    } catch (error) {
-      client.logger.error(error);
-      return message.reply('Playlist not found :(').catch(client.logger.error);
-    }
-  }
 
 
-  const newSongs = videos
-    .filter(video => video.title != 'Private video' && video.title != 'Deleted video')
-    .map(video => {
-      return {
-        title: video.title,
-        url: video.url,
-        duration: 0, // TODO: fix so it's not -1
-        thumbnail: video.maxRes,
-        channel: {name: video.channel.raw.snippet.videoOwnerChannelTitle, profile_pic: video.channel.raw.snippet.thumbnails.high.url, url: `https://youtube.com/channel/${video.channel.raw.snippet.videoOwnerChannelId}`}, // profile pic url is not available so using video thumbnail
-        publishDate: '???'
-      };
-    });
+    const newSongs = videos
+      .filter(video => video.title != 'Private video' && video.title != 'Deleted video')
+      .map(video => {
+        return {
+          title: video.title,
+          url: video.url,
+          duration: 0, // TODO: fix so it's not -1
+          thumbnail: video.maxRes,
+          channel: {name: video.channel.raw.snippet.videoOwnerChannelTitle, profile_pic: video.channel.raw.snippet.thumbnails.high.url, url: `https://youtube.com/channel/${video.channel.raw.snippet.videoOwnerChannelId}`}, // profile pic url is not available so using video thumbnail
+          publishDate: '???'
+        };
+      });
 
-  serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
+    serverQueue ? serverQueue.songs.push(...newSongs) : queueConstruct.songs.push(...newSongs);
 
-  const playlistEmbed = new MessageEmbed()
-    .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
-      return String.fromCharCode(dec);
-    }))
-    .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`))
-    .setURL(playlist.url)
-    .setColor('#F8AA2A')
-    .setTimestamp();
+    const playlistEmbed = new MessageEmbed()
+      .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
+        return String.fromCharCode(dec);
+      }))
+      .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`))
+      .setURL(playlist.url)
+      .setColor('#F8AA2A')
+      .setTimestamp();
 
-  if (playlistEmbed.description.length >= 2048)
-    playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
+    if (playlistEmbed.description.length >= 2048)
+      playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
 
-  message.channel.send(`${message.author} started a playlist`, playlistEmbed);
+    message.channel.send(`${message.author} started a playlist`, playlistEmbed);
 
-  if (!serverQueue) {
-    client.queue.set(message.guild.id, queueConstruct);
+    if (!serverQueue) {
+      client.queue.set(message.guild.id, queueConstruct);
     
-    try {
-      queueConstruct.connection = await channel.join();
-      await queueConstruct.connection.voice.setSelfDeaf(true);
-      play(queueConstruct.songs[0], message, false);
-    } catch (error) {
-      client.logger.error(error);
-      client.queue.delete(message.guild.id);
-      await channel.leave();
-      return message.channel.send(`Could not join the channel: ${error}`).catch(client.logger.error);
+      try {
+        queueConstruct.connection = await channel.join();
+        await queueConstruct.connection.voice.setSelfDeaf(true);
+        play(queueConstruct.songs[0], message, false);
+      } catch (error) {
+        client.logger.error(error);
+        client.queue.delete(message.guild.id);
+        await channel.leave();
+        return message.channel.send(`Could not join the channel: ${error}`);
+      }
     }
+  } catch (err) {
+    return message.channel.send(new MessageEmbed()
+      .setColor('#FF0000')
+      .setTimestamp()
+      .setTitle('Please report this on GitHub')
+      .setURL('https://github.com/william5553/triv/issues')
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .addField('**Command:**', `${message.content}`)
+    );
   }
 };
 
