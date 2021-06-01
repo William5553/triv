@@ -3134,8 +3134,8 @@
     },
     "node_modules/mathsteps": {
       "version": "0.3.0",
-      "resolved": "git+ssh://git@github.com/william5553/mathsteps.git#1fda508afa21e1cae72837167b7ee827ff7d808f",
-      "integrity": "sha512-yxc+aYvo1qOX70Dm3RG6kJKXIMjyUmmzm7/pIQHd75lwgVRxEf3jxoOBSYPwHbcigNKxdXDyZVgdGFBkq38Zow==",
+      "resolved": "git+ssh://git@github.com/william5553/mathsteps.git#22d06f3ef0bd971f1a01c308d63cef5c492b5662",
+      "integrity": "sha512-aM/mDI2KGbVqbirJNFfihAMxDNWXGHsIuyyhHkF5pkriqq9Ga/XyGuA76sg4uMW3qO3MJBPiJ4K8Q8i8/32o0w==",
       "license": "Apache-2.0",
       "dependencies": {
         "mathjs": "3.20.2"
@@ -7573,9 +7573,9 @@
       }
     },
     "mathsteps": {
-      "version": "git+ssh://git@github.com/william5553/mathsteps.git#1fda508afa21e1cae72837167b7ee827ff7d808f",
-      "integrity": "sha512-yxc+aYvo1qOX70Dm3RG6kJKXIMjyUmmzm7/pIQHd75lwgVRxEf3jxoOBSYPwHbcigNKxdXDyZVgdGFBkq38Zow==",
-      "from": "mathsteps@github:william5553/mathsteps",
+      "version": "git+ssh://git@github.com/william5553/mathsteps.git#22d06f3ef0bd971f1a01c308d63cef5c492b5662",
+      "integrity": "sha512-aM/mDI2KGbVqbirJNFfihAMxDNWXGHsIuyyhHkF5pkriqq9Ga/XyGuA76sg4uMW3qO3MJBPiJ4K8Q8i8/32o0w==",
+      "from": "mathsteps@github:william5553/mathsteps#22d06f3ef0bd971f1a01c308d63cef5c492b5662",
       "requires": {
         "mathjs": "3.20.2"
       }
