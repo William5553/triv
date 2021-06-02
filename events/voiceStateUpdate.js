@@ -21,11 +21,11 @@ module.exports = async (client, oldState, newState) => {
         .setFooter(`Moderator: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
         .setTimestamp(entries.first().createdTimestamp);
     
-      if (oldState.serverDeaf != newState.serverDeaf || entries.first().changes[0].key == 'deaf')
-        embed.setTitle(`**Server ${newState.serverDeaf == true ? 'D' : 'Und'}eafened**`);
-      else if (oldState.serverMute != newState.serverMute || entries.first().changes[0].key == 'mute')
-        embed.setTitle(`**Server ${newState.serverMute == true ? 'M' : 'Unm'}uted**`);
-      logs.send(embed);
+      if (entries.first().changes[0].key == 'deaf')
+        await embed.setTitle(`**Server ${entries.first().changes[0].new == true ? 'D' : 'Und'}eafened**`);
+      else if (entries.first().changes[0].key == 'mute')
+        await embed.setTitle(`**Server ${entries.first().changes[0].new == true ? 'M' : 'Unm'}uted**`);
+      if (embed.title) logs.send(embed);
     } else client.settings.set(guild.id, '', 'logsID');
   }
 };

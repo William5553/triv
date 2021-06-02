@@ -1,10 +1,9 @@
 const options = require('../assets/ping.json');
 
-exports.run = (client, message) => {
+exports.run = (client, message) => 
   message.channel.send('Ping?').then(msg => {
     msg.edit(`${options.random()} (${Date.now() - message.createdTimestamp}ms)`);
   });
-};
 
 exports.conf = {
   enabled: true,

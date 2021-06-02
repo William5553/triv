@@ -49,15 +49,12 @@ function genEmbeds(message, user, infractions) {
     const embed = new MessageEmbed()
       .setTitle(`${user.username}'s infractions`)
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
-      .addField('Infraction', infraction.type, true)
+      .addField('Action', infraction.type, true)
       .setColor(0x902b93)
       .setFooter(formatDate(infraction.timestamp));
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
-    if (infraction.additional) {
-      infraction.additional.forEach(info => {
-        embed.addField(info.title, info.body, true);
-      });
-    }
+    if (infraction.additional)
+      infraction.additional.forEach(info => embed.addField(info.title, info.body, true));
     embeds.push(embed);
   }
   return embeds;
