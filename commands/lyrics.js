@@ -56,7 +56,8 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['ly'],
-  permLevel: 0
+  permLevel: 0,
+  cooldown: 2000
 };
 
 exports.help = {

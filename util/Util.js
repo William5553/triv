@@ -91,6 +91,10 @@ module.exports = class Util {
     return true;
   }
 
+  static formatDate(date = Date.now()) {
+    return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' });
+  }
+
   static async caseNumber(client, botlog) {
     const messages = await botlog.messages.fetch({ limit: 16 });
     const log = messages
@@ -109,19 +113,15 @@ module.exports = class Util {
   }
 
   static getCode(language) {
-    if (!language) {
+    if (!language)
       return false;
-    }
-    if (langs[language]) {
+    if (langs[language])
       return langs[language];
-    }
-    const keys = Object.keys(langs).filter(function(item) {
-      const lowerLan = language.toLowerCase();
-      return langs[item] === lowerLan;
+    const keys = Object.keys(langs).filter(item => {
+      return langs[item] === language.toLowerCase();
     });
-    if (keys[0]) {
+    if (keys[0])
       return langs[keys[0]];
-    }
     return false;
   }
 

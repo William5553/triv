@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message) => {
   try {
@@ -27,7 +28,7 @@ exports.run = async (client, message) => {
       message.delete({ timeout: 3500 });
     }
     message.member.roles
-      .add(role.id, `Verified - ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' })}`)
+      .add(role.id, `Verified - ${formatDate()}`)
       .then(async () => {
         const m = await message.reply('you have been verified.');
         m.delete({ timeout: 3500 });

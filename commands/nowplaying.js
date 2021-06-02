@@ -1,26 +1,26 @@
 const { MessageEmbed } = require('discord.js');
+const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message) => {
   try {
     const queue = client.queue.get(message.guild.id);
-    if (!queue || !queue.connection || !queue.connection.dispatcher) return message.reply('there is nothing playing.').catch(client.logger.error);
+    if (!queue || !queue.connection || !queue.connection.dispatcher) return message.reply('there is nothing playing.');
     if (isNaN(queue.connection.dispatcher.totalStreamTime)) return message.reply('please try again after I resume playing music');
-    const song = queue.songs[0],
-      seek = (queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime) / 1000,
-      left = song.duration - seek;
+    const song = queue.songs[0];
+    const seek = (queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime) / 1000;
 
-    const bar = createBar(song.duration == 0 ? seek : song.duration, seek, 20);
+    const bar = createBar(song.duration == 0 ? seek : song.duration, seek);
     const nowPlaying = new MessageEmbed()
       .setTitle(song.title)
       .setURL(song.url)
       .setColor('#FF0000')
       .setThumbnail(song.thumbnail.url)
-      .setTimestamp()
       .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
       .setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
 
     if (song.duration > 0)
-      nowPlaying.setFooter(`Time Remaining: ${getTime(left)}`);
+      nowPlaying.setFooter(`Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}`);
+      
 
     return message.channel.send(nowPlaying);
   } catch (err) {
@@ -35,29 +35,21 @@ exports.run = async (client, message) => {
   }
 };
 
-function getTime(time) {
-  return new Date(time * 1000).toISOString().substr(11, 8);
-}
+const getTime = time => new Date(time * 1000).toISOString().substr(11, 8);
 
-function createBar(total, current, size = 40, line = '▬', slider = '🔘') {
+const createBar = (total, current, size = 20, line = '▬', slider = '🔘') => {
   if (isNaN(total)) throw new Error('Total value is not an integer');
   if (isNaN(current)) throw new Error('Current value is not an integer');
   if (isNaN(size)) throw new Error('Size is not an integer');
-  if (current > total) {
-    const bar = line.repeat(size + 2);
-    const percentage = current / total * 100;
-    return [bar, percentage];
-  } else {
-    const percentage = current / total;
-    const progress = Math.round(size * percentage);
-    const emptyProgress = size - progress;
+  if (current > total) 
+    return [line.repeat(size + 2), current / total * 100];
+  else {
+    const progress = Math.round(size * (current / total));
     const progressText = line.repeat(progress).replace(/.$/, slider);
-    const emptyProgressText = line.repeat(emptyProgress);
-    const bar = progressText + emptyProgressText;
-    const calculated = percentage * 100;
-    return [bar, calculated];
+    const emptyProgressText = line.repeat(size - progress);
+    return [`${progressText}${emptyProgressText}`, current / total * 100];
   }
-}
+};
 
 exports.conf = {
   enabled: true,

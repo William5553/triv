@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
@@ -50,7 +51,7 @@ function genEmbeds(message, user, infractions) {
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Infraction', infraction.type, true)
       .setColor(0x902b93)
-      .setTimestamp(infraction.timestamp);
+      .setFooter(formatDate(infraction.timestamp));
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
     if (infraction.additional) {
       infraction.additional.forEach(info => {

@@ -65,7 +65,7 @@ function generateQueueEmbed(message, queue) {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['q'],
   permLevel: 0,
   cooldown: 5000
 };
