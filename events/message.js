@@ -5,11 +5,8 @@ module.exports = async (client, message) => {
   if (message.content.match(new RegExp(`^<@!?${client.user.id}>`, 'i')))
     return message.reply(`my prefix on this guild is \`${client.getPrefix(message)}\``);
   if (!message.content.startsWith(client.getPrefix(message))) return;
-  if (client.blacklist.get('blacklist', 'user').includes(message.author.id)) {
-    message.delete({ timeout: 1500 });
-    const a = await message.reply('you are blacklisted');
-    return a.delete({ timeout: 1500 });
-  }
+  if (client.blacklist.get('blacklist', 'user').includes(message.author.id))
+    message.reply("you're blacklisted :joy::joy::joy:");
   if (client.owneronlymode && !client.owners.includes(message.author.id)) return message.reply('The bot is currently in owner only mode.');
   const command = message.content.split(' ')[0].slice(client.getPrefix(message).length).toLowerCase();
   const args = message.content.split(' ').slice(1);
@@ -21,12 +18,10 @@ module.exports = async (client, message) => {
   if (!cmd) return;
   if (cmd.conf.cooldown && cmd.conf.cooldown > 0) {
     client.cooldowns.ensure(message.author.id, {});
-    const cooldownDb = client.cooldowns.get(message.author.id, cmd.help.name);
-    if (cooldownDb !== null && cmd.conf.cooldown - (Date.now() - cooldownDb) > 0) {
-      const time = cmd.conf.cooldown - (Date.now() - cooldownDb);
-      const m = await message.reply(`you must wait **${ms(time)}** before using this command again!`);
-      m.delete({ timeout: time });
-      return;
+    const cooldownDB = client.cooldowns.get(message.author.id, cmd.help.name);
+    if (cooldownDB != null && cmd.conf.cooldown - (Date.now() - cooldownDB) > 0) {
+      const time = cmd.conf.cooldown - (Date.now() - cooldownDB);
+      return message.reply(`you must wait **${ms(time)}** before using this command again!`);
     }
   }
   if (!message.guild) {
