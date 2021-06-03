@@ -1,6 +1,6 @@
-const ytdl = require('discord-ytdl-core'),
-  { MessageEmbed } = require('discord.js'),
-  { canModifyQueue } = require('./Util');
+const ytdl = require('discord-ytdl-core');
+const { MessageEmbed } = require('discord.js');
+const { canModifyQueue, formatDate } = require('./Util');
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
@@ -34,16 +34,12 @@ module.exports = {
       return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
     }
     const encoderArgsFilters = [];
-    Object.keys(queue.filters).forEach((filterName) => {
+    Object.keys(queue.filters).forEach(filterName => {
       if (queue.filters[filterName])
         encoderArgsFilters.push(filters[filterName]);
     });
     let encoderArgs;
-    if (encoderArgsFilters.length < 1) {
-      encoderArgs = [];
-    } else {
-      encoderArgs = ['-af', encoderArgsFilters.join(',')];
-    }
+    encoderArgsFilters.length < 1 ? encoderArgs = [] : encoderArgs = ['-af', encoderArgsFilters.join(',')];
 
     let stream;
     try {
@@ -106,7 +102,7 @@ module.exports = {
         .setThumbnail(song.thumbnail.url)
         .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}`)
         .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-        .setFooter(`Length: ${song.duration == 0 ? ' ◉ LIVE' : new Date(song.duration*1000).toISOString().substr(11, 8)} | Published on ${song.publishDate}`)
+        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)} | Published on ${formatDate(song.publishDate)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
@@ -117,7 +113,7 @@ module.exports = {
       await playingMessage.react('⏹');
       await playingMessage.react('🎤');
     } catch (error) {
-      client.logger.error(error);
+      client.logger.error(error.stack || error);
     }
 
     const filter = (reaction, user) => user.id !== client.user.id;

@@ -2,9 +2,8 @@ const request = require('node-superfetch');
 
 exports.run = (client, message, args) => {
   let [title, contents] = args.join(' ').split(',');
-  if (!contents) {
+  if (!contents)
     [title, contents] = ['Achievement Get!', title];
-  }
   let rnd = Math.floor(Math.random() * 39 + 1);
   if (args.join(' ').toLowerCase().includes('burn')) rnd = 38;
   if (args.join(' ').toLowerCase().includes('cake')) rnd = 10;

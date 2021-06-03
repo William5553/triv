@@ -9,9 +9,8 @@ exports.run = async (client, message, args) => {
     if (!args.length)
       return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
     const youtube = new YouTubeAPI(process.env.google_api_key);
-    let { channel } = message.member.voice;
+    let { channel } = message.member.voice, forced = false;
     // the owner can play a video to any channel if they put the channel id in ampersands
-    let forced = false;
     if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
       channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
       forced = true;
@@ -94,7 +93,11 @@ exports.run = async (client, message, args) => {
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds,
           thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-          channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
+          channel: {
+            name: songInfo.videoDetails.author.name,
+            profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url,
+            url: songInfo.videoDetails.author.user_url
+          },
           publishDate: songInfo.videoDetails.publishDate
         };
       } catch (error) {
@@ -104,7 +107,7 @@ exports.run = async (client, message, args) => {
           .setTimestamp()
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
-          .setDescription(`**ytdl-core threw an error\n\nStack Trace:**\n\`\`\`${error.stack}\`\`\``)
+          .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack}\`\`\``)
           .addField('**Command:**', `${message.content}`)
         );
       }

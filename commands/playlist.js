@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const { play } = require('../util/play');
 const YouTubeAPI = require('simple-youtube-api');
+const fetch = require('node-superfetch');
+const moment = require('moment');
 
 exports.run = async (client, message, args) => {
   try {
@@ -57,39 +59,47 @@ exports.run = async (client, message, args) => {
       }
     };
 
-    let playlist = null,
-      videos = [];
+    let playlist, videos = [];
+    const ids = [];
 
     if (urlValid) {
       try {
         playlist = await youtube.getPlaylist(url, { part: 'snippet' });
-        videos = await playlist.getVideos(100, { part: 'snippet' });
+        videos = await playlist.getVideos(50);
+        for (const video of videos)
+          ids.push(`&id=${video.id}`);
+        videos = await fetch.get(`https://www.googleapis.com/youtube/v3/videos?key=${process.env.google_api_key}&part=snippet&part=contentDetails${ids.join('')}`);
       } catch (error) {
         client.logger.error(error);
-        return message.reply('Playlist not found :(');
+        return message.reply(`an error occurred: ${error}`);
       }
     } else {
       try {
         const results = await youtube.searchPlaylists(search, 1, { part: 'snippet' });
         playlist = results[0];
-        videos = await playlist.getVideos(100, { part: 'snippet' });
+        videos = await playlist.getVideos(50);
+        for (const video of videos)
+          ids.push(`&id=${video.id}`);
+        videos = await fetch.get(`https://www.googleapis.com/youtube/v3/videos?key=${process.env.google_api_key}&part=snippet&part=contentDetails${ids.join('')}`);
       } catch (error) {
         client.logger.error(error);
-        return message.reply('Playlist not found :(');
+        return message.reply(`an error occurred: ${error}`);
       }
     }
 
-
-    const newSongs = videos
-      .filter(video => video.title != 'Private video' && video.title != 'Deleted video')
+    const newSongs = videos.body.items
       .map(video => {
         return {
-          title: video.title,
-          url: video.url,
-          duration: 0, // TODO: fix so it's not -1
-          thumbnail: video.maxRes,
-          channel: {name: video.channel.raw.snippet.videoOwnerChannelTitle, profile_pic: video.channel.raw.snippet.thumbnails.high.url, url: `https://youtube.com/channel/${video.channel.raw.snippet.videoOwnerChannelId}`}, // profile pic url is not available so using video thumbnail
-          publishDate: '???'
+          title: video.snippet.title,
+          url: `https://www.youtube.com/watch?v=${video.id}`,
+          duration: moment.duration(video.contentDetails.duration).asSeconds(),
+          thumbnail: video.snippet.thumbnails.maxres || video.snippet.thumbnails.standard,
+          channel: {
+            name: video.snippet.channelTitle,
+            profile_pic: '',
+            url: `https://youtube.com/channel/${video.snippet.channelId}`
+          },
+          publishDate: video.snippet.publishedAt
         };
       });
 
@@ -120,7 +130,7 @@ exports.run = async (client, message, args) => {
         client.logger.error(error);
         client.queue.delete(message.guild.id);
         await channel.leave();
-        return message.channel.send(`Could not join the channel: ${error}`);
+        return message.reply(`could not join the channel: ${error}`);
       }
     }
   } catch (err) {
@@ -138,9 +148,9 @@ exports.run = async (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['list'],
   permLevel: 0,
-  cooldown: 10000
+  cooldown: 12000
 };
 
 exports.help = {

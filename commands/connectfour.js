@@ -22,10 +22,8 @@ exports.run = async (client, message, args) => {
       return message.channel.send('Looks like they declined...');
     }
     const board = generateBoard();
-    let userTurn = true,
-      winner = null;
     const colLevels = [5, 5, 5, 5, 5, 5, 5];
-    let lastTurnTimeout = false;
+    let userTurn = true, winner = null, lastTurnTimeout = false;
     while (!winner && board.some(row => row.includes(null))) {
       const user = userTurn ? message.author : opponent,
         sign = userTurn ? 'user' : 'oppo';
