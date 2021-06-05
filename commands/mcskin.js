@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   try {
     findPlayer = await nameToUUID(args[0]) || await uuidToName(args[0]);
   } catch (e) {
-    return message.channel.send('User not found');
+    return message.channel.send(`User not found: ${e.stack || e}`);
   }
   
   if (findPlayer.uuid) {
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
 };
 
 async function nameToUUID(name) {
-  const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}}`);
+  const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}`);
   if (body.id) return { uuid: body.id, name: body.name };
   return false;
 }
