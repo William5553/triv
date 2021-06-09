@@ -1,9 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 const request = require('node-superfetch');
 
-exports.run = async (client, message) => {
+exports.run = async (client, message, args) => {
   try {
-    const { body } = await request.get('https://www.reddit.com/r/memes.json?sort=top&t=week');
+    const subreddit = args[0] || 'memes';
+
+    const { body } = await request.get(`https://www.reddit.com/r/${encodeURIComponent(subreddit)}.json?sort=top&t=week`);
     const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
     if (!allowed.length) return message.channel.send('It seems we are out of fresh memes! Try again later.');
 
@@ -37,7 +39,7 @@ exports.conf = {
 
 exports.help = {
   name: 'meme',
-  description: 'Gets a random meme from r/memes',
-  usage: 'meme',
+  description: 'Gets a random meme from r/memes or a specified subreddit',
+  usage: 'meme [subreddit (optional)]',
   example: 'meme'
 };
