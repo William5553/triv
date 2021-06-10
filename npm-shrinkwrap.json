@@ -29,7 +29,7 @@
         "ms": "^2.1.3",
         "node-superfetch": "^0.2.3",
         "simple-youtube-api": "^5.2.1",
-        "tiktok-scraper": "^1.4.29",
+        "tiktok-scraper": "^1.4.30",
         "utf-8-validate": "^5.0.5",
         "ytdl-core": "^4.8.2"
       },
@@ -4517,9 +4517,9 @@
       "dev": true
     },
     "node_modules/tiktok-scraper": {
-      "version": "1.4.29",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.29.tgz",
-      "integrity": "sha512-J5l27sE4fx7QF9hodnMpqgBd4SmvcYQQW5Hvapni70UDxuyvVZwpQ6VfxAHMrH4cqjvs8zM8kTIImwnSyCxgNA==",
+      "version": "1.4.30",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.30.tgz",
+      "integrity": "sha512-Zxb0tn1o53GHmiZL27tzNR/8lcmHMfEovNjgTfPqsg97d7pC4eATW8TY1C2/1F13nDElF6dWzpwDgyM0KaW0ag==",
       "dependencies": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
@@ -8498,9 +8498,9 @@
       "dev": true
     },
     "tiktok-scraper": {
-      "version": "1.4.29",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.29.tgz",
-      "integrity": "sha512-J5l27sE4fx7QF9hodnMpqgBd4SmvcYQQW5Hvapni70UDxuyvVZwpQ6VfxAHMrH4cqjvs8zM8kTIImwnSyCxgNA==",
+      "version": "1.4.30",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.30.tgz",
+      "integrity": "sha512-Zxb0tn1o53GHmiZL27tzNR/8lcmHMfEovNjgTfPqsg97d7pC4eATW8TY1C2/1F13nDElF6dWzpwDgyM0KaW0ag==",
       "requires": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
