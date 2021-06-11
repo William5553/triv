@@ -1,6 +1,9 @@
 const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
+
+require('moment-duration-format');
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
@@ -102,7 +105,7 @@ module.exports = {
         .setThumbnail(song.thumbnail.url)
         .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}`)
         .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)} | Published on ${formatDate(song.publishDate)}`)
+        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
       );
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
