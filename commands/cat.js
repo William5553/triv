@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
       .setImage(body.file)
       .setTimestamp()
       .setColor('FF0000');
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')

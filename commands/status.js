@@ -48,7 +48,7 @@ exports.run = (client, message, args) => {
           embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.createdTimestamp).format('hh:mm:ss')} | Started at`);
           embed.setTimestamp(activity.createdTimestamp);
         }
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
       } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
         message.channel.send({embeds: [new MessageEmbed()
           .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')

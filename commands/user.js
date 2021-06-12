@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
       embed.setFooter('Failed to resolve member, showing basic user information instead.');
     }
   }
-  return message.channel.send(embed);
+  return message.channel.send({ embeds: [embed] });
 };
 
 function trimArray(arr, maxLen) {

@@ -25,7 +25,7 @@ module.exports = async (client, oldState, newState) => {
         await embed.setTitle(`**Server ${entries.first().changes[0].new == true ? 'D' : 'Und'}eafened**`);
       else if (entries.first().changes[0].key == 'mute')
         await embed.setTitle(`**Server ${entries.first().changes[0].new == true ? 'M' : 'Unm'}uted**`);
-      if (embed.title) logs.send(embed);
+      if (embed.title) logs.send({embeds: [embed]});
     } else client.settings.set(guild.id, '', 'logsID');
   }
 };

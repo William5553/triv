@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!embeds || embeds.length < 1) return message.channel.send('A solution could not be found');
     let currPage = 0;
     
-    const emb = await message.channel.send(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+    const emb = await message.channel.send({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
     if (embeds.length < 2) return;
     await emb.react('⬅️');
     await emb.react('➡️');
@@ -21,12 +21,12 @@ exports.run = async (client, message, args) => {
         if (reaction.emoji.name === '➡️') {
           if (currPage < embeds.length - 1) {
             currPage++;
-            emb.edit(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+            emb.edit({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
           }
         } else if (reaction.emoji.name === '⬅️') {
           if (currPage !== 0) {
             --currPage;
-            emb.edit(`**Step ${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+            emb.edit({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
           }
         }
       } catch (e) {

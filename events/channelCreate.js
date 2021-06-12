@@ -20,7 +20,7 @@ module.exports = async (client, channel) => {
         .setFooter(`User ID: ${guy.id} | Channel ID: ${channel.id}`)
         .setTimestamp()
         .setColor('00FF00');
-      logs.send(embed);
+      logs.send({embeds: [embed]});
     } else client.settings.set(guild.id, '', 'logsID');
   }
 

@@ -28,7 +28,7 @@ exports.run = async (client, message) => {
       embed.setTimestamp(date.content);
     else return message.channel.send('Date is invalid.');
 
-    channel.send(embed);
+    channel.send({ embeds: [embed] });
   } catch (err) {
     message.channel.send(`There was an error making your embed: ${err.message || err}`);
   }

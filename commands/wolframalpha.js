@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
               try {
                 message.channel.send(body.queryresult.warnings[i][j][0].text);
               } catch (e) {
-                client.logger.warn(`WolframAlpha: failed displaying warning: ${e.stack}`);
+                client.logger.warn(`WolframAlpha: failed displaying warning: ${e.stack || e}`);
               }
             }
           }
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
               try {
                 message.channel.send(`Assuming ${body.queryresult.assumptions[i][j][0].word} is ${body.queryresult.assumptions[i][j][0].value[0].desc}`);
               } catch (e) {
-                client.logger.warn(`WolframAlpha: failed displaying assumption: ${e.stack}`);
+                client.logger.warn(`WolframAlpha: failed displaying assumption: ${e.stack || e}`);
               }
             }
           }
@@ -90,13 +90,13 @@ exports.run = async (client, message, args) => {
               );
             }	
           }
-          message.channel.send(messagee, embedz);
+          message.channel.send({content: messagee, embeds: embedz});
         }
       }
       if (!embeds || embeds.length < 1) return message.channel.send('No results from Wolfram Alpha.');
       let currPage = 0;
   
-      const emb = await message.channel.send(`**${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+      const emb = await message.channel.send({content: `**${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
       if (embeds.length > 1) {
         await emb.react('⬅️');
         await emb.react('➡️');
@@ -109,12 +109,12 @@ exports.run = async (client, message, args) => {
             if (reaction.emoji.name === '➡️') {
               if (currPage < embeds.length - 1) {
                 currPage++;
-                emb.edit(`**${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+                emb.edit({content: `**${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
               }
             } else if (reaction.emoji.name === '⬅️') {
               if (currPage !== 0) {
                 --currPage;
-                emb.edit(`**${currPage + 1}/${embeds.length}**`, embeds[currPage]);
+                emb.edit({content: `**${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
               }
             }
             await reaction.users.remove(message.author.id);

@@ -24,7 +24,7 @@ module.exports = async (client, oldMember, newMember) => {
           .setTimestamp(entry.createdTimestamp || Date.now());
         if (entry.reason)
           embed.addField('**Reason**', entry.reason);
-        logs.send(embed);
+          logs.send({embeds: [embed]});
       } else client.settings.set(guild.id, '', 'logsID');
     }
   }

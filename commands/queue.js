@@ -6,7 +6,7 @@ exports.run = async (client, message) => {
   try {
     let currentPage = 0;
     const embeds = generateQueueEmbed(message, serverQueue.songs);
-    const queueEmbed = await message.channel.send(`**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds[currentPage]);
+    const queueEmbed = await message.channel.send({content: `**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds: [ embeds[currentPage] ]});
     if (embeds.length < 2) return;
     await queueEmbed.react('⬅️');
     await queueEmbed.react('⏹');
@@ -20,12 +20,12 @@ exports.run = async (client, message) => {
         if (reaction.emoji.name === '➡️') {
           if (currentPage < embeds.length - 1) {
             currentPage++;
-            queueEmbed.edit(`**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds[currentPage]);
+            queueEmbed.edit({content: `**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds: [ embeds[currentPage] ]});
           }
         } else if (reaction.emoji.name === '⬅️') {
           if (currentPage !== 0) {
             --currentPage;
-            queueEmbed.edit(`**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds[currentPage]);
+            queueEmbed.edit({content: `**Current Page - ${currentPage + 1}/${embeds.length}**`, embeds: [ embeds[currentPage] ]});
           }
         } else {
           message.delete();

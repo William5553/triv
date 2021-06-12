@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
         .setColor(0xEB5234);
       if (message.attachments.size > 0)
         embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-      logs.send(embed);
+      logs.send({embeds: [embed]});
       message.embeds.forEach(embedd => logs.send(embedd));
     } else client.settings.set(message.guild.id, '', 'logsID');
   }
