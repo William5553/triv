@@ -15,14 +15,14 @@ exports.run = async (client, message, args) => {
       if (touchA.includes(platform)) platform = 'touch';
       if (!(platform == 'kbm' || platform == 'gamepad' || platform == 'touch')) {
         return message.reply({
-          embed: new MessageEmbed()
+          embeds: [new MessageEmbed()
             .setAuthor(
               '400: Invalid platform',
               'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
             )
             .setColor('#ff3860')
             .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
-        });
+          ]});
       }
       const e = await message.reply({
         embed: new MessageEmbed()
@@ -36,14 +36,14 @@ exports.run = async (client, message, args) => {
       if (body.error) {
         if (body.error == 'Player Not Found') {
           return e.edit({
-            embed: new MessageEmbed()
+            embeds: [new MessageEmbed()
               .setAuthor(
                 '404: Account not found.',
                 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
               )
               .setColor('#ff3860')
               .setFooter("Make sure you've got the name correct!")
-          });
+            ]});
         } else {
           client.logger.error(body.error);
           return e.edit({
@@ -67,12 +67,12 @@ exports.run = async (client, message, args) => {
           emb.addField(stat.key, stat.value, true);
         }
         return e.edit({
-          embed: emb
+          embeds: [emb]
         });
       }
     } else if (args.length < 2) {
       return message.reply({
-        embed: new MessageEmbed()
+        embeds: [new MessageEmbed()
           .setAuthor(
             '400: Too few arguments.',
             'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
@@ -81,7 +81,7 @@ exports.run = async (client, message, args) => {
           .setDescription(
             `This command requires 2 arguments, **platform** and **epic username**. Try this **${client.getPrefix(message)}${exports.help.example}**`
           )
-      });
+        ]});
     }
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()
@@ -105,7 +105,7 @@ exports.conf = {
 
 exports.help = {
   name: 'fortnite',
-  description: 'Gets args players fortnite stats',
+  description: 'Gets a players fortnite stats',
   usage: 'fortnite [platform] [username]',
   example: 'fortnite pc Ninja'
 };
