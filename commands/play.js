@@ -80,7 +80,7 @@ exports.run = async (client, message, args) => {
           publishDate: songInfo.videoDetails.publishDate
         };
       } catch (error) {
-        client.logger.error(error.stack ? error.stack : error);
+        client.logger.error(error.stack || error);
         return message.reply(error.message);
       }
     } else {
