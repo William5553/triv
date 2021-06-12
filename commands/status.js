@@ -8,23 +8,23 @@ exports.run = (client, message, args) => {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(ro => ro.displayName.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.member;
 
     if (!user.presence.activities.length) {
-      return message.channel.send(new MessageEmbed()
+      return message.channel.send({embeds: [new MessageEmbed()
         .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
         .setColor('#FF0000')
         .setTitle('**No Status**')
         .setDescription('This user does not have a custom status!')
         .setTimestamp()
-      );
+      ]});
     }
 
     user.presence.activities.forEach(activity => {
       if (activity.type === 'CUSTOM_STATUS') {
-        message.channel.send(new MessageEmbed()
+        message.channel.send({embeds: [new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
           .setDescription(`**Custom Status**\n${activity.emoji || 'No Emoji'} | ${activity.state || 'No State'}`)
           .setTimestamp()
-        );
+        ]});
       } else if (activity.type === 'PLAYING') {
         const embed = new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
@@ -50,7 +50,7 @@ exports.run = (client, message, args) => {
         }
         message.channel.send(embed);
       } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
-        message.channel.send(new MessageEmbed()
+        message.channel.send({embeds: [new MessageEmbed()
           .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
           .setColor('GREEN')
           .setTimestamp()
@@ -60,18 +60,18 @@ exports.run = (client, message, args) => {
           .addField('Author', activity.state.replace(/;/g, ','), true)
           .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncID}`, false)
           .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
-        );
+        ]});
       }
     });
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     if (!company) return message.channel.send('Could not find any results.');
     const stocks = await fetchStocks(company.symbol, process.env.alphavantage_key);
     if (!stocks) return message.channel.send('Could not find any results.');
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setTitle(`Stocks for ${company.name} (${stocks.symbol.toUpperCase()})`)
       .setColor(0x9797FF)
       .setFooter('Last Updated')
@@ -21,16 +21,16 @@ exports.run = async (client, message, args) => {
       .addField('❯ High', `$${formatNumber(stocks.high)}`, true)
       .addField('❯ Low', `$${formatNumber(stocks.low)}`, true)
       .addField('\u200B', '\u200B', true)
-    );
+    ]});
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

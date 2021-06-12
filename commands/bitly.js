@@ -14,14 +14,14 @@ exports.run = async (client, message, args) => {
     return message.channel.send(body.link);
   } catch (err) {
     if (err.status === 400) return message.reply('You provided an invalid URL. Please try again.');
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
   

@@ -10,22 +10,22 @@ exports.run = async (client, message, args) => {
     if (!allowed.length) return message.channel.send('It seems we are out of fresh memes! Try again later.');
 
     const post = allowed.random();
-    message.channel.send(new MessageEmbed()
+    message.channel.send({embeds: [new MessageEmbed()
       .setTitle(post.data.title)
       .setURL(`https://reddit.com${post.data.permalink}`)
       .setColor('RED')
       .setImage(post.data.url || post.data.url_overridden_by_dest)
       .setFooter(`👍 ${post.data.ups} | 💬 ${post.data.num_comments}`)
-    );
+    ]});
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

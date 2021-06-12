@@ -7,10 +7,11 @@ exports.run = async (client, message, args) => {
     .post('https://hastebin.com/documents')
     .send(EscapeMarkdown(args.join(' ')));
 
-  message.channel.send(new MessageEmbed()
+  message.channel.send({embeds: [new MessageEmbed()
     .setTitle('Hastebin')
     .setColor('BLURPLE')
-    .setDescription(`https://hastebin.com/${body.key}`));
+    .setDescription(`https://hastebin.com/${body.key}`)
+  ]});
 };
 
 exports.conf = {

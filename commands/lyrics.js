@@ -17,11 +17,11 @@ exports.run = async (client, message, args) => {
         tomato = activity;
     });
     if (!tomato) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
-    await message.channel.send(new MessageEmbed()
+    await message.channel.send({embeds: [new MessageEmbed()
       .setColor('GREEN')
       .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
       .setDescription(`You are currently listening to [**${tomato.details}** by **${tomato.state.replace(/;/g, ',')}**](https://open.spotify.com/track/${tomato.syncID}) in the album **${tomato.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
-    );
+    ]});
     const verification = await verify(message.channel, message.author);
     if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
     query = `${tomato.details} - ${tomato.state.replace(/;/g, '')}`;

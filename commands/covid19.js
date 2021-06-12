@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (args.size < 1) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
     const country = args[0];
     const data = await fetchStats(country);
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor(0xA2D84E)
       .setAuthor('Worldometers', 'https://i.imgur.com/IoaBMuK.jpg', 'https://www.worldometers.info/coronavirus/')
       .setTitle(`Stats for ${country === 'all' ? 'The World' : data.country}`)
@@ -24,17 +24,17 @@ exports.run = async (client, message, args) => {
       .addField('❯ Active Cases', formatNumber(data.active), true)
       .addField('❯ Active Critical Cases', formatNumber(data.critical), true)
       .addField('❯ Tests', formatNumber(data.tests), true)
-    );
+    ]});
   } catch (err) {
     if (err.status === 404) return message.say('Country not found or doesn\'t have any cases.');
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 async function fetchStats(country) {

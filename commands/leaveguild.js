@@ -7,12 +7,12 @@ exports.run = async (client, message, args) => {
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     await guild.leave();
     if (message.guild != guild)
-      message.channel.send(new MessageEmbed()
+      message.channel.send({embeds: [new MessageEmbed()
         .setTitle('Left Guild')
         .setDescription(`I have successfully left **${guild.name}**.`)
         .setTimestamp()
         .setColor('FF0000')
-      );
+      ]});
   } catch (error) {
     return message.reply(`there was an error leaving the specified guild: ${error.stack || error}`);
   }

@@ -5,7 +5,7 @@ require('dotenv').config();
 if (!process.env.token) throw new Error('No token provided');
 
 const { Client, Collection } = require('discord.js');
-const client = new Client({ intents: 32767, allowedMentions: { repliedUser: true, parse: ['roles', 'users'] }});
+const client = new Client({ intents: 32767, partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'], allowedMentions: { repliedUser: true, parse: ['roles', 'users'] }});
 const { readdir } = require('fs');
 const Enmap = require('enmap');
 

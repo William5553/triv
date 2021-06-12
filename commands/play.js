@@ -101,15 +101,15 @@ exports.run = async (client, message, args) => {
           publishDate: songInfo.videoDetails.publishDate
         };
       } catch (error) {
-        client.logger.error(error.stack ? error.stack : error);
-        return message.channel.send(new MessageEmbed()
+        client.logger.error(error.stack || error);
+        return message.channel.send({embeds: [new MessageEmbed()
           .setColor('#FF0000')
           .setTimestamp()
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
-          .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack}\`\`\``)
+          .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
           .addField('**Command:**', `${message.content}`)
-        );
+        ]});
       }
     }
 
@@ -132,14 +132,14 @@ exports.run = async (client, message, args) => {
       return message.channel.send(`could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

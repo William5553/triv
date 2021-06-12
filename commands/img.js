@@ -11,22 +11,22 @@ exports.run = async (client, message, args) => {
     const images = body.data.filter(image => image.images && !image.images[0].type.includes('video') && (message.channel.nsfw ? true : !image.nsfw));
     if (!images.length) return message.channel.send('Could not find any results.');
     const image = images.random();
-    message.channel.send(new MessageEmbed()
+    message.channel.send({embeds: [new MessageEmbed()
       .setTitle(image.title)
       .setURL(image.link)
       .setColor('GREEN')
       .setImage(image.images[0].link)
       .setFooter(`👁️ ${image.views} | 👍 ${image.ups} | 👎 ${image.downs}`)
-    );
+    ]});
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

@@ -26,7 +26,7 @@ exports.run = (client, message, args, perms) => {
       else if (client.aliases.has(args[0]))
         command = client.commands.get(client.aliases.get(args[0]));
       if (!command) return message.channel.send(`${args[0]} is not a valid command`);
-      message.channel.send(new MessageEmbed()
+      message.channel.send({embeds: [new MessageEmbed()
         .setTitle(`= **${command.help.name}** =`)
         .addField('**Description**', command.help.description)
         .addField('**Usage**', command.help.usage)
@@ -34,17 +34,17 @@ exports.run = (client, message, args, perms) => {
         .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
         .addField('**Example**', command.help.example || 'No examples')
         .addField('**Permissions**', perm[command.conf.permLevel])
-      );
+      ]});
     }
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

@@ -5,12 +5,12 @@ exports.run = (client, message) => {
   
   if (!msg) return message.reply('no message to snipe.');
 
-  message.channel.send(new MessageEmbed()
+  message.channel.send({embeds: [new MessageEmbed()
     .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
     .setDescription(msg.content)
     .setTimestamp(msg.date)
     .setColor('FF0000')
-  );
+  ]});
 };
   
 exports.conf = {

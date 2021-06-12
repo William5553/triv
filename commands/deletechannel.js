@@ -7,12 +7,12 @@ exports.run = async (client, message, args) => {
     if (!channel) return message.channel.send('Unable to find channel, please check the provided ID');
     await channel.delete();
     if (message.channel != channel)
-      message.channel.send(new MessageEmbed()
+      message.channel.send({embeds: [new MessageEmbed()
         .setTitle('Deleted Channel')
         .setDescription(`I have successfully deleted **${channel.name}**.`)
         .setTimestamp()
         .setColor('FF0000')
-      );
+      ]});
   } catch (error) {
     return message.reply(`there was an error deleting the specified channel: ${error.stack || error}`);
   }

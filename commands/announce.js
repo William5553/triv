@@ -16,12 +16,12 @@ exports.run = (client, message, args) => {
   });
   
   if (guilds.length > 0) {
-    message.channel.send(new MessageEmbed()
+    message.channel.send({embeds: [new MessageEmbed()
       .setTitle('Announcement Failures')
       .setDescription(guilds.join('\n'))
       .setTimestamp()
       .setColor('FF0000')
-    );
+    ]});
   } else {
     message.channel.send('Successfully announced message to all guilds.');
   }

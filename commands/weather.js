@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
         units: 'metric',
         appid: process.env.openweathermap_key
       });
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor(0xFF7A09)
       .setAuthor(
         `${body.name}, ${body.sys.country}`,
@@ -36,17 +36,17 @@ exports.run = async (client, message, args) => {
       .addField('❯ Humidity', `${body.main.humidity}%`, true)
       .addField('❯ Wind Speed', `${body.wind.speed} meters/sec`, true)
       .addField('❯ Cloudiness', `${body.clouds.all}%`, true)
-    );
+    ]});
   } catch (err) {
     if (err.status === 404) return message.channel.send('Could not find any results.');
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
 

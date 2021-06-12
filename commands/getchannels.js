@@ -5,21 +5,21 @@ exports.run = async (client, message, args) => {
     if (isNaN(args[0])) return message.reply('please provide a valid guild ID.');
     const guild = client.guilds.resolve(args[0]);
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
-    message.channel.send(new MessageEmbed()
+    message.channel.send({embeds: [new MessageEmbed()
       .setAuthor(guild.name, guild.iconURL())
       .setTimestamp()
       .setDescription(guild.channels.cache.map(c => `${c.name} - ${c.type}`).join('\n'))
       .setColor('BLURPLE')
-    );
+    ]});
   } catch (err) {
-    return message.channel.send(new MessageEmbed()
+    return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
       .addField('**Command:**', `${message.content}`)
-    );
+    ]});
   }
 };
   
