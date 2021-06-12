@@ -50,9 +50,9 @@ module.exports = client => {
   */
   client.elevation = member => {
     let permlvl = 0;
-    if (member.hasPermission('MANAGE_MESSAGES'))
+    if (member.permissions.has('MANAGE_MESSAGES'))
       permlvl = 2;
-    if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD'))
+    if (member.permissions.has('ADMINISTRATOR') || member.permissions.has('MANAGE_GUILD'))
       permlvl = 3;
     if (member.id == member.guild.ownerID)
       permlvl = 4;

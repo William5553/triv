@@ -12,7 +12,7 @@ exports.run = async (client, message) => {
 
     let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
 
-    if (!message.guild.me.hasPermission('MANAGE_ROLES'))
+    if (!message.guild.me.permissions.has('MANAGE_ROLES'))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 
     if (!role) {

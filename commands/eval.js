@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     let result = await clean(err);
     if (result.length > 1980) result = result.substr(0, 1980) + '...';
-    message.channel.send(`ERROR: ${result}`, {code: 'xl'});
+    message.channel.send(`ERROR: ${result}`, { code: 'xl' });
   }
 };
 

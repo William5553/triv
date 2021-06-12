@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     
     let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted') || message.guild.roles.resolve(client.settings.get(message.guild.id).muteRoleID);
 
-    if (!message.guild.me.hasPermission('MANAGE_ROLES'))
+    if (!message.guild.me.permissions.has('MANAGE_ROLES'))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 
     if (message.guild.me.roles.highest.comparePositionTo(muteRole) < 1) return message.reply("I don't have control over the muted role, move my role above the muted role.");

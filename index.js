@@ -1,11 +1,11 @@
-if (Number(process.version.slice(1).split('.')[0]) < 12)
-  throw new Error('Node 12.0.0 or higher is required. Update Node on your system.');
+if (Number(process.version.slice(1).split('.')[0]) < 14)
+  throw new Error('Node 14.0.0 or higher is required. Update Node on your system.');
 
 require('dotenv').config();
 if (!process.env.token) throw new Error('No token provided');
 
 const { Client, Collection } = require('discord.js');
-const client = new Client({ disableMentions: 'everyone' });
+const client = new Client({ intents: 32767, allowedMentions: { repliedUser: true, parse: ['roles', 'users'] }});
 const { readdir } = require('fs');
 const Enmap = require('enmap');
 
@@ -79,7 +79,7 @@ readdir('./events/', (err, files) => {
         await guild.leave();
         guildsLeft++;
       } catch {
-        client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${guild.id}.`);
+        client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${guild.id} (${guild.name}).`);
       }
     }
   }
@@ -89,7 +89,6 @@ readdir('./events/', (err, files) => {
 client.login(process.env.token);
 
 /*
-
 const express = require('express');
 const app = express();
 
@@ -98,7 +97,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(8080);
-
 */
 
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
@@ -107,6 +105,4 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', err => {
-  client.logger.error(`UNHANDLED REJECTION:\n${err.stack}`);
-});
+process.on('unhandledRejection', err => client.logger.error(`UNHANDLED REJECTION: ${err.stack}\n`));

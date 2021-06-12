@@ -102,7 +102,6 @@ module.exports = class Util {
         m =>
           m.author.id === client.user.id &&
           m.embeds[0] &&
-          m.embeds[0].type === 'rich' &&
           m.embeds[0].footer &&
           m.embeds[0].footer.text.startsWith('ID')
       )
