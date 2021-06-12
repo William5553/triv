@@ -98,15 +98,16 @@ module.exports = {
     
     let playingMessage;
     try {
-      playingMessage = await queue.textChannel.send(new MessageEmbed()
-        .setTitle(song.title)
-        .setURL(song.url)
-        .setColor('#FF0000')
-        .setThumbnail(song.thumbnail.url)
-        .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}`)
-        .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
-      );
+      playingMessage = await queue.textChannel.send({embeds: [
+        new MessageEmbed()
+          .setTitle(song.title)
+          .setURL(song.url)
+          .setColor('#FF0000')
+          .setThumbnail(song.thumbnail.url)
+          .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}`)
+          .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
+          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
+      ]});
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
       await playingMessage.react('🔇');

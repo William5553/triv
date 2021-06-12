@@ -8,22 +8,22 @@ exports.run = async (client, message, args) => {
   const m = await message.channel.send('Getting...');
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
-    message.channel.send('Roblox account found on Eryn', new MessageEmbed()
+    message.channel.send({content: 'Roblox account found on Eryn', embeds: [new MessageEmbed()
       .setTitle(`Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}`)
       .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
       .setColor(0x00ae86)
-    );
+    ]});
   } catch {
     message.channel.send('No account found for Eryn');
   }
   try {
     data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
     if (!data.body.error) {
-      message.channel.send('Roblox account found on Bloxlink', new MessageEmbed()
+      message.channel.send({content: 'Roblox account found on Bloxlink', embeds: [new MessageEmbed()
         .setTitle(`User ID: ${data.body.primaryAccount}`)
         .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
         .setColor(0x00ae86)
-      );
+      ]});
     } else return message.channel.send(data.body.error);
   } catch {
     message.channel.send('No account found for Bloxlink');

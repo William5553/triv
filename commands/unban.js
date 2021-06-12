@@ -22,14 +22,13 @@ exports.run = async (client, message, args) => {
 
   if (client.settings.get(message.guild.id).logsID) {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
-    return botlog.send(new MessageEmbed()
-      .setColor(0x00ae86)
-      .setTimestamp()
-      .setDescription(
-        `**Action:** Unban\n**Target:** ${banned.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`
-      )
-      .setFooter(`User ID: ${banned.user.id}`)
-    );
+    return botlog.send({embeds: [
+      new MessageEmbed()
+        .setColor(0x00ae86)
+        .setTimestamp()
+        .setDescription(`**Action:** Unban\n**Target:** ${banned.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`)
+        .setFooter(`User ID: ${banned.user.id}`)
+    ]});
   }
 };
 

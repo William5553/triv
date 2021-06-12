@@ -41,12 +41,12 @@ exports.run = async (client, message, args) => {
           if (client.settings.get(message.guild.id).logsID) {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
-            botlog.send(new MessageEmbed()
+            botlog.send({embeds: [new MessageEmbed()
               .setColor(0x00ae86)
               .setTimestamp()
               .setDescription(`**Action:** Unmute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**User ID:** ${member.user.tag}`)
               .setFooter(`ID ${caseNum}`)
-            );
+            ]});
           }
         });
     } else {
@@ -59,12 +59,12 @@ exports.run = async (client, message, args) => {
           if (client.settings.get(message.guild.id).logsID) {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
-            botlog.send(new MessageEmbed()
+            botlog.send({embeds: [new MessageEmbed()
               .setColor(0x00ae86)
               .setTimestamp()
               .setDescription(`**Action:** Mute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${member.user.tag}`)
               .setFooter(`ID ${caseNum}`)
-            );
+            ]});
           }
         });
     }

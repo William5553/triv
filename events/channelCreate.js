@@ -13,14 +13,15 @@ module.exports = async (client, channel) => {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
       logs.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false });
       
-      const embed = new MessageEmbed()
-        .setTitle(`**Channel Created - #${channel.name}**`)
-        .setDescription(`${channel}`)
-        .setAuthor(`@${guy.tag}`, guy.displayAvatarURL({ dynamic: true }))
-        .setFooter(`User ID: ${guy.id} | Channel ID: ${channel.id}`)
-        .setTimestamp()
-        .setColor('00FF00');
-      logs.send({embeds: [embed]});
+      logs.send({embeds: [
+        new MessageEmbed()
+          .setTitle(`**Channel Created - #${channel.name}**`)
+          .setDescription(`${channel}`)
+          .setAuthor(`@${guy.tag}`, guy.displayAvatarURL({ dynamic: true }))
+          .setFooter(`User ID: ${guy.id} | Channel ID: ${channel.id}`)
+          .setTimestamp()
+          .setColor('00FF00')
+      ]});
     } else client.settings.set(guild.id, '', 'logsID');
   }
 

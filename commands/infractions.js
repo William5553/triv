@@ -51,7 +51,8 @@ function genEmbeds(message, user, infractions) {
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Action', infraction.type, true)
       .setColor(0x902b93)
-      .setFooter(formatDate(infraction.timestamp));
+      .setFooter(formatDate(infraction.timestamp)
+      );
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
     if (infraction.additional)
       infraction.additional.forEach(info => embed.addField(info.title, info.body, true));

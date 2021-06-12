@@ -4,12 +4,12 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
   try {
     const { body } = await fetch.get('https://randomfox.ca/floof/');
-    const embed = new MessageEmbed()
+    message.channel.send({ embeds: [new MessageEmbed()
       .setTitle(':fox: What does the fox say? :fox:')
       .setImage(body.image)
       .setTimestamp()
-      .setColor('FF0000');
-    message.channel.send({ embeds: [embed] });
+      .setColor('FF0000')
+    ]});
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')

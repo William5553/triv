@@ -16,20 +16,17 @@ exports.run = async (client, message, args) => {
       if (!(platform == 'kbm' || platform == 'gamepad' || platform == 'touch')) {
         return message.reply({
           embeds: [new MessageEmbed()
-            .setAuthor(
-              '400: Invalid platform',
-              'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
-            )
+            .setAuthor('400: Invalid platform', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
             .setColor('#ff3860')
             .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
           ]});
       }
       const e = await message.reply({
-        embed: new MessageEmbed()
+        embeds: [new MessageEmbed()
           .setTitle('Working...')
           .setDescription('Please wait a few seconds')
           .setColor('#ffdd57')
-      });
+        ]});
       const { body } = await request
         .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
         .set({'TRN-Api-Key': process.env.trn_api_key});
@@ -37,24 +34,18 @@ exports.run = async (client, message, args) => {
         if (body.error == 'Player Not Found') {
           return e.edit({
             embeds: [new MessageEmbed()
-              .setAuthor(
-                '404: Account not found.',
-                'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
-              )
+              .setAuthor('404: Account not found.', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
               .setColor('#ff3860')
               .setFooter("Make sure you've got the name correct!")
             ]});
         } else {
           client.logger.error(body.error);
           return e.edit({
-            embed: new MessageEmbed()
-              .setAuthor(
-                '500: Something broke',
-                'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png'
-              )
+            embeds: [new MessageEmbed()
+              .setAuthor('500: Something broke', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
               .setColor('#ff3860')
               .setFooter(body.error)
-          });
+            ]});
         }
       } else {
         const emb = new MessageEmbed()
@@ -63,12 +54,9 @@ exports.run = async (client, message, args) => {
           .setFooter('Epic Account ID: ' + body.accountId)
           .setThumbnail('https://i.imgur.com/QDzGMB8.png')
           .setURL(`https://fortnitetracker.com/profile/${encodeURIComponent(body.platformName)}/${encodeURIComponent(body.epicUserHandle)}`);
-        for (const stat of body.lifeTimeStats) {
+        for (const stat of body.lifeTimeStats)
           emb.addField(stat.key, stat.value, true);
-        }
-        return e.edit({
-          embeds: [emb]
-        });
+        return e.edit({ embeds: [emb] });
       }
     } else if (args.length < 2) {
       return message.reply({

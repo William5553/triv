@@ -4,12 +4,12 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
   try {
     const { text } = await fetch.get('http://random.dog/woof');
-    const embed = new MessageEmbed()
+    message.channel.send({embeds: [new MessageEmbed()
       .setTitle(':dog: Woof! :dog:')
       .setImage(`http://random.dog/${text}`)
       .setTimestamp()
-      .setColor('FF0000');
-    message.channel.send({ embeds: [embed] });
+      .setColor('FF0000')
+    ]});
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')

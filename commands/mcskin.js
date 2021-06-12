@@ -12,16 +12,14 @@ exports.run = async (client, message, args) => {
   }
   
   if (findPlayer.uuid) {
-    message.channel.send(
-      new MessageEmbed()
-        .setImage(`https://visage.surgeplay.com/full/512/${findPlayer.uuid}.png`)
-        .setTitle('NameMC profile (click here)')
-        .setURL(`https://namemc.com/profile/${findPlayer.uuid}`)
-        .setAuthor(`${findPlayer.name}'s skin`, `https://visage.surgeplay.com/head/512/${findPlayer.uuid}.png`)
-    );
-  } else {
+    message.channel.send({embeds: [new MessageEmbed()
+      .setImage(`https://visage.surgeplay.com/full/512/${findPlayer.uuid}.png`)
+      .setTitle('NameMC profile (click here)')
+      .setURL(`https://namemc.com/profile/${findPlayer.uuid}`)
+      .setAuthor(`${findPlayer.name}'s skin`, `https://visage.surgeplay.com/head/512/${findPlayer.uuid}.png`)
+    ]});
+  } else
     message.channel.send('User not found');
-  }
 };
 
 async function nameToUUID(name) {

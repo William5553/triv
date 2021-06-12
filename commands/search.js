@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     const results = await youtube.searchVideos(args.join(' '), 10);
     results.map((video, index) => resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`));
 
-    await message.channel.send(resultsEmbed);
+    await message.channel.send({embeds: [resultsEmbed]});
 
     message.channel.activeCollector = true;
 

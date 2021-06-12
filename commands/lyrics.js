@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
     if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
     query = `${tomato.details} - ${tomato.state.replace(/;/g, '')}`;
   }
-  if (!query) return message.reply("there is nothing playing and you didn't specify a song title.").catch(client.logger.error);
+  if (!query) return message.reply("there is nothing playing and you didn't specify a song title.");
 
   let lyrics, emtitle;
 
@@ -48,7 +48,7 @@ exports.run = async (client, message, args) => {
 
   for (let i = 0; i * 1850 <= lyrics.length; i++) {
     lyricsEmbed.description = `${lyrics.substr(i * 1850, i * 1850 + 1850)}`;
-    message.channel.send(lyricsEmbed).catch(client.logger.error);
+    message.channel.send(lyricsEmbed);
   }
 };
 

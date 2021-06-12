@@ -10,15 +10,16 @@ module.exports = (client, oldMessage, newMessage) => {
   if (client.settings.get(guild.id).logsID) {
     if (guild.channels.cache.some(channel => channel.id == client.settings.get(guild.id).logsID)) {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
-      logs.send(new MessageEmbed()
-        .setTitle('**Message Edited**')
-        .setAuthor(`@${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.displayAvatarURL({ dynamic: true }))
-        .setFooter(`User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}`)
-        .setTimestamp()
-        .addField('**Old Message**', oldMessage.content, true)
-        .addField('**New Message**', newMessage.content, true)
-        .setColor('0xEB5234')
-      );
+      logs.send({embeds: [
+        new MessageEmbed()
+          .setTitle('**Message Edited**')
+          .setAuthor(`@${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.displayAvatarURL({ dynamic: true }))
+          .setFooter(`User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}`)
+          .setTimestamp()
+          .addField('**Old Message**', oldMessage.content, true)
+          .addField('**New Message**', newMessage.content, true)
+          .setColor('0xEB5234')
+      ]});
     }
   }
 };

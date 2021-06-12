@@ -19,12 +19,13 @@ exports.run = async (client, message, args) => {
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
       const caseNum = await caseNumber(client, botlog);
-      return botlog.send(new MessageEmbed()
-        .setColor(0x00ae86)
-        .setTimestamp()
-        .setFooter(`ID ${caseNum}`)
-        .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${member.user.tag}\n**Target's User ID:** ${member.user.id}\n**Reason:** ${reason}`)
-      );
+      return botlog.send({embeds: [
+        new MessageEmbed()
+          .setColor(0x00ae86)
+          .setTimestamp()
+          .setFooter(`ID ${caseNum}`)
+          .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${member.user.tag}\n**Target's User ID:** ${member.user.id}\n**Reason:** ${reason}`)
+      ]});
     }
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()

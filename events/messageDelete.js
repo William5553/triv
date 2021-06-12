@@ -32,7 +32,6 @@ module.exports = async (client, message) => {
         .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
         .setTimestamp()
         .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
-
         .setColor(0xEB5234);
       if (message.attachments.size > 0)
         embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);

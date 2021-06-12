@@ -5,13 +5,13 @@ exports.run = (client, message, args) => {
   const guilds = [];
   client.guilds.cache.forEach(guild => {
     if (guild.systemChannel && guild.systemChannel.viewable && guild.systemChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
-      guild.systemChannel.send(new MessageEmbed()
+      guild.systemChannel.send({embeds: [new MessageEmbed()
         .setTitle(`**${client.user.username.toUpperCase()} ANNOUNCEMENT**`)
         .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
         .setDescription(args.join(' '))
         .setTimestamp()
         .setColor('FF0000')
-      );
+      ]});
     } else guilds.push(`${guild.name} - ${guild.id}`);
   });
   

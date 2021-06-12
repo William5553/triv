@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
   if (args.length < 1) {
     const end = new MessageEmbed().setTitle(`**${message.guild.name}'s Settings**`);
     Object.keys(client.settings.get(message.guild.id)).forEach(key => end.addField(`**${key}**`, client.settings.get(message.guild.id)[key] || 'No value set'));
-    return message.channel.send(`To edit a value, run ${client.getPrefix(message)}${exports.help.name} [name] [value]`, end);
+    return message.channel.send({content: `To edit a value, run ${client.getPrefix(message)}${exports.help.name} [name] [value]`, embeds: [end]});
   }
   // Let's get our key and value from the arguments. 
   // This is array destructuring, by the way. 
