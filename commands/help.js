@@ -17,7 +17,7 @@ exports.run = (client, message, args, perms) => {
           return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
         })
         .join('\n');
-      message.author.send(`= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`, { code: 'asciidoc', split: true });
+      message.author.send({content: `= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`, code: 'asciidoc', split: true });
       if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     } else {
       let command;
