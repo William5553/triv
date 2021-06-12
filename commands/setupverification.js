@@ -8,7 +8,7 @@ exports.run = async (client, message) => {
     let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
 
     if (!role) {
-      role = await message.guild.roles.create({ data: { name: 'Verified User', color: 'BLURPLE' } });
+      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE' });
       client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
     }
 

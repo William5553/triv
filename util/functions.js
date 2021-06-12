@@ -1,3 +1,5 @@
+const { Permissions } = require('discord.js');
+
 module.exports = client => {
   client.loadCommand = async command => {
     const props = require(`../commands/${command}`);
@@ -50,9 +52,9 @@ module.exports = client => {
   */
   client.elevation = member => {
     let permlvl = 0;
-    if (member.permissions.has('MANAGE_MESSAGES'))
+    if (member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       permlvl = 2;
-    if (member.permissions.has('ADMINISTRATOR') || member.permissions.has('MANAGE_GUILD'))
+    if (member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || member.permissions.has(Permissions.FLAGS.MANAGE_GUILD))
       permlvl = 3;
     if (member.id == member.guild.ownerID)
       permlvl = 4;

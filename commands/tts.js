@@ -10,16 +10,16 @@ exports.run = async (client, message, args) => {
     return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (text.length > 1024)
     return message.reply('keep the message under 1024 characters man');
-  if (!message.guild.voice || !message.guild.voice.connection) {
+  if (!message.guild.me.voice || !message.guild.me.voice.connection) {
     const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
-  } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+  } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
     return message.reply("I'm already in a voice channel");
   try {
     const { body } = await request
       .get('http://tts.cyzon.us/tts')
       .query({ text });
-    message.guild.voice.connection
+    message.guild.me.voice.connection
       .play(Readable.from([body]))
       .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));

@@ -9,12 +9,12 @@ exports.run = async (client, message, args) => {
   if (reason.length < 1) return message.reply('you must supply a reason for the unban');
   let banned;
   try {
-    banned = await message.guild.fetchBan(user);
+    banned = await message.guild.bans.fetch(user);
   } catch {
     return message.reply('they are not banned');
   }
   if (!banned.user) return message.reply('that user is not banned');
-  message.guild.members.unban(user, { reason: reason }).catch(message.channel.send);
+  message.guild.bans.remove(user, reason);
   message.channel.send(`Unbanned ${banned.user}${banned.reason ? ` who was previously banned for ${banned.reason}` : ''}`);
   
   client.infractions.ensure(message.guild.id, { [user.id]: [] });

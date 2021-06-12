@@ -9,13 +9,13 @@ exports.run = async (client, message) => {
       previousAge = 'all',
       previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
-      if (!message.guild.voice || !message.guild.voice.connection) {
+      if (!message.guild.me.voice || !message.guild.me.voice.connection) {
         const connection = await client.commands.get('join').run(client, message);
         if (connection instanceof Message) return;
-      } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+      } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
         return message.reply("I'm already in a voice channel");
-      message.guild.voice.connection.dispatcher.setVolumeLogarithmic(1);
-      message.guild.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
+      message.guild.me.voice.connection.dispatcher.setVolumeLogarithmic(1);
+      message.guild.me.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
       await client.wait(3500);
       message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       const heard = await verify(message.channel, message.author);

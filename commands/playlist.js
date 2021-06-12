@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { play } = require('../util/play');
 const YouTubeAPI = require('simple-youtube-api');
 const fetch = require('node-superfetch');
@@ -18,9 +18,9 @@ exports.run = async (client, message, args) => {
       return message.reply('you need to join a voice channel first!');
 
     const permissions = channel.permissionsFor(client.user);
-    if (!permissions.has('CONNECT'))
+    if (!permissions.has(Permissions.FLAGS.CONNECT))
       return message.reply('cannot connect to voice channel, missing **CONNECT** permission');
-    if (!permissions.has('SPEAK'))
+    if (!permissions.has(Permissions.FLAGS.SPEAK))
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
 
     const search = args.join(' '),

@@ -6,12 +6,12 @@ const airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 exports.run = async (client, message) => {
   const queue = client.queue.get(message.guild.id);
   if (queue) return message.reply("there's currently music playing");
-  if (!message.guild.voice || !message.guild.voice.connection) {
+  if (!message.guild.me.voice || !message.guild.me.voice.connection) {
     const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
-  } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+  } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
     return message.reply("I'm already in a voice channel");
-  message.guild.voice.connection
+  message.guild.me.voice.connection
     .play(path.join(process.cwd(), 'assets', 'airhorn', airhorn.random()))
     .on('finish', () => message.member.voice.channel.leave())
     .on('error', err => client.logger.error(err));

@@ -15,10 +15,10 @@ exports.run = async (client, message, args) => {
   if (text.length > 500)
     return message.reply('keep the message under 500 characters man');
   voice = voices[voice.toLowerCase()];
-  if (!message.guild.voice || !message.guild.voice.connection) {
+  if (!message.guild.me.voice || !message.guild.me.voice.connection) {
     const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
-  } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+  } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
     return message.reply("I'm already in a voice channel");
   try {
     const { body } = await request
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
         speaker: voice,
         text
       });
-    message.guild.voice.connection
+    message.guild.me.voice.connection
       .play(Readable.from([Buffer.from(body.audio_base64, 'base64')]))
       .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));

@@ -13,14 +13,13 @@ const flags = {
   TEAM_USER: 'Team User',
   SYSTEM: 'System',
   VERIFIED_BOT: 'Verified Bot',
-  EARLY_VERIFIED_DEVELOPER: 'Early Verified Bot Developer'
+  EARLY_VERIFIED_BOT_DEVELOPER: 'Early Verified Bot Developer'
 };
-const deprecated = ['DISCORD_PARTNER', 'VERIFIED_DEVELOPER'];
 
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
-  const user = member.user;
-  const userFlags = user.flags ? user.flags.toArray().filter(flag => !deprecated.includes(flag)) : [];
+  const { user } = member;
+  const userFlags = user.flags ? user.flags.toArray() : [];
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
     .setAuthor(user.tag)

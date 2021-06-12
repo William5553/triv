@@ -5,15 +5,15 @@ exports.run = async (client, message) => {
     const queue = client.queue.get(message.guild.id);
     if (queue) return message.reply("there's currently music playing");
     if (message.attachments.size < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
-    if (!message.guild.voice || !message.guild.voice.connection) {
+    if (!message.guild.me.voice || !message.guild.me.voice.connection) {
       const connection = await client.commands.get('join').run(client, message);
       if (connection instanceof Message) return;
-    } else if (message.member.voice.channelID !== message.guild.voice.channelID)
+    } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
       return message.reply("I'm already in a voice channel");
 
     const attachment = message.attachments.first();
 
-    message.guild.voice.connection
+    message.guild.me.voice.connection
       .play(attachment.url)
       .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));

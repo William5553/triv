@@ -17,11 +17,12 @@ exports.conf = {
   guildOnly: false,
   aliases: [],
   permLevel: 10,
-  example: '1500'
+  cooldown: 1500
 };
 
 exports.help = {
   name: 'edit',
   description: 'Edits a message sent by the bot',
-  usage: 'edit [message id] [content]'
+  usage: 'edit [message id] [content]',
+  example: 'edit 111111111111111 hello'
 };

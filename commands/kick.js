@@ -9,8 +9,8 @@ exports.run = async (client, message, args) => {
 
     const reason = args.slice(1).join(' ');
     await member.user.send(`you've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
-    member.kick().catch(client.logger.error);
-    message.channel.send(`Kicked ${member.user}`);
+    message.guild.members.kick(member, reason);
+    message.channel.send(`Kicked ${member}`);
 
     client.infractions.ensure(message.guild.id, { [member.id]: [] });
     client.infractions.push(message.guild.id, {'type': 'Kick', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);

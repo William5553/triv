@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message) => {
@@ -12,11 +12,11 @@ exports.run = async (client, message) => {
 
     let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
 
-    if (!message.guild.me.permissions.has('MANAGE_ROLES'))
+    if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 
     if (!role) {
-      role = await message.guild.roles.create({ data: { name: 'Verified User', color: 'BLURPLE' } });
+      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE' });
       client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
     }
 
@@ -24,15 +24,19 @@ exports.run = async (client, message) => {
 
     if (message.member.roles.cache.has(role.id)) {
       const m = await message.reply("you're already verified.");
-      m.delete({ timeout: 3500 });
-      message.delete({ timeout: 3500 });
+      client.setTimeout(() => {
+        m.delete();
+        message.delete();
+      }, 3500);
     }
     message.member.roles
       .add(role.id, `Verified - ${formatDate()}`)
       .then(async () => {
         const m = await message.reply('you have been verified.');
-        m.delete({ timeout: 3500 });
-        message.delete({ timeout: 3500 });
+        client.setTimeout(() => {
+          m.delete();
+          message.delete();
+        }, 3500);
       });
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()

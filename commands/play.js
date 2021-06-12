@@ -1,7 +1,7 @@
 const { play } = require('../util/play');
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
@@ -21,9 +21,9 @@ exports.run = async (client, message, args) => {
     if (serverQueue && channel !== message.guild.me.voice.channel)
       return message.reply(`you must be in the same channel as me (${message.guild.me.voice.channel})`);
     const permissions = channel.permissionsFor(client.user);
-    if (!permissions.has('CONNECT'))
+    if (!permissions.has(Permissions.FLAGS.CONNECT))
       return message.reply('cannot connect to voice channel, missing the **CONNECT** permission');
-    if (!permissions.has('SPEAK'))
+    if (!permissions.has(Permissions.FLAGS.SPEAK))
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
     const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');

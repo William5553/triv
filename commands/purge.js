@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!message.guild.me.permissions.has('MANAGE_MESSAGES'))
+  if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
     return message.reply("I don't have the permission **MANAGE MESSAGES**");
   try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.slice(1).join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.slice(1).join(' ').toLowerCase());

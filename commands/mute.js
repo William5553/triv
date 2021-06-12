@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { parseUser, caseNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
@@ -10,13 +10,13 @@ exports.run = async (client, message, args) => {
     
     let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted') || message.guild.roles.resolve(client.settings.get(message.guild.id).muteRoleID);
 
-    if (!message.guild.me.permissions.has('MANAGE_ROLES'))
+    if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES))
       return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
 
     if (message.guild.me.roles.highest.comparePositionTo(muteRole) < 1) return message.reply("I don't have control over the muted role, move my role above the muted role.");
 
     if (!muteRole) {
-      muteRole = await message.guild.roles.create({ data: { name: 'muted', color: [255, 0, 0] } });
+      muteRole = await message.guild.roles.create({ name: 'muted', color: [255, 0, 0] });
       client.settings.set(message.guild.id, muteRole.id, 'muteRoleID');
     }
 

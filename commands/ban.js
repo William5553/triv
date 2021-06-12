@@ -1,15 +1,15 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { caseNumber, parseUser } = require('../util/Util');
 
 exports.run = async (client, message, args) => { 
   if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
-  if (!message.member.permissions.has('BAN_MEMBERS'))
+  if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
     return message.reply("you don't have the permission **BAN MEMBERS**");
   try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     if (!member) return message.reply('you must mention someone to ban them.');
     if (parseUser(message, member) !== true) return;
-    if (member.permissions.has('BAN_MEMBERS'))
+    if (member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
       return message.reply('the person you tried to also has the ban members permission, sorry.');
     if (!member.bannable) return message.reply("I can't ban that user");
     const reason = args.slice(1).join(' ');
