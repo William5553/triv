@@ -2,6 +2,7 @@ const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
+const { createAudioPlayer, createAudioResource } = require('@discordjs/voice');
 
 require('moment-duration-format');
 
@@ -30,9 +31,9 @@ module.exports = {
   async play(song, message, updFilter) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime : 0;
+    const seekTime = updFilter ? queue.resource.playbackDuration + queue.additionalStreamTime : 0;
     if (!song) {
-      queue.channel.leave();
+      queue.connection.destroy();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
     }
@@ -62,12 +63,12 @@ module.exports = {
         module.exports.play(queue.songs[0], message, false);
       }
       client.logger.error(error.stack ? error.stack : error);
-      return message.channel.send(`Error: ${error.message ? error.message : error}`);
+      return message.channel.send(`Error: ${error.message || error}`);
     }
 
-    queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
+    // queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
-    await queue.connection
+    /*await queue.connection
       .play(stream, {
         type: 'opus',
         bitrate: 'auto',
@@ -92,7 +93,14 @@ module.exports = {
         client.logger.error(err);
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
-      });
+      });*/
+
+    if (!queue.player) queue.player = createAudioPlayer();
+    const resource = createAudioResource(stream);
+    queue.resource = resource;
+    queue.player.play(resource);
+    queue.connection.subscribe(queue.player);
+
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
     
@@ -133,24 +141,23 @@ module.exports = {
       switch (reaction.emoji.name) {
         case '⏭':
           queue.playing = true;
-          queue.connection.dispatcher.end();
+          queue.connection.dispatcher.end(); // TODO: figure out what the player does when the song ends
           queue.textChannel.send(`${user} ⏩ skipped the song`).catch(client.logger.error);
           collector.stop();
           break;
 
         case '⏯':
           if (queue.playing) {
-            queue.playing = !queue.playing;
-            queue.connection.dispatcher.pause(true);
+            queue.player.pause();
             queue.textChannel.send(`${user} ⏸ paused the music.`).catch(client.logger.error);
           } else {
-            queue.playing = !queue.playing;
-            queue.connection.dispatcher.resume();
+            queue.player.unpause();
             queue.textChannel.send(`${user} ▶ resumed the music!`).catch(client.logger.error);
           }
+          queue.playing = !queue.playing;
           break;
 
-        case '🔇':
+        case '🔇': // TODO: figure out volume
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
@@ -191,12 +198,7 @@ module.exports = {
           queue.songs = [];
           queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
           if (queue.stream) queue.stream.destroy();
-          try {
-            queue.connection.dispatcher.end();
-          } catch (error) {
-            client.logger.error(error);
-            queue.connection.disconnect();
-          }
+          queue.connection.destroy();
           collector.stop();
           break;
           
@@ -211,7 +213,7 @@ module.exports = {
     });
 
     collector.on('end', () => {
-      if (playingMessage) playingMessage.reactions.removeAll().catch(client.logger.error);
+      if (playingMessage) playingMessage.reactions.removeAll();
     });
   }
 };

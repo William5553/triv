@@ -1,21 +1,20 @@
 const path = require('path');
 const { Message, MessageEmbed } = require('discord.js');
+const { getVoiceConnection } = require('@discordjs/voice');
 const { verify } = require('../util/Util');
 const data = require('../assets/hearing-test.json');
 
 exports.run = async (client, message) => {
   try {
-    let age, range,
-      previousAge = 'all',
-      previousRange = 8;
+    let age, range, connection, previousAge = 'all', previousRange = 8;
     for (const { age: dataAge, khz, file } of data) {
-      if (!message.guild.me.voice || !message.guild.me.voice.connection) {
-        const connection = await client.commands.get('join').run(client, message);
+      if (!getVoiceConnection(message.guild.id)) {
+        connection = await client.commands.get('join').run(client, message);
         if (connection instanceof Message) return;
       } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
         return message.reply("I'm already in a voice channel");
-      message.guild.me.voice.connection.dispatcher.setVolumeLogarithmic(1);
-      message.guild.me.voice.connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
+      connection.dispatcher.setVolumeLogarithmic(1);
+      connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
       await client.wait(3500);
       message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       const heard = await verify(message.channel, message.author);

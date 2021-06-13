@@ -1,7 +1,7 @@
 const { play } = require('../util/play');
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { MessageEmbed, Permissions, Message } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
@@ -122,14 +122,15 @@ exports.run = async (client, message, args) => {
     client.queue.set(message.guild.id, queueConstruct);
 
     try {
-      queueConstruct.connection = await channel.join();
-      await queueConstruct.connection.voice.setSelfDeaf(true);
+      const connection = await client.commands.get('join').run(client, message);
+      if (connection instanceof Message) return;
+      queueConstruct.connection = connection;
       play(queueConstruct.songs[0], message, false);
     } catch (error) {
       client.logger.error(error);
+      await client.queue.get(message.guild.id).connection.destroy();
       client.queue.delete(message.guild.id);
-      await channel.leave();
-      return message.channel.send(`could not join the channel: ${error.stack || error}`);
+      return message.reply(`could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()

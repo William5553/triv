@@ -46,7 +46,7 @@
     "node-superfetch": "^0.2.3",
     "simple-youtube-api": "^5.2.1",
     "tiktok-scraper": "^1.4.30",
-    "tweetnacl": "^1.0.3",
+    "libsodium-wrappers": "^0.7.9",
     "utf-8-validate": "^5.0.5",
     "ytdl-core": "^4.8.2",
     "zlib-sync": "^0.1.7"

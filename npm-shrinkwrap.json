@@ -24,6 +24,7 @@
         "ffmpeg-static": "^4.3.0",
         "fs": "^0.0.2",
         "genius-lyrics": "^4.2.9",
+        "libsodium-wrappers": "^0.7.9",
         "mathsteps": "github:william5553/mathsteps",
         "md5": "^2.3.0",
         "moment": "^2.29.1",
@@ -32,7 +33,6 @@
         "node-superfetch": "^0.2.3",
         "simple-youtube-api": "^5.2.1",
         "tiktok-scraper": "^1.4.30",
-        "tweetnacl": "^1.0.3",
         "utf-8-validate": "^5.0.5",
         "ytdl-core": "^4.8.2",
         "zlib-sync": "^0.1.7"
@@ -2891,6 +2891,19 @@
       },
       "engines": {
         "node": ">= 0.8.0"
+      }
+    },
+    "node_modules/libsodium": {
+      "version": "0.7.9",
+      "resolved": "https://registry.npmjs.org/libsodium/-/libsodium-0.7.9.tgz",
+      "integrity": "sha512-gfeADtR4D/CM0oRUviKBViMGXZDgnFdMKMzHsvBdqLBHd9ySi6EtYnmuhHVDDYgYpAO8eU8hEY+F8vIUAPh08A=="
+    },
+    "node_modules/libsodium-wrappers": {
+      "version": "0.7.9",
+      "resolved": "https://registry.npmjs.org/libsodium-wrappers/-/libsodium-wrappers-0.7.9.tgz",
+      "integrity": "sha512-9HaAeBGk1nKTRFRHkt7nzxqCvnkWTjn1pdjKgcUnZxj0FyOP4CnhgFhMdrFfgNsukijBGyBLpP2m2uKT1vuWhQ==",
+      "dependencies": {
+        "libsodium": "^0.7.0"
       }
     },
     "node_modules/locate-path": {
@@ -7294,6 +7307,19 @@
       "requires": {
         "prelude-ls": "^1.2.1",
         "type-check": "~0.4.0"
+      }
+    },
+    "libsodium": {
+      "version": "0.7.9",
+      "resolved": "https://registry.npmjs.org/libsodium/-/libsodium-0.7.9.tgz",
+      "integrity": "sha512-gfeADtR4D/CM0oRUviKBViMGXZDgnFdMKMzHsvBdqLBHd9ySi6EtYnmuhHVDDYgYpAO8eU8hEY+F8vIUAPh08A=="
+    },
+    "libsodium-wrappers": {
+      "version": "0.7.9",
+      "resolved": "https://registry.npmjs.org/libsodium-wrappers/-/libsodium-wrappers-0.7.9.tgz",
+      "integrity": "sha512-9HaAeBGk1nKTRFRHkt7nzxqCvnkWTjn1pdjKgcUnZxj0FyOP4CnhgFhMdrFfgNsukijBGyBLpP2m2uKT1vuWhQ==",
+      "requires": {
+        "libsodium": "^0.7.0"
       }
     },
     "locate-path": {

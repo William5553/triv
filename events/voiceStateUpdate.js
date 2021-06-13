@@ -51,6 +51,6 @@ const checkQueue = async (client, oldState, newState) => {
   if (!(queue.channel.members.filter((member) => !member.user.bot).size === 0)) return;
 
   await queue.textChannel.send(`All members left ${queue.channel}, stopping the music...`);
-  queue.channel.leave();
+  queue.connection.destroy();
   client.queue.delete(oldState.guild.id);
 };

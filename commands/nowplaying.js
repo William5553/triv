@@ -4,10 +4,10 @@ const { formatDate } = require('../util/Util');
 exports.run = async (client, message) => {
   try {
     const queue = client.queue.get(message.guild.id);
-    if (!queue || !queue.connection || !queue.connection.dispatcher) return message.reply('there is nothing playing.');
-    if (isNaN(queue.connection.dispatcher.totalStreamTime)) return message.reply('please try again after I resume playing music');
+    if (!queue || !queue.connection) return message.reply('there is nothing playing.');
+    if (isNaN(queue.resource.playbackDuration)) return message.reply('please try again after I resume playing music');
     const song = queue.songs[0];
-    const seek = (queue.connection.dispatcher.totalStreamTime + queue.additionalStreamTime) / 1000;
+    const seek = queue.resource.playbackDuration / 1000;
 
     const bar = createBar(song.duration == 0 ? seek : song.duration, seek);
     const nowPlaying = new MessageEmbed()
@@ -20,10 +20,10 @@ exports.run = async (client, message) => {
 
     if (song.duration > 0)
       nowPlaying.setFooter(`Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}`);
-      
 
-    return message.channel.send(nowPlaying);
+    return message.channel.send({embeds: [nowPlaying]});
   } catch (err) {
+    client.logger.error(err.stack || err);
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()

@@ -7,11 +7,11 @@ exports.run = (client, message) => {
 
   if (queue.playing) {
     queue.playing = false;
-    queue.connection.dispatcher.pause(true);
+    queue.player.pause();
     return queue.textChannel.send(`${message.author} ⏸ paused the music.`).catch(client.logger.error);
   } else {
     queue.playing = true;
-    queue.connection.dispatcher.resume();
+    queue.player.unpause();
     return queue.textChannel.send(`${message.author} ▶ resumed the music!`).catch(client.logger.error);
   }
 };
