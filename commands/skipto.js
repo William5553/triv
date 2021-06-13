@@ -6,11 +6,11 @@ exports.run = (client, message, args) => {
     if (args.length < 1 || isNaN(args[0])) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
 
     const queue = client.queue.get(message.guild.id);
-    if (!queue) return message.reply('there is nothing playing');
+    if (!queue) return message.reply('There is nothing playing');
     if (canModifyQueue(message.member) != true) return;
 
     if (args[0] > queue.songs.length)
-      return message.reply(`the queue is only ${queue.songs.length} songs long`);
+      return message.reply(`The queue is only ${queue.songs.length} songs long`);
 
     queue.playing = true;
     if (queue.loop) {

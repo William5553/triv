@@ -72,7 +72,7 @@ exports.run = async (client, message, args) => {
         videos = await fetch.get(`https://www.googleapis.com/youtube/v3/videos?key=${process.env.google_api_key}&part=snippet&part=contentDetails${ids.join('')}`);
       } catch (error) {
         client.logger.error(error);
-        return message.reply(`an error occurred: ${error}`);
+        return message.reply(`An error occurred: ${error}`);
       }
     } else {
       try {
@@ -84,7 +84,7 @@ exports.run = async (client, message, args) => {
         videos = await fetch.get(`https://www.googleapis.com/youtube/v3/videos?key=${process.env.google_api_key}&part=snippet&part=contentDetails${ids.join('')}`);
       } catch (error) {
         client.logger.error(error);
-        return message.reply(`an error occurred: ${error}`);
+        return message.reply(`An error occurred: ${error}`);
       }
     }
 
@@ -131,7 +131,7 @@ exports.run = async (client, message, args) => {
       } catch (error) {
         client.logger.error(error);
         await client.queue.get(message.guild.id).connection.destroy();
-        return message.reply(`could not join the channel: ${error.stack || error}`);
+        return message.reply(`Could not join the channel: ${error.stack || error}`);
       }
     }
   } catch (err) {

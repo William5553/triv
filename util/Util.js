@@ -128,14 +128,14 @@ module.exports = class Util {
   A simple way to grab a single reply, from the user that initiated
   the command. Useful to get "precisions" on certain things...
   USAGE
-  const response = await client.awaitReply(msg, "Favourite Color?");
-  msg.reply(`Oh, I really love ${response.content} too!`);
+  const response = await client.awaitReply(message, "Favourite Color?");
+  message.reply(`Oh, I really love ${response.content} too!`);
   */
-  static async awaitReply(msg, question, limit = 60000) {
-    const filter = m => m.author.id === msg.author.id;
-    if (question) await msg.channel.send(question);
+  static async awaitReply(message, question, limit = 60000) {
+    const filter = m => m.author.id === message.author.id;
+    if (question) await message.channel.send(question);
     try {
-      const collected = await msg.channel.awaitMessages(filter, {
+      const collected = await message.channel.awaitMessages(filter, {
         max: 1,
         time: limit,
         errors: ['time']

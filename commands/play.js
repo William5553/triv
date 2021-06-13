@@ -130,7 +130,7 @@ exports.run = async (client, message, args) => {
     } catch (error) {
       client.logger.error(error);
       await client.queue.get(message.guild.id).connection.destroy();
-      return message.reply(`could not join the channel: ${error.stack || error}`);
+      return message.reply(`Could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()
