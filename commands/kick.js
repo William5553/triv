@@ -4,7 +4,7 @@ const { parseUser, caseNumber } = require('../util/Util');
 exports.run = async (client, message, args) => {
   try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
-    if (!member) return message.reply('tag someone to kick next time before I kick you');
+    if (!member) return message.reply('Tag someone to kick next time before I kick you');
     if (parseUser(message, member) !== true) return;
 
     const reason = args.slice(1).join(' ');

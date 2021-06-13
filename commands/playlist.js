@@ -6,7 +6,7 @@ const moment = require('moment');
 
 exports.run = async (client, message, args) => {
   try {
-    if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
+    if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
     const { channel } = message.member.voice;
     const youtube = new YouTubeAPI(process.env.google_api_key);
     const serverQueue = client.queue.get(message.guild.id);
@@ -15,11 +15,11 @@ exports.run = async (client, message, args) => {
     if (!args.length)
       return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     if (!channel)
-      return message.reply('you need to join a voice channel first!');
+      return message.reply('You need to join a voice channel first!');
 
     const permissions = channel.permissionsFor(client.user);
     if (!permissions.has(Permissions.FLAGS.CONNECT))
-      return message.reply('cannot connect to voice channel, missing **CONNECT** permission');
+      return message.reply('I cannot connect to the voice channel, missing **CONNECT** permission');
     if (!permissions.has(Permissions.FLAGS.SPEAK))
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission');
 

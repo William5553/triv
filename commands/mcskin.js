@@ -2,7 +2,7 @@ const fetch = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!args[0]) return message.reply('tell me a Minecraft username next time, idiot');
+  if (!args[0]) return message.reply('Tell me a Minecraft username next time, idiot');
   let findPlayer;
   
   try {

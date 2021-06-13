@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   try {
     const name = args.join(' ');
-    if (!name) return message.reply('say a name, moron');
+    if (!name) return message.reply('Say a name, moron');
     const { body } = await request
       .get('https://api.genderize.io/')
       .query({ name });

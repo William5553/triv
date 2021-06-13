@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (!args[0] || isNaN(args[0])) return message.reply('please provide a valid guild ID.');
+    if (!args[0] || isNaN(args[0])) return message.reply('Please provide a valid guild ID.');
     const guild = client.guilds.resolve(args[0]);
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     const inv = await guild.channels.cache.random().createInvite({ maxAge: 0, maxUses: 0 });

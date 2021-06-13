@@ -14,7 +14,7 @@ exports.run = async (client, message) => {
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
-          message.reply('only use a maximum of 16 characters per word.').catch(() => null);
+          message.reply('Only use a maximum of 16 characters per word.');
           return false;
         }
         return true;

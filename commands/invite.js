@@ -2,7 +2,7 @@ const { MessageEmbed, Permissions } = require('discord.js');
 
 exports.run = (client, message) => {
   try {
-    if (!client.application.botPublic && !client.owners.includes(message.author.id)) return message.reply('the bot is private.');
+    if (!client.application.botPublic && !client.owners.includes(message.author.id)) return message.reply('The bot is private.');
     const link = client.generateInvite({ permissions: Permissions.ALL });
     message.reply({embeds: [
       new MessageEmbed()

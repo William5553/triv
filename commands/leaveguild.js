@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (isNaN(args[0])) return message.reply('please provide a valid guild ID.');
+    if (isNaN(args[0])) return message.reply('Please provide a valid guild ID.');
     const guild = client.guilds.resolve(args[0]);
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     await guild.leave();
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
         .setColor('FF0000')
       ]});
   } catch (error) {
-    return message.reply(`there was an error leaving the specified guild: ${error.stack || error}`);
+    return message.reply(`There was an error leaving the specified guild: ${error.stack || error}`);
   }
 };
   

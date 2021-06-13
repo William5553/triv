@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const request = require('node-superfetch');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.merriam_webster_thesaurus_key) return message.reply('the bot owner has not set up this command yet.');
+  if (!process.env.merriam_webster_thesaurus_key) return message.reply('The bot owner has not set up this command yet.');
   try {
     if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const { body } = await request
@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
       .query({key: process.env.merriam_webster_thesaurus_key});
 
     const embeds = await genEmbeds(body);
-    if (!embeds || embeds.length < 1) return message.reply(`word not found, related words: **${body.join(', ')}**`);
+    if (!embeds || embeds.length < 1) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
     let currPage = 0;
   
     const emb = await message.channel.send({content: `**Word ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (!process.env.imgur_key) return message.reply('the bot owner has not set up this command yet.');
+    if (!process.env.imgur_key) return message.reply('The bot owner has not set up this command yet.');
     if (!args) return message.channel.send(`${client.getPrefix(message)}${exports.help.usage}`);
     const { body } = await fetch
       .get(`https://api.imgur.com/3/gallery/search/top/year?q=${args.join(' ')}`)

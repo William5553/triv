@@ -8,7 +8,7 @@ const filters = [
 
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply('nothing is playing');
+  if (!queue) return message.reply('Nothing is playing');
   if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (canModifyQueue(message.member) != true) return;
   if (args[0] !== 'list' && !filters.includes(args[1].toLowerCase())) return message.reply(`${args[1]} is not a valid filter. Valid filters are: ${filters.join(', ')}.`);

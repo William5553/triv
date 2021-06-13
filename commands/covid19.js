@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.size < 1) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.size < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const country = args[0];
     const data = await fetchStats(country);
     return message.channel.send({embeds: [

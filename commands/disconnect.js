@@ -8,7 +8,7 @@ exports.run = async (client, message) => {
     const currentString = `${games} game${games > 1 ? 's' : ''}`;
     if (games === 1) areIs = 'is';
 			
-    await message.reply(`there ${areIs} currently **${currentString}**. Are you sure?`);
+    await message.reply(`There ${areIs} currently **${currentString}**. Are you sure?`);
     const verification = await verify(message.channel, message.author);
     if (verification != true) return message.channel.send('Aborted restart.');
   }

@@ -5,7 +5,7 @@ const { MessageEmbed, Permissions, Message } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
+    if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
     if (!args.length)
       return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
     const youtube = new YouTubeAPI(process.env.google_api_key);
@@ -16,13 +16,13 @@ exports.run = async (client, message, args) => {
       forced = true;
     }
     if (!channel)
-      return message.reply('you need to join a voice channel first!');
+      return message.reply('You need to join a voice channel first!');
     const serverQueue = client.queue.get(channel.guild.id);
     if (serverQueue && channel !== message.guild.me.voice.channel)
-      return message.reply(`you must be in the same channel as me (${message.guild.me.voice.channel})`);
+      return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
     const permissions = channel.permissionsFor(client.user);
     if (!permissions.has(Permissions.FLAGS.CONNECT))
-      return message.reply('cannot connect to voice channel, missing the **CONNECT** permission');
+      return message.reply('I cannot connect to the voice channel, missing the **CONNECT** permission');
     if (!permissions.has(Permissions.FLAGS.SPEAK))
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
     // if search query was inputted
       try {
         const results = await youtube.searchVideos(search, 1);
-        songInfo = await ytdl.getInfo(results[0].url);
+        songInfo = await ytdl.getInfo(results[0]?.url);
         song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,

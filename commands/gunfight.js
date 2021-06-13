@@ -5,8 +5,8 @@ const { verify } = require('../util/Util');
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
   const opponent = member.user;
-  if (opponent.bot) return message.reply('bots may not be fought.');
-  if (opponent.id === message.author.id) return message.reply('you may not fight yourself.');
+  if (opponent.bot) return message.reply('Bots may not be fought.');
+  if (opponent.id === message.author.id) return message.reply('You may not fight yourself.');
   const current = client.games.get(message.channel.id);
   if (current) return message.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
   client.games.set(message.channel.id, { name: 'gunfight' });

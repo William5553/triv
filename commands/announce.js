@@ -2,7 +2,7 @@ const { MessageEmbed, Permissions } = require('discord.js');
 
 exports.run = (client, message, args) => {
   try {
-    if (!args[0]) return message.reply('please tell me a message to announce next time.');
+    if (!args[0]) return message.reply('Tell me what to announce next time.');
     const guilds = [];
     client.guilds.cache.forEach(guild => {
       if (guild.systemChannel && guild.systemChannel.viewable && guild.systemChannel.permissionsFor(guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.EMBED_LINKS])) {

@@ -6,7 +6,7 @@ const voices = require('../assets/vocodes.json');
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
-  if (queue) return message.reply("there's currently music playing");
+  if (queue) return message.reply("There's currently music playing");
   let connection, voice = args[0];
   const text = args.slice(1).join(' ');
   if (!voice || !Object.keys(voices).includes(voice.toLowerCase()))
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   if (!text)
     return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (text.length > 500)
-    return message.reply('keep the message under 500 characters man');
+    return message.reply('Keep the message under 500 characters');
   voice = voices[voice.toLowerCase()];
   if (!getVoiceConnection(message.guild.id)) {
     connection = await client.commands.get('join').run(client, message);
@@ -52,7 +52,6 @@ exports.run = async (client, message, args) => {
     connection.subscribe(player);
     if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       message.react('🔉');
-    return null;
   } catch (err) {
     if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('⚠️');

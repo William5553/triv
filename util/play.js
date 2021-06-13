@@ -71,7 +71,7 @@ module.exports = {
     if (!queue.player) {
       queue.player = createAudioPlayer();
       queue.player.on('error', error => {
-        client.logger.error(`An audio player encountered an error: ${error.stack || error}`);
+        client.logger.error(`A queue audio player encountered an error: ${error.stack || error}`);
         queue.textChannel.send({embeds: [
           new MessageEmbed()
             .setColor('#FF0000')
@@ -104,12 +104,13 @@ module.exports = {
     resource.volume.setVolume(queue.volume / 100);
     queue.resource = resource;
     queue.player.play(resource);
+    queue.connection?.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
-      queue.connection?.subscribe(queue.player);
     } catch (error) {
       queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
       client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
+      queue.player.destroy();
     }
 
     if (seekTime) 
@@ -207,7 +208,7 @@ module.exports = {
           queue.textChannel.send(`${user} ⏹ stopped the music!`);
           if (queue.stream) queue.stream.destroy();
           queue.player.stop();
-          getVoiceConnection(message.guild.id).destroy();
+          if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
           collector.stop();
           client.queue.delete(message.guild.id);
           break;

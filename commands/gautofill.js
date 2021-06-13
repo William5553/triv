@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   const query = args.join(' ');
-  if (!query) return message.reply('please specify a search query');
+  if (!query) return message.reply('Please specify a search query');
   try {
     const { text } = await request
       .get('https://suggestqueries.google.com/complete/search')
