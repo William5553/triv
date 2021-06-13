@@ -2,7 +2,7 @@ const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, VoiceConnectionStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, getVoiceConnection } = require('@discordjs/voice');
 
 require('moment-duration-format');
 
@@ -24,7 +24,8 @@ const filters = {
   flanger: 'flanger',
   gate: 'agate',
   haas: 'haas',
-  mcompand: 'mcompand'
+  mcompand: 'mcompand',
+  earwax: 'earwax'
 };
 
 module.exports = {
@@ -67,38 +68,40 @@ module.exports = {
       return message.channel.send(`Error: ${error.message || error}`);
     }
 
-    queue.connection.on(VoiceConnectionStatus.Destroyed, () => client.queue.delete(message.guild.id));
+    
 
-    if (!queue.player) queue.player = createAudioPlayer();
-    queue.player.on('error', error => {
-      client.logger.error(`${error.stack || error} with resource ${error.resource.metadata.title}`);
-      queue.songs.shift();
-      module.exports.play(queue.songs[0], message);
-    });
-    queue.player.on(AudioPlayerStatus.Idle, () => {
-      if (collector && !collector.ended) collector.stop();
-      queue.additionalStreamTime = 0;
-      if (queue.loop) {
-        // if loop is on, push the song back at the end of the queue
-        // so it can repeat endlessly
-        const lastSong = queue.songs.shift();
-        queue.songs.push(lastSong);
-        module.exports.play(queue.songs[0], message);
-      } else {
-        // Recursively play the next song
+    if (!queue.player) {
+      queue.player = createAudioPlayer();
+      queue.player.on('error', error => {
+        client.logger.error(`${error.stack || error} with resource ${error.resource.metadata.title}`);
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
-      }
-    });
+      });
+      queue.player.on(AudioPlayerStatus.Idle, () => {
+        if (collector && !collector.ended) collector.stop();
+        queue.additionalStreamTime = 0;
+        if (queue.loop) {
+        // if loop is on, push the song back at the end of the queue
+        // so it can repeat endlessly
+          const lastSong = queue.songs.shift();
+          queue.songs.push(lastSong);
+          module.exports.play(queue.songs[0], message);
+        } else {
+        // Recursively play the next song
+          queue.songs.shift();
+          module.exports.play(queue.songs[0], message);
+        }
+      });
+    }
     const resource = createAudioResource(stream, { inlineVolume: true });
     resource.volume.setVolume(queue.volume / 100);
     queue.resource = resource;
     queue.player.play(resource);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
-      queue.connection.subscribe(queue.player);
+      queue.connection?.subscribe(queue.player);
     } catch (error) {
-      queue.textChannel.send(`An error occurred while trying to play **${song.name}**: ${error.message || error}`);
+      queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
       client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
     }
 
@@ -140,7 +143,7 @@ module.exports = {
       switch (reaction.emoji.name) {
         case '⏭':
           queue.playing = true;
-          queue.connection.dispatcher.end();
+          queue.player.stop();
           queue.textChannel.send(`${user} ⏩ skipped the song`);
           collector.stop();
           break;
@@ -197,7 +200,7 @@ module.exports = {
           queue.textChannel.send(`${user} ⏹ stopped the music!`);
           if (queue.stream) queue.stream.destroy();
           queue.player.stop();
-          queue.connection.destroy();
+          getVoiceConnection(message.guild.id).destroy();
           collector.stop();
           client.queue.delete(message.guild.id);
           break;

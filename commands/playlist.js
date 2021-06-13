@@ -1,4 +1,4 @@
-const { MessageEmbed, Permissions } = require('discord.js');
+const { Message, MessageEmbed, Permissions } = require('discord.js');
 const { play } = require('../util/play');
 const YouTubeAPI = require('simple-youtube-api');
 const fetch = require('node-superfetch');
@@ -55,7 +55,8 @@ exports.run = async (client, message, args) => {
         flanger: false,
         gate: false,
         haas: false,
-        mcompand: false
+        mcompand: false,
+        earwax: false
       }
     };
 
@@ -109,7 +110,7 @@ exports.run = async (client, message, args) => {
       .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
         return String.fromCharCode(dec);
       }))
-      .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`))
+      .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`).join('\n'))
       .setURL(playlist.url)
       .setColor('#F8AA2A')
       .setTimestamp();
@@ -117,30 +118,32 @@ exports.run = async (client, message, args) => {
     if (playlistEmbed.description.length >= 2048)
       playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
 
-    message.channel.send(`${message.author} started a playlist`, playlistEmbed);
+    message.channel.send({content: `${message.author} started a playlist`, embeds: [playlistEmbed]});
 
     if (!serverQueue) {
       client.queue.set(message.guild.id, queueConstruct);
     
       try {
-        queueConstruct.connection = await channel.join();
-        await queueConstruct.connection.voice.setSelfDeaf(true);
+        const connection = await client.commands.get('join').run(client, message);
+        if (connection instanceof Message) return;
+        queueConstruct.connection = connection;
         play(queueConstruct.songs[0], message, false);
       } catch (error) {
         client.logger.error(error);
-        client.queue.delete(message.guild.id);
-        await channel.leave();
-        return message.reply(`could not join the channel: ${error}`);
+        await client.queue.get(message.guild.id).connection.destroy();
+        return message.reply(`could not join the channel: ${error.stack || error}`);
       }
     }
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    client.logger.error(`Error occurred with playlist command: ${err.stack || err}`);
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

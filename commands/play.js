@@ -61,7 +61,8 @@ exports.run = async (client, message, args) => {
         flanger: false,
         gate: false,
         haas: false,
-        mcompand: false
+        mcompand: false,
+        earwax: false
       }
     };
 
@@ -129,7 +130,6 @@ exports.run = async (client, message, args) => {
     } catch (error) {
       client.logger.error(error);
       await client.queue.get(message.guild.id).connection.destroy();
-      client.queue.delete(message.guild.id);
       return message.reply(`could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {

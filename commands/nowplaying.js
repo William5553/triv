@@ -4,8 +4,8 @@ const { formatDate } = require('../util/Util');
 exports.run = async (client, message) => {
   try {
     const queue = client.queue.get(message.guild.id);
-    if (!queue || !queue.connection) return message.reply('there is nothing playing.');
-    if (isNaN(queue.resource.playbackDuration)) return message.reply('please try again after I resume playing music');
+    if (!queue || !queue.connection) return message.reply('There is nothing playing.');
+    // if (isNaN(queue.resource.playbackDuration)) return message.reply('Please try again after I resume playing music');
     const song = queue.songs[0];
     const seek = queue.resource.playbackDuration / 1000;
 
@@ -24,13 +24,14 @@ exports.run = async (client, message) => {
     return message.channel.send({embeds: [nowPlaying]});
   } catch (err) {
     client.logger.error(err.stack || err);
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

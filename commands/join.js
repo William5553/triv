@@ -33,13 +33,17 @@ exports.run = async (client, message, args) => {
             connection.destroy();
           }
         });
+        connection.on(VoiceConnectionStatus.Destroyed, () => {
+          if (client.queue.get(message.guild.id))
+            client.queue.delete(message.guild.id);
+        });
         return connection;
       } catch (error) {
         connection.destroy();
         message.reply(`Failed to connect to ${vc.name}: ${error.message || error}`);
         client.logger.error(`Failed to connect to ${vc.name} in ${vc.guild.name}: ${error.stack || error}`);
       }
-    } else return message.reply('you have to be in a voice channel moron');
+    } else return message.reply('You have to be in a voice channel moron');
   } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
     return message.reply("I'm already in a voice channel");
 };

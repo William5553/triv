@@ -13,7 +13,7 @@ async function sanitizeEmbed(embed) {
   return embed;
 }
 
-// TODO: make bans, mutes, kicks etc part of warnings command and make this also edit those reasons
+// TODO: make this edit infractions
 
 exports.run = async (client, message, args) => {
   const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);

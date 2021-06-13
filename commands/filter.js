@@ -3,7 +3,7 @@ const { canModifyQueue } = require('../util/Util');
 const filters = [
   'bassboost', '8D', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
   'treble', 'normalizer', 'surround', 'pulsator', 'subboost', 'karaoke', 'flanger', 'gate',
-  'haas', 'mcompand'
+  'haas', 'mcompand', 'earwax'
 ];
 
 exports.run = (client, message, args) => {

@@ -4,12 +4,12 @@ const { MessageEmbed, Message, Permissions } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
-  if (queue) return message.reply("there's currently music playing");
+  if (queue) return message.reply("There's currently music playing");
   const text = args.join(' ');
   if (!text)
     return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (text.length > 1024)
-    return message.reply('keep the message under 1024 characters man');
+    return message.reply('Keep the message under 1024 characters man');
   if (!message.guild.me.voice || !message.guild.me.voice.connection) {
     const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
