@@ -1,7 +1,7 @@
 const { readdir } = require('fs');
 
 exports.run = async (client, message, args) => {
-  if (!args[0]) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (!args[0]) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (args[0] == 'all') {
     const m = await message.channel.send('Reloading...');
     readdir('./commands/', (err, files) => {

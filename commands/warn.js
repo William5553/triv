@@ -3,7 +3,7 @@ const { parseUser, caseNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const reason = args.slice(1).join(' ');
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     

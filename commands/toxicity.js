@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
-    if (!args[0]) return message.reply(`usage: ${exports.help.usage}`);
+    if (!args[0]) return message.reply(`Usage: ${exports.help.usage}`);
     const text = args.join(' ');
     const { body } = await request
         .post('https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze')

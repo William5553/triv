@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   if (text.length > 500)
     return message.reply('keep the message under 500 characters man');
   voice = voices[voice.toLowerCase()];
-  if (!message.guild.me.voice || !message.guild.me.voice.connection) {
+  if (!getVoiceConnection(message.guild.id)) {
     const connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
   } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)

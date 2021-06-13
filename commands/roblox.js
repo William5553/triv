@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   let user = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member, data;
   user = user.user;
-  if (!user) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (!user) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   const m = await message.channel.send('Getting...');
   try {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);

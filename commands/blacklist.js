@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   if (!type || !types.includes(type)) return message.reply(`First argument should be ${types.join(' OR ')}.`);
   const target = args[1];
   if (!target || isNaN(target)) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
-  if (type === 'user' && client.owners.includes(target)) return message.reply("don't be an idiot.");
+  if (type === 'user' && (client.owners.includes(target) || target == message.author.id)) return message.reply("Don't be an idiot.");
   if (client.blacklist.get('blacklist', type).includes(target)) return message.channel.send(`🔨 \`${target}\` is already blacklisted.`);
   client.blacklist.push('blacklist', target, type);
   if (type === 'guild') {

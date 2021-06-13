@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
     .get('https://api.ipify.org/')
     .query({ format: 'json' });
   await message.author.send(body.ip);
-  if (message.guild) message.channel.send('📬 Sent to your DMs!');
+  if (message.guild) message.reply('📬 Sent to your DMs!');
 };
 
 exports.conf = {

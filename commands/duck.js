@@ -4,20 +4,21 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
   try {
     const { body } = await fetch.get('https://random-d.uk/api/v2/random');
-    message.channel.send({embeds: [new MessageEmbed()
-      .setTitle(':duck: Quack! :duck:')
-      .setImage(body.url)
-      .setTimestamp()
-      .setColor('FF0000')
+    message.channel.send({embeds: [
+      new MessageEmbed()
+        .setTitle(':duck: Quack! :duck:')
+        .setImage(body.url)
+        .setColor('FF0000')
     ]});
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

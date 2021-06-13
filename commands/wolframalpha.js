@@ -4,7 +4,7 @@ const fetch = require('node-superfetch');
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.wolfram_api_key) return message.reply('the bot owner has not set up this command yet');
-    if (args.length < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('*Querying Wolfram Alpha...*');
     let { body } = await fetch.get(`http://api.wolframalpha.com/v2/query?appid=${process.env.wolfram_api_key}&input=${encodeURIComponent(args.join(' '))}&output=json`);
     body = JSON.parse(body);

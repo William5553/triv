@@ -8,11 +8,11 @@ const nums = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
   const opponent = member.user;
-  if (!opponent) return message.reply('tag someone, moron');
-  if (opponent.bot) return message.reply('make some friends, you loser.');
-  if (opponent.id === message.author.id) return message.reply('you may not play against yourself.');
+  if (!opponent) return message.reply('Tag someone, moron');
+  if (opponent.bot) return message.reply('Make some friends, loser.');
+  if (opponent.id === message.author.id) return message.reply('You may not play against yourself.');
   const current = client.games.get(message.channel.id);
-  if (current) return message.reply(`wait until the current game of \`${current.name}\` is finished.`);
+  if (current) return message.reply(`Wait until the current game of \`${current.name}\` is finished.`);
   client.games.set(message.channel.id, { name: 'connectfour' });
   try {
     await message.channel.send(`${opponent}, do you accept this challenge?`);
@@ -78,11 +78,11 @@ exports.run = async (client, message, args) => {
   }
 };
 
-function checkLine(a, b, c, d) {
+const checkLine = (a, b, c, d) => {
   return a !== null && a === b && a === c && a === d;
-}
+};
 
-function verifyWin(bd) {
+const verifyWin = (bd) => {
   for (let r = 0; r < 3; r++) {
     for (let c = 0; c < 7; c++)
       if (checkLine(bd[r][c], bd[r + 1][c], bd[r + 2][c], bd[r + 3][c])) return bd[r][c];
@@ -100,23 +100,23 @@ function verifyWin(bd) {
       if (checkLine(bd[r][c], bd[r - 1][c + 1], bd[r - 2][c + 2], bd[r - 3][c + 3])) return bd[r][c];
   }
   return null;
-}
+};
 
-function generateBoard() {
+const generateBoard = () => {
   const arr = [];
   for (let i = 0; i < 6; i++) {
     arr.push([null, null, null, null, null, null, null]);
   }
   return arr;
-}
+};
 
-function displayBoard(board) {
+const displayBoard = (board) => {
   return board.map(row => row.map(piece => {
     if (piece === 'user') return playerOneEmoji;
     if (piece === 'oppo') return playerTwoEmoji;
     return blankEmoji;
   }).join('')).join('\n');
-}
+};
 
 exports.conf = {
   enabled: true,

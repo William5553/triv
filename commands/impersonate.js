@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  if (args.length < 2) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   message.delete();
   const member = message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase()) || message.mentions.members.first();
   const webhook = await message.channel.createWebhook(member.displayName, { avatar: member.user.displayAvatarURL({ dynamic: true }) });

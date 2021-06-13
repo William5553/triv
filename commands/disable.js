@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (!args[0]) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (!args[0]) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     let command;
     if (client.commands.has(args[0]))
       command = args[0];

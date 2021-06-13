@@ -1,20 +1,44 @@
 const path = require('path');
 const { Message, MessageEmbed } = require('discord.js');
-const { getVoiceConnection } = require('@discordjs/voice');
+const { getVoiceConnection, createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
 const { verify } = require('../util/Util');
 const data = require('../assets/hearing-test.json');
 
 exports.run = async (client, message) => {
   try {
     let age, range, connection, previousAge = 'all', previousRange = 8;
+    if (!getVoiceConnection(message.guild.id)) {
+      connection = await client.commands.get('join').run(client, message);
+      if (connection instanceof Message) return;
+    } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
+      return message.reply("I'm already in a voice channel");
+    if (!connection)
+      connection = getVoiceConnection(message.guild.id);
+    const player = createAudioPlayer();
+    player.on('error', error => {
+      client.logger.error(`An audio player encountered an error: ${error.stack || error}`);
+      message.channel.send({embeds: [
+        new MessageEmbed()
+          .setColor('#FF0000')
+          .setTimestamp()
+          .setTitle('Please report this on GitHub')
+          .setURL('https://github.com/william5553/triv/issues')
+          .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+          .addField('**Command:**', `${message.content}`)
+      ]});
+    });
     for (const { age: dataAge, khz, file } of data) {
-      if (!getVoiceConnection(message.guild.id)) {
-        connection = await client.commands.get('join').run(client, message);
-        if (connection instanceof Message) return;
-      } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
-        return message.reply("I'm already in a voice channel");
-      connection.dispatcher.setVolumeLogarithmic(1);
-      connection.play(path.join(__dirname, '..', 'assets', 'hearingtest', file));
+      const resource = createAudioResource(path.join(process.cwd(), 'assets', 'hearingtest', file));
+      player.play(resource);
+      try {
+        await entersState(player, AudioPlayerStatus.Playing, 5e3);
+        connection.subscribe(player);
+      } catch (error) {
+        client.logger.error(`Error occurred while trying to play sound: ${error.stack || error}`);
+        connection.destroy();
+        player.stop();
+        return message.reply(`An error occurred: ${error.message || error}`);
+      }
       await client.wait(3500);
       message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       const heard = await verify(message.channel, message.author);
@@ -26,7 +50,8 @@ exports.run = async (client, message) => {
       previousAge = dataAge;
       previousRange = khz;
     }
-    message.member.voice.channel.leave();
+    connection.destroy();
+    player.stop();
     if (age === 'all')
       return message.channel.send('Everyone should be able to hear that. You cannot hear.');
     if (age === 'max') 
@@ -47,7 +72,7 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['hearing', 'hear'],
+  aliases: ['hearing', 'hear', 'heartest'],
   permLevel: 0,
   cooldown: 10000
 };

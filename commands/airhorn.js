@@ -13,6 +13,8 @@ exports.run = async (client, message) => {
     if (connection instanceof Message) return;
   } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
     return message.reply("I'm already in a voice channel");
+  if (!connection)
+    connection = getVoiceConnection(message.guild.id);
   const player = createAudioPlayer();
   player.on('error', error => {
     client.logger.error(`An audio player encountered an error: ${error.stack || error}`);
@@ -27,20 +29,22 @@ exports.run = async (client, message) => {
     ]});
   });
   player.on(AudioPlayerStatus.Idle, () => {
-    getVoiceConnection(message.guild.id).destroy();
+    connection.destroy();
     player.stop();
   });
   const resource = createAudioResource(path.join(process.cwd(), 'assets', 'airhorn', airhorn.random()));
   player.play(resource);
+  if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
+    message.react('🔉');
   try {
     await entersState(player, AudioPlayerStatus.Playing, 5e3);
-    getVoiceConnection(message.guild.id).subscribe(player);
+    connection.subscribe(player);
   } catch (error) {
     message.reply(`An error occurred: ${error.message || error}`);
+    connection.destroy();
+    player.stop();
     client.logger.error(`Error occurred while trying to airhorn: ${error.stack || error}`);
   }
-  if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
-    await message.react('🔉');
 };
     
 exports.conf = {

@@ -4,20 +4,21 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
   try {
     const { body } = await fetch.get('http://shibe.online/api/birds');
-    message.channel.send({ embeds: [new MessageEmbed()
-      .setTitle(':bird: Chirp! :bird:')
-      .setImage(body[0])
-      .setTimestamp()
-      .setColor('FF0000')
+    message.channel.send({embeds: [
+      new MessageEmbed()
+        .setTitle(':bird: Chirp! :bird:')
+        .setImage(body[0])
+        .setColor('FF0000')
     ]});
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    if (isNaN(args[0])) return message.reply('please provide a valid guild ID.');
+    if (isNaN(args[0])) return message.reply('Please provide a valid guild ID.');
     const channel = message.guild.channels.resolve(args[0]);
     if (!channel) return message.channel.send('Unable to find channel, please check the provided ID');
     await channel.delete();
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
         .setColor('FF0000')
       ]});
   } catch (error) {
-    return message.reply(`there was an error deleting the specified channel: ${error.stack || error}`);
+    return message.reply(`There was an error deleting the specified channel: ${error.stack || error}`);
   }
 };
   

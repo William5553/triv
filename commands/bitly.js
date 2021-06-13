@@ -2,25 +2,25 @@ const request = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.bitly_key) return message.reply('the bot owner has not set up this command yet');
-  if (!args) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
-  const url = args.join(' ');
-  if (encodeURI(url).length > 2083) return message.reply('your URL is too long');
+  if (!process.env.bitly_key) return message.reply('The bot owner has not set up this command yet');
+  if (!args) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (encodeURI(args.join(' ')).length > 2083) return message.reply('Your URL is too long');
   try {
     const { body } = await request
       .post('https://api-ssl.bitly.com/v4/shorten')
-      .send({ long_url: url })
+      .send({ long_url: args.join(' ') })
       .set({ Authorization: `Bearer ${process.env.bitly_key}` });
     return message.channel.send(body.link);
   } catch (err) {
     if (err.status === 400) return message.reply('You provided an invalid URL. Please try again.');
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

@@ -4,7 +4,7 @@ const request = require('node-superfetch');
 exports.run = async (client, message, args) => {
   if (!process.env.merriam_webster_thesaurus_key) return message.reply('the bot owner has not set up this command yet.');
   try {
-    if (args.length < 1) return message.reply(`usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const { body } = await request
       .get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${args.join(' ')}`)
       .query({key: process.env.merriam_webster_thesaurus_key});
