@@ -65,15 +65,22 @@ module.exports = {
         module.exports.play(queue.songs[0], message, false);
       }
       client.logger.error(error.stack ? error.stack : error);
-      return message.channel.send(`Error: ${error.message || error}`);
+      return queue.textChannel.send(`Error: ${error.message || error}`);
     }
-
-    
 
     if (!queue.player) {
       queue.player = createAudioPlayer();
       queue.player.on('error', error => {
-        client.logger.error(`${error.stack || error} with resource ${error.resource.metadata.title}`);
+        client.logger.error(`An audio player encountered an error: ${error.stack || error}`);
+        queue.textChannel.send({embeds: [
+          new MessageEmbed()
+            .setColor('#FF0000')
+            .setTimestamp()
+            .setTitle('Please report this on GitHub')
+            .setURL('https://github.com/william5553/triv/issues')
+            .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .addField('**Command:**', `${message.content}`)
+        ]});
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
@@ -116,7 +123,7 @@ module.exports = {
           .setURL(song.url)
           .setColor('#FF0000')
           .setThumbnail(song.thumbnail.url)
-          .setDescription(`${seekTime >= 1 ? `Starting at ${new Date(seekTime).toISOString().substr(11, 8)}` : ''}`)
+          .setDescription(`${seekTime >= 1 ? `Starting at ${moment.duration(seekTime).format('hh:mm:ss')}` : ''}`)
           .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
           .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
       ]});
