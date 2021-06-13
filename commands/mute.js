@@ -4,14 +4,14 @@ const { parseUser, caseNumber } = require('../util/Util');
 exports.run = async (client, message, args) => {
   try {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
-    if (!member) return message.reply('you must mention someone to mute them').catch(client.logger.error);
+    if (!member) return message.reply('you must mention someone to mute them');
     if (message.content.split(' ')[0].slice(client.getPrefix(message).length).toLowerCase() !== 'unmute')
       if (parseUser(message, member) !== true) return;
     
     let muteRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted') || message.guild.roles.resolve(client.settings.get(message.guild.id).muteRoleID);
 
     if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES))
-      return message.reply('I do not have the **MANAGE_ROLES** permission').catch(client.logger.error);
+      return message.reply('I do not have the **MANAGE_ROLES** permission');
 
     if (message.guild.me.roles.highest.comparePositionTo(muteRole) < 1) return message.reply("I don't have control over the muted role, move my role above the muted role.");
 

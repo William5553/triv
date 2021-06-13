@@ -1,3 +1,4 @@
+const { Permissions } = require('discord.js');
 const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message) => {
@@ -9,12 +10,12 @@ exports.run = (client, message) => {
     queue.songs = [];
     queue.player.stop();
     queue.connection.destroy();
-    queue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
+    queue.textChannel.send(`${message.author} ⏹ stopped the music!`);
     if (queue.stream) queue.stream.destroy();
     client.queue.delete(message.guild.id);
   } else {
-    if (!message.channel.permissionsFor(message.author).has('MOVE_MEMBERS') && message.guild.me.voice.connection.channel.members.size > 2)
-      return message.reply('you need the **MOVE MEMBERS** permission');
+    if (!message.channel.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice.connection.channel.members.size > 2)
+      return message.reply('You need the **MOVE MEMBERS** permission because there are other people listening.');
     message.member.voice.channel.leave();
   }
 };

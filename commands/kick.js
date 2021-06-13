@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     if (parseUser(message, member) !== true) return;
 
     const reason = args.slice(1).join(' ');
-    await member.user.send(`you've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`).catch(client.logger.error);
+    await member.user.send(`You've been kicked from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`);
     message.guild.members.kick(member, reason);
     message.channel.send(`Kicked ${member}`);
 
@@ -19,14 +19,13 @@ exports.run = async (client, message, args) => {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
       const caseNum = await caseNumber(client, botlog);
   
-      return botlog.send(new MessageEmbed()
-        .setColor(0x00ae86)
-        .setTimestamp()
-        .setDescription(
-          `**Action:** Kick\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**User ID:** ${member.user.id}`
-        )
-        .setFooter(`ID ${caseNum}`)
-      ).catch(client.logger.error);
+      return botlog.send({embeds: [
+        new MessageEmbed()
+          .setColor(0x00ae86)
+          .setTimestamp()
+          .setDescription(`**Action:** Kick\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**User ID:** ${member.user.id}`)
+          .setFooter(`ID ${caseNum}`)
+      ]});
     }
   } catch (err) {
     return message.channel.send({embeds: [new MessageEmbed()

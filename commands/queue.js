@@ -34,7 +34,7 @@ exports.run = async (client, message) => {
           serverQueue.songs = [];
           serverQueue.connection.dispatcher.end();
           if (serverQueue.stream) serverQueue.stream.destroy();
-          serverQueue.textChannel.send(`${message.author} ⏹ stopped the music!`).catch(client.logger.error);
+          serverQueue.textChannel.send(`${message.author} ⏹ stopped the music!`);
         }
         await reaction.users.remove(message.author.id);
       } catch (e) {

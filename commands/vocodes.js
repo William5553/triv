@@ -1,6 +1,6 @@
 const request = require('node-superfetch');
 const { Readable } = require('stream');
-const { MessageEmbed, Message } = require('discord.js');
+const { MessageEmbed, Message, Permissions } = require('discord.js');
 const voices = require('../assets/vocodes.json');
 
 exports.run = async (client, message, args) => {
@@ -31,11 +31,11 @@ exports.run = async (client, message, args) => {
       .play(Readable.from([Buffer.from(body.audio_base64, 'base64')]))
       .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));
-    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+    if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('🔉');
     return null;
   } catch (err) {
-    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+    if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('⚠️');
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')

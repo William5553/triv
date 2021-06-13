@@ -2,12 +2,12 @@ const { MessageEmbed } = require('discord.js');
 const YouTubeAPI = require('simple-youtube-api');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.google_api_key) return message.reply('the bot owner has not set up this command yet');
+  if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
   const youtube = new YouTubeAPI(process.env.google_api_key);
-  if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`).catch(client.logger.error);
-  if (message.channel.activeCollector) return message.reply('somebody is already searching in this channel.');
+  if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
+  if (message.channel.activeCollector) return message.reply('Somebody is already searching.');
   if (!message.member.voice.channel)
-    return message.reply('you need to join a voice channel first!').catch(client.logger.error);
+    return message.reply('You need to join a voice channel first!');
 
   const resultsEmbed = new MessageEmbed()
     .setTitle('**Reply with the song number you want to play**')

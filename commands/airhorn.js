@@ -1,5 +1,5 @@
 const path = require('path');
-const { Message } = require('discord.js');
+const { Message, Permissions } = require('discord.js');
 const fs = require('fs');
 const { getVoiceConnection } = require('@discordjs/voice');
 const airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
@@ -16,7 +16,7 @@ exports.run = async (client, message) => {
     .play(path.join(process.cwd(), 'assets', 'airhorn', airhorn.random()))
     .on('finish', () => message.member.voice.channel.leave())
     .on('error', err => client.logger.error(err));
-  if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+  if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
     await message.react('🔉');
 };
     

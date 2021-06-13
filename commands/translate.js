@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
   let t = await translate(text, { from: a1, to: a2 }).catch(err => message.reply(err.toString()));
   t = await clean(t[0]);
-  if (t) message.channel.send(t).catch(client.logger.error);
+  if (t) message.channel.send(t);
 };
 
 exports.conf = {

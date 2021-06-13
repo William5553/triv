@@ -2,7 +2,7 @@ const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, VoiceConnectionStatus } = require('@discordjs/voice');
 
 require('moment-duration-format');
 
@@ -36,7 +36,7 @@ module.exports = {
       queue.player.stop();
       queue.connection.destroy();
       client.queue.delete(message.guild.id);
-      return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
+      return queue.textChannel.send('🚫 Music queue ended.');
     }
     const encoderArgsFilters = [];
     Object.keys(queue.filters).forEach(filterName => {
@@ -67,7 +67,7 @@ module.exports = {
       return message.channel.send(`Error: ${error.message || error}`);
     }
 
-    // queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
+    queue.connection.on(VoiceConnectionStatus.Destroyed, () => client.queue.delete(message.guild.id));
 
     if (!queue.player) queue.player = createAudioPlayer();
     queue.player.on('error', error => {
@@ -133,7 +133,7 @@ module.exports = {
     const collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
     collector.on('collect', (reaction, user) => {
-      reaction.users.remove(user).catch(client.logger.error);
+      reaction.users.remove(user);
       if (!queue) return;
       const member = message.guild.members.cache.get(user.id);
       if (canModifyQueue(member) != true) return;
@@ -141,17 +141,17 @@ module.exports = {
         case '⏭':
           queue.playing = true;
           queue.connection.dispatcher.end();
-          queue.textChannel.send(`${user} ⏩ skipped the song`).catch(client.logger.error);
+          queue.textChannel.send(`${user} ⏩ skipped the song`);
           collector.stop();
           break;
 
         case '⏯':
           if (queue.playing) {
             queue.player.pause();
-            queue.textChannel.send(`${user} ⏸ paused the music.`).catch(client.logger.error);
+            queue.textChannel.send(`${user} ⏸ paused the music.`);
           } else {
             queue.player.unpause();
-            queue.textChannel.send(`${user} ▶ resumed the music!`).catch(client.logger.error);
+            queue.textChannel.send(`${user} ▶ resumed the music!`);
           }
           queue.playing = !queue.playing;
           break;
@@ -160,11 +160,11 @@ module.exports = {
           if (queue.volume <= 0) {
             queue.volume = 100;
             resource.volume.setVolume(1);
-            queue.textChannel.send(`${user} 🔊 unmuted the music!`).catch(client.logger.error);
+            queue.textChannel.send(`${user} 🔊 unmuted the music!`);
           } else {
             queue.volume = 0;
             resource.volume.setVolume(0);
-            queue.textChannel.send(`${user} 🔇 muted the music!`).catch(client.logger.error);
+            queue.textChannel.send(`${user} 🔇 muted the music!`);
           }
           break;
 
@@ -190,11 +190,11 @@ module.exports = {
 
         case '🔁':
           queue.loop = !queue.loop;
-          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`).catch(client.logger.error);
+          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`);
           break;
 
         case '⏹':
-          queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
+          queue.textChannel.send(`${user} ⏹ stopped the music!`);
           if (queue.stream) queue.stream.destroy();
           queue.player.stop();
           queue.connection.destroy();
@@ -203,7 +203,7 @@ module.exports = {
           break;
           
         case '🎤':
-          reaction.users.remove(client.user).catch(client.logger.error);
+          reaction.users.remove(client.user);
           client.commands.get('lyrics').run(client, message);
           break;
 

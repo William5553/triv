@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     const reason = args.slice(1).join(' ');
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     
-    if (!member) return message.reply('tell me who to warn, idiot').catch(client.logger.error);
+    if (!member) return message.reply('Tell me who to warn, idiot');
     if (reason.length < 1) return message.reply('supply a reason for the warning');
     if (parseUser(message, member) !== true) return;
 

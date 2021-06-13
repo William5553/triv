@@ -2,13 +2,13 @@ const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply("there's nothing playing, bozo").catch(client.logger.error);
+  if (!queue) return message.reply("There's nothing playing, bozo");
   if (canModifyQueue(message.member) != true) return;
 
   queue.playing = true;
   if (queue.connection.dispatcher)
     queue.connection.dispatcher.end();
-  queue.textChannel.send(`${message.author} ⏭ skipped the song`).catch(client.logger.error);
+  queue.textChannel.send(`${message.author} ⏭ skipped the song`);
 };
 
 exports.conf = {

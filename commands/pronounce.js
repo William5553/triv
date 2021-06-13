@@ -1,4 +1,4 @@
-const { Message, MessageEmbed } = require('discord.js');
+const { Message, MessageEmbed, Permissions } = require('discord.js');
 const { getCode } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
@@ -20,10 +20,10 @@ exports.run = async (client, message, args) => {
       .play(`http://translate.google.com/translate_tts?client=tw-ob&tl=${a1}&q=${text}`)
       .on('finish', () => message.member.voice.channel.leave())
       .on('error', err => client.logger.error(err));
-    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+    if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('🔉');
   } catch (err) {
-    if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+    if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('⚠️');
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')

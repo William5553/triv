@@ -53,7 +53,7 @@ module.exports = class Util {
   static canModifyQueue(member) {
     const client = member?.client;
     const memChan = member?.voice?.channelID;
-    const botChan = member?.guild?.me.voice.channelID;
+    const botChan = member?.guild?.me.voice?.channelID;
     const queue = client.queue.get(member.guild.id);
     
     if (queue && queue.forced && !client.owners.includes(member.id)) {
@@ -61,30 +61,30 @@ module.exports = class Util {
       return false;
     }
     if (client.blacklist.get('blacklist', 'user').includes(member.id)) {
-      member.send('You are blacklisted').catch(client.logger.error);
+      member.send('You are blacklisted');
       return false;
     }
     if (client.owneronlymode && !client.owners.includes(member.id)) {
-      member.send('The bot is currently in owner only mode').catch(client.logger.error);
+      member.send('The bot is currently in owner only mode');
       return false;
     }
     if (memChan === botChan || client.owners.includes(member.id))
       return true;
-    member.send('You need to join the voice channel first!').catch(client.logger.error);
+    member.send('You need to join the voice channel first!');
     return false;
   }
 
   static parseUser(message, member) {
     if (member.user === message.client.user)
-      return message.reply('you are an idiot');
+      return message.reply('You are an idiot');
     if (member.user === message.author)
-      return message.reply("you can't do that to yourself, why did you try? you are an idiot.");
-    if (message.client.owners.includes(member.user.id))
-      return message.reply('no!');
+      return message.reply("You can't do that to yourself, why did you try? you are an idiot.");
+    if (message.client.owners.includes(member.id))
+      return message.reply('No');
     if (member && member.roles && member.roles.highest.position >= message.member.roles.highest.position && !message.client.owners.includes(message.member.id))
-      return message.reply('that member is higher or equal to you. L');
+      return message.reply('That member is higher or equal to you. L');
     if (member && member.roles && member.roles.highest.position >= message.guild.me.roles.highest.position)
-      return message.reply('that member is higher or equal to me, try moving my role higher');
+      return message.reply('That member is higher or equal to me, try moving my role higher');
     if (!member.manageable)
       return message.reply("I can't.");
     return true;

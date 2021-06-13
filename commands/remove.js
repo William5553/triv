@@ -2,7 +2,7 @@ const { canModifyQueue } = require('../util/Util');
 
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
-  if (!queue) return message.reply("there ain't a queue").catch(client.logger.error);
+  if (!queue) return message.reply("There ain't a queue");
   if (canModifyQueue(message.member) != true) return;
   if (!args.length || isNaN(args[0])) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
 
