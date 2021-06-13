@@ -30,7 +30,7 @@
     "chalk": "^4.1.1",
     "cloc": "^2.8.0",
     "discord-ytdl-core": "^5.0.3",
-    "discord.js": "^13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144",
+    "discord.js": "github:discordjs/discord.js",
     "dotenv": "^10.0.0",
     "enmap": "^5.8.5",
     "erlpack": "^0.1.3",
@@ -46,7 +46,7 @@
     "ms": "^2.1.3",
     "node-superfetch": "^0.2.3",
     "simple-youtube-api": "^5.2.1",
-    "tiktok-scraper": "^1.4.30",
+    "tiktok-scraper": "^1.4.31",
     "utf-8-validate": "^5.0.5",
     "ytdl-core": "^4.8.2",
     "zlib-sync": "^0.1.7"

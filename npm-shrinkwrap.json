@@ -16,7 +16,7 @@
         "chalk": "^4.1.1",
         "cloc": "^2.8.0",
         "discord-ytdl-core": "^5.0.3",
-        "discord.js": "^13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144",
+        "discord.js": "github:discordjs/discord.js",
         "dotenv": "^10.0.0",
         "enmap": "^5.8.5",
         "erlpack": "^0.1.3",
@@ -32,7 +32,7 @@
         "ms": "^2.1.3",
         "node-superfetch": "^0.2.3",
         "simple-youtube-api": "^5.2.1",
-        "tiktok-scraper": "^1.4.30",
+        "tiktok-scraper": "^1.4.31",
         "utf-8-validate": "^5.0.5",
         "ytdl-core": "^4.8.2",
         "zlib-sync": "^0.1.7"
@@ -1343,9 +1343,8 @@
       }
     },
     "node_modules/discord.js": {
-      "version": "13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144",
-      "resolved": "https://registry.npmjs.org/discord.js/-/discord.js-13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144.tgz",
-      "integrity": "sha512-lhK0y/52bRLfzAWvZXR+IMqjHk45H/UDCIOWhy9OK3NvsrkjtSdlcUYkbyNBpf4QtISHiCz24XCz/cPNd+tWfA==",
+      "version": "13.0.0-dev",
+      "resolved": "git+ssh://git@github.com/discordjs/discord.js.git#02693bc02f45980d8165820a103220f0027b96b7",
       "license": "Apache-2.0",
       "dependencies": {
         "@discordjs/collection": "^0.1.6",
@@ -1355,8 +1354,6 @@
         "abort-controller": "^3.0.0",
         "discord-api-types": "^0.18.1",
         "node-fetch": "^2.6.1",
-        "prism-media": "^1.2.9",
-        "tweetnacl": "^1.0.3",
         "ws": "^7.4.6"
       },
       "engines": {
@@ -4567,9 +4564,9 @@
       "dev": true
     },
     "node_modules/tiktok-scraper": {
-      "version": "1.4.30",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.30.tgz",
-      "integrity": "sha512-Zxb0tn1o53GHmiZL27tzNR/8lcmHMfEovNjgTfPqsg97d7pC4eATW8TY1C2/1F13nDElF6dWzpwDgyM0KaW0ag==",
+      "version": "1.4.31",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.31.tgz",
+      "integrity": "sha512-ybTjlihY1zSIHBDERp/QppqTf+P5DpTtaCyoBafIcOYHYdQ/gdoyecs4NuYKN4RzEF341SZflZDgWsTvgQOL1g==",
       "dependencies": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
@@ -4646,11 +4643,6 @@
       "engines": {
         "node": "*"
       }
-    },
-    "node_modules/tweetnacl": {
-      "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-1.0.3.tgz",
-      "integrity": "sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw=="
     },
     "node_modules/type-check": {
       "version": "0.4.0",
@@ -6119,9 +6111,8 @@
       }
     },
     "discord.js": {
-      "version": "13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144",
-      "resolved": "https://registry.npmjs.org/discord.js/-/discord.js-13.0.0-dev.fdad14099779e61cb84dcd1cb2497e0e853a6144.tgz",
-      "integrity": "sha512-lhK0y/52bRLfzAWvZXR+IMqjHk45H/UDCIOWhy9OK3NvsrkjtSdlcUYkbyNBpf4QtISHiCz24XCz/cPNd+tWfA==",
+      "version": "git+ssh://git@github.com/discordjs/discord.js.git#02693bc02f45980d8165820a103220f0027b96b7",
+      "from": "discord.js@github:discordjs/discord.js",
       "requires": {
         "@discordjs/collection": "^0.1.6",
         "@discordjs/form-data": "^3.0.1",
@@ -6130,8 +6121,6 @@
         "abort-controller": "^3.0.0",
         "discord-api-types": "^0.18.1",
         "node-fetch": "^2.6.1",
-        "prism-media": "^1.2.9",
-        "tweetnacl": "^1.0.3",
         "ws": "^7.4.6"
       }
     },
@@ -8598,9 +8587,9 @@
       "dev": true
     },
     "tiktok-scraper": {
-      "version": "1.4.30",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.30.tgz",
-      "integrity": "sha512-Zxb0tn1o53GHmiZL27tzNR/8lcmHMfEovNjgTfPqsg97d7pC4eATW8TY1C2/1F13nDElF6dWzpwDgyM0KaW0ag==",
+      "version": "1.4.31",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.31.tgz",
+      "integrity": "sha512-ybTjlihY1zSIHBDERp/QppqTf+P5DpTtaCyoBafIcOYHYdQ/gdoyecs4NuYKN4RzEF341SZflZDgWsTvgQOL1g==",
       "requires": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
@@ -8662,11 +8651,6 @@
       "requires": {
         "safe-buffer": "^5.0.1"
       }
-    },
-    "tweetnacl": {
-      "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-1.0.3.tgz",
-      "integrity": "sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw=="
     },
     "type-check": {
       "version": "0.4.0",

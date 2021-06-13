@@ -9,11 +9,11 @@ exports.run = async (client, message, args) => {
     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled);
     evaled = await clean(evaled);
     if (evaled.length > 1980) evaled = evaled.substr(0, 1980) + '...';
-    message.channel.send(evaled, { code: 'xl' });
+    message.channel.send({ content: evaled, code: 'xl' });
   } catch (err) {
     let result = await clean(err);
     if (result.length > 1980) result = result.substr(0, 1980) + '...';
-    message.channel.send(`ERROR: ${result}`, { code: 'xl' });
+    message.channel.send({ content: `ERROR: ${result}`, code: 'xl' });
   }
 };
 

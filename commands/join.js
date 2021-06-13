@@ -21,6 +21,18 @@ exports.run = async (client, message, args) => {
       try {
         // if we're not ready in the vc in 25 sec, error
         await entersState(connection, VoiceConnectionStatus.Ready, 25e3);
+        connection.on(VoiceConnectionStatus.Disconnected, async () => {
+          try {
+            await Promise.race([
+              entersState(connection, VoiceConnectionStatus.Signalling, 5e3),
+              entersState(connection, VoiceConnectionStatus.Connecting, 5e3)
+            ]);
+            // Seems to be reconnecting to a new channel - ignore disconnect
+          } catch (error) {
+            // Seems to be a real disconnect which SHOULDN'T be recovered from
+            connection.destroy();
+          }
+        });
         return connection;
       } catch (error) {
         connection.destroy();

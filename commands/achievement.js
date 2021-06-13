@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
   if (title.length > 22 || contents.length > 22) return message.reply('max length: 22 characters');
   request
     .get(`https://www.minecraftskinstealer.com/achievement/${rnd}/${encodeURIComponent(title)}/${encodeURIComponent(contents)}`)
-    .then(ach => message.channel.send({files:[{attachment: ach.body}]}));
+    .then(ach => message.reply({ files:[{ attachment: ach.body }] }));
 };
 
 exports.conf = {

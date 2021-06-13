@@ -5,9 +5,9 @@ exports.run = (client, message, args) => {
   const response = require('../assets/8ball.json').random();
 
   if (response === 'Explode')
-    message.channel.send({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] });
+    message.reply({ files: [path.join(process.cwd(), 'assets', 'explode8ball.png')] });
   else
-    message.channel.send(`🎱 ${response}`);
+    message.reply(`🎱 ${response}`);
 };
 
 exports.conf = {

@@ -2,7 +2,7 @@ const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
 
 require('moment-duration-format');
 
@@ -33,6 +33,7 @@ module.exports = {
     const queue = client.queue.get(message.guild.id);
     const seekTime = updFilter ? queue.resource.playbackDuration + queue.additionalStreamTime : 0;
     if (!song) {
+      queue.player.stop();
       queue.connection.destroy();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.').catch(client.logger.error);
@@ -68,38 +69,38 @@ module.exports = {
 
     // queue.connection.on('disconnect', () => client.queue.delete(message.guild.id));
 
-    /*await queue.connection
-      .play(stream, {
-        type: 'opus',
-        bitrate: 'auto',
-        volume: queue.volume / 100
-      })
-      .on('finish', () => {
-        if (collector && !collector.ended) collector.stop();
-        queue.additionalStreamTime = 0;
-        if (queue.loop) {
-          // if loop is on, push the song back at the end of the queue
-          // so it can repeat endlessly
-          const lastSong = queue.songs.shift();
-          queue.songs.push(lastSong);
-          module.exports.play(queue.songs[0], message);
-        } else {
-          // Recursively play the next song
-          queue.songs.shift();
-          module.exports.play(queue.songs[0], message);
-        }
-      })
-      .on('error', err => {
-        client.logger.error(err);
+    if (!queue.player) queue.player = createAudioPlayer();
+    queue.player.on('error', error => {
+      client.logger.error(`${error.stack || error} with resource ${error.resource.metadata.title}`);
+      queue.songs.shift();
+      module.exports.play(queue.songs[0], message);
+    });
+    queue.player.on(AudioPlayerStatus.Idle, () => {
+      if (collector && !collector.ended) collector.stop();
+      queue.additionalStreamTime = 0;
+      if (queue.loop) {
+        // if loop is on, push the song back at the end of the queue
+        // so it can repeat endlessly
+        const lastSong = queue.songs.shift();
+        queue.songs.push(lastSong);
+        module.exports.play(queue.songs[0], message);
+      } else {
+        // Recursively play the next song
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
-      });*/
-
-    if (!queue.player) queue.player = createAudioPlayer();
-    const resource = createAudioResource(stream);
+      }
+    });
+    const resource = createAudioResource(stream, { inlineVolume: true });
+    resource.volume.setVolume(queue.volume / 100);
     queue.resource = resource;
     queue.player.play(resource);
-    queue.connection.subscribe(queue.player);
+    try {
+      await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
+      queue.connection.subscribe(queue.player);
+    } catch (error) {
+      queue.textChannel.send(`An error occurred while trying to play **${song.name}**: ${error.message || error}`);
+      client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
+    }
 
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
@@ -129,9 +130,7 @@ module.exports = {
     }
 
     const filter = (reaction, user) => user.id !== client.user.id;
-    const collector = playingMessage.createReactionCollector(filter, {
-      time: song.duration > 0 ? song.duration * 1000 : 600000
-    });
+    const collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
     collector.on('collect', (reaction, user) => {
       reaction.users.remove(user).catch(client.logger.error);
@@ -141,7 +140,7 @@ module.exports = {
       switch (reaction.emoji.name) {
         case '⏭':
           queue.playing = true;
-          queue.connection.dispatcher.end(); // TODO: figure out what the player does when the song ends
+          queue.connection.dispatcher.end();
           queue.textChannel.send(`${user} ⏩ skipped the song`).catch(client.logger.error);
           collector.stop();
           break;
@@ -157,36 +156,36 @@ module.exports = {
           queue.playing = !queue.playing;
           break;
 
-        case '🔇': // TODO: figure out volume
+        case '🔇':
           if (queue.volume <= 0) {
             queue.volume = 100;
-            queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
+            resource.volume.setVolume(1);
             queue.textChannel.send(`${user} 🔊 unmuted the music!`).catch(client.logger.error);
           } else {
             queue.volume = 0;
-            queue.connection.dispatcher.setVolumeLogarithmic(0);
+            resource.volume.setVolume(0);
             queue.textChannel.send(`${user} 🔇 muted the music!`).catch(client.logger.error);
           }
           break;
 
         case '🔉':
           if (queue.volume === 0) return;
-          if (queue.volume - 10 <= 0) queue.volume = 0;
-          else queue.volume = queue.volume - 10;
-          queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-          queue.textChannel
-            .send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`)
-            .catch(message.client.logger.error);
+          if (queue.volume - 10 <= 0)
+            queue.volume = 0;
+          else
+            queue.volume = queue.volume - 10;
+          resource.volume.setVolume(queue.volume / 100);
+          queue.textChannel.send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           break;
 
         case '🔊':
           if (queue.volume === 100) return;
-          if (queue.volume + 10 >= 100) queue.volume = 100;
-          else queue.volume = queue.volume + 10;
-          queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-          queue.textChannel
-            .send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`)
-            .catch(client.logger.error);
+          if (queue.volume + 10 >= 100)
+            queue.volume = 100;
+          else
+            queue.volume = queue.volume + 10;
+          resource.volume.setVolume(queue.volume / 100);
+          queue.textChannel.send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           break;
 
         case '🔁':
@@ -195,11 +194,12 @@ module.exports = {
           break;
 
         case '⏹':
-          queue.songs = [];
           queue.textChannel.send(`${user} ⏹ stopped the music!`).catch(client.logger.error);
           if (queue.stream) queue.stream.destroy();
+          queue.player.stop();
           queue.connection.destroy();
           collector.stop();
+          client.queue.delete(message.guild.id);
           break;
           
         case '🎤':
