@@ -3,16 +3,16 @@ const { canModifyQueue } = require('../util/Util');
 exports.run = (client, message, args) => {
   const queue = client.queue.get(message.guild.id);
   if (canModifyQueue(message.member) != true) return;
-  if (!queue) return message.reply('there is nothing playing.').catch(client.logger.error);
-  if (!args[0]) return message.channel.send(`🔊 The current volume is: **${queue.volume}%**`).catch(client.logger.error);
-  if (isNaN(args[0])) return message.reply('input a number, moron').catch(client.logger.error);
+  if (!queue) return message.reply('there is nothing playing.');
+  if (!args[0]) return message.channel.send(`🔊 The current volume is: **${queue.volume}%**`);
+  if (isNaN(args[0])) return message.reply('input a number, moron');
   if (parseInt(args[0]) > 100 || parseInt(args[0]) < 0)
-    return message.reply('Please use a number between 0 - 100.').catch(client.logger.error);
+    return message.reply('Please use a number between 0 - 100.');
 
-  queue.volume = Number(args[0]);
-  queue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
+  queue.volume = parseInt(args[0]);
+  queue.resource.volume.setVolume(parseInt(args[0]) / 100);
 
-  return queue.textChannel.send(`Volume set to: **${args[0]}%**`).catch(client.logger.error);
+  return queue.textChannel.send(`Volume set to: **${args[0]}%**`);
 };
 
 exports.conf = {
