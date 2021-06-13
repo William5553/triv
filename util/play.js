@@ -2,13 +2,13 @@ const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, getVoiceConnection } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, getVoiceConnection, StreamType } = require('@discordjs/voice');
 
 require('moment-duration-format');
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
-  '8D': 'apulsator=hz=0.08',
+  '8d': 'apulsator=hz=0.08',
   vaporwave: 'aresample=48000,asetrate=48000*0.8',
   nightcore: 'aresample=48000,asetrate=48000*1.25',
   phaser: 'aphaser=in_gain=0.4',
@@ -100,7 +100,7 @@ module.exports = {
         }
       });
     }
-    const resource = createAudioResource(stream, { inlineVolume: true });
+    const resource = createAudioResource(stream, { inlineVolume: true, inputType: StreamType.Opus });
     resource.volume.setVolume(queue.volume / 100);
     queue.resource = resource;
     queue.player.play(resource);

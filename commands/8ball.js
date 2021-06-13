@@ -1,7 +1,7 @@
 const path = require('path');
 
 exports.run = (client, message, args) => {
-  if (args.length < 1) return message.reply('ask me a question, moron');
+  if (args.length < 1) return message.reply('Ask me a question, moron');
   const response = require('../assets/8ball.json').random();
 
   if (response === 'Explode')

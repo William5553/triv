@@ -39,7 +39,7 @@ exports.run = async (client, message, args) => {
       additionalStreamTime: 0,
       filters: {
         bassboost: false,
-        '8D': false,
+        '8d': false,
         vaporwave: false,
         nightcore: false,
         phaser: false,

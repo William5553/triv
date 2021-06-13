@@ -23,13 +23,12 @@ exports.run = async (client, message, args) => {
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
       const caseNum = await caseNumber(client, botlog);
-      return botlog.send({embeds: [new MessageEmbed()
-        .setColor(0x00ae86)
-        .setTimestamp()
-        .setDescription(
-          `**Action:** Ban\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**User ID:** ${member.user.id}`
-        )
-        .setFooter(`ID ${caseNum} | User ID: ${member.user.id}`)
+      return botlog.send({embeds: [
+        new MessageEmbed()
+          .setColor(0x00ae86)
+          .setTimestamp()
+          .setDescription(`**Action:** Ban\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**User ID:** ${member.user.id}`)
+          .setFooter(`ID ${caseNum} | User ID: ${member.user.id}`)
       ]});
     }
   } catch (err) {

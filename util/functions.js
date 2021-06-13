@@ -38,7 +38,6 @@ module.exports = client => {
       client.aliases.delete(alias);
     });
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
-    return `Successfully unloaded ${command.help.name}`;
   };
 
   /*

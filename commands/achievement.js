@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (args.join(' ').toLowerCase().includes('burn')) rnd = 38;
   if (args.join(' ').toLowerCase().includes('cake')) rnd = 10;
 
-  if (title.length > 22 || contents.length > 22) return message.reply('max length: 22 characters');
+  if (title.length > 22 || contents.length > 22) return message.reply('Please keep the title and body below 22 characters.');
   request
     .get(`https://www.minecraftskinstealer.com/achievement/${rnd}/${encodeURIComponent(title)}/${encodeURIComponent(contents)}`)
     .then(ach => message.reply({ files:[{ attachment: ach.body }] }));

@@ -1,7 +1,7 @@
 const { play } = require('../util/play');
 const { canModifyQueue } = require('../util/Util');
 const filters = [
-  'bassboost', '8D', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
+  'bassboost', '8d', 'vaporwave', 'nightcore', 'phaser', 'tremolo', 'vibrato', 'reverse',
   'treble', 'normalizer', 'surround', 'pulsator', 'subboost', 'karaoke', 'flanger', 'gate',
   'haas', 'mcompand', 'earwax'
 ];
