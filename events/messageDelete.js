@@ -26,17 +26,19 @@ module.exports = async (client, message) => {
       // Ignore entries that are older than 20 seconds to reduce false positives.
       const auditEntry = fetchedLogs.entries.find(a => a.target.id === message.author.id && a.extra.channel.id === message.channel.id && Date.now() - a.createdTimestamp < 20000);
 
-      const embed = new MessageEmbed()
-        .setTitle('**Message Deleted**')
-        .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
-        .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
-        .setTimestamp()
-        .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
-        .setColor(0xEB5234);
+      const embeds = [
+        new MessageEmbed()
+          .setTitle('**Message Deleted**')
+          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
+          .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
+          .setTimestamp()
+          .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
+          .setColor(0xEB5234)
+      ];
       if (message.attachments.size > 0)
-        embed.addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-      logs.send({embeds: [embed]});
-      message.embeds.forEach(embedd => logs.send(embedd));
+        embeds[0].addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
+      message.embeds.forEach(embedd => embeds.push(embedd));
+      logs.send({ embeds });
     } else client.settings.set(message.guild.id, '', 'logsID');
   }
 };
