@@ -26,10 +26,12 @@ module.exports = async (client, message) => {
       // Ignore entries that are older than 20 seconds to reduce false positives.
       const auditEntry = fetchedLogs.entries.find(a => a.target.id === message.author?.id && a.extra.channel.id === message.channel.id && Date.now() - a.createdTimestamp < 20000);
 
+      client.logger.log(JSON.stringify(auditEntry));
+
       const embeds = [
         new MessageEmbed()
           .setTitle('**Message Deleted**')
-          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
+          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor?.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
           .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
           .setTimestamp()
           .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
