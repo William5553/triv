@@ -6,7 +6,7 @@ module.exports = client => {
     if (!props.conf || !props.help)
       return `${command} failed to load as it is missing required command configuration`;
     if (props.conf.enabled !== true)
-      return `${props.help.name} tried to load, but is disabled.`;
+      return `${props.help.name} is disabled.`;
     client.logger.log(`Loading Command: ${props.help.name}. 👌`);
     if (props.help.name !== command.split('.')[0])
       return `File name ${command} has a different command name ${props.help.name}`;
