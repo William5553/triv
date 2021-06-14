@@ -30,11 +30,9 @@ exports.run = (client, message, args) => {
     year = now.getFullYear();
   } else
     year = now.getFullYear() + 1;
-  const future = new Date(year, month - 1, day),
-    futureFormat = moment.utc(future).format('dddd, MMMM Do, YYYY'),
-    time = moment.duration(future - now),
-    link = time.months() ? time.months() === 1 ? 'is' : 'are' : time.days() === 1 ? 'is' : 'are';
-  return message.channel.send(`There ${link} ${time.format('M [months and] d [days]')} until ${futureFormat}!`);
+  const future = new Date(year, month - 1, day);
+  const time = moment.duration(future - now);
+  return message.channel.send(`There ${time.months() ? time.months() === 1 ? "'s" : 'are' : time.days() === 1 ? "'s" : 'are'} ${time.format('M [months and] d [days]')} until ${moment.utc(future).format('dddd, MMMM Do, YYYY')}!`);
 };
 
 function validate(value) {

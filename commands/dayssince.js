@@ -28,9 +28,7 @@ exports.run = (client, message, args) => {
   if (isNaN(year)) return message.reply(`${year} is not a valid year`);
   const past = new Date(year, month - 1, day);
   if (year < 100) past.setFullYear(year);
-  const pastFormat = moment.utc(past).format('dddd, MMMM Do, YYYY');
-  const time = moment.duration(now - past);
-  return message.channel.send(`There have been ${time.format('Y [years,] M [months and] d [days]')} since ${pastFormat}!`);
+  return message.channel.send(`It's been ${moment.duration(now - past).format('Y [years,] M [months and] d [days]')} since ${moment.utc(past).format('dddd, MMMM Do, YYYY')}!`);
 };
     
 function validate(value) {
