@@ -5,7 +5,6 @@ data/
 *.sqlite
 .npm
 .eslintcache
-.yarn-integrity
 .env
 .vscode
 pnpm-lock.yaml
