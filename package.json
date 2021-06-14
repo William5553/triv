@@ -20,11 +20,11 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.x"
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
-    "@discordjs/voice": "^0.3.1",
+    "@discordjs/voice": "^0.4.0",
     "@william5553/translate-google-api": "^1.1.2",
     "bufferutil": "^4.0.3",
     "chalk": "^4.1.1",
