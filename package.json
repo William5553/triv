@@ -20,7 +20,7 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=14.x"
+    "node": "14.x"
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
