@@ -42,7 +42,7 @@
         "eslint-plugin-node": "^11.1.0"
       },
       "engines": {
-        "node": ">=14"
+        "node": ">=14.0.0"
       },
       "optionalDependencies": {
         "express": "^4.17.1"
