@@ -88,16 +88,16 @@ readdir('./events/', (err, files) => {
 
 client.login(process.env.token);
 
-/*
-const express = require('express');
-const app = express();
+if (process.env.triv_web) {
+  const express = require('express');
+  const app = express();
 
-app.get('/', (req, res) => {
-  res.send(`Triv running Node.js ${process.version}`);
-});
+  app.get('/', (req, res) => {
+    res.send(`Triv running Node.js ${process.version}`);
+  });
 
-app.listen(8080);
-*/
+  app.listen(8080);
+}
 
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on('uncaughtException', err => {
