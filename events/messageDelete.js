@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
 
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
-      const auditEntry = fetchedLogs.entries.find(a => a.target.id === message.author.id && a.extra.channel.id === message.channel.id && Date.now() - a.createdTimestamp < 20000);
+      const auditEntry = fetchedLogs.entries.find(a => a.target.id === message.author?.id && a.extra.channel.id === message.channel.id && Date.now() - a.createdTimestamp < 20000);
 
       const embeds = [
         new MessageEmbed()
