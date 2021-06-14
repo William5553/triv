@@ -105,7 +105,7 @@ exports.conf = {
 
 exports.help = {
   name: 'fortnite',
-  description: 'Gets args players fortnite stats',
+  description: "Gets a player's fortnite stats",
   usage: 'fortnite [platform] [username]',
   example: 'fortnite pc Ninja'
 };
