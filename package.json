@@ -25,6 +25,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.4.0",
+    "@william5553/mathsteps": "^0.3.0",
     "@william5553/translate-google-api": "^1.1.2",
     "bufferutil": "^4.0.3",
     "chalk": "^4.1.1",
@@ -39,7 +40,6 @@
     "fs": "^0.0.2",
     "genius-lyrics": "^4.2.9",
     "libsodium-wrappers": "^0.7.9",
-    "mathsteps": "github:william5553/mathsteps",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",

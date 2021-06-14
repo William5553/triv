@@ -1,4 +1,4 @@
-const mathsteps = require('mathsteps');
+const mathsteps = require('@william5553/mathsteps');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
