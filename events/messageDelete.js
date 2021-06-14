@@ -22,15 +22,14 @@ module.exports = async (client, message) => {
       // Fetch a couple audit logs than just one as new entries could've been added right after this event was emitted.
       const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 8, type: 'MESSAGE_DELETE', user: message.author });
 
-      client.logger.log(JSON.stringify(fetchedLogs.entries));
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
-      const auditEntry = fetchedLogs.entries.find(a => a.target.id === message.author?.id && a.extra.channel.id === message.channel.id && Date.now() - a.createdTimestamp < 20000);
+      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20000);
 
       const embeds = [
         new MessageEmbed()
           .setTitle('**Message Deleted**')
-          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor?.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
+          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
           .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
           .setTimestamp()
           .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
@@ -38,7 +37,9 @@ module.exports = async (client, message) => {
       ];
       if (message.attachments.size > 0)
         embeds[0].addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-      message.embeds.forEach(embedd => embeds.push(embedd));
+      message.embeds.forEach(embedd => {
+        if (embeds.length < 10) embeds.push(embedd);
+      });
       logs.send({ embeds });
     } else client.settings.set(message.guild.id, '', 'logsID');
   }
