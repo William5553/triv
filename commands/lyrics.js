@@ -46,7 +46,7 @@ exports.run = async (client, message, args) => {
 
   for (let i = 0; i * 1850 <= lyrics.length; i++) {
     embeds.push(new MessageEmbed()
-      .setTitle(embeds.length = 0 ? `Lyrics - ${emtitle}` : '')
+      .setTitle(embeds.length == 0 ? `Lyrics - ${emtitle}` : '')
       .setDescription(lyrics.substr(i * 1850, i * 1850 + 1850))
       .setColor('#F8AA2A')
     );
