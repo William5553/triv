@@ -1,12 +1,12 @@
 const { MessageEmbed } = require('discord.js');
-const TikTokScraper = require('tiktok-scraper');
+const { getUserProfileInfo } = require('tiktok-scraper');
 const { formatNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
     if (args.length < 1) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('Please wait...');
-    const data = await TikTokScraper.getUserProfileInfo(args.join(' '));
+    const data = await getUserProfileInfo(args.join(' '));
     const final = new MessageEmbed()
       .setColor('#69C9D0')
       .setTitle(`User Info - @${data.user.uniqueId}${data.user.privateAccount ? ' :lock:' : ''}${data.user.verified ? ' :ballot_box_with_check:' : ''}`)
