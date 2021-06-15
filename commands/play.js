@@ -66,20 +66,12 @@ exports.run = async (client, message, args) => {
       }
     };
 
-    let songInfo, song;
+    let songInfo;
 
     // if url was inputted
     if (videoPattern.test(search)) {
       try {
         songInfo = await ytdl.getInfo(search);
-        song = {
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          duration: songInfo.videoDetails.lengthSeconds,
-          thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-          channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
-          publishDate: songInfo.videoDetails.publishDate
-        };
       } catch (error) {
         client.logger.error(error.stack || error);
         return message.reply(error.message);
@@ -89,18 +81,6 @@ exports.run = async (client, message, args) => {
       try {
         const results = await youtube.searchVideos(search, 1);
         songInfo = await ytdl.getInfo(results[0]?.url);
-        song = {
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          duration: songInfo.videoDetails.lengthSeconds,
-          thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-          channel: {
-            name: songInfo.videoDetails.author.name,
-            profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url,
-            url: songInfo.videoDetails.author.user_url
-          },
-          publishDate: songInfo.videoDetails.publishDate
-        };
       } catch (error) {
         client.logger.error(error.stack || error);
         return message.channel.send({embeds: [
@@ -114,6 +94,15 @@ exports.run = async (client, message, args) => {
         ]});
       }
     }
+
+    const song = {
+      title: songInfo.videoDetails.title,
+      url: songInfo.videoDetails.video_url,
+      duration: songInfo.videoDetails.lengthSeconds,
+      thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
+      channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
+      publishDate: songInfo.videoDetails.publishDate
+    };
 
     if (serverQueue) {
       serverQueue.songs.push(song);
@@ -134,13 +123,14 @@ exports.run = async (client, message, args) => {
       return message.reply(`Could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

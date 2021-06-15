@@ -45,11 +45,13 @@ exports.run = async (client, message, args) => {
   const embeds = [];
 
   for (let i = 0; i * 1850 <= lyrics.length; i++) {
-    embeds.push(new MessageEmbed()
-      .setTitle(embeds.length == 0 ? `Lyrics - ${emtitle}` : '')
-      .setDescription(lyrics.substr(i * 1850, i * 1850 + 1850))
-      .setColor('#F8AA2A')
-    );
+    if (embeds.length < 10) {
+      embeds.push(new MessageEmbed()
+        .setTitle(embeds.length == 0 ? `Lyrics - ${emtitle}` : '')
+        .setDescription(lyrics.substr(i * 1850, i * 1850 + 1850))
+        .setColor('#F8AA2A')
+      );
+    }
   }
   message.channel.send({ embeds });
 };
