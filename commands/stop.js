@@ -11,12 +11,11 @@ exports.run = (client, message) => {
     if (queue && queue.connection) {
       queue.songs = [];
       queue.player.stop();
-      if (queue.stream) queue.stream.destroy();
       client.queue.delete(message.guild.id);
       queue.textChannel.send(`${message.author} ⏹ stopped the music!`);
     } else if (!message.channel.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice.connection.channel.members.size > 2)
       return message.reply('You need the **MOVE MEMBERS** permission because there are other people listening.');
-    if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
+    getVoiceConnection(message.guild.id)?.destroy();
   } catch (err) {
     client.logger.error(err.stack || err);
     return message.channel.send({embeds: [

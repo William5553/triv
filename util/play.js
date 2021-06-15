@@ -1,8 +1,9 @@
-const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, getVoiceConnection, StreamType } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
+const { raw } = require('youtube-dl-exec');
+// const { FFmpeg } = require('prism-media');
 
 require('moment-duration-format');
 
@@ -29,10 +30,10 @@ const filters = {
 };
 
 module.exports = {
-  async play(song, message, updFilter) {
+  async play(song, message, updFilter = false) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.resource.playbackDuration + queue.additionalStreamTime : 0;
+    const seekTime = updFilter ? moment.duration(queue.resource.playbackDuration + queue.additionalStreamTime).format('hh:mm:ss') : '00:00:00';
     if (!song) {
       queue.player.stop();
       queue.connection.destroy();
@@ -45,28 +46,7 @@ module.exports = {
         encoderArgsFilters.push(filters[filterName]);
     });
     let encoderArgs;
-    encoderArgsFilters.length < 1 ? encoderArgs = [] : encoderArgs = ['-af', encoderArgsFilters.join(',')];
-
-    let stream;
-    try {
-      if (queue.stream) await queue.stream.destroy();
-      stream = await ytdl(song.url, {
-        filter: 'audioonly',
-        encoderArgs,
-        highWaterMark: 1 << 25,
-        seek: seekTime / 1000,
-        opusEncoded: true,
-        dlChunkSize: 0
-      });
-      queue.stream = stream;
-    } catch (error) {
-      if (queue) {
-        queue.songs.shift();
-        module.exports.play(queue.songs[0], message, false);
-      }
-      client.logger.error(error.stack ? error.stack : error);
-      return queue.textChannel.send(`Error: ${error.message || error}`);
-    }
+    encoderArgsFilters.length < 1 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
     if (!queue.player) {
       queue.player = createAudioPlayer();
@@ -84,8 +64,8 @@ module.exports = {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
-      queue.player.on(AudioPlayerStatus.Idle, () => {
-        if (collector && !collector.ended) collector.stop();
+      /*queue.player.on(AudioPlayerStatus.Idle, () => {
+        // if (collector && !collector.ended) collector.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
         // if loop is on, push the song back at the end of the queue
@@ -98,13 +78,13 @@ module.exports = {
           queue.songs.shift();
           module.exports.play(queue.songs[0], message);
         }
-      });
+      });*/
     }
-    const resource = createAudioResource(stream, { inlineVolume: true, inputType: StreamType.Opus });
+    const resource = await _createAudioResource(song.url, seekTime, encoderArgs);
     resource.volume.setVolume(queue.volume / 100);
     queue.resource = resource;
     queue.player.play(resource);
-    queue.connection?.subscribe(queue.player);
+    queue.connection.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
@@ -206,7 +186,6 @@ module.exports = {
 
         case '⏹':
           queue.textChannel.send(`${user} ⏹ stopped the music!`);
-          if (queue.stream) queue.stream.destroy();
           queue.player.stop();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
           collector.stop();
@@ -227,4 +206,34 @@ module.exports = {
       if (playingMessage) playingMessage.reactions.removeAll();
     });
   }
+};
+
+const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
+  return new Promise((resolve, reject) => {
+    const rawStream = raw(url, {
+      o: '-',
+      q: '',
+      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+      r: '100K'
+    }, { stdio: ['ignore', 'pipe', 'ignore'] });
+    if (!rawStream.stdout) {
+      reject(new Error('No stdout'));
+      return;
+    }
+    /*const FFMPEG_ARGUMENTS = [
+      '-analyzeduration', '0',
+      '-loglevel', '0',
+      '-f', 's16le',
+      '-ar', '48000',
+      '-ac', '2'
+    ];
+  
+    if (filters) FFMPEG_ARGUMENTS.push('-af', filters.join(','));
+    const stream = new FFmpeg({
+      args: ['-ss', seek, '-i', rawStream.stdout, ...FFMPEG_ARGUMENTS]
+    });
+  
+    resolve(createAudioResource(stream, { inlineVolume: true }));*/
+    resolve(createAudioResource(rawStream.stdout, { inlineVolume: true }));
+  });
 };

@@ -13,6 +13,7 @@ client.logger = require('./util/logger');
 
 require('./util/functions')(client);
 
+client.evalDepth = 2;
 client.owners = [];
 
 client.queue = new Collection();

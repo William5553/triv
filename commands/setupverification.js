@@ -14,11 +14,15 @@ exports.run = async (client, message) => {
 
     message.guild.channels.cache.forEach(chan => {
       if (chan.name != 'verify') {
-        if (!chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
+        if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
           chan.updateOverwrite(role, { SEND_MESSAGES: true });
-        if (!chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.VIEW_CHANNEL))
+        if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.VIEW_CHANNEL))
           chan.updateOverwrite(role, { VIEW_CHANNEL: true });
-        chan.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
+        if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.CONNECT))
+          chan.updateOverwrite(role, { CONNECT: true });
+        if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SPEAK))
+          chan.updateOverwrite(role, { SPEAK: true });
+        chan.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false, CONNECT: false, SPEAK: false });
       }
     });
 

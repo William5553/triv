@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     if (!channel)
       return message.reply('You need to join a voice channel first!');
     const serverQueue = client.queue.get(channel.guild.id);
-    if (serverQueue && channel !== message.guild.me.voice.channel)
+    if (serverQueue && channel.id !== message.guild.me.voice.channelID)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
     const permissions = channel.permissionsFor(client.user);
     if (!permissions.has(Permissions.FLAGS.CONNECT))
@@ -103,13 +103,14 @@ exports.run = async (client, message, args) => {
         };
       } catch (error) {
         client.logger.error(error.stack || error);
-        return message.channel.send({embeds: [new MessageEmbed()
-          .setColor('#FF0000')
-          .setTimestamp()
-          .setTitle('Please report this on GitHub')
-          .setURL('https://github.com/william5553/triv/issues')
-          .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
-          .addField('**Command:**', `${message.content}`)
+        return message.channel.send({embeds: [
+          new MessageEmbed()
+            .setColor('#FF0000')
+            .setTimestamp()
+            .setTitle('Please report this on GitHub')
+            .setURL('https://github.com/william5553/triv/issues')
+            .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .addField('**Command:**', `${message.content}`)
         ]});
       }
     }

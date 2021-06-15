@@ -35,10 +35,8 @@ const checkQueue = async (client, oldState, newState) => {
   if (!queue || queue.forced) return;
 
   // when bot gets kicked
-  if (newState.member.id === client.user.id && !newState.channelID) {
-    queue.stream.destroy();
+  if (newState.member.id === client.user.id && !newState.channelID)
     client.queue.delete(oldState.guild.id);
-  }
   
   // when member joins vc return
   if (newState.channel === queue.channel) return;

@@ -5,7 +5,8 @@ const Genius = require('genius-lyrics');
 exports.run = async (client, message, args) => {
   const GClient = new Genius.SongsClient(process.env.genius_api_key || '');
   let query, queue;
-  if (message.guild) queue = client.queue.get(message.guild.id);
+  if (message.guild)
+    queue = client.queue.get(message.guild.id);
   if (args && args.length >= 1)
     query = args.join(' ');
   else if (queue && queue.songs)
@@ -41,15 +42,16 @@ exports.run = async (client, message, args) => {
     return 'no lyrics found';
   }
 
-  const lyricsEmbed = new MessageEmbed()
-    .setTitle('Lyrics - ' + emtitle)
-    .setDescription(lyrics)
-    .setColor('#F8AA2A');
+  const embeds = [];
 
   for (let i = 0; i * 1850 <= lyrics.length; i++) {
-    lyricsEmbed.description = `${lyrics.substr(i * 1850, i * 1850 + 1850)}`;
-    message.channel.send(lyricsEmbed);
+    embeds.push(new MessageEmbed()
+      .setTitle(`Lyrics - ${emtitle}`)
+      .setDescription(lyrics.substr(i * 1850, i * 1850 + 1850))
+      .setColor('#F8AA2A')
+    );
   }
+  message.channel.send({ embeds });
 };
 
 exports.conf = {

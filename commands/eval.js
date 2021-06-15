@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (evaled && evaled.constructor.name == 'Promise')
       evaled = await evaled;
     if (typeof evaled !== 'string')
-      evaled = require('util').inspect(evaled);
+      evaled = require('util').inspect(evaled), { depth: client.evalDepth };
     evaled = await clean(evaled);
     if (evaled.length > 1980)
       evaled = evaled.substr(0, 1980) + '...';
