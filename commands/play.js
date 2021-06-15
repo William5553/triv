@@ -27,17 +27,16 @@ exports.run = async (client, message, args) => {
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
     const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
-    const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
+    const ytRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
 
     // Start the playlist if playlist url was provided
-    if (!videoPattern.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
+    if (!ytRegex.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
       return client.commands.get('playlist').run(client, message, args);
 
     const queueConstruct = {
       forced,
       textChannel: message.channel,
       channel,
-      connection: null,
       songs: [],
       loop: false,
       volume: 100,
@@ -68,8 +67,8 @@ exports.run = async (client, message, args) => {
 
     let songInfo;
 
-    // if url was inputted
-    if (videoPattern.test(search)) {
+    // if youtube url was inputted
+    if (ytRegex.test(search)) {
       try {
         songInfo = await ytdl.getInfo(search);
       } catch (error) {

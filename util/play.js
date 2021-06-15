@@ -65,7 +65,7 @@ module.exports = {
         module.exports.play(queue.songs[0], message);
       });
       queue.player.on(AudioPlayerStatus.Idle, () => {
-        if (collector && !collector.ended) collector?.stop();
+        if (queue.collector && !queue.collector?.ended) queue.collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
         // if loop is on, push the song back at the end of the queue
@@ -80,17 +80,16 @@ module.exports = {
         }
       });
     }
-    const resource = await _createAudioResource(song.url, seekTime, encoderArgs);
-    resource.volume.setVolume(queue.volume / 100);
-    queue.resource = resource;
-    queue.player.play(resource);
+    queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
+    queue.resource.volume.setVolume(queue.volume / 100);
+    queue.player.play(queue.resource);
     queue.connection.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
       queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
       client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
-      queue.player.destroy();
+      queue.connection?.destroy();
     }
 
     if (seekTime) 
@@ -104,9 +103,9 @@ module.exports = {
           .setURL(song.url)
           .setColor('#FF0000')
           .setThumbnail(song.thumbnail.url)
-          .setDescription(`${seekTime >= 1 ? `Starting at ${moment.duration(seekTime).format('hh:mm:ss')}` : ''}`)
+          .setDescription(`${seekTime >= 1 ? `Starting at ${seekTime}` : ''}`)
           .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
+          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)} | Published on ${formatDate(song.publishDate)}`)
       ]});
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
@@ -121,9 +120,9 @@ module.exports = {
     }
 
     const filter = (reaction, user) => user.id !== client.user.id;
-    const collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    queue.collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
-    collector.on('collect', (reaction, user) => {
+    queue.collector.on('collect', (reaction, user) => {
       reaction.users.remove(user);
       if (!queue) return;
       const member = message.guild.members.cache.get(user.id);
@@ -133,7 +132,7 @@ module.exports = {
           queue.playing = true;
           queue.player.stop();
           queue.textChannel.send(`${user} ⏩ skipped the song`);
-          collector.stop();
+          queue.collector.stop();
           break;
 
         case '⏯':
@@ -150,11 +149,11 @@ module.exports = {
         case '🔇':
           if (queue.volume <= 0) {
             queue.volume = 100;
-            resource.volume.setVolume(1);
+            queue.resource.volume.setVolume(1);
             queue.textChannel.send(`${user} 🔊 unmuted the music!`);
           } else {
             queue.volume = 0;
-            resource.volume.setVolume(0);
+            queue.resource.volume.setVolume(0);
             queue.textChannel.send(`${user} 🔇 muted the music!`);
           }
           break;
@@ -165,7 +164,7 @@ module.exports = {
             queue.volume = 0;
           else
             queue.volume = queue.volume - 10;
-          resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolume(queue.volume / 100);
           queue.textChannel.send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           break;
 
@@ -175,7 +174,7 @@ module.exports = {
             queue.volume = 100;
           else
             queue.volume = queue.volume + 10;
-          resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolume(queue.volume / 100);
           queue.textChannel.send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           break;
 
@@ -188,7 +187,7 @@ module.exports = {
           queue.textChannel.send(`${user} ⏹ stopped the music!`);
           queue.player.stop();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
-          collector.stop();
+          queue.collector.stop();
           client.queue.delete(message.guild.id);
           break;
           
@@ -202,7 +201,7 @@ module.exports = {
       }
     });
 
-    collector.on('end', () => {
+    queue.collector.on('end', () => {
       if (playingMessage) playingMessage.reactions.removeAll();
     });
   }
@@ -223,7 +222,9 @@ const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
     /*const FFMPEG_ARGUMENTS = [
       '-analyzeduration', '0',
       '-loglevel', '0',
-      '-f', 's16le',
+      //'-f', 's16le',
+      '-acodec', 'libopus',
+      '-f', 'opus',
       '-ar', '48000',
       '-ac', '2'
     ];

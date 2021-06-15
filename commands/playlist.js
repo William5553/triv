@@ -31,7 +31,6 @@ exports.run = async (client, message, args) => {
     const queueConstruct = {
       textChannel: message.channel,
       channel,
-      connection: null,
       songs: [],
       loop: false,
       volume: 100,
