@@ -41,15 +41,15 @@ exports.run = async (client, message, args) => {
     return 'no lyrics found';
   }
 
-  const lyricsEmbed = new MessageEmbed()
-    .setTitle('Lyrics - ' + emtitle)
-    .setDescription(lyrics)
-    .setColor('#F8AA2A');
+  const embeds = [];
 
   for (let i = 0; i * 1850 <= lyrics.length; i++) {
-    lyricsEmbed.description = `${lyrics.substr(i * 1850, i * 1850 + 1850)}`;
-    message.channel.send(lyricsEmbed);
+    embeds.push(new MessageEmbed()
+      .setTitle('Lyrics - ' + emtitle)
+      .setDescription(lyrics.substr(i * 1850, i * 1850 + 1850))
+      .setColor('#F8AA2A'));
   }
+  message.channel.send(embeds);
 };
 
 exports.conf = {
