@@ -64,8 +64,8 @@ module.exports = {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
-      /*queue.player.on(AudioPlayerStatus.Idle, () => {
-        // if (collector && !collector.ended) collector.stop();
+      queue.player.on(AudioPlayerStatus.Idle, () => {
+        if (collector && !collector.ended) collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
         // if loop is on, push the song back at the end of the queue
@@ -78,7 +78,7 @@ module.exports = {
           queue.songs.shift();
           module.exports.play(queue.songs[0], message);
         }
-      });*/
+      });
     }
     const resource = await _createAudioResource(song.url, seekTime, encoderArgs);
     resource.volume.setVolume(queue.volume / 100);

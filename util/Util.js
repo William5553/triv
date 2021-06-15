@@ -144,5 +144,5 @@ module.exports = class Util {
     } catch (e) {
       return false;
     }
-  } 
+  }
 };
