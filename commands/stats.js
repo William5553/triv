@@ -8,6 +8,8 @@ exports.run = (client, message) =>
     .addField('Triv Version', require('../package.json').version)
     .addField('Memory Usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
     .addField('Uptime', moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]'))
+    .addField('Commands', client.commands.size.toLocaleString())
+    .addField('Aliases', client.aliases.size.toLocaleString())
     .addField('Users', client.users.cache.size.toLocaleString())
     .addField('Guilds', client.guilds.cache.size.toLocaleString())
     .addField('Channels', client.channels.cache.size.toLocaleString())
