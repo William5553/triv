@@ -13,7 +13,7 @@ exports.run = (client, message) => {
       queue.player.stop();
       client.queue.delete(message.guild.id);
       queue.textChannel.send(`${message.author} ⏹ stopped the music!`);
-    } else if (!message.channel?.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice?.channel?.members.size > 2)
+    } else if (!message.channel.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice?.channel?.members.size > 2)
       return message.reply('You need the **MOVE MEMBERS** permission because there are other people listening.');
     getVoiceConnection(message.guild.id)?.destroy();
   } catch (err) {
