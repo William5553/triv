@@ -1,8 +1,9 @@
-const ytdl = require('discord-ytdl-core');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus, getVoiceConnection, StreamType } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
+const { raw } = require('youtube-dl-exec');
+// const { FFmpeg } = require('prism-media');
 
 require('moment-duration-format');
 
@@ -29,10 +30,10 @@ const filters = {
 };
 
 module.exports = {
-  async play(song, message, updFilter) {
+  async play(song, message, updFilter = false) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? queue.resource.playbackDuration + queue.additionalStreamTime : 0;
+    const seekTime = updFilter ? moment.duration(queue.resource.playbackDuration + queue.additionalStreamTime).format('hh:mm:ss') : '00:00:00';
     if (!song) {
       queue.player.stop();
       queue.connection.destroy();
@@ -45,28 +46,7 @@ module.exports = {
         encoderArgsFilters.push(filters[filterName]);
     });
     let encoderArgs;
-    encoderArgsFilters.length < 1 ? encoderArgs = [] : encoderArgs = ['-af', encoderArgsFilters.join(',')];
-
-    let stream;
-    try {
-      if (queue.stream) await queue.stream.destroy();
-      stream = await ytdl(song.url, {
-        filter: 'audioonly',
-        encoderArgs,
-        highWaterMark: 1 << 25,
-        seek: seekTime / 1000,
-        opusEncoded: true,
-        dlChunkSize: 0
-      });
-      queue.stream = stream;
-    } catch (error) {
-      if (queue) {
-        queue.songs.shift();
-        module.exports.play(queue.songs[0], message, false);
-      }
-      client.logger.error(error.stack ? error.stack : error);
-      return queue.textChannel.send(`Error: ${error.message || error}`);
-    }
+    encoderArgsFilters.length < 1 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
     if (!queue.player) {
       queue.player = createAudioPlayer();
@@ -85,7 +65,7 @@ module.exports = {
         module.exports.play(queue.songs[0], message);
       });
       queue.player.on(AudioPlayerStatus.Idle, () => {
-        if (collector && !collector.ended) collector.stop();
+        if (queue.collector && !queue.collector?.ended) queue.collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
         // if loop is on, push the song back at the end of the queue
@@ -100,17 +80,16 @@ module.exports = {
         }
       });
     }
-    const resource = createAudioResource(stream, { inlineVolume: true, inputType: StreamType.Opus });
-    resource.volume.setVolume(queue.volume / 100);
-    queue.resource = resource;
-    queue.player.play(resource);
-    queue.connection?.subscribe(queue.player);
+    queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
+    queue.resource.volume.setVolume(queue.volume / 100);
+    queue.player.play(queue.resource);
+    queue.connection.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
       queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
       client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
-      queue.player.destroy();
+      queue.connection?.destroy();
     }
 
     if (seekTime) 
@@ -124,9 +103,9 @@ module.exports = {
           .setURL(song.url)
           .setColor('#FF0000')
           .setThumbnail(song.thumbnail.url)
-          .setDescription(`${seekTime >= 1 ? `Starting at ${moment.duration(seekTime).format('hh:mm:ss')}` : ''}`)
+          .setDescription(`${seekTime >= 1 ? `Starting at ${seekTime}` : ''}`)
           .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration * 1000).format('hh:mm:ss')} | Published on ${formatDate(song.publishDate)}`)
+          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)} | Published on ${formatDate(song.publishDate)}`)
       ]});
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
@@ -141,9 +120,9 @@ module.exports = {
     }
 
     const filter = (reaction, user) => user.id !== client.user.id;
-    const collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    queue.collector = playingMessage.createReactionCollector(filter, { time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
-    collector.on('collect', (reaction, user) => {
+    queue.collector.on('collect', (reaction, user) => {
       reaction.users.remove(user);
       if (!queue) return;
       const member = message.guild.members.cache.get(user.id);
@@ -153,7 +132,7 @@ module.exports = {
           queue.playing = true;
           queue.player.stop();
           queue.textChannel.send(`${user} ⏩ skipped the song`);
-          collector.stop();
+          queue.collector.stop();
           break;
 
         case '⏯':
@@ -170,11 +149,11 @@ module.exports = {
         case '🔇':
           if (queue.volume <= 0) {
             queue.volume = 100;
-            resource.volume.setVolume(1);
+            queue.resource.volume.setVolume(1);
             queue.textChannel.send(`${user} 🔊 unmuted the music!`);
           } else {
             queue.volume = 0;
-            resource.volume.setVolume(0);
+            queue.resource.volume.setVolume(0);
             queue.textChannel.send(`${user} 🔇 muted the music!`);
           }
           break;
@@ -185,7 +164,7 @@ module.exports = {
             queue.volume = 0;
           else
             queue.volume = queue.volume - 10;
-          resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolume(queue.volume / 100);
           queue.textChannel.send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           break;
 
@@ -195,7 +174,7 @@ module.exports = {
             queue.volume = 100;
           else
             queue.volume = queue.volume + 10;
-          resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolume(queue.volume / 100);
           queue.textChannel.send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           break;
 
@@ -209,7 +188,7 @@ module.exports = {
           queue.player.stop();
           if (queue.stream) queue.stream.destroy();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
-          collector.stop();
+          queue.collector.stop();
           client.queue.delete(message.guild.id);
           break;
           
@@ -223,8 +202,40 @@ module.exports = {
       }
     });
 
-    collector.on('end', () => {
+    queue.collector.on('end', () => {
       if (playingMessage) playingMessage.reactions.removeAll();
     });
   }
+};
+
+const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
+  return new Promise((resolve, reject) => {
+    const rawStream = raw(url, {
+      o: '-',
+      q: '',
+      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+      r: '100K'
+    }, { stdio: ['ignore', 'pipe', 'ignore'] });
+    if (!rawStream.stdout) {
+      reject(new Error('No stdout'));
+      return;
+    }
+    /*const FFMPEG_ARGUMENTS = [
+      '-analyzeduration', '0',
+      '-loglevel', '0',
+      //'-f', 's16le',
+      '-acodec', 'libopus',
+      '-f', 'opus',
+      '-ar', '48000',
+      '-ac', '2'
+    ];
+  
+    if (filters) FFMPEG_ARGUMENTS.push('-af', filters.join(','));
+    const stream = new FFmpeg({
+      args: ['-ss', seek, '-i', rawStream.stdout, ...FFMPEG_ARGUMENTS]
+    });
+  
+    resolve(createAudioResource(stream, { inlineVolume: true }));*/
+    resolve(createAudioResource(rawStream.stdout, { inlineVolume: true }));
+  });
 };

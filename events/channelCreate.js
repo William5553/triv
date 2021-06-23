@@ -26,11 +26,15 @@ module.exports = async (client, channel) => {
   }
 
   if (client.guildData.get(guild.id).verificationSetUp == true && channel.name != 'verify' && client.settings.get(guild.id).verifiedRoleID) {
-    if (!channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
+    if (channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
       channel.updateOverwrite(guild.roles.resolve(client.settings.get(guild.id).verifiedRoleID), { SEND_MESSAGES: true });
-    if (!channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.VIEW_CHANNEL))
+    if (channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.VIEW_CHANNEL))
       channel.updateOverwrite(guild.roles.resolve(client.settings.get(guild.id).verifiedRoleID), { VIEW_CHANNEL: true });
-    channel.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
+    if (channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.CONNECT))
+      channel.updateOverwrite(guild.roles.resolve(client.settings.get(guild.id).verifiedRoleID), { CONNECT: true });
+    if (channel.permissionsFor(guild.roles.everyone).has(Permissions.FLAGS.SPEAK))
+      channel.updateOverwrite(guild.roles.resolve(client.settings.get(guild.id).verifiedRoleID), { SPEAK: true });
+    channel.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false, CONNECT: false, SPEAK: false });
   }
   if (client.settings.get(guild.id).muteRoleID)
     channel.updateOverwrite(guild.roles.resolve(client.settings.get(guild.id).muteRoleID), { SEND_MESSAGES: false });

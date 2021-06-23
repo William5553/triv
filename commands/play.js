@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     if (!channel)
       return message.reply('You need to join a voice channel first!');
     const serverQueue = client.queue.get(channel.guild.id);
-    if (serverQueue && channel !== message.guild.me.voice.channel)
+    if (serverQueue && channel.id !== message.guild.me.voice.channelID)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
     const permissions = channel.permissionsFor(client.user);
     if (!permissions.has(Permissions.FLAGS.CONNECT))
@@ -27,17 +27,16 @@ exports.run = async (client, message, args) => {
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
     const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
-    const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
+    const ytRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
 
     // Start the playlist if playlist url was provided
-    if (!videoPattern.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
+    if (!ytRegex.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
       return client.commands.get('playlist').run(client, message, args);
 
     const queueConstruct = {
       forced,
       textChannel: message.channel,
       channel,
-      connection: null,
       songs: [],
       loop: false,
       volume: 100,
@@ -66,20 +65,12 @@ exports.run = async (client, message, args) => {
       }
     };
 
-    let songInfo, song;
+    let songInfo;
 
-    // if url was inputted
-    if (videoPattern.test(search)) {
+    // if youtube url was inputted
+    if (ytRegex.test(search)) {
       try {
         songInfo = await ytdl.getInfo(search);
-        song = {
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          duration: songInfo.videoDetails.lengthSeconds,
-          thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-          channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
-          publishDate: songInfo.videoDetails.publishDate
-        };
       } catch (error) {
         client.logger.error(error.stack || error);
         return message.reply(error.message);
@@ -89,30 +80,28 @@ exports.run = async (client, message, args) => {
       try {
         const results = await youtube.searchVideos(search, 1);
         songInfo = await ytdl.getInfo(results[0]?.url);
-        song = {
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          duration: songInfo.videoDetails.lengthSeconds,
-          thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-          channel: {
-            name: songInfo.videoDetails.author.name,
-            profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url,
-            url: songInfo.videoDetails.author.user_url
-          },
-          publishDate: songInfo.videoDetails.publishDate
-        };
       } catch (error) {
         client.logger.error(error.stack || error);
-        return message.channel.send({embeds: [new MessageEmbed()
-          .setColor('#FF0000')
-          .setTimestamp()
-          .setTitle('Please report this on GitHub')
-          .setURL('https://github.com/william5553/triv/issues')
-          .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
-          .addField('**Command:**', `${message.content}`)
+        return message.channel.send({embeds: [
+          new MessageEmbed()
+            .setColor('#FF0000')
+            .setTimestamp()
+            .setTitle('Please report this on GitHub')
+            .setURL('https://github.com/william5553/triv/issues')
+            .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .addField('**Command:**', `${message.content}`)
         ]});
       }
     }
+
+    const song = {
+      title: songInfo.videoDetails.title,
+      url: songInfo.videoDetails.video_url,
+      duration: songInfo.videoDetails.lengthSeconds,
+      thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
+      channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.user_url},
+      publishDate: songInfo.videoDetails.publishDate
+    };
 
     if (serverQueue) {
       serverQueue.songs.push(song);
@@ -133,13 +122,14 @@ exports.run = async (client, message, args) => {
       return message.reply(`Could not join the channel: ${error.stack || error}`);
     }
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

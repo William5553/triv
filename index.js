@@ -13,6 +13,7 @@ client.logger = require('./util/logger');
 
 require('./util/functions')(client);
 
+client.evalDepth = 2;
 client.owners = [];
 
 client.queue = new Collection();
@@ -30,7 +31,7 @@ client.settings = new Enmap({ name: 'settings', fetchAll: false, autoFetch: true
   muteRoleID: null,
   verifiedRoleID: null
 }});
-client.guildData = new Enmap({ name: 'guilddata', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { 'disabled': [], 'verificationSetUp': false } });
+client.guildData = new Enmap({ name: 'guilddata', fetchAll: false, autoFetch: true, cloneLevel: 'deep', autoEnsure: { disabled: [], verificationSetUp: false } });
 
 readdir('./commands/', (err, files) => {
   if (err) client.logger.error(err);
