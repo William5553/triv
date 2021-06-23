@@ -100,7 +100,11 @@ exports.run = async (client, message, args) => {
       url: songInfo.videoDetails.video_url,
       duration: songInfo.videoDetails.lengthSeconds,
       thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
-      channel: {name: songInfo.videoDetails.author.name, profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url, url: songInfo.videoDetails.author.channel_url},
+      channel: {
+        name: songInfo.videoDetails.author.name,
+        profile_pic: '',
+        url: songInfo.videoDetails.author.channel_url
+      },
       publishDate: songInfo.videoDetails.publishDate
     };
 
