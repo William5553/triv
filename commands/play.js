@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
       }
     };
 
-    let songInfo, results;
+    let songInfo;
 
     // if youtube url was inputted
     if (ytRegex.test(search)) {
@@ -78,8 +78,8 @@ exports.run = async (client, message, args) => {
     } else {
     // if search query was inputted
       try {
-        results = await youtube.searchVideos(search, 1);
-        songInfo = await ytdl.getInfo(results[0].url);
+        const results = await youtube.searchVideos(search, 1);
+        songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
       } catch (error) {
         client.logger.error(error.stack || error);
         return message.channel.send({embeds: [
@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
             .setTimestamp()
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
-            .setDescription(`**Search Results:**\n\`\`\`${JSON.stringify(results).substr(0, 1000)}\`\`\`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
             .addField('**Command:**', `${message.content}`)
         ]});
       }
