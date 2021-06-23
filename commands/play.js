@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
             .setTimestamp()
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
-            .setDescription(`**Search Results:**\n\`\`\`${JSON.stringify(results)}\`\`\`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .setDescription(`**Search Results:**\n\`\`\`${JSON.stringify(results).substr(0, 1000)}\`\`\`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
             .addField('**Command:**', `${message.content}`)
         ]});
       }
