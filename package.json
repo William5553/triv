@@ -50,7 +50,7 @@
     "tiktok-scraper": "^1.4.32",
     "utf-8-validate": "^5.0.5",
     "youtube-dl-exec": "^1.2.4",
-    "ytdl-core": "fent/node-ytdl-core#d1f535712410eebd79a7468abd07d94f8c4ebe5a",
+    "ytdl-core": "github:fent/node-ytdl-core#d1f535712410eebd79a7468abd07d94f8c4ebe5a",
     "zlib-sync": "^0.1.7"
   },
   "optionalDependencies": {
