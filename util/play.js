@@ -186,6 +186,7 @@ module.exports = {
         case '⏹':
           queue.textChannel.send(`${user} ⏹ stopped the music!`);
           queue.player.stop();
+          if (queue.stream) queue.stream.destroy();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
           queue.collector.stop();
           client.queue.delete(message.guild.id);
