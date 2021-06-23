@@ -14,12 +14,12 @@
         "bufferutil": "^4.0.3",
         "chalk": "^4.1.1",
         "cloc": "^2.8.0",
-        "discord-ytdl-core": "^5.0.3",
+        "discord-ytdl-core": "^5.0.4",
         "discord.js": "12.5.3",
         "dotenv": "^10.0.0",
         "enmap": "^5.8.5",
         "esrever": "^0.2.0",
-        "ffmpeg-static": "^4.3.0",
+        "ffmpeg-static": "^4.4.0",
         "fs": "^0.0.2",
         "genius-lyrics": "^4.2.9",
         "libsodium-wrappers": "^0.7.9",
@@ -30,12 +30,12 @@
         "ms": "^2.1.3",
         "node-superfetch": "^0.2.3",
         "simple-youtube-api": "^5.2.1",
-        "tiktok-scraper": "^1.4.31",
+        "tiktok-scraper": "^1.4.32",
         "utf-8-validate": "^5.0.5",
         "ytdl-core": "^4.8.2"
       },
       "devDependencies": {
-        "eslint": "^7.28.0",
+        "eslint": "^7.29.0",
         "eslint-plugin-node": "^11.1.0"
       },
       "engines": {
@@ -185,6 +185,8 @@
       "version": "1.0.5",
       "resolved": "https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.5.tgz",
       "integrity": "sha512-4srsKPXWlIxp5Vbqz5uLfBN+du2fJChBoYn/f2h991WLdk7jUvcSk/McVLSv/X+xQIPI8eGD5GjrnygdyHnhPA==",
+      "optional": true,
+      "peer": true,
       "dependencies": {
         "detect-libc": "^1.0.3",
         "https-proxy-agent": "^5.0.0",
@@ -713,6 +715,8 @@
       "resolved": "https://registry.npmjs.org/canvas/-/canvas-2.8.0.tgz",
       "integrity": "sha512-gLTi17X8WY9Cf5GZ2Yns8T5lfBOcGgFehDFb+JQwDqdOoBOcECS9ZWMEAqMSVcMYwXD659J8NyzjRY/2aE+C2Q==",
       "hasInstallScript": true,
+      "optional": true,
+      "peer": true,
       "dependencies": {
         "@mapbox/node-pre-gyp": "^1.0.0",
         "nan": "^2.14.0",
@@ -1291,9 +1295,9 @@
       }
     },
     "node_modules/discord-ytdl-core": {
-      "version": "5.0.3",
-      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.3.tgz",
-      "integrity": "sha512-q4GOEFiV19l0OcPezXnkDWualf+n96LcbTEWReceiDHdx4xxn5CXZX9PR4iDTXQR3Kv2VUkwB8RO8dI50d88vQ==",
+      "version": "5.0.4",
+      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.4.tgz",
+      "integrity": "sha512-O+G9wuCw5TERR9iHZFMYnYQbs/ZGudDc9cxa1OKSV5TdcBYrHGS1JqvE90ZvSQ6SmS4XvqtOf/Okls6yiGJ3sg==",
       "dependencies": {
         "prism-media": "^1.2.9"
       },
@@ -1583,9 +1587,9 @@
       }
     },
     "node_modules/eslint": {
-      "version": "7.28.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-7.28.0.tgz",
-      "integrity": "sha512-UMfH0VSjP0G4p3EWirscJEQ/cHqnT/iuH6oNZOB94nBjWbMnhGEPxsZm1eyIW0C/9jLI0Fow4W5DXLjEI7mn1g==",
+      "version": "7.29.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-7.29.0.tgz",
+      "integrity": "sha512-82G/JToB9qIy/ArBzIWG9xvvwL3R86AlCjtGw+A29OMZDqhTybz/MByORSukGxeI+YPCR4coYyITKk8BFH9nDA==",
       "dev": true,
       "dependencies": {
         "@babel/code-frame": "7.12.11",
@@ -2056,9 +2060,9 @@
       "integrity": "sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc="
     },
     "node_modules/ffmpeg-static": {
-      "version": "4.3.0",
-      "resolved": "https://registry.npmjs.org/ffmpeg-static/-/ffmpeg-static-4.3.0.tgz",
-      "integrity": "sha512-w/tXYGlOSeAkPHjypjzylaChLrG5wRzHFyB47KFRDsGyBxUJJWiq9I/39/e6r9Y4aY1gzpejTLg5Aa0aqb0XXA==",
+      "version": "4.4.0",
+      "resolved": "https://registry.npmjs.org/ffmpeg-static/-/ffmpeg-static-4.4.0.tgz",
+      "integrity": "sha512-NIJHVPXlSsIK9pYvsTPh4ZlppauorpPLLeOaIG7VOXWQck4Fx4Qi7Ahe+j8mj8KZXhWwCg3Hx46JdWAIOWLcpg==",
       "hasInstallScript": true,
       "dependencies": {
         "@derhuerst/http-basic": "^8.2.0",
@@ -3181,7 +3185,9 @@
     "node_modules/nan": {
       "version": "2.14.2",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz",
-      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ=="
+      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==",
+      "optional": true,
+      "peer": true
     },
     "node_modules/napi-build-utils": {
       "version": "1.0.2",
@@ -4519,14 +4525,13 @@
       "dev": true
     },
     "node_modules/tiktok-scraper": {
-      "version": "1.4.31",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.31.tgz",
-      "integrity": "sha512-ybTjlihY1zSIHBDERp/QppqTf+P5DpTtaCyoBafIcOYHYdQ/gdoyecs4NuYKN4RzEF341SZflZDgWsTvgQOL1g==",
+      "version": "1.4.32",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.32.tgz",
+      "integrity": "sha512-9XC9I0Xx7aKT5fNkLFwKT1dNqRnOom6UqJpXIuBsxYAY1tJtEd1p7r4MayiDwD67hEXGduitds6d9Xaq8yT9pQ==",
       "dependencies": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
         "bluebird": "^3.7.1",
-        "canvas": "^2.7.0",
         "jsdom": "^16.5.3",
         "json2csv": "4.5.1",
         "ora": "^4.0.2",
@@ -5153,6 +5158,8 @@
       "version": "1.0.5",
       "resolved": "https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.5.tgz",
       "integrity": "sha512-4srsKPXWlIxp5Vbqz5uLfBN+du2fJChBoYn/f2h991WLdk7jUvcSk/McVLSv/X+xQIPI8eGD5GjrnygdyHnhPA==",
+      "optional": true,
+      "peer": true,
       "requires": {
         "detect-libc": "^1.0.3",
         "https-proxy-agent": "^5.0.0",
@@ -5580,6 +5587,8 @@
       "version": "2.8.0",
       "resolved": "https://registry.npmjs.org/canvas/-/canvas-2.8.0.tgz",
       "integrity": "sha512-gLTi17X8WY9Cf5GZ2Yns8T5lfBOcGgFehDFb+JQwDqdOoBOcECS9ZWMEAqMSVcMYwXD659J8NyzjRY/2aE+C2Q==",
+      "optional": true,
+      "peer": true,
       "requires": {
         "@mapbox/node-pre-gyp": "^1.0.0",
         "nan": "^2.14.0",
@@ -6019,9 +6028,9 @@
       "integrity": "sha1-+hN8S9aY7fVc1c0CrFWfkaTEups="
     },
     "discord-ytdl-core": {
-      "version": "5.0.3",
-      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.3.tgz",
-      "integrity": "sha512-q4GOEFiV19l0OcPezXnkDWualf+n96LcbTEWReceiDHdx4xxn5CXZX9PR4iDTXQR3Kv2VUkwB8RO8dI50d88vQ==",
+      "version": "5.0.4",
+      "resolved": "https://registry.npmjs.org/discord-ytdl-core/-/discord-ytdl-core-5.0.4.tgz",
+      "integrity": "sha512-O+G9wuCw5TERR9iHZFMYnYQbs/ZGudDc9cxa1OKSV5TdcBYrHGS1JqvE90ZvSQ6SmS4XvqtOf/Okls6yiGJ3sg==",
       "requires": {
         "prism-media": "^1.2.9"
       }
@@ -6239,9 +6248,9 @@
       }
     },
     "eslint": {
-      "version": "7.28.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-7.28.0.tgz",
-      "integrity": "sha512-UMfH0VSjP0G4p3EWirscJEQ/cHqnT/iuH6oNZOB94nBjWbMnhGEPxsZm1eyIW0C/9jLI0Fow4W5DXLjEI7mn1g==",
+      "version": "7.29.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-7.29.0.tgz",
+      "integrity": "sha512-82G/JToB9qIy/ArBzIWG9xvvwL3R86AlCjtGw+A29OMZDqhTybz/MByORSukGxeI+YPCR4coYyITKk8BFH9nDA==",
       "dev": true,
       "requires": {
         "@babel/code-frame": "7.12.11",
@@ -6602,9 +6611,9 @@
       "integrity": "sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc="
     },
     "ffmpeg-static": {
-      "version": "4.3.0",
-      "resolved": "https://registry.npmjs.org/ffmpeg-static/-/ffmpeg-static-4.3.0.tgz",
-      "integrity": "sha512-w/tXYGlOSeAkPHjypjzylaChLrG5wRzHFyB47KFRDsGyBxUJJWiq9I/39/e6r9Y4aY1gzpejTLg5Aa0aqb0XXA==",
+      "version": "4.4.0",
+      "resolved": "https://registry.npmjs.org/ffmpeg-static/-/ffmpeg-static-4.4.0.tgz",
+      "integrity": "sha512-NIJHVPXlSsIK9pYvsTPh4ZlppauorpPLLeOaIG7VOXWQck4Fx4Qi7Ahe+j8mj8KZXhWwCg3Hx46JdWAIOWLcpg==",
       "requires": {
         "@derhuerst/http-basic": "^8.2.0",
         "env-paths": "^2.2.0",
@@ -7351,7 +7360,7 @@
     "mathsteps": {
       "version": "git+ssh://git@github.com/william5553/mathsteps.git#e9f4b94014efe6ce7d689f243f52ac605b8dc88f",
       "integrity": "sha512-PsDdeN6MBVrQOm/kBaM3VEDOimxL5rsQpQXJk4Svbl1H0ZPqE/qrioQvh1tpfK2Hdcnzu+5hOgMSU2U/6HCSkg==",
-      "from": "mathsteps@github:william5553/mathsteps#e9f4b94014efe6ce7d689f243f52ac605b8dc88f",
+      "from": "mathsteps@github:william5553/mathsteps",
       "requires": {
         "mathjs": "3.20.2"
       }
@@ -7476,7 +7485,9 @@
     "nan": {
       "version": "2.14.2",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz",
-      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ=="
+      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==",
+      "optional": true,
+      "peer": true
     },
     "napi-build-utils": {
       "version": "1.0.2",
@@ -8501,14 +8512,13 @@
       "dev": true
     },
     "tiktok-scraper": {
-      "version": "1.4.31",
-      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.31.tgz",
-      "integrity": "sha512-ybTjlihY1zSIHBDERp/QppqTf+P5DpTtaCyoBafIcOYHYdQ/gdoyecs4NuYKN4RzEF341SZflZDgWsTvgQOL1g==",
+      "version": "1.4.32",
+      "resolved": "https://registry.npmjs.org/tiktok-scraper/-/tiktok-scraper-1.4.32.tgz",
+      "integrity": "sha512-9XC9I0Xx7aKT5fNkLFwKT1dNqRnOom6UqJpXIuBsxYAY1tJtEd1p7r4MayiDwD67hEXGduitds6d9Xaq8yT9pQ==",
       "requires": {
         "archiver": "^3.1.1",
         "async": "^3.1.0",
         "bluebird": "^3.7.1",
-        "canvas": "^2.7.0",
         "jsdom": "^16.5.3",
         "json2csv": "4.5.1",
         "ora": "^4.0.2",

@@ -28,12 +28,12 @@
     "bufferutil": "^4.0.3",
     "chalk": "^4.1.1",
     "cloc": "^2.8.0",
-    "discord-ytdl-core": "^5.0.3",
+    "discord-ytdl-core": "^5.0.4",
     "discord.js": "12.5.3",
     "dotenv": "^10.0.0",
     "enmap": "^5.8.5",
     "esrever": "^0.2.0",
-    "ffmpeg-static": "^4.3.0",
+    "ffmpeg-static": "^4.4.0",
     "fs": "^0.0.2",
     "genius-lyrics": "^4.2.9",
     "libsodium-wrappers": "^0.7.9",
@@ -44,7 +44,7 @@
     "ms": "^2.1.3",
     "node-superfetch": "^0.2.3",
     "simple-youtube-api": "^5.2.1",
-    "tiktok-scraper": "^1.4.31",
+    "tiktok-scraper": "^1.4.32",
     "utf-8-validate": "^5.0.5",
     "ytdl-core": "^4.8.2"
   },
@@ -56,7 +56,7 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "^7.28.0",
+    "eslint": "^7.29.0",
     "eslint-plugin-node": "^11.1.0"
   }
 }
