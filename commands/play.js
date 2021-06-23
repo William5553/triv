@@ -1,5 +1,5 @@
 const { play } = require('../util/play');
-const ytdl = require('ytdl-core');
+const { getInfo } = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
 
@@ -65,12 +65,12 @@ exports.run = async (client, message, args) => {
       }
     };
 
-    let songInfo;
+    let songInfo, results;
 
     // if youtube url was inputted
     if (ytRegex.test(search)) {
       try {
-        songInfo = await ytdl.getInfo(search);
+        songInfo = await getInfo(search);
       } catch (error) {
         client.logger.error(error.stack || error);
         return message.reply(error.message);
@@ -78,10 +78,11 @@ exports.run = async (client, message, args) => {
     } else {
     // if search query was inputted
       try {
-        const results = await youtube.searchVideos(search, 1);
-        songInfo = await ytdl.getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
+        results = await youtube.searchVideos(search, 1);
+        songInfo = await getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
       } catch (error) {
         client.logger.error(error.stack || error);
+        client.logger.error(JSON.stringify(results));
         return message.channel.send({embeds: [
           new MessageEmbed()
             .setColor('#FF0000')
