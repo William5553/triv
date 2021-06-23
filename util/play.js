@@ -105,7 +105,7 @@ module.exports = {
           .setThumbnail(song.thumbnail.url)
           .setDescription(`${seekTime >= 1 ? `Starting at ${seekTime}` : ''}`)
           .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : new Date(song.duration * 1000).toISOString().substr(11, 8)} | Published on ${formatDate(song.publishDate)}`)
+          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
       ]});
       await playingMessage.react('⏭');
       await playingMessage.react('⏯');
