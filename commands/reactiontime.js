@@ -12,22 +12,20 @@ exports.run = async (client, message) => {
     await message.reply(`TYPE \`${word.toUpperCase()}\` NOW!`);
     const filter = res => message.author.id === res.author.id && res.content.toLowerCase() === word;
     const now = Date.now();
-    const messages = await message.channel.awaitMessages(filter, {
-      max: 1,
-      time: 20000
-    });
+    const messages = await message.channel.awaitMessages({ filter, max: 1, time: 20000 });
     client.games.delete(message.channel.id);
     if (!messages.size) return message.channel.send('Failed to answer within 20 seconds.');
     return message.channel.send(`Nice one! (Took ${(Date.now() - now) / 1000} seconds)`);
   } catch (err) {
     client.games.delete(message.channel.id);
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

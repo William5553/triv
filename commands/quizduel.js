@@ -40,10 +40,7 @@ exports.run = async (client, message, args) => {
         }
         return false;
       };
-      const messages = await message.channel.awaitMessages(filter, {
-        max: pts.size,
-        time: 30000
-      });
+      const messages = await message.channel.awaitMessages({ filter, max: pts.size, time: 30000 });
       if (!messages.size) {
         await message.channel.send(`No answers? Well, it was **${question.correct}**.`);
         if (lastTurnTimeout) {
@@ -141,15 +138,12 @@ async function awaitPlayers(message, max) {
     if (res.content.toLowerCase() !== 'join game') return;
   };
   
-  const p = await message.channel.awaitMessages(filter, {
-    max: max,
-    time: 60000
-  });
+  const p = await message.channel.awaitMessages({ filter, max, time: 60000 });
   
-  p.map(misg => {
-    joined.push(misg.author.id);
-    if (misg.channel.permissionsFor(message.client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
-      misg.react('✅');
+  p.map(msg => {
+    joined.push(msg.author.id);
+    if (msg.channel.permissionsFor(message.client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
+      msg.react('✅');
   });
   
   return joined;

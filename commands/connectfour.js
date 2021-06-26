@@ -35,10 +35,7 @@ exports.run = async (client, message, args) => {
         const i = Number.parseInt(choice, 10) - 1;
         return board[colLevels[i]] && board[colLevels[i]][i] !== undefined;
       };
-      const turn = await message.channel.awaitMessages(filter, {
-        max: 1,
-        time: 60000
-      });
+      const turn = await message.channel.awaitMessages({ filter, max: 1, time: 60000 });
       if (!turn.size) {
         await message.channel.send('Sorry, time is up!');
         if (lastTurnTimeout) {

@@ -12,10 +12,7 @@ module.exports = class Util {
       const value = res.content.toLowerCase();
       return (user ? res.author.id === user.id : true) && (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
     };
-    const verify = await channel.awaitMessages(filter, {
-      max: 1,
-      time
-    });
+    const verify = await channel.awaitMessages({ filter, max: 1, time });
     if (!verify.size) return false;
     const choice = verify.first().content.toLowerCase();
     if (yes.includes(choice) || extraYes.includes(choice)) return true;
@@ -135,11 +132,7 @@ module.exports = class Util {
     const filter = m => m.author.id === message.author.id;
     if (question) await message.channel.send(question);
     try {
-      const collected = await message.channel.awaitMessages(filter, {
-        max: 1,
-        time: limit,
-        errors: ['time']
-      });
+      const collected = await message.channel.awaitMessages({ filter, max: 1, time: limit, errors: ['time'] });
       return collected.first();
     } catch (e) {
       return false;

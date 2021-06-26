@@ -22,10 +22,7 @@ exports.run = async (client, message, args) => {
     const word = words.random();
     await message.channel.send(`TYPE \`${word.toUpperCase()}\` NOW!`);
     const filter = res => [opponent.id, message.author.id].includes(res.author.id) && res.content.toLowerCase() === word;
-    const winner = await message.channel.awaitMessages(filter, {
-      max: 1,
-      time: 30000
-    });
+    const winner = await message.channel.awaitMessages({ filter, max: 1, time: 30000 });
     client.games.delete(message.channel.id);
     if (!winner.size) return message.say('Oh... No one won.');
     return message.channel.send(`The winner is ${winner.first().author}!`);

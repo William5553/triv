@@ -19,10 +19,7 @@ exports.run = async (client, message) => {
         }
         return true;
       };
-      const choice = await message.channel.awaitMessages(filter, {
-        max: 1,
-        time: 120000
-      });
+      const choice = await message.channel.awaitMessages({ filter, max: 1, time: 120000 });
       if (!choice.size) break;
       choices.push(choice.first().content);
       choice.first().delete();
@@ -38,13 +35,14 @@ exports.run = async (client, message) => {
     return message.channel.send(finished);
   } catch (err) {
     client.games.delete(message.channel.id);
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', `${message.content}`)
     ]});
   }
 };

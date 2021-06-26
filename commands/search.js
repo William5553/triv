@@ -27,11 +27,7 @@ exports.run = async (client, message, args) => {
       return pattern.test(msg.content) && parseInt(msg.content.match(pattern)[0]) <= 10;
     };
 
-    const response = await message.channel.awaitMessages(filter, {
-      max: 1,
-      time: 30000,
-      errors: ['time']
-    });
+    const response = await message.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] });
 
     const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
 
