@@ -1,5 +1,6 @@
 const ms = require('ms');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Util } = require('discord.js');
+const { splitMessage } = Util;
 const perm = {
   0: 'Member',
   2: 'Moderator',
@@ -17,7 +18,9 @@ exports.run = (client, message, args, perms) => {
           return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
         })
         .join('\n');
-      message.author.send({content: `= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}`, code: 'asciidoc', split: true });
+      const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { char: '\n', prepend: '```asciidoc\n', append: '```' });
+      for (const msg of splat)
+        message.author.send(msg);
       if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     } else {
       let command;
@@ -26,14 +29,15 @@ exports.run = (client, message, args, perms) => {
       else if (client.aliases.has(args[0]))
         command = client.commands.get(client.aliases.get(args[0]));
       if (!command) return message.channel.send(`${args[0]} is not a valid command`);
-      message.channel.send({embeds: [new MessageEmbed()
-        .setTitle(`= **${command.help.name}** =`)
-        .addField('**Description**', command.help.description)
-        .addField('**Usage**', command.help.usage)
-        .addField('**Aliases**', command.conf.aliases.join(', ') || 'No aliases')
-        .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
-        .addField('**Example**', command.help.example || 'No examples')
-        .addField('**Permissions**', perm[command.conf.permLevel])
+      message.channel.send({embeds: [
+        new MessageEmbed()
+          .setTitle(`= **${command.help.name}** =`)
+          .addField('**Description**', command.help.description)
+          .addField('**Usage**', command.help.usage)
+          .addField('**Aliases**', command.conf.aliases.join(', ') || 'No aliases')
+          .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
+          .addField('**Example**', command.help.example || 'No examples')
+          .addField('**Permissions**', perm[command.conf.permLevel])
       ]});
     }
   } catch (err) {

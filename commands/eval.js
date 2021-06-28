@@ -11,12 +11,12 @@ exports.run = async (client, message, args) => {
     evaled = await clean(evaled);
     if (evaled.length > 1980)
       evaled = evaled.substr(0, 1980) + '...';
-    message.channel.send({ content: evaled, code: 'xl' });
+    message.channel.send(`\`\`\`xl\n${evaled}\`\`\``);
   } catch (err) {
     let result = await clean(err);
     if (result.length > 1980)
       result = result.substr(0, 1980) + '...';
-    message.channel.send({ content: `ERROR: ${result}`, code: 'xl' });
+    message.channel.send(`\`\`\`xl\nERROR: ${result}\`\`\``);
   }
 };
 
