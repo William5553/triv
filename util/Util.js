@@ -31,11 +31,12 @@ module.exports = class Util {
     if (text && text.constructor.name == 'Promise')
       text = await text;
     if (typeof text !== 'string')
-      text = require('util').inspect(text, {depth: 1});
+      text = require('util').inspect(text, { depth: 1 });
 
     text = text
-      .replace(/@/g, '@' + String.fromCharCode(8203))
-      .replace(process.env.token, 'NO TOKEN');
+      .replace(/@/g, `@${String.fromCharCode(8203)}`)
+      .replace(process.env.token, 'NO TOKEN')
+      .replace(/```/g, '`\u200b``');
 
     return text;
   }

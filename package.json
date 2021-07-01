@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -46,7 +46,7 @@
     "node-superfetch": "^0.2.3",
     "prism-media": "^1.3.1",
     "simple-youtube-api": "^5.2.1",
-    "tiktok-scraper": "^1.4.32",
+    "tiktok-scraper": "^1.4.33",
     "utf-8-validate": "^5.0.5",
     "youtube-dl-exec": "^1.2.4",
     "ytdl-core": "^4.8.3",

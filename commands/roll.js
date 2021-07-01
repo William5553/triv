@@ -1,6 +1,5 @@
 exports.run = (client, message, args) => {
-  const sides = Number(args.join(' ')) || 6;
-  message.reply(`you rolled a ${Math.floor(Math.random() * sides) + 1}`);
+  message.reply(`You rolled a ${Math.floor(Math.random() * (Number(args.join(' ')) || 6)) + 1}`);
 };
 
 exports.conf = {
