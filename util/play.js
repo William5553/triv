@@ -119,8 +119,7 @@ module.exports = {
       client.logger.error(error.stack || error);
     }
 
-    const filter = (reaction, user) => user.id !== client.user.id;
-    queue.collector = playingMessage.createReactionCollector({ filter, time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    queue.collector = playingMessage.createReactionCollector({ filter: (reaction, user) => user.id !== client.user.id, time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
     queue.collector.on('collect', (reaction, user) => {
       reaction.users.remove(user);
