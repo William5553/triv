@@ -7,6 +7,8 @@ const { raw } = require('youtube-dl-exec');
 
 require('moment-duration-format');
 
+// TODO: make play support other sites with ytdl
+
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
   '8d': 'apulsator=hz=0.08',
@@ -103,7 +105,7 @@ module.exports = {
           .setURL(song.url)
           .setColor('#FF0000')
           .setThumbnail(song.thumbnail.url)
-          .setDescription(`${seekTime >= 1 ? `Starting at ${seekTime}` : ''}`)
+          .setDescription(`${seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : ''}`)
           .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
           .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
       ]});
@@ -119,7 +121,8 @@ module.exports = {
       client.logger.error(error.stack || error);
     }
 
-    queue.collector = playingMessage.createReactionCollector({ filter: (reaction, user) => user.id !== client.user.id, time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    const filter = (reaction, user) => user.id != client.user.id;
+    queue.collector = playingMessage.createReactionCollector({ filter, time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
     queue.collector.on('collect', (reaction, user) => {
       reaction.users.remove(user);
