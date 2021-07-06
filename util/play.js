@@ -61,7 +61,7 @@ module.exports = {
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
             .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
-            .addField('**Command:**', `${message.content}`)
+            .addField('**Command:**', message.content)
         ]});
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);

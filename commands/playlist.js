@@ -120,12 +120,11 @@ exports.run = async (client, message, args) => {
     message.channel.send({content: `${message.author} started a playlist`, embeds: [playlistEmbed]});
 
     if (!serverQueue) {
-      client.queue.set(message.guild.id, queueConstruct);
-    
       try {
         const connection = await client.commands.get('join').run(client, message);
         if (connection instanceof Message) return;
         queueConstruct.connection = connection;
+        client.queue.set(message.guild.id, queueConstruct);
         play(queueConstruct.songs[0], message, false);
       } catch (error) {
         client.logger.error(error);
@@ -142,7 +141,7 @@ exports.run = async (client, message, args) => {
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
         .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-        .addField('**Command:**', `${message.content}`)
+        .addField('**Command:**', message.content)
     ]});
   }
 };

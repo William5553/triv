@@ -90,7 +90,7 @@ exports.run = async (client, message, args) => {
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
             .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
-            .addField('**Command:**', `${message.content}`)
+            .addField('**Command:**', message.content)
         ]});
       }
     }
@@ -114,12 +114,12 @@ exports.run = async (client, message, args) => {
     }
 
     queueConstruct.songs.push(song);
-    client.queue.set(message.guild.id, queueConstruct);
 
     try {
       const connection = await client.commands.get('join').run(client, message);
       if (connection instanceof Message) return;
       queueConstruct.connection = connection;
+      client.queue.set(message.guild.id, queueConstruct);
       play(queueConstruct.songs[0], message, false);
     } catch (error) {
       client.logger.error(error);
@@ -134,7 +134,7 @@ exports.run = async (client, message, args) => {
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
         .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-        .addField('**Command:**', `${message.content}`)
+        .addField('**Command:**', message.content)
     ]});
   }
 };

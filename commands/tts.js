@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
           .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
-          .addField('**Command:**', `${message.content}`)
+          .addField('**Command:**', message.content)
       ]});
     });
     player.on(AudioPlayerStatus.Idle, () => {
@@ -55,7 +55,7 @@ exports.run = async (client, message, args) => {
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
       .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', `${message.content}`)
+      .addField('**Command:**', message.content)
     ]});
   }
 };
