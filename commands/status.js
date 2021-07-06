@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
 
 require('moment-duration-format');
 
@@ -42,10 +43,10 @@ exports.run = (client, message, args) => {
         if (activity.url)
           embed.setURL(activity.url);
         if (activity.timestamps && activity.timestamps.start) {
-          embed.setFooter(`Time elapsed: ${new Date(Date.now() - activity.timestamps.start).toISOString().substr(11, 8)} | Started at`);
-          embed.setTimestamp(new Date(activity.timestamps.start));
+          embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.timestamps.start).format('hh:mm:ss')} | Started at`);
+          embed.setTimestamp(activity.timestamps.start);
         } else if (activity.createdTimestamp) {
-          embed.setFooter(`Time elapsed: ${new Date(Date.now() - activity.createdTimestamp).toISOString().substr(11, 8)} | Started at`);
+          embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.createdTimestamp).format('hh:mm:ss')} | Started at`);
           embed.setTimestamp(activity.createdTimestamp);
         }
         message.channel.send({ embeds: [embed] });
