@@ -8,9 +8,7 @@ npm i -g --add-python-to-path --vs2015 --production windows-build-tools
 npm i -g node-gyp@latest
 ```
 
-Once that's finished, close the command prompt or powershell, open the bot folder with explorer and click the file path and type in cmd
-
-In the command prompt run
+Once that's complete, open a command prompt in the bot folder and run
 ```shell
 npm i
 ```
