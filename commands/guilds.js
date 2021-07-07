@@ -2,7 +2,7 @@ const { MessageEmbed, Permissions } = require('discord.js');
 
 exports.run = (client, message) => {
   try {
-    const link = client.generateInvite({ permissions: Permissions.ALL });
+    const link = client.generateInvite({ permissions: Permissions.ALL, scopes: ['bot'] });
     message.channel.send({embeds: [new MessageEmbed()
       .setColor(0x00ff5c)
       .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))

@@ -1,7 +1,7 @@
 const { Permissions } = require('discord.js');
 
 module.exports = async (client, guild) => {
-  if (client.blacklist.get('blacklist', 'guild').includes(guild.id) || client.blacklist.get('blacklist', 'user').includes(guild.ownerID)) {
+  if (client.blacklist.get('blacklist', 'guild').includes(guild.id) || client.blacklist.get('blacklist', 'user').includes(guild.ownerId)) {
     try {
       if (guild.systemChannel && guild.systemChannel.permissionsFor(client.user).has(Permissions.FLAGS.SEND_MESSAGES))
         await guild.systemChannel.send('This guild is blacklisted.');

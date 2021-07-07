@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   if (!getVoiceConnection(message.guild.id)) {
     connection = await client.commands.get('join').run(client, message);
     if (connection instanceof Message) return;
-  } else if (message.member.voice.channelID !== message.guild.me.voice.channelID)
+  } else if (message.member.voice.channelId !== message.guild.me.voice.channelId)
     return message.reply("I'm already in a voice channel");
   try {
     const { body } = await request

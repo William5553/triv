@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const chan = message.guild.channels.cache.find(channel => channel.id === args[0]);
   if (!chan) return message.reply('Please specify a valid channel ID.');
-  await chan.updateOverwrite(chan.guild.roles.everyone, { SEND_MESSAGES: null });
+  await chan.permissionOverwrites.edit(chan.guild.roles.everyone, { SEND_MESSAGES: null });
   message.reply(`Successfully unlocked ${chan}`);
   chan.send(`Force unlocked by ${message.author}`);
   if (!client.lockit || !client.lockit[chan.id]) return;

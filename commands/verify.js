@@ -16,7 +16,7 @@ exports.run = async (client, message) => {
       return message.reply('I do not have the **MANAGE_ROLES** permission');
 
     if (!role) {
-      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE' });
+      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE', reason: 'verified user role' });
       client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
     }
 

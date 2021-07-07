@@ -1,7 +1,7 @@
 exports.run = (client, message, args) => {
   const msg = args.join(' ');
   if (msg.length < 1) return message.reply('tell me what to say dummy');
-  message.delete();
+  if (message.guild) message.delete();
   message.channel.send(msg);
 };
 

@@ -13,7 +13,8 @@ const flags = {
   TEAM_USER: 'Team User',
   SYSTEM: 'System',
   VERIFIED_BOT: 'Verified Bot',
-  EARLY_VERIFIED_BOT_DEVELOPER: 'Early Verified Bot Developer'
+  EARLY_VERIFIED_BOT_DEVELOPER: 'Early Verified Bot Developer',
+  DISCORD_CERTIFIED_MODERATOR: 'Discord Certified Moderator'
 };
 
 exports.run = async (client, message, args) => {

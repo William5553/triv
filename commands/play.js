@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     if (!channel)
       return message.reply('You need to join a voice channel first!');
     const serverQueue = client.queue.get(channel.guild.id);
-    if (serverQueue && channel.id !== message.guild.me.voice.channelID)
+    if (serverQueue && channel.id !== message.guild.me.voice.channelId)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
     const permissions = channel.permissionsFor(client.user);
     if (!permissions.has(Permissions.FLAGS.CONNECT))

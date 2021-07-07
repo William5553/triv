@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
   if (client.settings.get(message.guild.id).logsID) {
     if (message.guild.channels.cache.some(channel => channel.id == client.settings.get(message.guild.id).logsID)) {
       const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
-      logs.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
+      logs.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false });
       
       await client.wait(900);
       // Fetch a couple audit logs than just one as new entries could've been added right after this event was emitted.

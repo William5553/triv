@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     if (!member.bannable) return message.reply("I can't ban that user");
     const reason = args.slice(1).join(' ');
     await member.user.send(`You've been banned from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`);
-    message.guild.members.ban(member, { days: 0, reason: reason });
+    member.ban({ days: 0, reason: reason });
     message.channel.send(`Banned ${member.user}`);
 
     client.infractions.ensure(message.guild.id, { [member.id]: [] });

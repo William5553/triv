@@ -8,27 +8,27 @@ exports.run = async (client, message) => {
     let role = message.guild.roles.resolve(client.settings.get(message.guild.id).verifiedRoleID);
 
     if (!role) {
-      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE' });
+      role = await message.guild.roles.create({ name: 'Verified User', color: 'BLURPLE', reason: 'setting up verification' });
       client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
     }
 
     message.guild.channels.cache.forEach(chan => {
       if (chan.name != 'verify') {
         if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
-          chan.updateOverwrite(role, { SEND_MESSAGES: true });
+          chan.permissionOverwrites.edit(role, { SEND_MESSAGES: true });
         if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.VIEW_CHANNEL))
-          chan.updateOverwrite(role, { VIEW_CHANNEL: true });
+          chan.permissionOverwrites.edit(role, { VIEW_CHANNEL: true });
         if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.CONNECT))
-          chan.updateOverwrite(role, { CONNECT: true });
+          chan.permissionOverwrites.edit(role, { CONNECT: true });
         if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SPEAK))
-          chan.updateOverwrite(role, { SPEAK: true });
-        chan.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false, CONNECT: false, SPEAK: false });
+          chan.permissionOverwrites.edit(role, { SPEAK: true });
+        chan.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false, CONNECT: false, SPEAK: false });
       }
     });
 
     const verifyChannel = message.guild.channels.cache.find(c => c.name.toLowerCase() === 'verify') || await message.guild.channels.create('verify');
-    verifyChannel.updateOverwrite(role, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
-    verifyChannel.updateOverwrite(message.guild.roles.everyone, { READ_MESSAGE_HISTORY: false });
+    verifyChannel.permissionOverwrites.edit(role, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
+    verifyChannel.permissionOverwrites.edit(message.guild.roles.everyone, { READ_MESSAGE_HISTORY: false });
     client.guildData.set(message.guild.id, true, 'verificationSetUp');
     message.channel.send('Set up verification successfully.');
   } catch (err) {

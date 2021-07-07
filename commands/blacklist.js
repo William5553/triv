@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     const guildsLeft = [];
     const failedToLeave = [];
     for (const guild of client.guilds.cache.values()) {
-      if (guild.ownerID === target) {
+      if (guild.ownerId === target) {
         try {
           await guild.leave();
           guildsLeft.push(guild.name);

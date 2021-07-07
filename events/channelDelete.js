@@ -11,7 +11,7 @@ module.exports = async (client, channel) => {
   if (client.settings.get(guild.id).logsID) {
     if (guild.channels.cache.some(channel => channel.id == client.settings.get(guild.id).logsID)) {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
-      logs.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false });
+      logs.permissionOverwrites.edit(guild.roles.everyone, { SEND_MESSAGES: false });
       
       logs.send({embeds: [
         new MessageEmbed()

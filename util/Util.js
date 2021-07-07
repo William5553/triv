@@ -50,8 +50,8 @@ module.exports = class Util {
 
   static canModifyQueue(member) {
     const client = member?.client;
-    const memChan = member?.voice?.channelID;
-    const botChan = member?.guild?.me.voice?.channelID;
+    const memChan = member?.voice?.channelId;
+    const botChan = member?.guild?.me.voice?.channelId;
     const queue = client.queue.get(member.guild.id);
     
     if (queue && queue.forced && !client.owners.includes(member.id)) {

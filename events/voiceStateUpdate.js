@@ -12,7 +12,7 @@ module.exports = async (client, oldState, newState) => {
   if (client.settings.get(guild.id).logsID) {
     if (guild.channels.cache.some(channel => channel.id == client.settings.get(guild.id).logsID)) {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
-      logs.updateOverwrite(guild.roles.everyone, { SEND_MESSAGES: false });
+      logs.permissionOverwrites.edit(guild.roles.everyone, { SEND_MESSAGES: false });
       const executor = entries.first().executor;
 
       const embed = new MessageEmbed()
@@ -35,14 +35,14 @@ const checkQueue = async (client, oldState, newState) => {
   if (!queue || queue.forced) return;
 
   // when bot gets kicked
-  if (newState.member.id === client.user.id && !newState.channelID)
+  if (newState.member.id === client.user.id && !newState.channelId)
     client.queue.delete(oldState.guild.id);
   
   // when member joins vc return
   if (newState.channel === queue.channel) return;
   
   // when bot gets moved, update the queue channel
-  if (oldState.channelID && newState.channelID && newState.channel != queue.channel && newState.member.id === client.user.id)
+  if (oldState.channelId && newState.channelId && newState.channel != queue.channel && newState.member.id === client.user.id)
     return queue.channel = newState.channel;
 
   // if there are still members in the vc who are not bots return

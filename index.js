@@ -7,7 +7,7 @@ if (!process.env.token) throw new Error('No token provided');
 const { Client, Collection, Intents } = require('discord.js');
 const client = new Client({
   intents: Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0) || 32767,
-  /*partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],*/
+  partials: ['CHANNEL'/*, 'MESSAGE', 'REACTION', 'USER', 'GUILD_MEMBER'*/],
   allowedMentions: { parse: ['users', 'roles'], repliedUser: true }
 });
 const { readdir } = require('fs');
@@ -79,7 +79,7 @@ readdir('./events/', (err, files) => {
   // Make sure bot is not in any guilds owned by a blacklisted user
   let guildsLeft = 0;
   for (const guild of client.guilds.cache.values()) {
-    if (client.blacklist.get('blacklist', 'user').includes(guild.ownerID)) {
+    if (client.blacklist.get('blacklist', 'user').includes(guild.ownerId)) {
       try {
         await guild.leave();
         guildsLeft++;
@@ -91,7 +91,11 @@ readdir('./events/', (err, files) => {
   client.logger.log(`[BLACKLIST] Left ${guildsLeft} guilds owned by blacklisted users.`);
 })();
 
-client.login(process.env.token);
+try {
+  client.login(process.env.token);
+} catch (err) {
+  client.logger.error(`ERROR WHILE LOGGING IN:\n${err.stack || err}`);
+}
 
 if (process.env.triv_web) {
   const express = require('express');
@@ -110,4 +114,4 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', err => client.logger.error(`UNHANDLED REJECTION: ${err.stack}\n`));
+process.on('unhandledRejection', err => client.logger.error(`UNHANDLED REJECTION:\n${err.stack}\n`));

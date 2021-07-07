@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     const { channel } = message.member.voice;
     const youtube = new YouTubeAPI(process.env.google_api_key);
     const serverQueue = client.queue.get(message.guild.id);
-    if (serverQueue && channel.id !== message.guild.me.voice.channelID)
+    if (serverQueue && channel.id !== message.guild.me.voice.channelId)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
     if (!args.length)
       return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
