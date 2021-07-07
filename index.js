@@ -4,8 +4,8 @@ if (Number(process.version.slice(1).split('.')[0]) < 14)
 require('dotenv').config();
 if (!process.env.token) throw new Error('No token provided');
 
-const { Client, Collection } = require('discord.js');
-const client = new Client({ intents: 32767, /*partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],*/ allowedMentions: { parse: ['users', 'roles'], repliedUser: true }});
+const { Client, Collection, Intents } = require('discord.js');
+const client = new Client({ intents: Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0) || 32767, /*partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],*/ allowedMentions: { parse: ['users', 'roles'], repliedUser: true }});
 const { readdir } = require('fs');
 const Enmap = require('enmap');
 
