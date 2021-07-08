@@ -118,8 +118,7 @@ module.exports = {
       new MessageButton().setLabel('LYRICS').setCustomId('lyrics').setStyle('PRIMARY')
     ]]});
 
-    const filter = (reaction, user) => user.id != client.user.id;
-    queue.collector = playingMessage.createMessageComponentCollector({ filter, time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    queue.collector = playingMessage.createMessageComponentCollector();
 
     queue.collector.on('collect', interaction => {
       if (!queue) return;
