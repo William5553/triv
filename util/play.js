@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageButton } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
-const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus, NoSubscriberBehavior } = require('@discordjs/voice');
 const { raw } = require('youtube-dl-exec');
 // const { FFmpeg } = require('prism-media');
 
@@ -38,9 +38,13 @@ module.exports = {
     const seekTime = updFilter ? moment.duration(queue.resource.playbackDuration + queue.additionalStreamTime).format('hh:mm:ss') : '00:00:00';
     if (!song) {
       queue.player.stop();
-      queue.connection.destroy();
+      queue.connection?.destroy();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.');
+    }
+    if (typeof song !== 'object') {
+      queue.songs.shift();
+      return module.exports.play(queue.songs[0], message);
     }
     const encoderArgsFilters = [];
     Object.keys(queue.filters).forEach(filterName => {
@@ -50,8 +54,11 @@ module.exports = {
     let encoderArgs;
     encoderArgsFilters.length < 1 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
+    queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
+    queue.resource.volume.setVolume(queue.volume / 100);
+    
     if (!queue.player) {
-      queue.player = createAudioPlayer();
+      queue.player = createAudioPlayer({ noSubscriber: NoSubscriberBehavior.Stop });
       queue.player.on('error', error => {
         client.logger.error(`A queue audio player encountered an error: ${error.stack || error}`);
         queue.textChannel.send({embeds: [
@@ -66,7 +73,9 @@ module.exports = {
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);
       });
-      queue.player.on(AudioPlayerStatus.Idle, () => {
+      await queue.player.play(queue.resource);
+      /*queue.player.on(AudioPlayerStatus.Idle, () => {
+        client.logger.warn(`idle\n${JSON.stringify(song)}`);
         if (queue.collector && !queue.collector?.ended) queue.collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
@@ -80,18 +89,18 @@ module.exports = {
           queue.songs.shift();
           module.exports.play(queue.songs[0], message);
         }
-      });
-    }
-    queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
-    queue.resource.volume.setVolume(queue.volume / 100);
-    queue.player.play(queue.resource);
+      });*/
+    } else 
+      queue.player.play(queue.resource);
     queue.connection.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
       queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
-      client.logger.error(`Error occurred while trying to play music: ${error.stack || error}`);
+      client.logger.error(`Error occurred while trying to play music in ${message.guild.name}: ${error.stack || error}`);
       queue.connection?.destroy();
+      queue.collector?.stop();
+      client.queue.delete(message.guild.id);
     }
 
     if (seekTime) 
@@ -107,15 +116,15 @@ module.exports = {
         .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
         .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
     ], components: [[
-      new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'),
-      new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY'),
-      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY')
-    ], [
       new MessageButton().setLabel('SKIP').setCustomId('skip').setStyle('PRIMARY'),
       new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY'),
       new MessageButton().setLabel('LOOP').setCustomId('loop').setStyle('PRIMARY'),
       new MessageButton().setLabel('STOP').setCustomId('stop').setStyle('DANGER'),
       new MessageButton().setLabel('LYRICS').setCustomId('lyrics').setStyle('PRIMARY')
+    ], [
+      new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'),
+      new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY'),
+      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY')
     ]]});
 
     queue.collector = playingMessage.createMessageComponentCollector();
@@ -138,11 +147,11 @@ module.exports = {
           if (queue.playing) {
             queue.player.pause();
             queue.textChannel.send(`${interaction.user} ⏸ paused the music.`);
-            interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(1, 1, [new MessageButton().setLabel('UNPAUSE').setCustomId('pause').setStyle('PRIMARY')])] });
+            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [new MessageButton().setLabel('UNPAUSE').setCustomId('pause').setStyle('PRIMARY')]), playingMessage.components[1] ] });
           } else {
             queue.player.unpause();
             queue.textChannel.send(`${interaction.user} ▶ resumed the music!`);
-            interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(1, 1, [new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY')])] });
+            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY')]), playingMessage.components[1] ] });
           }
           queue.playing = !queue.playing;
           break;
@@ -152,12 +161,12 @@ module.exports = {
             queue.volume = 100;
             queue.resource.volume.setVolume(1);
             queue.textChannel.send(`${interaction.user} 🔊 unmuted the music!`);
-            interaction.update({ components: [playingMessage.components[0].spliceComponents(0, 1, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY')]), playingMessage.components[1]] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 1, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY')]) ] });
           } else {
             queue.volume = 0;
             queue.resource.volume.setVolume(0);
             queue.textChannel.send(`${interaction.user} 🔇 muted the music!`);
-            interaction.update({ components: [playingMessage.components[0].spliceComponents(0, 1, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY')]), playingMessage.components[1]] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 1, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY')]) ] });
           }
           break;
 
@@ -196,7 +205,7 @@ module.exports = {
           break;
           
         case 'lyrics':
-          interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(4, 1)] });
+          interaction.update({ components: [ playingMessage.components[0].spliceComponents(4, 1), playingMessage.components[1] ] });
           client.commands.get('lyrics').run(client, message);
           break;
 
@@ -212,6 +221,11 @@ module.exports = {
 const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
   return new Promise((resolve, reject) => {
     const rawStream = raw(url, {
+      preferFreeFormats: true,
+      noCallHome: true,
+      noCheckCertificate: true,
+      youtubeSkipDashManifest: true,
+      //defaultSearch: 'ytsearch',
       o: '-',
       q: '',
       f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',

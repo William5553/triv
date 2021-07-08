@@ -94,12 +94,12 @@ exports.run = async (client, message, args) => {
           url: `https://www.youtube.com/watch?v=${video.id}`,
           duration: moment.duration(video.contentDetails.duration).asSeconds(),
           thumbnail: video.snippet.thumbnails.maxres || video.snippet.thumbnails.standard,
+          publishDate: video.snippet.publishedAt,
           channel: {
             name: video.snippet.channelTitle,
             profile_pic: '',
             url: `https://youtube.com/channel/${video.snippet.channelId}`
-          },
-          publishDate: video.snippet.publishedAt
+          }
         };
       });
 

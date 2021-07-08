@@ -14,8 +14,7 @@ exports.run = async (client, message, args) => {
       channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
       forced = true;
     }
-    if (!channel)
-      return message.reply('You need to join a voice channel first!');
+    if (!channel) return message.reply('You need to join a voice channel first!');
     const serverQueue = client.queue.get(channel.guild.id);
     if (serverQueue && channel.id !== message.guild.me.voice.channelId)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
@@ -78,7 +77,10 @@ exports.run = async (client, message, args) => {
     // if search query was inputted
       try {
         results = await youtube.searchVideos(search, 1);
-        songInfo = await getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
+        if (results[0])
+          songInfo = await getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
+        else
+          throw new Error(`No results found for ${search}`);
       } catch (error) {
         client.logger.error(error.stack || error);
         client.logger.error(JSON.stringify(results));
@@ -99,17 +101,17 @@ exports.run = async (client, message, args) => {
       url: songInfo.videoDetails.video_url,
       duration: songInfo.videoDetails.lengthSeconds,
       thumbnail: songInfo.videoDetails.thumbnails[songInfo.videoDetails.thumbnails.length - 1],
+      publishDate: songInfo.videoDetails.publishDate,
       channel: {
         name: songInfo.videoDetails.author.name,
-        profile_pic: '',
+        profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url || '',
         url: songInfo.videoDetails.author.channel_url
-      },
-      publishDate: songInfo.videoDetails.publishDate
+      }
     };
 
     if (serverQueue) {
       serverQueue.songs.push(song);
-      return serverQueue.textChannel.send(`✅ **${song.title}** has been added to the queue by ${message.author}`);
+      return serverQueue.textChannel.send(`✅ **${song.title}** has been added to the queue by ${message.author}${songInfo.videoDetails.age_restricted ? '\n**Disclaimer: this video is age restricted so it may not work**' : ''}`);
     }
 
     queueConstruct.songs.push(song);
@@ -119,11 +121,11 @@ exports.run = async (client, message, args) => {
       if (connection instanceof Message) return;
       queueConstruct.connection = connection;
       client.queue.set(message.guild.id, queueConstruct);
-      play(queueConstruct.songs[0], message, false);
+      play(song, message, false);
     } catch (error) {
       client.logger.error(error);
       await client.queue.get(message.guild.id).connection.destroy();
-      return message.reply(`Could not join the channel: ${error.stack || error}`);
+      return message.reply(`Could not join the voice channel: ${error.stack || error}`);
     }
   } catch (err) {
     return message.channel.send({embeds: [
