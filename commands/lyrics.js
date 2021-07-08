@@ -1,12 +1,11 @@
 const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
 const { verify } = require('../util/Util');
 const { SongsClient } = require('genius-lyrics');
+const GClient = new SongsClient(process.env.genius_api_key || '');
 
 exports.run = async (client, message, args) => {
-  const GClient = new SongsClient(process.env.genius_api_key || '');
   let query, queue;
-  if (message.guild)
-    queue = client.queue.get(message.guild.id);
+  if (message.guild) queue = client.queue.get(message.guild.id);
   if (args && args.length >= 1)
     query = args.join(' ');
   else if (queue && queue.songs)
@@ -37,18 +36,30 @@ exports.run = async (client, message, args) => {
     return 'No lyrics found';
   }
 
-  const embeds = [];
+  try {
+    const embeds = [];
 
-  for (const m of splitMessage(lyrics)) {
-    if (embeds.length < 10) {
-      embeds.push(new MessageEmbed()
-        .setTitle(embeds.length == 0 ? emtitle : '')
-        .setDescription(m)
-        .setColor('#F8AA2A')
-      );
+    for (const m of splitMessage(lyrics)) {
+      if (embeds.length < 10) {
+        embeds.push(new MessageEmbed()
+          .setTitle(embeds.length == 0 ? emtitle : '')
+          .setDescription(m)
+          .setColor('#F8AA2A')
+        );
+      }
     }
+    message.channel.send({ embeds });
+  } catch (err) {
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', message.content)
+    ]});
   }
-  message.channel.send({ embeds });
 };
 
 exports.conf = {

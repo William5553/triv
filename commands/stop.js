@@ -7,7 +7,8 @@ exports.run = (client, message) => {
     if (!message.guild.me.voice.channel) return message.reply("I'm not in a voice channel moron");
     const queue = client.queue.get(message.guild.id);
 
-    if (canModifyQueue(message.member) != true) return message.delete();
+    const modifiable = canModifyQueue(message.member);
+    if (modifiable != true) return message.reply(modifiable);
     if (queue && queue.connection) {
       queue.songs = [];
       queue.player.stop();

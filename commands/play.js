@@ -2,13 +2,12 @@ const { play } = require('../util/play');
 const { getInfo } = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
+const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
-    if (!args.length)
-      return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
-    const youtube = new YouTubeAPI(process.env.google_api_key);
+    if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
     let { channel } = message.member.voice, forced = false;
     // the owner can play a video to any channel if they put the channel id in ampersands
     if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {

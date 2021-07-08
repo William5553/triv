@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageButton } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
 const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
@@ -96,97 +96,99 @@ module.exports = {
 
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
-    
-    let playingMessage;
-    try {
-      playingMessage = await queue.textChannel.send({embeds: [
-        new MessageEmbed()
-          .setTitle(song.title)
-          .setURL(song.url)
-          .setColor('#FF0000')
-          .setThumbnail(song.thumbnail.url)
-          .setDescription(`${seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : ''}`)
-          .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-          .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
-      ]});
-      await playingMessage.react('⏭');
-      await playingMessage.react('⏯');
-      await playingMessage.react('🔇');
-      await playingMessage.react('🔉');
-      await playingMessage.react('🔊');
-      await playingMessage.react('🔁');
-      await playingMessage.react('⏹');
-      await playingMessage.react('🎤');
-    } catch (error) {
-      client.logger.error(error.stack || error);
-    }
+
+    const playingMessage = await queue.textChannel.send({embeds: [
+      new MessageEmbed()
+        .setTitle(song.title)
+        .setURL(song.url)
+        .setColor('#FF0000')
+        .setThumbnail(song.thumbnail.url)
+        .setDescription(`${seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : ''}`)
+        .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
+        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
+    ], components: [[
+      new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'),
+      new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY'),
+      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY')
+    ], [
+      new MessageButton().setLabel('SKIP').setCustomId('skip').setStyle('PRIMARY'),
+      new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY'),
+      new MessageButton().setLabel('LOOP').setCustomId('loop').setStyle('PRIMARY'),
+      new MessageButton().setLabel('STOP').setCustomId('stop').setStyle('DANGER'),
+      new MessageButton().setLabel('LYRICS').setCustomId('lyrics').setStyle('PRIMARY')
+    ]]});
 
     const filter = (reaction, user) => user.id != client.user.id;
-    queue.collector = playingMessage.createReactionCollector({ filter, time: song.duration > 0 ? song.duration * 1000 : 600000 });
+    queue.collector = playingMessage.createMessageComponentCollector({ filter, time: song.duration > 0 ? song.duration * 1000 : 600000 });
 
-    queue.collector.on('collect', (reaction, user) => {
-      reaction.users.remove(user);
+    queue.collector.on('collect', interaction => {
       if (!queue) return;
-      const member = message.guild.members.cache.get(user.id);
-      if (canModifyQueue(member) != true) return;
-      switch (reaction.emoji.name) {
-        case '⏭':
+      const member = message.guild.members.cache.get(interaction.user.id);
+      const modifiable = canModifyQueue(member);
+      if (modifiable != true) return interaction.reply({ content: modifiable, ephemeral: true });
+      // TODO: if you can't make the vol higher or lower, disable the button
+      switch (interaction.customId) {
+        case 'skip':
           queue.playing = true;
           queue.player.stop();
-          queue.textChannel.send(`${user} ⏩ skipped the song`);
+          interaction.reply(`${interaction.user} ⏩ skipped the song`);
           queue.collector.stop();
           break;
 
-        case '⏯':
+        case 'pause':
           if (queue.playing) {
             queue.player.pause();
-            queue.textChannel.send(`${user} ⏸ paused the music.`);
+            queue.textChannel.send(`${interaction.user} ⏸ paused the music.`);
+            interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(1, 1, [new MessageButton().setLabel('UNPAUSE').setCustomId('pause').setStyle('PRIMARY')])] });
           } else {
             queue.player.unpause();
-            queue.textChannel.send(`${user} ▶ resumed the music!`);
+            queue.textChannel.send(`${interaction.user} ▶ resumed the music!`);
+            interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(1, 1, [new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY')])] });
           }
           queue.playing = !queue.playing;
           break;
 
-        case '🔇':
+        case 'mute':
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.resource.volume.setVolume(1);
-            queue.textChannel.send(`${user} 🔊 unmuted the music!`);
+            queue.textChannel.send(`${interaction.user} 🔊 unmuted the music!`);
+            interaction.update({ components: [playingMessage.components[0].spliceComponents(0, 1, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY')]), playingMessage.components[1]] });
           } else {
             queue.volume = 0;
             queue.resource.volume.setVolume(0);
-            queue.textChannel.send(`${user} 🔇 muted the music!`);
+            queue.textChannel.send(`${interaction.user} 🔇 muted the music!`);
+            interaction.update({ components: [playingMessage.components[0].spliceComponents(0, 1, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY')]), playingMessage.components[1]] });
           }
           break;
 
-        case '🔉':
+        case 'voldown':
           if (queue.volume === 0) return;
           if (queue.volume - 10 <= 0)
             queue.volume = 0;
           else
             queue.volume = queue.volume - 10;
           queue.resource.volume.setVolume(queue.volume / 100);
-          queue.textChannel.send(`${user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
+          interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           break;
 
-        case '🔊':
+        case 'volup':
           if (queue.volume === 100) return;
           if (queue.volume + 10 >= 100)
             queue.volume = 100;
           else
             queue.volume = queue.volume + 10;
           queue.resource.volume.setVolume(queue.volume / 100);
-          queue.textChannel.send(`${user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
+          interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           break;
 
-        case '🔁':
+        case 'loop':
           queue.loop = !queue.loop;
-          queue.textChannel.send(`${user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`);
+          interaction.reply(`${interaction.user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`);
           break;
 
-        case '⏹':
-          queue.textChannel.send(`${user} ⏹ stopped the music!`);
+        case 'stop':
+          interaction.reply(`${interaction.user} ⏹ stopped the music!`);
           queue.player.stop();
           if (queue.stream) queue.stream.destroy();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
@@ -194,8 +196,8 @@ module.exports = {
           client.queue.delete(message.guild.id);
           break;
           
-        case '🎤':
-          reaction.users.remove(client.user);
+        case 'lyrics':
+          interaction.update({ components: [playingMessage.components[0], playingMessage.components[1].spliceComponents(4, 1)] });
           client.commands.get('lyrics').run(client, message);
           break;
 
@@ -204,9 +206,7 @@ module.exports = {
       }
     });
 
-    queue.collector.on('end', () => {
-      if (playingMessage) playingMessage.reactions.removeAll();
-    });
+    queue.collector.on('end', () => playingMessage?.edit({ components: [] }));
   }
 };
 

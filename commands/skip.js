@@ -3,7 +3,8 @@ const { canModifyQueue } = require('../util/Util');
 exports.run = (client, message) => {
   const queue = client.queue.get(message.guild.id);
   if (!queue) return message.reply("There's nothing playing, bozo");
-  if (canModifyQueue(message.member) != true) return;
+  const modifiable = canModifyQueue(message.member);
+  if (modifiable != true) return message.reply(modifiable);
 
   queue.playing = true;
   queue.player.stop();

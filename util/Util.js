@@ -54,22 +54,15 @@ module.exports = class Util {
     const botChan = member?.guild?.me.voice?.channelId;
     const queue = client.queue.get(member.guild.id);
     
-    if (queue && queue.forced && !client.owners.includes(member.id)) {
-      member.send('no.');
-      return false;
-    }
-    if (client.blacklist.get('blacklist', 'user').includes(member.id)) {
-      member.send('You are blacklisted');
-      return false;
-    }
-    if (client.owneronlymode && !client.owners.includes(member.id)) {
-      member.send('The bot is currently in owner only mode');
-      return false;
-    }
+    if (queue && queue.forced && !client.owners.includes(member.id))
+      return 'no.';
+    if (client.blacklist.get('blacklist', 'user').includes(member.id))
+      return 'You are blacklisted';
+    if (client.owneronlymode && !client.owners.includes(member.id))
+      return 'The bot is currently in owner only mode';
     if (memChan === botChan || client.owners.includes(member.id))
       return true;
-    member.send('You need to join the voice channel first!');
-    return false;
+    return 'You need to join the voice channel first!';
   }
 
   static parseUser(message, member) {

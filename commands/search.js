@@ -1,9 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const YouTubeAPI = require('simple-youtube-api');
+const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
-  const youtube = new YouTubeAPI(process.env.google_api_key);
   if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
   if (message.channel.activeCollector) return message.reply('Somebody is already searching.');
   if (!message.member.voice.channel)
