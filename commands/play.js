@@ -111,6 +111,7 @@ exports.run = async (client, message, args) => {
 
     if (serverQueue) {
       serverQueue.songs.push(song);
+      // sometimes the age restriction bypass works, sometimes it doesn't
       return serverQueue.textChannel.send(`✅ **${song.title}** has been added to the queue by ${message.author}${songInfo.videoDetails.age_restricted ? '\n**Disclaimer: this video is age restricted so it may not work**' : ''}`);
     }
 

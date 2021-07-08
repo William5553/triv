@@ -4,6 +4,8 @@ const YouTubeAPI = require('simple-youtube-api');
 const fetch = require('node-superfetch');
 const moment = require('moment');
 
+// TODO: maybe merge this into the play command and have it check if the link is youtube, then get info if not just pipe it into ytdl. if it's a supported url, it would dl it, if not it would search youtube for the term. also store less info if not yt like just name and url
+
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
