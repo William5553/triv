@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
       .setDescription('Found a bug? Report it [here](https://github.com/William5553/triv/issues)')
       .setTitle('Feedback sent.. :envelope:')
   ]});
-  return client.channels.cache.get(process.env.feedback_channel_id).send({embeds: [
+  return client.channels.cache.resolve(process.env.feedback_channel_id).send({embeds: [
     new MessageEmbed()
       .setColor(0x00ae86)
       .setTimestamp()

@@ -3,7 +3,7 @@ const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message) => {
   try {
-    const findVerify = message.guild.channels.cache.find(channel => channel.name === 'verify' && channel.type == 'text');
+    const findVerify = message.guild.channels.cache.find(channel => channel.name === 'verify' && channel.type == 'GUILD_TEXT');
     if (findVerify && message.channel.id != findVerify.id)
       return message.reply(`this command can only be ran in ${findVerify}`);
 

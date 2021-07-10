@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   if (!args[0]) return message.channel.send('Please enter a duration for the giveaway.');
   const time = args[0],
     prize = args.slice(1).join(' ');
-  if (message.channel.type == 'news') return message.reply('Giveaways cannot be started in news channels');
+  if (message.channel.type == 'GUILD_NEWS') return message.reply('Giveaways cannot be started in news channels');
   if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
   if (ms(time) < 1) return message.reply('The duration time has to be atleast 1 second');
   if (ms(time) >= 2147483647) return message.reply('Specified duration is too long');

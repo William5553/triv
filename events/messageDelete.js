@@ -9,7 +9,7 @@ module.exports = async (client, message) => {
     date: message.createdAt
   });
 
-  const findLogs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs' && channel.type == 'text') || message.guild.channels.cache.find(channel => channel.name === 'logs' && channel.type == 'text');
+  const findLogs = message.guild.channels.cache.find(channel => channel.name === 'bot-logs' && channel.type == 'GUILD_TEXT') || message.guild.channels.cache.find(channel => channel.name === 'logs' && channel.type == 'GUILD_TEXT');
   if (findLogs)
     client.settings.set(message.guild.id, findLogs.id, 'logsID');
 

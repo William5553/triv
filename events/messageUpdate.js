@@ -3,7 +3,7 @@ module.exports = (client, oldMessage, newMessage) => {
   if (!newMessage.content || !oldMessage.content || !newMessage.guild) return;
   const { guild } = newMessage;
   
-  const findLogs = guild.channels.cache.find(channel => channel.name === 'bot-logs' && channel.type == 'text') || guild.channels.cache.find(channel => channel.name === 'logs' && channel.type == 'text');
+  const findLogs = guild.channels.cache.find(channel => channel.name === 'bot-logs' && channel.type == 'GUILD_TEXT') || guild.channels.cache.find(channel => channel.name === 'logs' && channel.type == 'GUILD_TEXT');
   if (findLogs)
     client.settings.set(guild.id, findLogs.id, 'logsID');
   
