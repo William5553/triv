@@ -124,7 +124,7 @@ module.exports = {
     ], [
       new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'),
       new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY'),
-      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY')
+      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true)
     ]]});
 
     queue.collector = playingMessage.createMessageComponentCollector();
@@ -135,6 +135,7 @@ module.exports = {
       const modifiable = canModifyQueue(member);
       if (modifiable != true) return interaction.reply({ content: modifiable, ephemeral: true });
       // TODO: if you can't make the vol higher or lower, disable the button
+      let reply = true, reply2 = true;
       switch (interaction.customId) {
         case 'skip':
           queue.playing = true;
@@ -161,33 +162,53 @@ module.exports = {
             queue.volume = 100;
             queue.resource.volume.setVolume(1);
             queue.textChannel.send(`${interaction.user} 🔊 unmuted the music!`);
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 1, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY')]) ] });
+            interaction.update({ components: [ playingMessage.components[0], [ new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(false), new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true) ] ] });
           } else {
             queue.volume = 0;
             queue.resource.volume.setVolume(0);
             queue.textChannel.send(`${interaction.user} 🔇 muted the music!`);
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 1, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY')]) ] });
+            interaction.update({ components: [ playingMessage.components[0], [ new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(true), new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(false) ] ] });
           }
           break;
 
         case 'voldown':
-          if (queue.volume === 0) return;
-          if (queue.volume - 10 <= 0)
+          if (queue.volume === 100)
+            reply = false;
+          if (queue.volume - 10 <= 0) {
             queue.volume = 0;
-          else
+            reply2 = false;
+          } else
             queue.volume = queue.volume - 10;
           queue.resource.volume.setVolume(queue.volume / 100);
-          interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
+          if (reply && reply2)
+            interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
+          else if (!reply) {
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(false)]) ] });
+            queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 90%`);
+          } else if (!reply2) {
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(true)]) ] });
+            queue.textChannel.send(`${interaction.user} 🔉 decreased the volume, the volume is now 0%`);
+          }
           break;
 
         case 'volup':
-          if (queue.volume === 100) return;
-          if (queue.volume + 10 >= 100)
+          if (queue.volume === 0)
+            reply = false;
+          if (queue.volume + 10 >= 100) {
             queue.volume = 100;
-          else
+            reply2 = false;
+          } else
             queue.volume = queue.volume + 10;
           queue.resource.volume.setVolume(queue.volume / 100);
-          interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
+          if (reply && reply2)
+            interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
+          else if (!reply) {
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(false)]) ] });
+            queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
+          } else if (!reply2) {
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true)]) ] });
+            queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 100%`);
+          }
           break;
 
         case 'loop':
