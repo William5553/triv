@@ -4,7 +4,7 @@ const { formatNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('Please wait...');
     const data = await getUserProfileInfo(args.join(' '));
     const final = new MessageEmbed()
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
       final.addField('Bio', data.user.signature);
     if (data.user.bioLink && data.user.bioLink.link)
       final.addField('Bio Link', data.user.bioLink.link);
-    m.edit({content: '', embeds: [final]});
+    m.edit({ content: '** **', embeds: [final] });
   } catch (err) {
     return message.channel.send({embeds: [
       new MessageEmbed()
