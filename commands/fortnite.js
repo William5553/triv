@@ -22,13 +22,12 @@ exports.run = async (client, message, args) => {
               .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
           ]});
       }
-      const e = await message.reply({
-        embeds: [
-          new MessageEmbed()
-            .setTitle('Working...')
-            .setDescription('Please wait a few seconds')
-            .setColor('#ffdd57')
-        ]});
+      const e = await message.reply({embeds: [
+        new MessageEmbed()
+          .setTitle('Working...')
+          .setDescription('Please wait a few seconds')
+          .setColor('#ffdd57')
+      ]});
       const { body } = await request
         .get(`https://api.fortnitetracker.com/v1/profile/${encodeURIComponent(platform)}/${encodeURIComponent(epicName)}`)
         .set({'TRN-Api-Key': process.env.trn_api_key});

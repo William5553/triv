@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate } = require('./Util');
 const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus, NoSubscriberBehavior } = require('@discordjs/voice');
@@ -115,17 +115,17 @@ module.exports = {
         .setDescription(`${seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : ''}`)
         .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
         .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
-    ], components: [[
-      new MessageButton().setLabel('SKIP').setCustomId('skip').setStyle('PRIMARY'),
-      new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY'),
-      new MessageButton().setLabel('LOOP').setCustomId('loop').setStyle('PRIMARY'),
-      new MessageButton().setLabel('STOP').setCustomId('stop').setStyle('DANGER'),
-      new MessageButton().setLabel('LYRICS').setCustomId('lyrics').setStyle('PRIMARY')
-    ], [
-      new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'),
-      new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY'),
-      new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true)
-    ]]});
+    ], components: [new MessageActionRow({components: [
+      new MessageButton({ label: 'SKIP', customId: 'skip', style: 'PRIMARY' }),
+      new MessageButton({ label: 'PAUSE', customId: 'pause', style: 'PRIMARY' }),
+      new MessageButton({ label: 'LOOP', customId: 'loop', style: 'PRIMARY' }),
+      new MessageButton({ label: 'STOP', customId: 'stop', style: 'DANGER' }),
+      new MessageButton({ label: 'LYRICS', customId: 'lyrics', style: 'PRIMARY' })
+    ]}), new MessageActionRow({components: [
+      new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }),
+      new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY' }),
+      new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true })
+    ]})]});
 
     queue.collector = playingMessage.createMessageComponentCollector();
 
@@ -148,11 +148,11 @@ module.exports = {
           if (queue.playing) {
             queue.player.pause();
             queue.textChannel.send(`${interaction.user} ⏸ paused the music.`);
-            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [new MessageButton().setLabel('UNPAUSE').setCustomId('pause').setStyle('PRIMARY')]), playingMessage.components[1] ] });
+            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [ new MessageButton({ label: 'UNPAUSE', customId: 'pause', style: 'PRIMARY' }) ]), playingMessage.components[1] ] });
           } else {
             queue.player.unpause();
             queue.textChannel.send(`${interaction.user} ▶ resumed the music!`);
-            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [new MessageButton().setLabel('PAUSE').setCustomId('pause').setStyle('PRIMARY')]), playingMessage.components[1] ] });
+            interaction.update({ components: [ playingMessage.components[0].spliceComponents(1, 1, [ new MessageButton({ label: 'PAUSE', customId: 'pause', style: 'PRIMARY' }) ]), playingMessage.components[1] ] });
           }
           queue.playing = !queue.playing;
           break;
@@ -162,12 +162,12 @@ module.exports = {
             queue.volume = 100;
             queue.resource.volume.setVolume(1);
             queue.textChannel.send(`${interaction.user} 🔊 unmuted the music!`);
-            interaction.update({ components: [ playingMessage.components[0], [ new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(false), new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true) ] ] });
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true }) ] }) ] });
           } else {
             queue.volume = 0;
             queue.resource.volume.setVolume(0);
             queue.textChannel.send(`${interaction.user} 🔇 muted the music!`);
-            interaction.update({ components: [ playingMessage.components[0], [ new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(true), new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(false) ] ] });
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
           }
           break;
 
@@ -183,10 +183,10 @@ module.exports = {
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(false)]) ] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ]) ] });
             queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 90%`);
           } else if (!reply2) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [new MessageButton().setLabel('UNMUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(true)]) ] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }) ]) ] });
             queue.textChannel.send(`${interaction.user} 🔉 decreased the volume, the volume is now 0%`);
           }
           break;
@@ -203,10 +203,10 @@ module.exports = {
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [new MessageButton().setLabel('MUTE').setCustomId('mute').setStyle('PRIMARY'), new MessageButton().setEmoji('🔉').setCustomId('voldown').setStyle('PRIMARY').setDisabled(false)]) ] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }) ]) ] });
             queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           } else if (!reply2) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [new MessageButton().setEmoji('🔊').setCustomId('volup').setStyle('PRIMARY').setDisabled(true)]) ] });
+            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true }) ]) ] });
             queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 100%`);
           }
           break;
