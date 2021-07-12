@@ -12,8 +12,9 @@ exports.run = (client, message) => {
     if (queue && queue.connection) {
       queue.songs = [];
       queue.player.stop();
-      client.queue.delete(message.guild.id);
+      queue.collector?.stop();
       queue.textChannel.send(`${message.author} ⏹ stopped the music!`);
+      client.queue.delete(message.guild.id);
     } else if (!message.channel.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice?.channel?.members.size > 2)
       return message.reply('You need the **MOVE MEMBERS** permission because there are other people listening.');
     getVoiceConnection(message.guild.id)?.destroy();
