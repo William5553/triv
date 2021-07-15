@@ -60,7 +60,7 @@ exports.run = (client, message, args) => {
             .addField('Song Name', activity.details, true)
             .addField('Album', activity.assets.largeText, true)
             .addField('Author', activity.state.replace(/;/g, ','), true)
-            .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncID}`, false)
+            .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncId}`, false)
             .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
         ]});
       }
