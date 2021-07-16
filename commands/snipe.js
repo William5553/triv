@@ -3,13 +3,14 @@ const { MessageEmbed } = require('discord.js');
 exports.run = (client, message) => {
   const msg = client.snipes.get(message.channel.id);
   
-  if (!msg) return message.reply('no message to snipe.');
+  if (!msg) return message.reply('No message to snipe.');
 
-  message.channel.send({embeds: [new MessageEmbed()
-    .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
-    .setDescription(msg.content)
-    .setTimestamp(msg.date)
-    .setColor('FF0000')
+  message.channel.send({embeds: [
+    new MessageEmbed()
+      .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
+      .setDescription(msg.content)
+      .setTimestamp(msg.date)
+      .setColor('FF0000')
   ]});
 };
   
