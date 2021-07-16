@@ -24,7 +24,7 @@ exports.run = async (client, message) => {
 
     if (message.member.roles.cache.has(role.id)) {
       const m = await message.reply("you're already verified.");
-      client.setTimeout(() => {
+      setTimeout(() => {
         m.delete();
         message.delete();
       }, 3500);
@@ -33,7 +33,7 @@ exports.run = async (client, message) => {
       .add(role.id, `Verified - ${formatDate()}`)
       .then(async () => {
         const m = await message.reply('you have been verified.');
-        client.setTimeout(() => {
+        setTimeout(() => {
           m.delete();
           message.delete();
         }, 3500);

@@ -6,7 +6,7 @@ module.exports = async client => {
 
   client.application = await client.application?.fetch();
   if (client.owners.length < 1) client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
-  client.setInterval(async () => {
+  setInterval(async () => {
     client.owners = [];
     client.application = await client.application.fetch();
     client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
