@@ -38,8 +38,7 @@ exports.run = async (client, message, args) => {
         .map(role => role.name);
       embed
         .addField('❯ Server Join Date', moment.utc(member.joinedAt).format('MM/DD/YYYY h:mm A'), true)
-        .addField('❯ Highest Role',
-          member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, true)
+        .addField('❯ Highest Role', member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, true)
         .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist.name : 'None', true)
         .addField(`❯ Roles (${roles.length})`, roles.length ? trimArray(roles, 6).join(', ') : 'None')
         .setColor(member.displayHexColor);

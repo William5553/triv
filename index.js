@@ -1,5 +1,4 @@
-if (Number(process.version.slice(1).split('.')[0]) < 14)
-  throw new Error('Node 14.0.0 or higher is required. Update Node on your system.');
+if (Number(process.version.slice(1).split('.')[0]) < 14) throw new Error('Node 14.0.0 or higher is required. Update Node on your system.');
 
 require('dotenv').config();
 if (!process.env.token) throw new Error('No token provided');
