@@ -3,7 +3,7 @@ module.exports = async (client, message) => {
   if (!message.guild) return;
 
   client.snipes.set(message.channel.id, {
-    content: `${message.content}\n${message.attachments.first().url}`,
+    content: `${message.content}\n${message.attachments.first()?.url}`,
     author: message.author,
     date: message.createdAt
   });

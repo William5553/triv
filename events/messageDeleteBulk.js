@@ -11,7 +11,7 @@ module.exports = (client, messages) => {
           .setAuthor(guild.name, guild.iconURL())
           .setColor(0xeb5234)
           .setTimestamp()
-          .setDescription(`**Bulk Delete in ${messages.first().channel}, ${messages.array().length} messages deleted**`)
+          .setDescription(`**Bulk Delete in ${messages.first().channel}, ${messages.size} messages deleted**`)
       ]});
     }
   }

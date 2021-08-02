@@ -13,20 +13,21 @@ exports.run = async (client, message, args) => {
       .fetch({ limit: 100 })
       .then(messages => {
         if (member && member.user)
-          messages = messages.filter(m => m.author.id === member.user.id).array().slice(0, mgct);
+          messages = Array.from(messages.filter(m => m.author.id === member.user.id).keys()).slice(0, mgct);
         else
-          messages = messages.array().slice(0, mgct);
+          messages = Array.from(messages.keys()).slice(0, mgct);
         message.channel
           .bulkDelete(messages, true);
       });
   } catch (err) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
-      .addField('**Command:**', message.content)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .addField('**Command:**', message.content)
     ]});
   }
 };

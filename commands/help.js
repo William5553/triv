@@ -12,7 +12,7 @@ const perm = {
 exports.run = (client, message, args, perms) => {
   try {
     if (!args[0]) {
-      const longest = client.commands.keyArray().reduce((long, str) => Math.max(long, str.length), 0);
+      const longest = Array.from(client.commands.keys()).reduce((long, str) => Math.max(long, str.length), 0);
       const fonk = client.commands.filter(command => command.conf.permLevel < perms)
         .map(c => {
           return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
