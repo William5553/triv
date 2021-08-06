@@ -1,6 +1,6 @@
 ![Build Status](https://github.com/william5553/triv/workflows/lint/badge.svg?branch=discord.js-latest)
 # Installation instructions for Windows
-1. [Download and install Node.js](https://nodejs.org/en/), version 14.6 and up is required.
+1. [Download and install Node.js](https://nodejs.org/en/), version 16.6 and up is required.
 
 2. Run these 3 commands in a command prompt ran as administrator (press Windows + X then click PowerShell (Administrator) or Command Prompt (Administrator))
 ```shell
