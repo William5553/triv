@@ -7,5 +7,3 @@ data/
 .eslintcache
 .env
 .vscode
-pnpm-lock.yaml
-shrinkwrap.yaml
