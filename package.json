@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
-    "@discordjs/voice": "^0.5.5",
+    "@discordjs/voice": "^0.5.6",
     "@william5553/mathsteps": "^0.3.0",
     "@william5553/translate-google-api": "^1.2.0",
     "bufferutil": "^4.0.3",
