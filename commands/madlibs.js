@@ -9,7 +9,7 @@ exports.run = async (client, message) => {
     const lib = libs.random();
     const choices = [];
     const m = await message.channel.send('Please wait..');
-    if (message.guild) m.delete();
+    if (!message.guild) m.delete();
     for (const word of lib.needed) {
       const msg = `Give me a${(word.startsWith('A') || word.startsWith('E') || word.startsWith('I') || word.startsWith('O') || word.startsWith('U')) ? 'n' : ''} **${word}**.`;
       if (message.guild)
