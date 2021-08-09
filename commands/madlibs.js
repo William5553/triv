@@ -9,12 +9,13 @@ exports.run = async (client, message) => {
     const lib = libs.random();
     const choices = [];
     const m = await message.channel.send('Please wait..');
+    if (message.guild) m.delete();
     for (const word of lib.needed) {
       const msg = `Give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`;
-      if (m.content == msg)
-        await m.edit(`Give me another **${word}**`);
+      if (message.guild)
+        await m.edit(m.content == msg ? `Give me another **${word}**` : msg);
       else
-        await m.edit(msg);
+        await message.channel.send(m.content == msg ? `Give me another **${word}**` : msg);
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
@@ -26,7 +27,7 @@ exports.run = async (client, message) => {
       const choice = await message.channel.awaitMessages({ filter, max: 1, time: 120000 });
       if (!choice.size) break;
       choices.push(choice.first().content);
-      choice.first().delete();
+      if (message.guild) choice.first().delete();
     }
     await m.delete();
     client.games.delete(message.channel.id);
