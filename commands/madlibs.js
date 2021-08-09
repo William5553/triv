@@ -11,7 +11,7 @@ exports.run = async (client, message) => {
     const m = await message.channel.send('Please wait..');
     if (message.guild) m.delete();
     for (const word of lib.needed) {
-      const msg = `Give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`;
+      const msg = `Give me a${(word.startsWith('A') || word.startsWith('E') || word.startsWith('I') || word.startsWith('O') || word.startsWith('U')) ? 'n' : ''} **${word}**.`;
       if (message.guild)
         await m.edit(m.content == msg ? `Give me another **${word}**` : msg);
       else
