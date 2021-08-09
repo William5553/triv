@@ -29,7 +29,7 @@ exports.run = async (client, message) => {
       choices.push(choice.first().content);
       if (message.guild) choice.first().delete();
     }
-    await m.delete();
+    if (m) await m.delete();
     client.games.delete(message.channel.id);
     let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {
