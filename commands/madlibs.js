@@ -10,7 +10,11 @@ exports.run = async (client, message) => {
     const choices = [];
     const m = await message.channel.send('Please wait..');
     for (const word of lib.needed) {
-      await m.edit(`give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`);
+      const msg = `Give me a${word.startsWith('A') ? 'n' : ''} **${word}**.`;
+      if (m.content == msg)
+        await m.edit(`Give me another **${word}**`);
+      else
+        await m.edit(msg);
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
@@ -28,7 +32,7 @@ exports.run = async (client, message) => {
     client.games.delete(message.channel.id);
     let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {
-      finished = finished.replace(/{(\d+)}/g, function(match, number) { 
+      finished = finished.replace(/{(\d+)}/g, (match, number) => { 
         return typeof choices[number] != 'undefined' ? `**${choices[number]}**` : match;
       });
     }
@@ -49,8 +53,8 @@ exports.run = async (client, message) => {
   
 exports.conf = {
   enabled: true,
-  guildOnly: true,
-  aliases: [],
+  guildOnly: false,
+  aliases: ['ml', 'madlib'],
   permLevel: 0,
   cooldown: 5000
 };
