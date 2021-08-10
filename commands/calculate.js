@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
   }
 };
 
-function genEmbeds(message, steps, embeds = []) {
+const genEmbeds = (message, steps, embeds = []) => {
   if (steps.length < 1) return embeds;
   for (const step of steps) {
     const embed = new MessageEmbed()
@@ -59,7 +59,7 @@ function genEmbeds(message, steps, embeds = []) {
     embeds.push(embed);
   }
   return embeds;
-}
+};
 
 exports.conf = {
   enabled: true,

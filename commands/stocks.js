@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
   }
 };
 
-async function fetchStocks(symbol) {
+const fetchStocks = async symbol => {
   const { body } = await request
     .get('https://www.alphavantage.co/query')
     .query({
@@ -57,9 +57,9 @@ async function fetchStocks(symbol) {
     volume: data['5. volume'],
     lastRefresh: new Date(body['Meta Data']['3. Last Refreshed'])
   };
-}
+};
 
-async function search(query) {
+const search = async query => {
   const { body } = await request
     .get('http://d.yimg.com/autoc.finance.yahoo.com/autoc')
     .query({
@@ -69,7 +69,7 @@ async function search(query) {
     });
   if (!body.ResultSet.Result.length) return null;
   return body.ResultSet.Result[0];
-}
+};
 
 exports.conf = {
   enabled: true,

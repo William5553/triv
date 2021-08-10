@@ -61,7 +61,7 @@ readdir('./events/', (err, files) => {
   });
 });
 
-(async function() {
+(async () => {
   client.blacklist.ensure('blacklist', { guild: [], user: [] });
   // Make sure bot is not in any blacklisted guilds
   for (const id of client.blacklist.get('blacklist', 'user')) {

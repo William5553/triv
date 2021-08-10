@@ -35,18 +35,18 @@ exports.run = (client, message, args) => {
   return message.channel.send(`There ${time.months() ? time.months() === 1 ? "'s" : 'are' : time.days() === 1 ? "'s" : 'are'} ${time.format('M [months and] d [days]')} until ${moment.utc(future).format('dddd, MMMM Do, YYYY')}!`);
 };
 
-function validate(value) {
+const validate = value => {
   const num = Number.parseInt(value, 10);
   if (num > 0 && num < 13) return true;
   if (months.includes(value.toLowerCase())) return true;
   return false;
-}
+};
 
-function parse(value) {
+const parse = value => {
   const num = Number.parseInt(value, 10);
   if (!isNaN(num)) return num;
   return months.indexOf(value.toLowerCase()) + 1;
-}
+};
 
 exports.conf = {
   enabled: true,

@@ -3,22 +3,18 @@ const { promisify } = require('util');
 const exec = promisify(require('child_process').execFile);
 const path = require('path');
 
-let cache, filename;
-if (process.platform === 'win32')
-  filename = 'cloc.cmd';
-else
-  filename = 'cloc';
+let cache;
   
-async function clc() {
+const clc = async () => {
   if (cache) return cache;
   const { stdout, stderr } = await exec(
-    path.join(process.cwd(), 'node_modules', '.bin', filename),
+    path.join(process.cwd(), 'node_modules', '.bin', `cloc${process.platform === 'win32' ? '.cmd' : ''}`),
     ['--json', '--exclude-dir=node_modules', path.join(process.cwd())]
   );
   if (stderr) throw new Error(stderr.trim());
   cache = JSON.parse(stdout.trim());
   return cache;
-}
+};
 
 exports.run = async (client, message) => {
   try {

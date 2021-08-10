@@ -52,7 +52,7 @@ exports.run = async (client, message, args) => {
   }
 };
 
-function genEmbeds(body) {
+const genEmbeds = body => {
   if (!body[0].meta) return;
   const embeds = [];
   for (const word of body) {
@@ -65,7 +65,7 @@ function genEmbeds(body) {
     embeds.push(embed);
   }
   return embeds;
-}
+};
 
 exports.conf = {
   enabled: true,

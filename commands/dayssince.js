@@ -31,18 +31,18 @@ exports.run = (client, message, args) => {
   return message.channel.send(`It's been ${moment.duration(now - past).format('Y [years,] M [months and] d [days]')} since ${moment.utc(past).format('dddd, MMMM Do, YYYY')}!`);
 };
     
-function validate(value) {
+const validate = value => {
   const num = Number.parseInt(value, 10);
   if (num > 0 && num < 13) return true;
   if (months.includes(value.toLowerCase())) return true;
   return false;
-}
+};
 
-function parse(value) {
+const parse = value => {
   const num = Number.parseInt(value, 10);
   if (!isNaN(num)) return num;
   return months.indexOf(value.toLowerCase()) + 1;
-}
+};
 
 exports.conf = {
   enabled: true,

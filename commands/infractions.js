@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
   });
 };
 
-function genEmbeds(message, user, infractions) {
+const genEmbeds = (message, user, infractions) => {
   if (infractions.length < 1) return;
   const embeds = [];
   for (const infraction of infractions) {
@@ -59,7 +59,7 @@ function genEmbeds(message, user, infractions) {
     embeds.push(embed);
   }
   return embeds;
-}
+};
 
 exports.conf = {
   enabled: true,

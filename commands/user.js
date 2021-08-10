@@ -49,14 +49,14 @@ exports.run = async (client, message, args) => {
   return message.channel.send({ embeds: [embed] });
 };
 
-function trimArray(arr, maxLen) {
+const trimArray = (arr, maxLen) => {
   if (arr.length > maxLen) {
     const len = arr.length - maxLen;
     arr = arr.slice(0, maxLen);
     arr.push(`${len} more...`);
   }
   return arr;
-}
+};
 
 exports.conf = {
   enabled: true,

@@ -21,13 +21,13 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['die', 'kys', 'shutdown', 'restart', 'reboot', 'stfu'],
+  aliases: ['die', 'kys', 'shutdown', 'disconnect', 'reboot', 'stfu'],
   permLevel: 10
 };
 
 exports.help = {
-  name: 'disconnect',
+  name: 'restart',
   description: 'Kills the bot',
-  usage: 'disconnect',
-  example: 'disconnect'
+  usage: 'restart',
+  example: 'restart'
 };

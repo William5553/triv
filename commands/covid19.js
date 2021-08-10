@@ -39,11 +39,10 @@ exports.run = async (client, message, args) => {
     ]});
   }
 };
-async function fetchStats(country) {
-  const { body } = await request
-    .get(`https://disease.sh/v3/covid-19/${country === 'all' ? 'all' : `countries/${country}`}`);
+const fetchStats = async country => {
+  const { body } = await request.get(`https://disease.sh/v3/covid-19/${country === 'all' ? 'all' : `countries/${country}`}`);
   return body;
-}
+};
   
 exports.conf = {
   enabled: true,

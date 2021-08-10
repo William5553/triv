@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
   }
 };
 
-async function fetchQuestions() {
+const fetchQuestions = async () => {
   const { body } = await request.get('https://opentdb.com/api.php').query({
     amount: 7,
     type: 'multiple',
@@ -106,9 +106,9 @@ async function fetchQuestions() {
       correct
     };
   });
-}
+};
 
-function makeLeaderboard(pts) {
+const makeLeaderboard = pts => {
   let i = 0;
   let previousPts = null;
   let positionsMoved = 1;
@@ -126,9 +126,9 @@ function makeLeaderboard(pts) {
         player.points === 1 ? '' : 's'
       })`;
     });
-}
+};
 
-async function awaitPlayers(message, max) {
+const awaitPlayers = async (message, max) => {
   if (max === 0) return [message.author.id];
   await message.channel.send(`To join, type \`join game\`. Max players: ${max}`);
   const joined = [message.author.id];
@@ -147,7 +147,7 @@ async function awaitPlayers(message, max) {
   });
   
   return joined;
-}
+};
 
 exports.conf = {
   enabled: true,

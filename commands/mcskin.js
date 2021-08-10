@@ -22,17 +22,17 @@ exports.run = async (client, message, args) => {
     message.channel.send('User not found');
 };
 
-async function nameToUUID(name) {
+const nameToUUID = async name => {
   const { body } = await fetch.get(`https://api.mojang.com/users/profiles/minecraft/${name}`);
   if (body.id) return { uuid: body.id, name: body.name };
   return false;
-}
+};
 
-async function uuidToName(uuid) {
+const uuidToName = async uuid => {
   const { body } = await fetch.get(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`);
   if (body.id) return { uuid: body.id, name: body.name };
   return false;
-}
+};
   
 exports.conf = {
   enabled: true,

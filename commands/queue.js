@@ -47,7 +47,7 @@ exports.run = async (client, message) => {
   }
 };
 
-function generateQueueEmbed(message, queue) {
+const generateQueueEmbed = (message, queue) => {
   const embeds = [];
   for (let i = 0; i < queue.length; i += 10) {
     const current = queue.slice(i, i+10);
@@ -61,7 +61,7 @@ function generateQueueEmbed(message, queue) {
     embeds.push(embed);
   }
   return embeds;
-}
+};
 
 exports.conf = {
   enabled: true,
