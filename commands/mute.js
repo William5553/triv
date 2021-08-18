@@ -3,8 +3,8 @@ const { parseUser, caseNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
+    if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
-    if (!member) return message.reply('Tell me somebody to mute, idiot.');
     if (message.content.split(' ')[0].slice(client.getPrefix(message).length).toLowerCase() !== 'unmute')
       if (parseUser(message, member) !== true) return;
     
