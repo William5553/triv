@@ -24,7 +24,7 @@ exports.conf = {
   
 exports.help = {
   name: 'snipe',
-  description: "Gets a user's ID",
+  description: "Gets the last deleted message in the text channel it's ran in",
   usage: 'snipe',
   example: 'snipe'
 };
