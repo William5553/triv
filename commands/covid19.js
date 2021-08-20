@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
         .addField('❯ Tests', formatNumber(data.tests), true)
     ]});
   } catch (err) {
-    if (err.status === 404) return message.say("Country not found or doesn't have any cases.");
+    if (err.status === 404) return message.reply("Country not found or doesn't have any cases.");
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
