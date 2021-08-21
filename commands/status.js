@@ -18,14 +18,15 @@ exports.run = (client, message, args) => {
       ]});
     }
 
+    const embeds = [];
     user.presence.activities.forEach(activity => {
       if (activity.type === 'CUSTOM_STATUS') {
-        message.channel.send({embeds: [new MessageEmbed()
+        embeds.push(new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
           .setColor('GREEN')
           .setDescription(`**Custom Status**\n${activity.emoji || 'No Emoji'} | ${activity.state || 'No State'}`)
           .setTimestamp()
-        ]});
+        );
       } else if (activity.type === 'PLAYING') {
         const embed = new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
@@ -49,9 +50,9 @@ exports.run = (client, message, args) => {
           embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.createdTimestamp).format('hh:mm:ss')} | Started at`);
           embed.setTimestamp(activity.createdTimestamp);
         }
-        message.channel.send({ embeds: [embed] });
+        embeds.push(embed);
       } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
-        message.channel.send({embeds: [
+        embeds.push(
           new MessageEmbed()
             .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
             .setColor('GREEN')
@@ -62,9 +63,10 @@ exports.run = (client, message, args) => {
             .addField('Author', activity.state.replace(/;/g, ','), true)
             .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncId}`, false)
             .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
-        ]});
+        );
       }
     });
+    message.channel.send({ embeds });
   } catch (err) {
     return message.channel.send({embeds: [
       new MessageEmbed()
