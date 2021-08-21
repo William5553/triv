@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@discordjs/opus': ^0.5.3
+  '@discordjs/opus': ^0.6.0
   '@discordjs/voice': ^0.6.0
   '@william5553/mathsteps': ^0.3.0
   '@william5553/translate-google-api': ^1.2.0
@@ -25,15 +25,15 @@ specifiers:
   node-superfetch: ^0.2.3
   prism-media: ^1.3.2
   simple-youtube-api: ^5.2.1
-  tiktok-scraper: ^1.4.35
+  tiktok-scraper: ^1.4.36
   utf-8-validate: ^5.0.5
   youtube-dl-exec: ^1.2.4
   ytdl-core: ^4.9.1
   zlib-sync: ^0.1.7
 
 dependencies:
-  '@discordjs/opus': 0.5.3
-  '@discordjs/voice': 0.6.0_e3ab6fbccf2ebd3b23928b33042acc4e
+  '@discordjs/opus': 0.6.0
+  '@discordjs/voice': 0.6.0_8c853408883662b240460116d790fcc5
   '@william5553/mathsteps': 0.3.0
   '@william5553/translate-google-api': 1.2.0
   bufferutil: 4.0.3
@@ -51,9 +51,9 @@ dependencies:
   moment-duration-format: 2.3.2
   ms: 2.1.3
   node-superfetch: 0.2.3
-  prism-media: 1.3.2_7320e5e2bdbbb567b84659aefe2845ff
+  prism-media: 1.3.2_b6017d7beb099bb81e43750be7fa0373
   simple-youtube-api: 5.2.1
-  tiktok-scraper: 1.4.35_72ef9f06cb99540da679cbf1bf7a3256
+  tiktok-scraper: 1.4.36_72ef9f06cb99540da679cbf1bf7a3256
   utf-8-validate: 5.0.5
   youtube-dl-exec: 1.2.4
   ytdl-core: 4.9.1
@@ -128,8 +128,8 @@ packages:
       mime-types: 2.1.32
     dev: false
 
-  /@discordjs/node-pre-gyp/0.4.0:
-    resolution: {integrity: sha512-CXLpoM2hgS94i9+EAVowR92y8o3KdKc9fmoe8/FTp5XTzvoXzJln3+Ctl0oBpE6c9+11zd9oJnZPdkkOBkDPSA==}
+  /@discordjs/node-pre-gyp/0.4.1:
+    resolution: {integrity: sha512-PLYLPG3R+m9QlMROOjdy2htQq54g6f9vRb1xPfZ97CL53yj0uNTfpB/jtY/AXY6OKNtZtrre5SKjei8Hcc44HQ==}
     hasBin: true
     dependencies:
       detect-libc: 1.0.3
@@ -137,32 +137,32 @@ packages:
       make-dir: 3.1.0
       node-fetch: 2.6.1
       nopt: 5.0.0
-      npmlog: 4.1.2
+      npmlog: 5.0.0
       rimraf: 3.0.2
       semver: 7.3.5
-      tar: 6.1.8
+      tar: 6.1.10
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@discordjs/opus/0.5.3:
-    resolution: {integrity: sha512-IQhCwCy2WKXLe+qkOkwO1Wjgk20uqeAbqM62tCbzIqbTsXX4YAge8Me9RFnI77Lx+UTkgm4rSVM3VPVdS/GsUw==}
+  /@discordjs/opus/0.6.0:
+    resolution: {integrity: sha512-Xuw8OP9BJgObEBs/SgxixnKj+y+w9st45uOAJ+cGegUGwxAIR4J7sQt3Y1J3G9SGGe82+MTxvy7sg1/QUkigcg==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
-      '@discordjs/node-pre-gyp': 0.4.0
-      node-addon-api: 3.2.1
+      '@discordjs/node-pre-gyp': 0.4.1
+      node-addon-api: 4.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@discordjs/voice/0.6.0_e3ab6fbccf2ebd3b23928b33042acc4e:
+  /@discordjs/voice/0.6.0_8c853408883662b240460116d790fcc5:
     resolution: {integrity: sha512-DF2fZAnB8gX3Qz5BEWPOUl565ptpda1uVmXJije4iK5aQrECfkqc6XcI+wzbGaNvzsH1Wb76NPzxngsEw8bblw==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@types/ws': 7.4.7
       discord-api-types: 0.22.0
-      prism-media: 1.3.2_7320e5e2bdbbb567b84659aefe2845ff
+      prism-media: 1.3.2_b6017d7beb099bb81e43750be7fa0373
       tiny-typed-emitter: 2.1.0
       ws: 7.5.3_72ef9f06cb99540da679cbf1bf7a3256
     transitivePeerDependencies:
@@ -218,7 +218,7 @@ packages:
       npmlog: 4.1.2
       rimraf: 3.0.2
       semver: 7.3.5
-      tar: 6.1.8
+      tar: 6.1.10
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -250,7 +250,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 3.1.2
-      '@types/node': 16.6.1
+      '@types/node': 16.7.1
       '@types/responselike': 1.0.0
     dev: false
 
@@ -261,7 +261,7 @@ packages:
   /@types/keyv/3.1.2:
     resolution: {integrity: sha512-/FvAK2p4jQOaJ6CGDHJTqZcUtbZe820qIeTg7o0Shg7drB4JHeL+V/dhSaly7NXx6u8eSee+r7coT+yuJEvDLg==}
     dependencies:
-      '@types/node': 16.6.1
+      '@types/node': 16.7.1
     dev: false
 
   /@types/minimist/1.2.2:
@@ -272,8 +272,8 @@ packages:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
     dev: false
 
-  /@types/node/16.6.1:
-    resolution: {integrity: sha512-Sr7BhXEAer9xyGuCN3Ek9eg9xPviCF2gfu9kTfuU2HkTVAMYSDeX40fvpmo72n5nansg3nsBjuQBrsS28r+NUw==}
+  /@types/node/16.7.1:
+    resolution: {integrity: sha512-ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==}
     dev: false
 
   /@types/normalize-package-data/2.4.1:
@@ -283,13 +283,13 @@ packages:
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 16.6.1
+      '@types/node': 16.7.1
     dev: false
 
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 16.6.1
+      '@types/node': 16.7.1
     dev: false
 
   /@william5553/mathsteps/0.3.0:
@@ -391,6 +391,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /ansi-regex/3.0.0:
+    resolution: {integrity: sha1-7QMXwyIGT3lGbAKWa922Bas32Zg=}
+    engines: {node: '>=4'}
+    dev: false
+
   /ansi-regex/4.1.0:
     resolution: {integrity: sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==}
     engines: {node: '>=6'}
@@ -414,6 +419,10 @@ packages:
 
   /aproba/1.2.0:
     resolution: {integrity: sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==}
+    dev: false
+
+  /aproba/2.0.0:
+    resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: false
 
   /archiver-utils/2.1.0:
@@ -514,7 +523,7 @@ packages:
   /axios/0.21.1:
     resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
     dependencies:
-      follow-redirects: 1.14.1
+      follow-redirects: 1.14.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -538,7 +547,7 @@ packages:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 6.1.4
-      tar: 6.1.8
+      tar: 6.1.10
     dev: false
 
   /bin-version-check-cli/3.0.0:
@@ -813,6 +822,11 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  /color-support/1.1.3:
+    resolution: {integrity: sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==}
+    hasBin: true
+    dev: false
 
   /combined-stream/1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -1528,8 +1542,8 @@ packages:
     resolution: {integrity: sha512-JaTY/wtrcSyvXJl4IMFHPKyFur1sE9AUqc0QnhOaJ0CxHtAoIV8pYDzeEfAaNEtGkOfq4gr3LBFmdXW5mOQFnA==}
     dev: true
 
-  /follow-redirects/1.14.1:
-    resolution: {integrity: sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==}
+  /follow-redirects/1.14.2:
+    resolution: {integrity: sha512-yLR6WaE2lbF0x4K2qE2p9PEXKLDjUjnR/xmjS3wHAYxtlsI9MLLBJUZirAHKzUZDGLxje7w/cXR49WOUo4rbsA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -1616,6 +1630,21 @@ packages:
       signal-exit: 3.0.3
       string-width: 1.0.2
       strip-ansi: 3.0.1
+      wide-align: 1.1.3
+    dev: false
+
+  /gauge/3.0.1:
+    resolution: {integrity: sha512-6STz6KdQgxO4S/ko+AbjlFGGdGcknluoqU+79GOFCDqqyYj5OanQf9AjxwN0jCidtT+ziPMmPSt9E4hfQ0CwIQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      aproba: 2.0.0
+      color-support: 1.1.3
+      console-control-strings: 1.1.0
+      has-unicode: 2.0.1
+      object-assign: 4.1.1
+      signal-exit: 3.0.3
+      string-width: 2.1.1
+      strip-ansi: 4.0.0
       wide-align: 1.1.3
     dev: false
 
@@ -1916,8 +1945,8 @@ packages:
     resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
     dev: false
 
-  /is-core-module/2.5.0:
-    resolution: {integrity: sha512-TXCMSDsEHMEEZ6eCA8rwRDbLu55MRGmrctljsBX/2v1d9/GzqHOxW5c5oPSgrUt2vBFXebu9rGqckXGPWOlYpg==}
+  /is-core-module/2.6.0:
+    resolution: {integrity: sha512-wShG8vs60jKfPWpF2KZRaAtvt3a20OAn7+IJ6hLPECpSABLcKtFKTTI4ZtH5QcBruBHlq+WsdHWyz0BCZW7svQ==}
     dependencies:
       has: 1.0.3
 
@@ -2300,7 +2329,7 @@ packages:
       decamelize-keys: 1.1.0
       hard-rejection: 2.1.0
       minimist-options: 4.1.0
-      normalize-package-data: 3.0.2
+      normalize-package-data: 3.0.3
       read-pkg-up: 7.0.1
       redent: 3.0.0
       trim-newlines: 3.0.1
@@ -2468,8 +2497,8 @@ packages:
       semver: 5.7.1
     dev: false
 
-  /node-addon-api/3.2.1:
-    resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
+  /node-addon-api/4.0.0:
+    resolution: {integrity: sha512-ALmRVBFzfwldBfk3SbKfl6+PVMXiCPKZBEfsJqB/EjXAMAI+MfFrEHR+GMRBuI162DihZ1QjEZ8ieYKuRCJ8Hg==}
     dev: false
 
   /node-fetch/2.6.1:
@@ -2507,12 +2536,12 @@ packages:
       validate-npm-package-license: 3.0.4
     dev: false
 
-  /normalize-package-data/3.0.2:
-    resolution: {integrity: sha512-6CdZocmfGaKnIHPVFhJJZ3GuR8SsLKvDANFp47Jmy51aKIr8akjAWTSxtpI+MBgBFdSMRyo4hMpDlT6dTffgZg==}
+  /normalize-package-data/3.0.3:
+    resolution: {integrity: sha512-p2W1sgqij3zMMyRC067Dg16bfzVH+w7hyegmpIvZ4JNjqtGOVAIvLmjBx3yP7YTe9vKJgkoNOPjwQGogDoMXFA==}
     engines: {node: '>=10'}
     dependencies:
       hosted-git-info: 4.0.2
-      resolve: 1.20.0
+      is-core-module: 2.6.0
       semver: 7.3.5
       validate-npm-package-license: 3.0.4
     dev: false
@@ -2540,6 +2569,15 @@ packages:
       are-we-there-yet: 1.1.5
       console-control-strings: 1.1.0
       gauge: 2.7.4
+      set-blocking: 2.0.0
+    dev: false
+
+  /npmlog/5.0.0:
+    resolution: {integrity: sha512-ftpIiLjerL2tUg3dCqN8pOSoB90gqZlzv/gaZoxHaKjeLClrfJIEQ1Pdxi6qSzflz916Bljdy8dTWQ4J7hAFSQ==}
+    dependencies:
+      are-we-there-yet: 1.1.5
+      console-control-strings: 1.1.0
+      gauge: 3.0.1
       set-blocking: 2.0.0
     dev: false
 
@@ -2794,7 +2832,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prism-media/1.3.2_7320e5e2bdbbb567b84659aefe2845ff:
+  /prism-media/1.3.2_b6017d7beb099bb81e43750be7fa0373:
     resolution: {integrity: sha512-L6UsGHcT6i4wrQhFF1aPK+MNYgjRqR2tUoIqEY+CG1NqVkMjPRKzS37j9f8GiYPlD6wG9ruBj+q5Ax+bH8Ik1g==}
     peerDependencies:
       '@discordjs/opus': ^0.5.0
@@ -2811,7 +2849,7 @@ packages:
       opusscript:
         optional: true
     dependencies:
-      '@discordjs/opus': 0.5.3
+      '@discordjs/opus': 0.6.0
       ffmpeg-static: 4.4.0
     dev: false
 
@@ -3031,7 +3069,7 @@ packages:
   /resolve/1.20.0:
     resolution: {integrity: sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==}
     dependencies:
-      is-core-module: 2.5.0
+      is-core-module: 2.6.0
       path-parse: 1.0.7
 
   /responselike/2.0.0:
@@ -3289,6 +3327,14 @@ packages:
       strip-ansi: 3.0.1
     dev: false
 
+  /string-width/2.1.1:
+    resolution: {integrity: sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==}
+    engines: {node: '>=4'}
+    dependencies:
+      is-fullwidth-code-point: 2.0.0
+      strip-ansi: 4.0.0
+    dev: false
+
   /string-width/3.1.0:
     resolution: {integrity: sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==}
     engines: {node: '>=6'}
@@ -3324,6 +3370,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       ansi-regex: 2.1.1
+    dev: false
+
+  /strip-ansi/4.0.0:
+    resolution: {integrity: sha1-qEeQIusaw2iocTibY1JixQXuNo8=}
+    engines: {node: '>=4'}
+    dependencies:
+      ansi-regex: 3.0.0
     dev: false
 
   /strip-ansi/5.2.0:
@@ -3409,8 +3462,8 @@ packages:
       readable-stream: 3.6.0
     dev: false
 
-  /tar/6.1.8:
-    resolution: {integrity: sha512-sb9b0cp855NbkMJcskdSYA7b11Q8JsX4qe4pyUAfHp+Y6jBjJeek2ZVlwEfWayshEIwlIzXx0Fain3QG9JPm2A==}
+  /tar/6.1.10:
+    resolution: {integrity: sha512-kvvfiVvjGMxeUNB6MyYv5z7vhfFRwbwCXJAeL0/lnbrttBVqcMOnpHUf0X42LrPMR8mMpgapkJMchFH4FSHzNA==}
     engines: {node: '>= 10'}
     dependencies:
       chownr: 2.0.0
@@ -3425,8 +3478,8 @@ packages:
     resolution: {integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=}
     dev: true
 
-  /tiktok-scraper/1.4.35_72ef9f06cb99540da679cbf1bf7a3256:
-    resolution: {integrity: sha512-L74TztHdc/pV2GimsWWgr5ij2K6DtX043DY7eRBaWaRdAdtn5DJYytocpw05ikzEobLyDedLOn6x9G755Y7Cag==}
+  /tiktok-scraper/1.4.36_72ef9f06cb99540da679cbf1bf7a3256:
+    resolution: {integrity: sha512-PdW9ZyKxMyjb51MizLpiH8Hlxj1cuzTiCyb/uYokBUXezwpAvP7oHU62JnFYJAv9NKuDE5YkX3FFiiAJb1rw9w==}
     hasBin: true
     dependencies:
       archiver: 3.1.1
@@ -3697,7 +3750,7 @@ packages:
   /wide-align/1.1.3:
     resolution: {integrity: sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 2.1.1
     dev: false
 
   /word-wrap/1.2.3:

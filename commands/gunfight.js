@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     const filter = res => [opponent.id, message.author.id].includes(res.author.id) && res.content.toLowerCase() === word;
     const winner = await message.channel.awaitMessages({ filter, max: 1, time: 30000 });
     client.games.delete(message.channel.id);
-    if (!winner.size) return message.say('Oh... No one won.');
+    if (!winner.size) return message.channel.send('Oh... No one won.');
     return message.channel.send(`The winner is ${winner.first().author}!`);
   } catch (err) {
     client.games.delete(message.channel.id);
