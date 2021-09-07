@@ -186,7 +186,7 @@ module.exports = {
             interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ]) ] });
             queue.textChannel.send(`${interaction.user} 🔊 decreased the volume, the volume is now 90%`);
           } else if (!reply2) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }) ]) ] });
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
             queue.textChannel.send(`${interaction.user} 🔉 decreased the volume, the volume is now 0%`);
           }
           break;
@@ -203,10 +203,10 @@ module.exports = {
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(0, 2, [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }) ]) ] });
-            queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
+            queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 10%`);
           } else if (!reply2) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true }) ]) ] });
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true }) ] }) ] });
             queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 100%`);
           }
           break;
