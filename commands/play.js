@@ -124,8 +124,8 @@ exports.run = async (client, message, args) => {
       client.queue.set(message.guild.id, queueConstruct);
       play(song, message, false);
     } catch (error) {
-      client.logger.error(error);
-      await client.queue.get(message.guild.id).connection.destroy();
+      client.logger.error(error.stack || error);
+      await client.queue.get(message.guild.id).connection?.destroy();
       return message.reply(`Could not join the voice channel: ${error.stack || error}`);
     }
   } catch (err) {
