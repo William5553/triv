@@ -47,7 +47,7 @@
     "simple-youtube-api": "^5.2.1",
     "tiktok-scraper": "^1.4.36",
     "utf-8-validate": "^5.0.6",
-    "youtube-dl-exec": "^1.2.12",
+    "youtube-dl-exec": "^1.2.13",
     "ytdl-core": "^4.9.1",
     "zlib-sync": "^0.1.7"
   },
