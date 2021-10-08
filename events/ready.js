@@ -5,10 +5,10 @@ module.exports = async client => {
   client.user.setActivity(`${process.env.prefix}help | ${client.commands.size} cmd${client.commands.size === 1 ? '' : 's'}`, { type: 'LISTENING' });
 
   client.application = await client.application?.fetch();
-  if (client.owners.length < 1) client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
+  if (client.owners.length === 0) client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
   setInterval(async () => {
     client.owners = [];
     client.application = await client.application.fetch();
     client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
-  }, 60000);
+  }, 60_000);
 };

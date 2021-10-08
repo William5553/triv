@@ -1,22 +1,21 @@
-const yes = ['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure'];
-const no = ['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not'];
+const yes = new Set(['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure']);
+const no = new Set(['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not']);
 const langs = require('../assets/languages.json');
 
 module.exports = class Util {
-  static async verify(channel, user, { time = 30000, extraYes = [], extraNo = [] } = {}) {
+  static async verify(channel, user, { time = 30_000, extraYes = [], extraNo = [] } = {}) {
     if (channel.client.blacklist.get('blacklist', 'user').includes(user.id)) {
       channel.send(`${user.tag} is currently blacklisted`);
       return false;
     }
     const filter = res => {
       const value = res.content.toLowerCase();
-      return (user ? res.author.id === user.id : true) && (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
+      return (user ? res.author.id === user.id : true) && (yes.has(value) || no.has(value) || extraYes.includes(value) || extraNo.includes(value));
     };
     const verify = await channel.awaitMessages({ filter, max: 1, time });
-    if (!verify.size) return false;
+    if (verify.size === 0) return false;
     const choice = verify.first().content.toLowerCase();
-    if (yes.includes(choice) || extraYes.includes(choice)) return true;
-    if (no.includes(choice) || extraNo.includes(choice)) return false;
+    if (no.has(choice) || extraNo.includes(choice)) return false;
     return false;
   }
 
@@ -31,12 +30,12 @@ module.exports = class Util {
     if (text && text.constructor.name == 'Promise')
       text = await text;
     if (typeof text !== 'string')
-      text = require('util').inspect(text, { depth: 1 });
+      text = require('node:util').inspect(text, { depth: 1 });
 
     text = text
-      .replace(/@/g, `@${String.fromCharCode(8203)}`)
+      .replaceAll('@', `@${String.fromCharCode(8203)}`)
       .replace(process.env.token, 'NO TOKEN')
-      .replace(/```/g, '`\u200b``');
+      .replaceAll('```', '`\u200B``');
 
     return text;
   }
@@ -98,7 +97,7 @@ module.exports = class Util {
       .first();
     if (!log) return 1;
     const thisCase = /ID\s(\d+)/.exec(log.embeds[0].footer.text);
-    return thisCase ? parseInt(thisCase[1]) + 1 : 1;
+    return thisCase ? Number.parseInt(thisCase[1]) + 1 : 1;
   }
 
   static getCode(language) {
@@ -106,11 +105,11 @@ module.exports = class Util {
       return false;
     if (langs[language])
       return langs[language];
-    const keys = Object.keys(langs).filter(item => {
+    const key = Object.keys(langs).find(item => {
       return langs[item] === language.toLowerCase();
     });
-    if (keys[0])
-      return langs[keys[0]];
+    if (key)
+      return langs[key];
     return false;
   }
 
@@ -122,13 +121,13 @@ module.exports = class Util {
   const response = await client.awaitReply(message, "Favourite Color?");
   message.reply(`Oh, I really love ${response.content} too!`);
   */
-  static async awaitReply(message, question, limit = 60000) {
+  static async awaitReply(message, question, limit = 60_000) {
     const filter = m => m.author.id === message.author.id;
     if (question) await message.channel.send(question);
     try {
       const collected = await message.channel.awaitMessages({ filter, max: 1, time: limit, errors: ['time'] });
       return collected.first();
-    } catch (e) {
+    } catch {
       return false;
     }
   }

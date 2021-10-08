@@ -1,5 +1,5 @@
 const request = require('node-superfetch');
-const { Readable } = require('stream');
+const { Readable } = require('node:stream');
 const { MessageEmbed, Message, Permissions } = require('discord.js');
 const { createAudioPlayer, createAudioResource, getVoiceConnection, StreamType, AudioPlayerStatus } = require('@discordjs/voice');
 
@@ -46,7 +46,7 @@ exports.run = async (client, message, args) => {
     if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       message.react('🔉');
     return;
-  } catch (err) {
+  } catch (error) {
     if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('⚠️');
     return message.channel.send({embeds: [new MessageEmbed()
@@ -54,7 +54,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -65,7 +65,7 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 0,
-  cooldown: 10000
+  cooldown: 10_000
 };
 
 exports.help = {

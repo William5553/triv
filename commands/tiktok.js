@@ -4,7 +4,7 @@ const { formatNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('Please wait...');
     const data = await getUserProfileInfo(args.join(' '));
     const final = new MessageEmbed()
@@ -25,14 +25,14 @@ exports.run = async (client, message, args) => {
     if (data.user.bioLink && data.user.bioLink.link)
       final.addField('Bio Link', data.user.bioLink.link);
     m.edit({ content: '** **', embeds: [final] });
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
   try {
     if (!args[0]) return message.reply('Tell me what to announce next time.');
     const guilds = [];
-    client.guilds.cache.forEach(guild => {
+    for (const guild of client.guilds.cache) {
       if (guild.systemChannel && guild.systemChannel.viewable && guild.systemChannel.permissionsFor(guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.EMBED_LINKS])) {
         guild.systemChannel.send({embeds: [
           new MessageEmbed()
@@ -15,7 +15,7 @@ exports.run = (client, message, args) => {
             .setColor('FF0000')
         ]});
       } else guilds.push(`${guild.name} - ${guild.id}`);
-    });
+    }
   
     if (guilds.length > 0) {
       message.channel.send({embeds: [
@@ -27,14 +27,14 @@ exports.run = (client, message, args) => {
       ]});
     } else
       message.reply('Successfully announced message to all guilds.');
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

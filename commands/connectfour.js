@@ -23,8 +23,8 @@ exports.run = async (client, message, args) => {
     }
     const board = generateBoard();
     const colLevels = [5, 5, 5, 5, 5, 5, 5];
-    let userTurn = true, winner = null, lastTurnTimeout = false;
-    while (!winner && board.some(row => row.includes(null))) {
+    let userTurn = true, winner, lastTurnTimeout = false;
+    while (!winner && board.some(row => row.includes())) {
       const user = userTurn ? message.author : opponent,
         sign = userTurn ? 'user' : 'oppo';
       await message.channel.send(`${user}, which column do you pick? Type \`end\` to forefeit.\n${displayBoard(board)}\n${nums.join('')}`);
@@ -35,8 +35,8 @@ exports.run = async (client, message, args) => {
         const i = Number.parseInt(choice, 10) - 1;
         return board[colLevels[i]] && board[colLevels[i]][i] !== undefined;
       };
-      const turn = await message.channel.awaitMessages({ filter, max: 1, time: 60000 });
-      if (!turn.size) {
+      const turn = await message.channel.awaitMessages({ filter, max: 1, time: 60_000 });
+      if (turn.size === 0) {
         await message.channel.send('Sorry, time is up!');
         if (lastTurnTimeout) {
           winner = 'time';
@@ -62,14 +62,14 @@ exports.run = async (client, message, args) => {
     client.games.delete(message.channel.id);
     if (winner === 'time') return message.channel.send('Game ended due to inactivity.');
     return message.channel.send(winner ? `Congrats, ${winner}!` : "Looks like it's a draw...");
-  } catch (err) {
+  } catch (error) {
     client.games.delete(message.channel.id);
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -96,13 +96,13 @@ const verifyWin = (bd) => {
     for (let c = 0; c < 4; c++)
       if (checkLine(bd[r][c], bd[r - 1][c + 1], bd[r - 2][c + 2], bd[r - 3][c + 3])) return bd[r][c];
   }
-  return null;
+  return;
 };
 
 const generateBoard = () => {
   const arr = [];
   for (let i = 0; i < 6; i++) {
-    arr.push([null, null, null, null, null, null, null]);
+    arr.push([undefined, undefined, undefined, undefined, undefined, undefined, undefined]);
   }
   return arr;
 };

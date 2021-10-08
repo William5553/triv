@@ -1,6 +1,6 @@
 const ms = require('ms');
-const { MessageEmbed, Util } = require('discord.js');
-const { splitMessage } = Util;
+const { MessageEmbed, util } = require('discord.js');
+const { splitMessage } = util;
 const perm = {
   0: 'Member',
   2: 'Moderator',
@@ -12,7 +12,7 @@ const perm = {
 exports.run = (client, message, args, perms) => {
   try {
     if (!args[0]) {
-      const longest = Array.from(client.commands.keys()).reduce((long, str) => Math.max(long, str.length), 0);
+      const longest = [...client.commands.keys()].reduce((long, str) => Math.max(long, str.length), 0);
       const fonk = client.commands.filter(command => command.conf.permLevel < perms)
         .map(c => {
           return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
@@ -40,13 +40,13 @@ exports.run = (client, message, args, perms) => {
           .addField('**Permissions**', perm[command.conf.permLevel])
       ]});
     }
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

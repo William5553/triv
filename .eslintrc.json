@@ -1,13 +1,27 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2021
   },
   "env": {
     "node": true,
     "es6": true
   },
-  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended"],
   "rules": {
+	  "unicorn/prefer-string-replace-all": "error",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-module": "off",
+    "unicorn/no-lonely-if": "off",
+    "unicorn/no-static-only-class": "off",
+    "unicorn/filename-case": "off",
+    "unicorn/prefer-spread": "off",
+    "unicorn/no-nested-ternary": "off",
+    "unicorn/consistent-destructuring": "off",
+    "unicorn/prefer-node-protocol": ["error", {"checkRequire": true}],
+    "unicorn/no-process-exit": "off",
+    "unicorn/consistent-function-scoping": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-array-for-each": "off",
     "node/file-extension-in-import": ["error", "always"],
     "node/prefer-global/buffer": ["error", "always"],
     "node/prefer-global/console": ["error", "always"],

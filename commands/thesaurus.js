@@ -4,13 +4,13 @@ const request = require('node-superfetch');
 exports.run = async (client, message, args) => {
   if (!process.env.merriam_webster_thesaurus_key) return message.reply('The bot owner has not set up this command yet.');
   try {
-    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const { body } = await request
       .get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${args.join(' ')}`)
       .query({key: process.env.merriam_webster_thesaurus_key});
 
     const embeds = await genEmbeds(body);
-    if (!embeds || embeds.length < 1) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
+    if (!embeds || embeds.length === 0) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
     let currPage = 0;
   
     const emb = await message.channel.send({content: `**Word ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
@@ -35,18 +35,18 @@ exports.run = async (client, message, args) => {
           }
         }
         await reaction.users.remove(message.author.id);
-      } catch (e) {
-        client.logger.error(e.stack ? e.stack : e);
+      } catch (error) {
+        client.logger.error(error.stack ? error.stack : error);
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

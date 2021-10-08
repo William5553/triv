@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     const serverQueue = client.queue.get(message.guild.id);
     if (serverQueue && channel.id !== message.guild.me.voice.channelId)
       return message.reply(`You must be in the same channel as me (${message.guild.me.voice.channel})`);
-    if (!args.length)
+    if (args.length === 0)
       return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     if (!channel)
       return message.reply('You need to join a voice channel first!');
@@ -117,7 +117,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp();
 
     if (playlistEmbed.description.length >= 2048)
-      playlistEmbed.description = playlistEmbed.description.substr(0, 2040) + '...';
+      playlistEmbed.description = playlistEmbed.description.slice(0, 2040) + '...';
 
     message.channel.send({content: `${message.author} started a playlist`, embeds: [playlistEmbed]});
 
@@ -134,15 +134,15 @@ exports.run = async (client, message, args) => {
         return message.reply(`Could not join the channel: ${error.stack || error}`);
       }
     }
-  } catch (err) {
-    client.logger.error(`Error occurred with playlist command: ${err.stack || err}`);
+  } catch (error) {
+    client.logger.error(`Error occurred with playlist command: ${error.stack || error}`);
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }
@@ -153,7 +153,7 @@ exports.conf = {
   guildOnly: true,
   aliases: ['list'],
   permLevel: 0,
-  cooldown: 12000
+  cooldown: 12_000
 };
 
 exports.help = {

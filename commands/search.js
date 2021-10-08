@@ -4,7 +4,7 @@ const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
-  if (!args.length) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
+  if (args.length === 0) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
   if (message.channel.activeCollector) return message.reply('Somebody is already searching.');
   if (!message.member.voice.channel)
     return message.reply('You need to join a voice channel first!');
@@ -23,13 +23,13 @@ exports.run = async (client, message, args) => {
     message.channel.activeCollector = true;
 
     const filter = msg => {
-      const pattern = /(^[1-9][0-9]{0,1}$)/g;
-      return pattern.test(msg.content) && parseInt(msg.content.match(pattern)[0]) <= 10;
+      const pattern = /(^[1-9]\d{0,1}$)/g;
+      return pattern.test(msg.content) && Number.parseInt(msg.content.match(pattern)[0]) <= 10;
     };
 
-    const response = await message.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] });
+    const response = await message.channel.awaitMessages({ filter, max: 1, time: 30_000, errors: ['time'] });
 
-    const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
+    const choice = resultsEmbed.fields[Number.parseInt(response.first()) - 1].name;
 
     message.channel.activeCollector = false;
     client.commands.get('play').run(client, message, [choice]);

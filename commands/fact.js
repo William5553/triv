@@ -5,14 +5,14 @@ exports.run = async (client, message) => {
   try {
     const { body } = await fetch.get('https://uselessfacts.jsph.pl/random.json?language=en');
     message.channel.send(body.text);
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

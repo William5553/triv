@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
 
     const reason = args.slice(1).join(' ');
 
-    message.guild.channels.cache.forEach(chan => chan.permissionOverwrites.edit(muteRole, { SEND_MESSAGES: false }));
+    for (const chan of message.guild.channels.cache) chan.permissionOverwrites.edit(muteRole, { SEND_MESSAGES: false });
  
     if (member.roles.cache.has(muteRole.id)) {
       member.roles
@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
             botlog.send({embeds: [new MessageEmbed()
-              .setColor(0x00ae86)
+              .setColor(0x00_AE_86)
               .setTimestamp()
               .setDescription(`**Action:** Unmute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**User ID:** ${member.user.tag}`)
               .setFooter(`ID ${caseNum}`)
@@ -56,7 +56,7 @@ exports.run = async (client, message, args) => {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
             botlog.send({embeds: [new MessageEmbed()
-              .setColor(0x00ae86)
+              .setColor(0x00_AE_86)
               .setTimestamp()
               .setDescription(`**Action:** Mute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${member.user.tag}`)
               .setFooter(`ID ${caseNum}`)
@@ -64,13 +64,13 @@ exports.run = async (client, message, args) => {
           }
         });
     }
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

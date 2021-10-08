@@ -1,5 +1,5 @@
 exports.run = async (client, message) => {
-  const color = Math.floor(Math.random() * 16777214) + 1;
+  const color = Math.floor(Math.random() * 16_777_214) + 1;
   message.channel.send({
     embeds: [{
       color: color, //random color between one and 16777214 (dec)

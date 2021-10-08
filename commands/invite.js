@@ -6,18 +6,18 @@ exports.run = (client, message) => {
     const link = client.generateInvite({ permissions: Permissions.ALL, scopes: ['bot'] });
     message.reply({embeds: [
       new MessageEmbed()
-        .setColor(0x00ae86)
+        .setColor(0x00_AE_86)
         .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }), link)
         .setDescription(`[Invite me](${link})`)
     ]});
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

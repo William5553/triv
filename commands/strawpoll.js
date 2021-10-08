@@ -20,13 +20,13 @@ exports.run = async (client, message, args) => {
         captcha: true
       });
     return message.channel.send(`${body.title} http://www.strawpoll.me/${body.id}`);
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -37,7 +37,7 @@ exports.conf = {
   guildOnly: true,
   aliases: ['poll'],
   permLevel: 0,
-  cooldown: 120000
+  cooldown: 120_000
 };
   
 exports.help = {

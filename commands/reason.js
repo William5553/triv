@@ -1,14 +1,14 @@
 const sanitizeEmbed = embed => {
-  embed.message ? delete embed.message : null;
-  embed.footer ? delete embed.footer.embed : null;
-  embed.provider ? delete embed.provider.embed : null;
-  embed.thumbnail ? delete embed.thumbnail.embed : null;
-  embed.image ? delete embed.image.embed : null;
-  embed.author ? delete embed.author.embed : null;
+  embed.message ? delete embed.message : undefined;
+  embed.footer ? delete embed.footer.embed : undefined;
+  embed.provider ? delete embed.provider.embed : undefined;
+  embed.thumbnail ? delete embed.thumbnail.embed : undefined;
+  embed.image ? delete embed.image.embed : undefined;
+  embed.author ? delete embed.author.embed : undefined;
   embed.fields ? embed.fields.forEach(f => {
     delete f.embed;
   })
-    : null;
+    : undefined;
   return embed;
 };
 
@@ -34,10 +34,7 @@ exports.run = async (client, message, args) => {
     botlog.messages.fetch(caseLog.id).then(logMsg => {
       const embed = logMsg.embeds[0];
       sanitizeEmbed(embed);
-      embed.description = embed.description.replace(
-        `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNumber} <reason>.`,
-        newReason
-      );
+      embed.description = embed.description.replace(`Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNumber} <reason>.`, newReason);
       logMsg.edit({ embed });
     });
   });

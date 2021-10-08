@@ -18,15 +18,15 @@ exports.run = (client, message) => {
     } else if (!message.channel.permissionsFor(message.author).has(Permissions.FLAGS.MOVE_MEMBERS) && message.guild.me.voice?.channel?.members.size > 2)
       return message.reply('You need the **MOVE MEMBERS** permission because there are other people listening.');
     getVoiceConnection(message.guild.id)?.destroy();
-  } catch (err) {
-    client.logger.error(err.stack || err);
+  } catch (error) {
+    client.logger.error(error.stack || error);
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

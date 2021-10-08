@@ -12,15 +12,15 @@ exports.run = async (client, message, args) => {
         q: query
       });
     const data = JSON.parse(text)[1];
-    if (!data.length) return message.channel.send('Could not find any results.');
+    if (data.length === 0) return message.channel.send('Could not find any results.');
     return message.channel.send(data.join('\n'));
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

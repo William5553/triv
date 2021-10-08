@@ -12,7 +12,7 @@ module.exports = async (client, oldMember, newMember) => {
         await client.wait(1000);
 
         const fetchedLogs = await guild.fetchAuditLogs({ limit: 12, type: 'MEMBER_UPDATE' });
-        const entry = fetchedLogs.entries.find(entry => Date.now() - entry.createdTimestamp < 45000 && entry.target.id == newMember.user.id);
+        const entry = fetchedLogs.entries.find(entry => Date.now() - entry.createdTimestamp < 45_000 && entry.target.id == newMember.user.id);
 
         const embed = new MessageEmbed()
           .setTitle(`**Nickname Updated${entry ? ` | Updated by @${entry.executor.tag}` : ''}**`)

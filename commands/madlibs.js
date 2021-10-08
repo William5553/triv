@@ -13,10 +13,7 @@ exports.run = async (client, message) => {
     let oldword;
     for (const word of lib.needed) {
       const msg = `Give me a${word.startsWith('A') || word.startsWith('E') || word.startsWith('I') || word.startsWith('O') || word.startsWith('U') ? 'n' : ''} **${word}**.`;
-      if (message.guild)
-        await m.edit(oldword == word ? `Give me another **${word}**` : msg);
-      else
-        await message.channel.send(oldword == word ? `Give me another **${word}**` : msg);
+      await (message.guild ? m.edit(oldword == word ? `Give me another **${word}**` : msg) : message.channel.send(oldword == word ? `Give me another **${word}**` : msg));
       const filter = res => {
         if (res.author.id !== message.author.id) return false;
         if (!res.content || res.content.length > 16) {
@@ -25,8 +22,8 @@ exports.run = async (client, message) => {
         }
         return true;
       };
-      const choice = await message.channel.awaitMessages({ filter, max: 1, time: 30000 });
-      if (!choice.size) break;
+      const choice = await message.channel.awaitMessages({ filter, max: 1, time: 30_000 });
+      if (choice.size === 0) break;
       choices.push(choice.first().content);
       if (message.guild) choice.first().delete();
       oldword = word;
@@ -40,7 +37,7 @@ exports.run = async (client, message) => {
       });
     }
     return message.channel.send(finished);
-  } catch (err) {
+  } catch (error) {
     client.games.delete(message.channel.id);
     return message.channel.send({embeds: [
       new MessageEmbed()
@@ -48,7 +45,7 @@ exports.run = async (client, message) => {
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`Stack Trace:\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

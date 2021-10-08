@@ -22,10 +22,10 @@ exports.run = (client, message, args) => {
   if (!validate(month)) return message.reply(`${month} is not a valid month`);
   else month = parse(month);
   const day = args[1];
-  if (isNaN(day) || day > 31 || day < 1) return message.reply(`${day} is not a valid day`);
+  if (Number.isNaN(day) || day > 31 || day < 1) return message.reply(`${day} is not a valid day`);
   const now = new Date();
   const year = args[2] ? Number(args[2]) : now.getFullYear();
-  if (isNaN(year)) return message.reply(`${year} is not a valid year`);
+  if (Number.isNaN(year)) return message.reply(`${year} is not a valid year`);
   const past = new Date(year, month - 1, day);
   if (year < 100) past.setFullYear(year);
   return message.channel.send(`It's been ${moment.duration(now - past).format('Y [years,] M [months and] d [days]')} since ${moment.utc(past).format('dddd, MMMM Do, YYYY')}!`);
@@ -40,7 +40,7 @@ const validate = value => {
 
 const parse = value => {
   const num = Number.parseInt(value, 10);
-  if (!isNaN(num)) return num;
+  if (!Number.isNaN(num)) return num;
   return months.indexOf(value.toLowerCase()) + 1;
 };
 

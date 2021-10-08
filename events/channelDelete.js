@@ -5,7 +5,7 @@ module.exports = async (client, channel) => {
   const { guild } = channel;
 
   const auditLogs = await guild.fetchAuditLogs({ limit: 5 }) ;
-  auditLogs.entries.find(entry => entry.action == 'CHANNEL_DELETE' && entry.target.id == channel.id && Date.now() - entry.createdTimestamp < 20000);
+  auditLogs.entries.find(entry => entry.action == 'CHANNEL_DELETE' && entry.target.id == channel.id && Date.now() - entry.createdTimestamp < 20_000);
 
   const guy = auditLogs.entries.first().executor;
   if (client.settings.get(guild.id).logsID) {

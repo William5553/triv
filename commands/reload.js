@@ -1,4 +1,4 @@
-const { readdir } = require('fs');
+const { readdir } = require('node:fs');
 
 exports.run = async (client, message, args) => {
   if (!args[0]) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
           .unloadCommand(command)
           .then(() => client.loadCommand(command))
           .then(() => m.edit(`Successfully reloaded: ${command}`))
-          .catch(e => m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack || e}\`\`\``));
+          .catch(error => m.edit(`Command reload failed: ${command}\n\`\`\`${error.stack || error}\`\`\``));
       });
   }
 };

@@ -7,8 +7,8 @@ module.exports = async (client, oldState, newState) => {
   await client.wait(900);
   
   const fetchedLogs = await newState.guild.fetchAuditLogs({ limit: 15 });
-  const entries = fetchedLogs.entries.filter(ent => ent.action == 'MEMBER_UPDATE' && Date.now() - ent.createdTimestamp < 45000 && ent.target.id == newState.member.id);
-  if (entries.length < 1 || !entries.first()) return;
+  const entries = fetchedLogs.entries.filter(ent => ent.action == 'MEMBER_UPDATE' && Date.now() - ent.createdTimestamp < 45_000 && ent.target.id == newState.member.id);
+  if (entries.length === 0 || !entries.first()) return;
   if (client.settings.get(guild.id).logsID) {
     if (guild.channels.cache.some(channel => channel.id == client.settings.get(guild.id).logsID)) {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
@@ -46,7 +46,7 @@ const checkQueue = async (client, oldState, newState) => {
     return queue.channel = newState.channel;
 
   // if there are still members in the vc who are not bots return
-  if (!(queue.channel.members.filter((member) => !member.user.bot).size === 0)) return;
+  if (queue.channel.members.filter((member) => !member.user.bot).size > 0) return;
 
   await queue.textChannel.send(`All members left ${queue.channel}, stopping the music...`);
   queue.connection.destroy();

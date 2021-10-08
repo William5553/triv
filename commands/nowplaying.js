@@ -22,26 +22,26 @@ exports.run = async (client, message) => {
       nowPlaying.setFooter(`Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}`);
 
     return message.channel.send({embeds: [nowPlaying]});
-  } catch (err) {
-    client.logger.error(err.stack || err);
+  } catch (error) {
+    client.logger.error(error.stack || error);
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }
 };
 
-const getTime = time => new Date(time * 1000).toISOString().substr(11, 8);
+const getTime = time => new Date(time * 1000).toISOString().slice(11, 19);
 
 const createBar = (total, current, size = 20, line = '▬', slider = '🔘') => {
-  if (isNaN(total)) throw new Error('Total value is not an integer');
-  if (isNaN(current)) throw new Error('Current value is not an integer');
-  if (isNaN(size)) throw new Error('Size is not an integer');
+  if (Number.isNaN(total)) throw new Error('Total value is not an integer');
+  if (Number.isNaN(current)) throw new Error('Current value is not an integer');
+  if (Number.isNaN(size)) throw new Error('Size is not an integer');
   if (current > total) 
     return [line.repeat(size + 2), current / total * 100];
   else {

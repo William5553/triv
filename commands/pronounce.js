@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
     connection.subscribe(player);
     if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('🔉');
-  } catch (err) {
+  } catch (error) {
     if (message.channel.permissionsFor(client.user).has([Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.READ_MESSAGE_HISTORY]))
       message.react('⚠️');
     return message.channel.send({embeds: [new MessageEmbed()
@@ -50,7 +50,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -61,7 +61,7 @@ exports.conf = {
   guildOnly: true,
   aliases: ['pron'],
   permLevel: 0,
-  cooldown: 10000
+  cooldown: 10_000
 };
 
 exports.help = {

@@ -23,7 +23,7 @@ module.exports = async (client, message) => {
 
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
-      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20000);
+      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20_000);
 
       const embeds = [
         new MessageEmbed()
@@ -31,14 +31,14 @@ module.exports = async (client, message) => {
           .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
           .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
           .setTimestamp()
-          .setDescription(`${message.content} ${message.embeds.length >= 1 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
-          .setColor(0xEB5234)
+          .setDescription(`${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
+          .setColor(0xEB_52_34)
       ];
       if (message.attachments.size > 0)
         embeds[0].addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-      message.embeds.forEach(embedd => {
+      for (const embedd of message.embeds) {
         if (embeds.length < 10) embeds.push(embedd);
-      });
+      }
       logs.send({ embeds });
     } else client.settings.set(message.guild.id, '', 'logsID');
   }

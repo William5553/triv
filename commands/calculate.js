@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   try {
     const embeds = await genEmbeds(message, mathsteps.simplifyExpression(args.join(' ')));
-    if (!embeds || embeds.length < 1) return message.channel.send('A solution could not be found');
+    if (!embeds || embeds.length === 0) return message.channel.send('A solution could not be found');
     let currPage = 0;
     
     const emb = await message.channel.send({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
@@ -29,26 +29,26 @@ exports.run = async (client, message, args) => {
             emb.edit({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
           }
         }
-      } catch (e) {
-        client.logger.error(e.stack ? e.stack : e);
+      } catch (error) {
+        client.logger.error(error.stack ? error.stack : error);
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }
 };
 
 const genEmbeds = (message, steps, embeds = []) => {
-  if (steps.length < 1) return embeds;
+  if (steps.length === 0) return embeds;
   for (const step of steps) {
     const embed = new MessageEmbed()
       .setTitle(`**${step.changeType.replace(/_/gi, ' ')}**`)

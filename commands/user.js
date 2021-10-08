@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
     .addField('❯ Discord Join Date', moment.utc(user.createdAt).format('MM/DD/YYYY h:mm A'), true)
     .addField('❯ ID', user.id, true)
     .addField('❯ Bot', user.bot ? 'Yes' : 'No', true)
-    .addField('❯ Flags', userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
+    .addField('❯ Flags', userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
   if (message.guild) {
     try {
       const member = await message.guild.members.fetch(user.id);
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
         .addField('❯ Server Join Date', moment.utc(member.joinedAt).format('MM/DD/YYYY h:mm A'), true)
         .addField('❯ Highest Role', member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, true)
         .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist.name : 'None', true)
-        .addField(`❯ Roles (${roles.length})`, roles.length ? trimArray(roles, 6).join(', ') : 'None')
+        .addField(`❯ Roles (${roles.length})`, roles.length > 0 ? trimArray(roles, 6).join(', ') : 'None')
         .setColor(member.displayHexColor);
     } catch {
       embed.setFooter('Failed to resolve member, showing basic user information instead.');

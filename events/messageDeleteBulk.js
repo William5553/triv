@@ -9,7 +9,7 @@ module.exports = (client, messages) => {
       logs.send({embeds: [
         new MessageEmbed()
           .setAuthor(guild.name, guild.iconURL())
-          .setColor(0xeb5234)
+          .setColor(0xEB_52_34)
           .setTimestamp()
           .setDescription(`**Bulk Delete in ${messages.first().channel}, ${messages.size} messages deleted**`)
       ]});

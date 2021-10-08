@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     return message.channel.send(`${user} has 0 infractions`);
 
   const embeds = await genEmbeds(message, user, client.infractions.get(message.guild.id, user.id));
-  if (!embeds || embeds.length < 1) return message.channel.send(`${user} has 0 infractions`);
+  if (!embeds || embeds.length === 0) return message.channel.send(`${user} has 0 infractions`);
   let currPage = 0;
   
   const emb = await message.channel.send({content: `**Current Page - ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
@@ -34,15 +34,15 @@ exports.run = async (client, message, args) => {
         }
       }
       await reaction.users.remove(message.author.id);
-    } catch (e) {
-      client.logger.error(e.stack || e);
+    } catch (error) {
+      client.logger.error(error.stack || error);
       return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
     }
   });
 };
 
 const genEmbeds = (message, user, infractions) => {
-  if (infractions.length < 1) return;
+  if (infractions.length === 0) return;
   const embeds = [];
   for (const infraction of infractions) {
     const mod = message.guild.members.cache.get(infraction.mod);
@@ -50,12 +50,12 @@ const genEmbeds = (message, user, infractions) => {
       .setTitle(`${user.username}'s infractions`)
       .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
       .addField('Action', infraction.type, true)
-      .setColor(0x902b93)
+      .setColor(0x90_2B_93)
       .setFooter(formatDate(infraction.timestamp)
       );
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
     if (infraction.additional)
-      infraction.additional.forEach(info => embed.addField(info.title, info.body, true));
+      for (const info of infraction.additional) embed.addField(info.title, info.body, true);
     embeds.push(embed);
   }
   return embeds;

@@ -7,15 +7,15 @@ exports.run = async (client, message, args) => {
   const time = args[0],
     prize = args.slice(1).join(' ');
   if (message.channel.type == 'GUILD_NEWS') return message.reply('Giveaways cannot be started in news channels');
-  if (isNaN(ms(time))) return message.channel.send('The duration time is invalid');
+  if (Number.isNaN(ms(time))) return message.channel.send('The duration time is invalid');
   if (ms(time) < 1) return message.reply('The duration time has to be atleast 1 second');
-  if (ms(time) >= 2147483647) return message.reply('Specified duration is too long');
+  if (ms(time) >= 2_147_483_647) return message.reply('Specified duration is too long');
   if (prize === '') return message.reply('You have to enter a prize.');
   if (prize.length > 250) return message.reply('Shorten the prize character count');
   message.delete();
   const msg = await message.channel.send({content: ':tada: **GIVEAWAY** :tada:', embeds: [new MessageEmbed()
     .setTitle(`${prize}`)
-    .setColor(0x00ae86)
+    .setColor(0x00_AE_86)
     .setDescription(`React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`)
     .setFooter('Ends at')
     .setTimestamp(Date.now() + ms(time, { long: true }))
@@ -25,10 +25,10 @@ exports.run = async (client, message, args) => {
     msg.reactions.cache.get('🎉').users.remove(client.user.id);
     setTimeout(() => {
       const winner = msg.reactions.cache.get('🎉').users.cache.random();
-      if (msg.reactions.cache.get('🎉').users.cache.size < 1) {
+      if (msg.reactions.cache.get('🎉').users.cache.size === 0) {
         msg.edit({content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [new MessageEmbed()
           .setTitle(`${prize}`)
-          .setColor(0x00ae86)
+          .setColor(0x00_AE_86)
           .setDescription(`No one entered the giveaway.\nHosted by: ${message.author}`)
           .setFooter('Ended at')
           .setTimestamp()
@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
       } else {
         msg.edit({content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [new MessageEmbed()
           .setTitle(`${prize}`)
-          .setColor(0x00ae86)
+          .setColor(0x00_AE_86)
           .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
           .setFooter('Ended at')
           .setTimestamp()
@@ -53,7 +53,7 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 2,
-  cooldown: 30000
+  cooldown: 30_000
 };
 
 exports.help = {

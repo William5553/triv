@@ -4,8 +4,8 @@ exports.run = async (client, message, args) => {
   const user = args[0];
   const reason = args.slice(1).join(' ');
 
-  if (!user || isNaN(user)) return message.reply('You must supply a user ID.');
-  if (reason.length < 1) return message.reply('You must supply a reason for the unban.');
+  if (!user || Number.isNaN(user)) return message.reply('You must supply a user ID.');
+  if (reason.length === 0) return message.reply('You must supply a reason for the unban.');
   let banned;
   try {
     banned = await message.guild.bans.fetch(user);
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
     return botlog.send({embeds: [
       new MessageEmbed()
-        .setColor(0x00ae86)
+        .setColor(0x00_AE_86)
         .setTimestamp()
         .setDescription(`**Action:** Unban\n**Target:** ${banned.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`)
         .setFooter(`User ID: ${banned.user.id}`)

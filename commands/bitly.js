@@ -11,15 +11,15 @@ exports.run = async (client, message, args) => {
       .send({ long_url: args.join(' ') })
       .set({ Authorization: `Bearer ${process.env.bitly_key}` });
     return message.channel.send(body.link);
-  } catch (err) {
-    if (err.status === 400) return message.reply('You provided an invalid URL. Please try again.');
+  } catch (error) {
+    if (error.status === 400) return message.reply('You provided an invalid URL. Please try again.');
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }
@@ -30,7 +30,7 @@ exports.conf = {
   guildOnly: false,
   aliases: ['urlshorten', 'bit.ly', 'shortenurl'],
   permLevel: 0,
-  cooldown: 10000
+  cooldown: 10_000
 };
   
 exports.help = {

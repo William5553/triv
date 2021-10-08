@@ -1,4 +1,4 @@
-const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
+const { MessageEmbed, util: { splitMessage } } = require('discord.js');
 const { verify } = require('../util/Util');
 const { SongsClient } = require('genius-lyrics');
 const GClient = new SongsClient(process.env.genius_api_key || '');
@@ -6,12 +6,12 @@ const GClient = new SongsClient(process.env.genius_api_key || '');
 exports.run = async (client, message, args) => {
   let query, queue;
   if (message.guild) queue = client.queue.get(message.guild.id);
-  if (args && args.length >= 1)
+  if (args && args.length > 0)
     query = args.join(' ');
   else if (queue && queue.songs)
     query = queue.songs[0].title;
-  else if (message.member.presence.activities.length) {
-    const listening = await message.member.presence.activities.filter(activity => activity.type === 'LISTENING' && activity.name === 'Spotify')[0];
+  else if (message.member.presence.activities.length > 0) {
+    const listening = await message.member.presence.activities.find(activity => activity.type === 'LISTENING' && activity.name === 'Spotify');
     if (!listening) return message.reply("There isn't anything playing and you didn't specify a song title.");
     await message.channel.send({embeds: [
       new MessageEmbed()
@@ -42,21 +42,21 @@ exports.run = async (client, message, args) => {
     for (const m of splitMessage(lyrics)) {
       if (embeds.length < 10) {
         embeds.push(new MessageEmbed()
-          .setTitle(embeds.length == 0 ? emtitle : '')
+          .setTitle(embeds.length === 0 ? emtitle : '')
           .setDescription(m)
           .setColor('#F8AA2A')
         );
       }
     }
     message.channel.send({ embeds });
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.alphavantage_key) return message.reply('The bot owner has not set up this command yet.');
-    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const query = args.join(' ');
     const company = await search(query);
     if (!company) return message.channel.send('Could not find any results.');
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     return message.reply({embeds: [
       new MessageEmbed()
         .setTitle(`Stocks for ${company.name} (${stocks.symbol.toUpperCase()})`)
-        .setColor(0x9797FF)
+        .setColor(0x97_97_FF)
         .setFooter('Last Updated')
         .setTimestamp(stocks.lastRefresh)
         .addField('❯ Open', `$${formatNumber(stocks.open)}`, true)
@@ -24,14 +24,14 @@ exports.run = async (client, message, args) => {
         .addField('❯ Low', `$${formatNumber(stocks.low)}`, true)
         .addField('\u200B', '\u200B', true)
     ]});
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }
@@ -46,7 +46,7 @@ const fetchStocks = async symbol => {
       interval: '1min',
       apikey: process.env.alphavantage_key
     });
-  if (body['Error Message'] || !body['Time Series (1min)']) return null;
+  if (body['Error Message'] || !body['Time Series (1min)']) return;
   const data = Object.values(body['Time Series (1min)'])[0];
   return {
     symbol,
@@ -67,7 +67,7 @@ const search = async query => {
       region: 1,
       lang: 'en'
     });
-  if (!body.ResultSet.Result.length) return null;
+  if (body.ResultSet.Result.length === 0) return;
   return body.ResultSet.Result[0];
 };
 

@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
   try {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(ro => ro.displayName.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.member;
 
-    if (!user.presence.activities.length) {
+    if (user.presence.activities.length === 0) {
       return message.channel.send({embeds: [
         new MessageEmbed()
           .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
     }
 
     const embeds = [];
-    user.presence.activities.forEach(activity => {
+    for (const activity of user.presence.activities) {
       if (activity.type === 'CUSTOM_STATUS') {
         embeds.push(new MessageEmbed()
           .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
@@ -60,21 +60,21 @@ exports.run = (client, message, args) => {
             .setThumbnail(`https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`)
             .addField('Song Name', activity.details, true)
             .addField('Album', activity.assets.largeText, true)
-            .addField('Author', activity.state.replace(/;/g, ','), true)
+            .addField('Author', activity.state.replaceAll(';', ','), true)
             .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncId}`, false)
             .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
         );
       }
-    });
+    }
     message.channel.send({ embeds });
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

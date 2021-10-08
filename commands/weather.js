@@ -5,10 +5,7 @@ exports.run = async (client, message, args) => {
   if (!process.env.openweathermap_key) return message.reply('the bot owner has not set up this command yet');
   let location = args.join(' ');
   if (!location) return message.reply('enter a location next time, fart face');
-  if (/^[0-9]+$/.test(location))
-    location = { type: 'zip', data: location };
-  else
-    location = { type: 'q', data: location };
+  location = /^\d+$/.test(location) ? { type: 'zip', data: location } : { type: 'q', data: location };
 
   try {
     const { body } = await request
@@ -20,7 +17,7 @@ exports.run = async (client, message, args) => {
         appid: process.env.openweathermap_key
       });
     return message.channel.send({embeds: [new MessageEmbed()
-      .setColor(0xFF7A09)
+      .setColor(0xFF_7A_09)
       .setAuthor(
         `${body.name}, ${body.sys.country}`,
         `http://openweathermap.org/img/wn/${body.weather.icon}@2x.png`
@@ -37,14 +34,14 @@ exports.run = async (client, message, args) => {
       .addField('❯ Wind Speed', `${body.wind.speed} meters/sec`, true)
       .addField('❯ Cloudiness', `${body.clouds.all}%`, true)
     ]});
-  } catch (err) {
-    if (err.status === 404) return message.channel.send('Could not find any results.');
+  } catch (error) {
+    if (error.status === 404) return message.channel.send('Could not find any results.');
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`Stack Trace:\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

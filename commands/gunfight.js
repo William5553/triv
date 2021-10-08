@@ -18,22 +18,22 @@ exports.run = async (client, message, args) => {
       return message.channel.send('Looks like they declined...');
     }
     await message.channel.send('Get Ready...');
-    await client.wait(Math.random(2700, 30000));
+    await client.wait(Math.random(2700, 30_000));
     const word = words.random();
     await message.channel.send(`TYPE \`${word.toUpperCase()}\` NOW!`);
     const filter = res => [opponent.id, message.author.id].includes(res.author.id) && res.content.toLowerCase() === word;
-    const winner = await message.channel.awaitMessages({ filter, max: 1, time: 30000 });
+    const winner = await message.channel.awaitMessages({ filter, max: 1, time: 30_000 });
     client.games.delete(message.channel.id);
-    if (!winner.size) return message.channel.send('Oh... No one won.');
+    if (winner.size === 0) return message.channel.send('Oh... No one won.');
     return message.channel.send(`The winner is ${winner.first().author}!`);
-  } catch (err) {
+  } catch (error) {
     client.games.delete(message.channel.id);
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`Stack Trace:\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`Stack Trace:\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

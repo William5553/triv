@@ -13,13 +13,13 @@ module.exports = client => {
     if (client.aliases.has(props.help.name))
       return `${props.help.name} tried to load but it's already being used as an alias for ${client.aliases.get(props.help.name)}`;
     client.commands.set(props.help.name, props);
-    props.conf.aliases.forEach(alias => {
+    for (const alias of props.conf.aliases) {
       client.logger.log(`Loading Alias: ${alias}. 👌`);
       if (client.aliases.has(alias) || client.commands.has(alias))
         return `${props.help.name} tried to use alias ${alias} but it is already being used by ${client.aliases.has(alias) ? client.aliases.get(alias) : 'a command'}`;
       else
         client.aliases.set(alias, props.help.name);
-    });
+    }
   };
 
   client.unloadCommand = async commandName => {
@@ -33,10 +33,10 @@ module.exports = client => {
 
     client.logger.log(`Unloading Command: ${command.help.name}. 👌`);
     client.commands.delete(command.help.name);
-    command.conf.aliases.forEach(alias => {
+    for (const alias of command.conf.aliases) {
       client.logger.log(`Unloading Alias: ${alias}. 👌`);
       client.aliases.delete(alias);
-    });
+    }
     delete require.cache[require.resolve(`../commands/${command.help.name}.js`)];
   };
 
@@ -63,7 +63,7 @@ module.exports = client => {
   };
 
   // `await client.wait(1000);` to "pause" for 1 second.
-  client.wait = require('util').promisify(setTimeout);
+  client.wait = require('node:util').promisify(setTimeout);
 
   client.getPrefix = message => {
     return message.guild ? client.settings.get(message.guild.id).prefix : process.env.prefix;
@@ -81,7 +81,7 @@ module.exports = client => {
   // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
   Object.defineProperty(String.prototype, 'toProperCase', {
     value: function() {
-      return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      return this.replace(/([^\W_]+[^\s-]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
     }
   });
 

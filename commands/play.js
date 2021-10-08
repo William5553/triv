@@ -7,10 +7,10 @@ const youtube = new YouTubeAPI(process.env.google_api_key);
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
-    if (!args.length) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     let { channel } = message.member.voice, forced = false;
     // the owner can play a video to any channel if they put the channel id in ampersands
-    if (client.owners.includes(message.author.id) && args.join(' ').match(/&((?:\\.|[^&\\])*)&/)) {
+    if (client.owners.includes(message.author.id) && /&((?:\\.|[^&\\])*)&/.test(args.join(' '))) {
       channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
       forced = true;
     }
@@ -128,14 +128,14 @@ exports.run = async (client, message, args) => {
       await client.queue.get(message.guild.id)?.connection?.destroy();
       return message.reply(`Could not join the voice channel: ${error.stack || error}`);
     }
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

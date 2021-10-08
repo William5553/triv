@@ -4,7 +4,7 @@ const fetch = require('node-superfetch');
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.wolfram_api_key) return message.reply('the bot owner has not set up this command yet');
-    if (args.length < 1) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('*Querying Wolfram Alpha...*');
     let { body } = await fetch.get(`http://api.wolframalpha.com/v2/query?appid=${process.env.wolfram_api_key}&input=${encodeURIComponent(args.join(' '))}&output=json`);
     body = JSON.parse(body);
@@ -16,8 +16,8 @@ exports.run = async (client, message, args) => {
             if (j != '$') {
               try {
                 message.channel.send(body.queryresult.warnings[i][j][0].text);
-              } catch (e) {
-                client.logger.warn(`WolframAlpha: failed displaying warning: ${e.stack || e}`);
+              } catch (error) {
+                client.logger.warn(`WolframAlpha: failed displaying warning: ${error.stack || error}`);
               }
             }
           }
@@ -29,8 +29,8 @@ exports.run = async (client, message, args) => {
             if (j == 'assumption') {
               try {
                 message.channel.send(`Assuming ${body.queryresult.assumptions[i][j][0].word} is ${body.queryresult.assumptions[i][j][0].value[0].desc}`);
-              } catch (e) {
-                client.logger.warn(`WolframAlpha: failed displaying assumption: ${e.stack || e}`);
+              } catch (error) {
+                client.logger.warn(`WolframAlpha: failed displaying assumption: ${error.stack || error}`);
               }
             }
           }
@@ -51,7 +51,7 @@ exports.run = async (client, message, args) => {
           const embed = new MessageEmbed()
             .setTitle(title)
             .setDescription(subpod.plaintext)
-            .setColor(0xff9339)
+            .setColor(0xFF_93_39)
             .setImage(subpod.img.src);
           if (subpod.title.length > 0) 
             embed.description = subpod.title;
@@ -71,7 +71,7 @@ exports.run = async (client, message, args) => {
                 embedz.push(new MessageEmbed()
                   .setDescription(info.img.title)
                   .setImage(info.img.src.url)
-                  .setColor(0xffc230)
+                  .setColor(0xFF_C2_30)
                 );
               }	
             }
@@ -86,14 +86,14 @@ exports.run = async (client, message, args) => {
               embedz.push(new MessageEmbed()
                 .setDescription(pod.infos.img.title)
                 .setImage(pod.infos.img.src.url)
-                .setColor(0xffc230)
+                .setColor(0xFF_C2_30)
               );
             }	
           }
           message.channel.send({content: messagee, embeds: embedz});
         }
       }
-      if (!embeds || embeds.length < 1) return message.channel.send('No results from Wolfram Alpha.');
+      if (!embeds || embeds.length === 0) return message.channel.send('No results from Wolfram Alpha.');
       let currPage = 0;
   
       const emb = await message.channel.send({content: `**${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
@@ -118,8 +118,8 @@ exports.run = async (client, message, args) => {
               }
             }
             await reaction.users.remove(message.author.id);
-          } catch (e) {
-            client.logger.error(e.stack || e);
+          } catch (error) {
+            client.logger.error(error.stack || error);
             return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
           }
         });
@@ -133,14 +133,14 @@ exports.run = async (client, message, args) => {
       m.edit(`Did you mean: ${msg.join(' ')}`);
     } else
       m.edit('No results from Wolfram Alpha');
-  } catch (err) {
-    client.logger.error(err.stack);
+  } catch (error) {
+    client.logger.error(error.stack);
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   client.games.set(message.channel.id, { name: 'quizduel' });
   try {
     const players = Number(args[0]);
-    if (!players || isNaN(players) || players > 100 || players < 1) {
+    if (!players || Number.isNaN(players) || players > 100 || players < 1) {
       client.games.delete(message.channel.id);
       return message.channel.send(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     }
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     }
     const questions = await fetchQuestions();
     let lastTurnTimeout = false;
-    while (questions.length) {
+    while (questions.length > 0) {
       ++turn;
       const question = questions[0];
       questions.shift();
@@ -40,8 +40,8 @@ exports.run = async (client, message, args) => {
         }
         return false;
       };
-      const messages = await message.channel.awaitMessages({ filter, max: pts.size, time: 30000 });
-      if (!messages.size) {
+      const messages = await message.channel.awaitMessages({ filter, max: pts.size, time: 30_000 });
+      if (messages.size === 0) {
         await message.channel.send(`No answers? Well, it was **${question.correct}**.`);
         if (lastTurnTimeout) {
           break;
@@ -60,26 +60,23 @@ exports.run = async (client, message, args) => {
       const correct = answers.filter(answer => answer.answer === question.correct);
       for (const answer of correct) {
         const player = pts.get(answer.id);
-        if (correct[0].id === answer.id)
-          player.points += 75;
-        else
-          player.points += 50;
+        player.points += correct[0].id === answer.id ? 75 : 50;
       }
-      await message.channel.send(`It was... **${question.correct}**!\n_Fastest Guess: ${correct.length ? `${pts.get(correct[0].id).user.tag} (+75 pts)` : 'no one'}_\n${questions.length ? '_Next round starting in 5 seconds..._' : ''}`);
+      await message.channel.send(`It was... **${question.correct}**!\n_Fastest Guess: ${correct.length > 0 ? `${pts.get(correct[0].id).user.tag} (+75 pts)` : 'no one'}_\n${questions.length > 0 ? '_Next round starting in 5 seconds..._' : ''}`);
       if (lastTurnTimeout) lastTurnTimeout = false;
-      if (questions.length) await client.wait(5000);
+      if (questions.length > 0) await client.wait(5000);
     }
     client.games.delete(message.channel.id);
     const winner = pts.sort((a, b) => b.points - a.points).first().user;
     return message.channel.send(`Congrats, ${winner}!\n__**Top 10:**__\n${makeLeaderboard(pts).slice(0, 10).join('\n')}`);
-  } catch (err) {
+  } catch (error) {
     client.games.delete(message.channel.id);
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -110,7 +107,7 @@ const fetchQuestions = async () => {
 
 const makeLeaderboard = pts => {
   let i = 0;
-  let previousPts = null;
+  let previousPts;
   let positionsMoved = 1;
   return pts
     .sort((a, b) => b.points - a.points)
@@ -138,7 +135,7 @@ const awaitPlayers = async (message, max) => {
     if (res.content.toLowerCase() !== 'join game') return;
   };
   
-  const p = await message.channel.awaitMessages({ filter, max, time: 60000 });
+  const p = await message.channel.awaitMessages({ filter, max, time: 60_000 });
   
   p.map(msg => {
     joined.push(msg.author.id);

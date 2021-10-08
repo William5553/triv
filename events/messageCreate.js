@@ -2,7 +2,7 @@ const ms = require('ms');
 
 module.exports = async (client, message) => {
   if (message.author.bot) return;
-  if (message.content.match(new RegExp(`^<@!?${client.user.id}>`, 'i')))
+  if (new RegExp(`^<@!?${client.user.id}>`, 'i').test(message.content))
     return message.reply(`My prefix on this guild is \`${client.getPrefix(message)}\``);
   if (!message.content.startsWith(client.getPrefix(message))) return;
   if (client.blacklist.get('blacklist', 'user').includes(message.author.id))
@@ -19,7 +19,7 @@ module.exports = async (client, message) => {
   if (cmd.conf.cooldown && cmd.conf.cooldown > 0) {
     client.cooldowns.ensure(message.author.id, {});
     const cooldownDB = client.cooldowns.get(message.author.id, cmd.help.name);
-    if (cooldownDB != null && cmd.conf.cooldown - (Date.now() - cooldownDB) > 0) {
+    if (cooldownDB != undefined && cmd.conf.cooldown - (Date.now() - cooldownDB) > 0) {
       const time = cmd.conf.cooldown - (Date.now() - cooldownDB);
       return message.reply(`You must wait **${ms(time)}** before using this command again!`);
     }

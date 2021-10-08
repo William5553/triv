@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
 
     const { body } = await request.get(`https://www.reddit.com/r/${encodeURIComponent(subreddit)}.json?sort=top&t=week`);
     const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
-    if (!allowed.length) return message.channel.send('It seems we are out of fresh memes! Try again later.');
+    if (allowed.length === 0) return message.channel.send('It seems we are out of fresh memes! Try again later.');
 
     const post = allowed.random();
     message.channel.send({embeds: [new MessageEmbed()
@@ -17,13 +17,13 @@ exports.run = async (client, message, args) => {
       .setImage(post.data.url || post.data.url_overridden_by_dest)
       .setFooter(`👍 ${post.data.ups} | 💬 ${post.data.num_comments}`)
     ]});
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

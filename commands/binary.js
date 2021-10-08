@@ -4,11 +4,11 @@ exports.run = (client, message, args) => {
     if (args[1] === 'decimal') {
       const final = [];
       for (const binary of args.slice(2))
-        final.push(parseInt(binary, 2));
+        final.push(Number.parseInt(binary, 2));
       message.channel.send(final.join(' '));
     } else if (args[1] === 'text') {
       message.channel.send(args.slice(2).map(elem => {
-        return String.fromCharCode(parseInt(elem, 2));
+        return String.fromCharCode(Number.parseInt(elem, 2));
       })
         .join('')
       );

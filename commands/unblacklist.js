@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
   const type = args[0].toLowerCase();
   if (!type || !types.includes(type)) return message.reply(`First argument should be ${types.join(' OR ')}.`);
   const target = args[1];
-  if (!target || isNaN(target)) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (!target || Number.isNaN(target)) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (!client.blacklist.get('blacklist', type).includes(target)) return message.channel.send(`🔨 \`${target}\` is not blacklisted.`);
   const index = client.blacklist.get('blacklist', type).indexOf(target);
   if (index > -1)

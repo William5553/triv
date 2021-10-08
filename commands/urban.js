@@ -6,30 +6,30 @@ exports.run = async (client, message, args) => {
     const word = args.join(' ').split('|')[0];
     let resultN = Number(args.join(' ').split('|')[1])-1;
     if (!word) return message.channel.send('Specify a word');
-    if (!resultN || isNaN(resultN) || resultN <= 0) resultN = 0;
+    if (!resultN || Number.isNaN(resultN) || resultN <= 0) resultN = 0;
     const { body } = await request
       .get('http://api.urbandictionary.com/v0/define')
       .query({ term: word });
-    if (!body.list.length) return message.channel.send('Could not find any results');
+    if (body.list.length === 0) return message.channel.send('Could not find any results');
     const data = body.list[resultN];
     return message.channel.send({embeds: [new MessageEmbed()
-      .setColor(0x32A8F0)
+      .setColor(0x32_A8_F0)
       .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
       .setURL(data.permalink)
       .setTitle(data.word)
-      .setDescription(data.definition.replace(/\[|\]/g, '').substr(0, 1200))
+      .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
       .setFooter(`Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}`)
       .setTimestamp(new Date(data.written_on))
-      .addField('❯ Example', data.example ? data.example.replace(/\[|\]/g, '').substr(0, 800) : 'None')
+      .addField('❯ Example', data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None')
     ]});
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

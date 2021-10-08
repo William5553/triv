@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
   let m;
   try {
     m = await message.channel.messages.fetch(args[0]);
-  } catch (e) {
+  } catch {
     return message.reply('Cannot find message.');
   }
   if (!m) return message.reply('Message could not be found.');

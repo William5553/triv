@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const { Message, MessageEmbed } = require('discord.js');
 const { getVoiceConnection, createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
 const { verify } = require('../util/Util');
@@ -57,13 +57,13 @@ exports.run = async (client, message) => {
     if (age === 'max') 
       return message.channel.send(`You can hear any frequency of which a human is capable. The maximum frequency you were able to hear was **${range}000hz**.`);
     return message.channel.send(`You have the hearing of someone **${Number.parseInt(age, 10) + 1} or older**. The maximum frequency you were able to hear was **${range}000hz**.`);
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }
@@ -74,7 +74,7 @@ exports.conf = {
   guildOnly: true,
   aliases: ['hearing', 'hear', 'heartest'],
   permLevel: 0,
-  cooldown: 10000
+  cooldown: 10_000
 };
 
 exports.help = {

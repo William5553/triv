@@ -37,12 +37,12 @@ exports.run = async (client, message) => {
           serverQueue.textChannel.send(`${message.author} ⏹ stopped the music!`);
         }
         await reaction.users.remove(message.author.id);
-      } catch (e) {
+      } catch {
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });
-  } catch (e) {
-    client.logger.error(e.stack || e);
+  } catch (error) {
+    client.logger.error(error.stack || error);
     return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
   }
 };
@@ -56,7 +56,7 @@ const generateQueueEmbed = (message, queue) => {
       .setTitle('Song Queue\n')
       .setThumbnail(message.guild.iconURL())
       .setColor('#F8AA2A')
-      .setDescription(`**Current Song - [${queue[0].title}](${queue[0].url})**\n\n${current.map(track => `${++j} - [${track.title}](${track.url}) (${new Date(track.duration * 1000).toISOString().substr(11, 8)})`).join('\n')}`)
+      .setDescription(`**Current Song - [${queue[0].title}](${queue[0].url})**\n\n${current.map(track => `${++j} - [${track.title}](${track.url}) (${new Date(track.duration * 1000).toISOString().slice(11, 19)})`).join('\n')}`)
       .setTimestamp();
     embeds.push(embed);
   }

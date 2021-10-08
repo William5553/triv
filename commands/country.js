@@ -4,14 +4,14 @@ const { formatNumber } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
-    if (args.length < 1)
+    if (args.length === 0)
       return message.reply('Tell me a country, moron');
     const query = encodeURIComponent(args.join(' '));
     const { body } = await request.get(`https://restcountries.eu/rest/v2/name/${query}`);
     const data = body[0];
     return message.channel.send({embeds: [
       new MessageEmbed()
-        .setColor(0x00AE86)
+        .setColor(0x00_AE_86)
         .setTitle(data.name)
         .setThumbnail(`https://www.countryflags.io/${data.alpha2Code}/flat/64.png`)
         .addField('❯ Population', formatNumber(data.population), true)
@@ -23,15 +23,15 @@ exports.run = async (client, message, args) => {
         .addField('❯ Area', `${formatNumber(data.area)} km`, true)
         .addField('❯ Languages', data.languages.map(lang => lang.name).join('/'))
     ]});
-  } catch (err) {
-    if (err.status === 404) return message.channel.send('Could not find any results.');
+  } catch (error) {
+    if (error.status === 404) return message.channel.send('Could not find any results.');
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

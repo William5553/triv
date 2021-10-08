@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     
     if (!member) return message.reply('Tell me who to warn, idiot');
-    if (reason.length < 1) return message.reply('supply a reason for the warning');
+    if (reason.length === 0) return message.reply('supply a reason for the warning');
     if (parseUser(message, member) !== true) return;
 
     message.channel.send(`Warned ${member} for **${reason}**`);
@@ -21,19 +21,19 @@ exports.run = async (client, message, args) => {
       const caseNum = await caseNumber(client, botlog);
       return botlog.send({embeds: [
         new MessageEmbed()
-          .setColor(0x00ae86)
+          .setColor(0x00_AE_86)
           .setTimestamp()
           .setFooter(`ID ${caseNum}`)
           .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${member.user.tag}\n**Target's User ID:** ${member.user.id}\n**Reason:** ${reason}`)
       ]});
     }
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

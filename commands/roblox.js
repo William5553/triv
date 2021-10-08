@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
         .setFooter(`Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}`)
         .setTitle('Account found on Eryn')
         .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
-        .setColor(0x00ae86));
+        .setColor(0x00_AE_86));
     else
       embeds.push(new MessageEmbed()
         .setTitle('No account found on Eryn')
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
         .setFooter(`User ID: ${data.body.primaryAccount}`)
         .setTitle('Account found on Bloxlink')
         .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
-        .setColor(0x00ae86));
+        .setColor(0x00_AE_86));
     else {
       embeds.push(new MessageEmbed()
         .setTitle('No account found on Bloxlink')

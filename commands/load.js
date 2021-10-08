@@ -1,11 +1,11 @@
 exports.run = (client, message, args) => {
-  if (args.length < 1) return message.channel.send('What command should I load, moron?');
+  if (args.length === 0) return message.channel.send('What command should I load, moron?');
   const command = args[0];
   message.channel.send(`Loading: ${command}`).then(m => {
     client
       .loadCommand(command)
       .then(() => m.edit(`Successfully loaded: ${command}`))
-      .catch(e => m.edit(`Command load failed: ${command}\n\`\`\`${e.stack}\`\`\``));
+      .catch(error => m.edit(`Command load failed: ${command}\n\`\`\`${error.stack}\`\`\``));
   });
 };
 

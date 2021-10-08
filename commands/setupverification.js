@@ -12,7 +12,7 @@ exports.run = async (client, message) => {
       client.settings.set(message.guild.id, role.id, 'verifiedRoleID');
     }
 
-    message.guild.channels.cache.forEach(chan => {
+    for (const chan of message.guild.channels.cache) {
       if (chan.name != 'verify') {
         if (chan.permissionsFor(message.guild.roles.everyone).has(Permissions.FLAGS.SEND_MESSAGES))
           chan.permissionOverwrites.edit(role, { SEND_MESSAGES: true });
@@ -24,20 +24,20 @@ exports.run = async (client, message) => {
           chan.permissionOverwrites.edit(role, { SPEAK: true });
         chan.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false, VIEW_CHANNEL: false, CONNECT: false, SPEAK: false });
       }
-    });
+    }
 
     const verifyChannel = message.guild.channels.cache.find(c => c.name.toLowerCase() === 'verify') || await message.guild.channels.create('verify');
     verifyChannel.permissionOverwrites.edit(role, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
     verifyChannel.permissionOverwrites.edit(message.guild.roles.everyone, { READ_MESSAGE_HISTORY: false });
     client.guildData.set(message.guild.id, true, 'verificationSetUp');
     message.channel.send('Set up verification successfully.');
-  } catch (err) {
+  } catch (error) {
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor('#FF0000')
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${err.stack || err}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

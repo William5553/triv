@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   const type = args[0].toLowerCase();
   if (!type || !types.includes(type)) return message.reply(`First argument should be ${types.join(' OR ')}.`);
   const target = args[1];
-  if (!target || isNaN(target)) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  if (!target || Number.isNaN(target)) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   if (type === 'user' && (client.owners.includes(target) || target == message.author.id)) return message.reply("Don't be an idiot.");
   if (client.blacklist.get('blacklist', type).includes(target)) return message.channel.send(`🔨 \`${target}\` is already blacklisted.`);
   client.blacklist.push('blacklist', target, type);
@@ -13,8 +13,8 @@ exports.run = async (client, message, args) => {
     try {
       const guild = await client.guilds.fetch(target, false);
       await guild.leave();
-    } catch (err) {
-      await message.channel.send(`🔨 Failed to leave guild: ${err.message || err}`);
+    } catch (error) {
+      await message.channel.send(`🔨 Failed to leave guild: ${error.message || error}`);
     }
   }
   if (type === 'user') {
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
         }
       }
     }
-    const formatFailed = failedToLeave.length ? failedToLeave.map(id => `\`${id}\``).join(', ') : '_None_';
+    const formatFailed = failedToLeave.length > 0 ? failedToLeave.map(id => `\`${id}\``).join(', ') : '_None_';
     await message.channel.send(`🔨 Left ${guildsLeft.length} guilds owned by this user. Failed to leave: ${formatFailed}`);
     if (guildsLeft.length > 0) message.channel.send(`Left the guilds ${guildsLeft.map(name => `**${name}**`).join(', ')}`);
   }

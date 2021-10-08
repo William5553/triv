@@ -47,12 +47,12 @@ module.exports = {
       return module.exports.play(queue.songs[0], message);
     }
     const encoderArgsFilters = [];
-    Object.keys(queue.filters).forEach(filterName => {
+    for (const filterName of Object.keys(queue.filters)) {
       if (queue.filters[filterName])
         encoderArgsFilters.push(filters[filterName]);
-    });
+    }
     let encoderArgs;
-    encoderArgsFilters.length < 1 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
+    encoderArgsFilters.length === 0 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
     queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
     queue.resource.volume.setVolume(queue.volume / 100);
