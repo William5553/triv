@@ -1,6 +1,5 @@
 const ms = require('ms');
-const { MessageEmbed, util } = require('discord.js');
-const { splitMessage } = util;
+const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
 const perm = {
   0: 'Member',
   2: 'Moderator',

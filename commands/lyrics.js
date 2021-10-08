@@ -1,4 +1,4 @@
-const { MessageEmbed, util: { splitMessage } } = require('discord.js');
+const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
 const { verify } = require('../util/Util');
 const { SongsClient } = require('genius-lyrics');
 const GClient = new SongsClient(process.env.genius_api_key || '');
