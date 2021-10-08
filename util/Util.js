@@ -15,6 +15,7 @@ module.exports = class Util {
     const verify = await channel.awaitMessages({ filter, max: 1, time });
     if (verify.size === 0) return false;
     const choice = verify.first().content.toLowerCase();
+    if (yes.has(choice) || extraYes.includes(choice)) return true;
     if (no.has(choice) || extraNo.includes(choice)) return false;
     return false;
   }
