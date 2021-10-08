@@ -74,8 +74,7 @@ module.exports = {
         module.exports.play(queue.songs[0], message);
       });
       await queue.player.play(queue.resource);
-      /*queue.player.on(AudioPlayerStatus.Idle, () => {
-        client.logger.warn(`idle\n${JSON.stringify(song)}`);
+      queue.player.on(AudioPlayerStatus.Idle, () => {
         if (queue.collector && !queue.collector?.ended) queue.collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
@@ -89,7 +88,7 @@ module.exports = {
           queue.songs.shift();
           module.exports.play(queue.songs[0], message);
         }
-      });*/
+      });
     } else 
       queue.player.play(queue.resource);
     queue.connection.subscribe(queue.player);
