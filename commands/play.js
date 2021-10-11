@@ -154,7 +154,7 @@ exports.conf = {
 
 exports.help = {
   name: 'play',
-  description: 'Plays audio from YouTube',
-  usage: 'play [YouTube URL OR Video Name]',
+  description: 'Plays audio. Supported sites: https://ytdl-org.github.io/youtube-dl/supportedsites.html',
+  usage: 'play [URL OR Search Query]',
   example: 'play https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 };
