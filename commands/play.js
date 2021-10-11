@@ -1,6 +1,7 @@
 const { play } = require('../util/play');
 const { getInfo } = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
+const { validUrl } = require('../util/Util');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
 const youtube = new YouTubeAPI(process.env.google_api_key);
 
@@ -25,7 +26,7 @@ exports.run = async (client, message, args) => {
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
     const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
-    const ytRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
+    const ytRegex = /^(https?:\/\/)?(http?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
 
     // Start the playlist if playlist url was provided
     if (!ytRegex.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))
@@ -73,8 +74,8 @@ exports.run = async (client, message, args) => {
         client.logger.error(error.stack || error);
         return message.reply(error.message);
       }
-    } else {
-    // if search query was inputted
+    } else if (!ytRegex.test(search) && !validUrl(search)) {
+      // if search query was inputted (not valid url)
       try {
         results = await youtube.searchVideos(search, 1);
         if (results[0])
@@ -96,7 +97,7 @@ exports.run = async (client, message, args) => {
       }
     }
 
-    const song = {
+    const song = songInfo ? {
       title: songInfo.videoDetails.title,
       url: songInfo.videoDetails.video_url,
       duration: songInfo.videoDetails.lengthSeconds,
@@ -107,12 +108,14 @@ exports.run = async (client, message, args) => {
         profile_pic: songInfo.videoDetails.author.thumbnails[songInfo.videoDetails.author.thumbnails.length - 1].url || '',
         url: songInfo.videoDetails.author.channel_url
       }
+    } : {
+      url: search
     };
 
     if (serverQueue) {
       serverQueue.songs.push(song);
       // sometimes the age restriction bypass works, sometimes it doesn't
-      return serverQueue.textChannel.send(`✅ **${song.title}** has been added to the queue by ${message.author}${songInfo.videoDetails.age_restricted ? '\n**Disclaimer: this video is age restricted so it may not work**' : ''}`);
+      return serverQueue.textChannel.send(`✅ **${song.title ? song.title : song.url}** has been added to the queue by ${message.author}${songInfo && songInfo.videoDetails.age_restricted ? '\n**Disclaimer: this video is age restricted so it may not work**' : ''}`);
     }
 
     queueConstruct.songs.push(song);

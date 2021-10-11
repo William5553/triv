@@ -1,6 +1,6 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const moment = require('moment');
-const { canModifyQueue, formatDate } = require('./Util');
+const { canModifyQueue, formatDate, validUrl } = require('./Util');
 const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus, NoSubscriberBehavior } = require('@discordjs/voice');
 const { raw } = require('youtube-dl-exec');
 // const { FFmpeg } = require('prism-media');
@@ -95,7 +95,7 @@ module.exports = {
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
-      queue.textChannel.send(`An error occurred while trying to play **${song.title}**: ${error.message || error}`);
+      queue.textChannel.send(`An error occurred while trying to play **${song.title ? song.title : song.url}**: ${error.message || error}`);
       client.logger.error(`Error occurred while trying to play music in ${message.guild.name}: ${error.stack || error}`);
       queue.connection?.destroy();
       queue.collector?.stop();
@@ -105,26 +105,36 @@ module.exports = {
     if (seekTime) 
       queue.additionalStreamTime = seekTime;
 
-    const playingMessage = await queue.textChannel.send({embeds: [
-      new MessageEmbed()
-        .setTitle(song.title)
-        .setURL(song.url)
-        .setColor('#FF0000')
-        .setThumbnail(song.thumbnail.url)
-        .setDescription(`${seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : ''}`)
-        .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-        .setFooter(`Length: ${song.duration <= 0 ? '◉ LIVE' : moment.duration(song.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song.publishDate)}`)
-    ], components: [new MessageActionRow({components: [
-      new MessageButton({ label: 'SKIP', customId: 'skip', style: 'PRIMARY' }),
-      new MessageButton({ label: 'PAUSE', customId: 'pause', style: 'PRIMARY' }),
-      new MessageButton({ label: 'LOOP', customId: 'loop', style: 'PRIMARY' }),
-      new MessageButton({ label: 'STOP', customId: 'stop', style: 'DANGER' }),
-      new MessageButton({ label: 'LYRICS', customId: 'lyrics', style: 'PRIMARY' })
-    ]}), new MessageActionRow({components: [
-      new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }),
-      new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY' }),
-      new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true })
-    ]})]});
+    const embed = new MessageEmbed()
+      .setTitle(song.title ? song.title : song.url)
+      .setColor('#FF0000')
+      .setDescription(seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : '');
+
+    if (song.channel)
+      embed.setAuthor(song.channel?.name, song.channel?.profile_pic, song.channel?.url);
+    if (song.thumbnail)
+      embed.setThumbnail(song.thumbnail.url);
+    if (song.duration != undefined && song.publishDate)
+      embed.setFooter(`Length: ${song?.duration <= 0 ? '◉ LIVE' : moment.duration(song?.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song?.publishDate)}`);
+    if (validUrl(song.url))
+      embed.setURL(song.url);
+
+    const playingMessage = await queue.textChannel.send({
+      embeds: [ embed ],
+      components: [
+        new MessageActionRow({components: [
+          new MessageButton({ label: 'SKIP', customId: 'skip', style: 'PRIMARY' }),
+          new MessageButton({ label: 'PAUSE', customId: 'pause', style: 'PRIMARY' }),
+          new MessageButton({ label: 'LOOP', customId: 'loop', style: 'PRIMARY' }),
+          new MessageButton({ label: 'STOP', customId: 'stop', style: 'DANGER' }),
+          new MessageButton({ label: 'LYRICS', customId: 'lyrics', style: 'PRIMARY' })
+        ]}),
+        new MessageActionRow({components: [
+          new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }),
+          new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY' }),
+          new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true })
+        ]})]
+    });
 
     queue.collector = playingMessage.createMessageComponentCollector();
 
@@ -245,7 +255,7 @@ const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
       noCallHome: true,
       noCheckCertificate: true,
       youtubeSkipDashManifest: true,
-      //defaultSearch: 'ytsearch',
+      defaultSearch: 'ytsearch',
       o: '-',
       q: '',
       f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',

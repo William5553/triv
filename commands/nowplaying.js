@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { formatDate } = require('../util/Util');
+const { formatDate, validUrl } = require('../util/Util');
 
 exports.run = async (client, message) => {
   try {
@@ -11,17 +11,19 @@ exports.run = async (client, message) => {
 
     const bar = createBar(song.duration == 0 ? seek : song.duration, seek);
     const nowPlaying = new MessageEmbed()
-      .setTitle(song.title)
+      .setTitle(song.title ? song.title : song.url)
       .setURL(song.url)
-      .setColor('#FF0000')
-      .setThumbnail(song.thumbnail.url)
-      .setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url)
-      .setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
+      .setColor('#FF0000');
+      
+    if (song.thumbnail) nowPlaying.setThumbnail(song.thumbnail.url);
+    if (song.channel) nowPlaying.setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url);
+    if (song.duration != undefined) nowPlaying.setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
+    if (validUrl(song.url)) nowPlaying.setURL(song.url);
 
     if (song.duration > 0)
       nowPlaying.setFooter(`Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}`);
 
-    return message.channel.send({embeds: [nowPlaying]});
+    return message.channel.send({ embeds: [ nowPlaying ] });
   } catch (error) {
     client.logger.error(error.stack || error);
     return message.channel.send({embeds: [

@@ -1,6 +1,7 @@
 const yes = new Set(['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure']);
 const no = new Set(['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not']);
 const langs = require('../assets/languages.json');
+const { URL } = require('node:url');
 
 module.exports = class Util {
   static async verify(channel, user, { time = 30_000, extraYes = [], extraNo = [] } = {}) {
@@ -128,6 +129,19 @@ module.exports = class Util {
     try {
       const collected = await message.channel.awaitMessages({ filter, max: 1, time: limit, errors: ['time'] });
       return collected.first();
+    } catch {
+      return false;
+    }
+  }
+
+  static validUrl(s, protocols = ['https', 'http']) {
+    try {
+      const url = new URL(s);
+      return protocols
+        ? url.protocol
+          ? protocols.map(x => `${x.toLowerCase()}:`).includes(url.protocol)
+          : false
+        : true;
     } catch {
       return false;
     }
