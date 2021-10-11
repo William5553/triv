@@ -2,6 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const { getUserProfileInfo } = require('tiktok-scraper');
 const { formatNumber } = require('../util/Util');
 
+// maybe add more tiktok commands in the future
+
 exports.run = async (client, message, args) => {
   try {
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
