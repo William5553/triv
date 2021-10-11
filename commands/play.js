@@ -80,7 +80,7 @@ exports.run = async (client, message, args) => {
         if (results[0])
           songInfo = await getInfo(`https://www.youtube.com/watch?v=${results[0].id}`);
         else
-          throw new Error(`No results found for ${search}`);
+          return message.reply(`No results found for ${search}`);
       } catch (error) {
         client.logger.error(error.stack || error);
         client.logger.error(JSON.stringify(results));

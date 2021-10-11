@@ -7,13 +7,11 @@ exports.run = async (client, message, args) => {
     if (!process.env.alphavantage_key) return message.reply('The bot owner has not set up this command yet.');
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const query = args.join(' ');
-    const company = await search(query);
-    if (!company) return message.channel.send('Could not find any results.');
-    const stocks = await fetchStocks(company.symbol);
+    const stocks = await fetchStocks(query);
     if (!stocks) return message.channel.send('Could not find any results.');
     return message.reply({embeds: [
       new MessageEmbed()
-        .setTitle(`Stocks for ${company.name} (${stocks.symbol.toUpperCase()})`)
+        .setTitle(`Stocks for ${stocks.symbol.toUpperCase()}`)
         .setColor(0x97_97_FF)
         .setFooter('Last Updated')
         .setTimestamp(stocks.lastRefresh)
@@ -57,18 +55,6 @@ const fetchStocks = async symbol => {
     volume: data['5. volume'],
     lastRefresh: new Date(body['Meta Data']['3. Last Refreshed'])
   };
-};
-
-const search = async query => {
-  const { body } = await request
-    .get('http://d.yimg.com/autoc.finance.yahoo.com/autoc')
-    .query({
-      query,
-      region: 1,
-      lang: 'en'
-    });
-  if (body.ResultSet.Result.length === 0) return;
-  return body.ResultSet.Result[0];
 };
 
 exports.conf = {
