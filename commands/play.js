@@ -71,8 +71,7 @@ exports.run = async (client, message, args) => {
       try {
         songInfo = await getInfo(search);
       } catch (error) {
-        client.logger.error(error.stack || error);
-        return message.reply(error.message);
+        return error.message.includes('410') ? message.reply('Video is age restricted, private or unavailable.') : message.reply(error.message);
       }
     } else if (!ytRegex.test(search) && !validUrl(search)) {
       // if search query was inputted (not valid url)

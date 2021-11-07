@@ -23,8 +23,8 @@ exports.run = async (client, message, args) => {
     message.channel.activeCollector = true;
 
     const filter = msg => {
-      const pattern = /(^[1-9]\d{0,1}$)/g;
-      return pattern.test(msg.content) && Number.parseInt(msg.content.match(pattern)[0]) <= 10;
+      const pattern = /^[1-9]0?(\s*,\s*[1-9]0?)*$/;
+      return pattern.test(msg.content);
     };
 
     const response = await message.channel.awaitMessages({ filter, max: 1, time: 30_000, errors: ['time'] });
