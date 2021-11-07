@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
     const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
-    const ytRegex = /^(https?:\/\/)?(http?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
+    const ytRegex = /^(https?:\/\/|http?:\/\/)?(www\.)?(m\.|music\.)?(youtube\.com|youtu\.?be)\/.+$/i;
 
     // Start the playlist if playlist url was provided
     if (!ytRegex.test(args[0]) && /^.*(list=)([^#&?]*).*/gi.test(args[0]))

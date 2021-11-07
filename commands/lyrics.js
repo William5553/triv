@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   if (message.guild) queue = client.queue.get(message.guild.id);
   if (args && args.length > 0)
     query = args.join(' ');
-  else if (queue && queue.songs)
+  else if (queue && queue.songs && queue.songs[0].title)
     query = queue.songs[0].title;
   else if (message.member.presence.activities.length > 0) {
     const listening = await message.member.presence.activities.find(activity => activity.type === 'LISTENING' && activity.name === 'Spotify');
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
     if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
     query = `${listening.details} ${listening.state.split(';')[0]}`;
   }
-  if (!query) return message.reply("There is nothing playing and you didn't specify a song title.");
+  if (!query) return message.reply("The current song is not supported or there is nothing playing. You also didn't specify a song title.");
 
   let lyrics, emtitle;
 
@@ -72,7 +72,7 @@ exports.conf = {
 
 exports.help = {
   name: 'lyrics',
-  description: 'Gets the lyrics for the currently playing song or specified song',
+  description: 'Gets the lyrics for the currently playing song (YouTube only) or specified song',
   usage: 'lyrics [song title]',
   example: 'lyrics Mo Bamba'
 };
