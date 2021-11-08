@@ -60,6 +60,6 @@
   "devDependencies": {
     "eslint": "^8.2.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-unicorn": "^38.0.0"
+    "eslint-plugin-unicorn": "^38.0.1"
   }
 }
