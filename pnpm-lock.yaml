@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@discordjs/opus': ^0.6.0
-  '@discordjs/voice': ^0.7.2
+  '@discordjs/voice': ^0.7.5
   '@william5553/mathsteps': ^0.4.0
   '@william5553/translate-google-api': ^1.2.1
   bufferutil: ^4.0.5
@@ -34,7 +34,7 @@ specifiers:
 
 dependencies:
   '@discordjs/opus': 0.6.0
-  '@discordjs/voice': 0.7.2_a79b0cd65ad0c5fb21197dc441fda695
+  '@discordjs/voice': 0.7.5_a79b0cd65ad0c5fb21197dc441fda695
   '@william5553/mathsteps': 0.4.0
   '@william5553/translate-google-api': 1.2.1
   bufferutil: 4.0.5
@@ -332,8 +332,8 @@ packages:
       mime-types: 2.1.34
     dev: false
 
-  /@discordjs/node-pre-gyp/0.4.1:
-    resolution: {integrity: sha512-PLYLPG3R+m9QlMROOjdy2htQq54g6f9vRb1xPfZ97CL53yj0uNTfpB/jtY/AXY6OKNtZtrre5SKjei8Hcc44HQ==}
+  /@discordjs/node-pre-gyp/0.4.2:
+    resolution: {integrity: sha512-V239Czn+DXFGLhhuccwEDBoTdgMGrRu30dOlzm1GzrSIjwFj01ZJerNX7x+CEX1NG1Q/1gGfOOkeZFNHjycrRA==}
     hasBin: true
     dependencies:
       detect-libc: 1.0.3
@@ -354,14 +354,14 @@ packages:
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
-      '@discordjs/node-pre-gyp': 0.4.1
+      '@discordjs/node-pre-gyp': 0.4.2
       node-addon-api: 4.2.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@discordjs/voice/0.7.2_a79b0cd65ad0c5fb21197dc441fda695:
-    resolution: {integrity: sha512-7dRvyKNI6TSvtOoTTXjTTZ2G7nuk4f5rt+5WLkqZ7QR3xsj0u1Pd+t7HdzMaAUn9/FmTe2iKdnAfOpwgassOLg==}
+  /@discordjs/voice/0.7.5_a79b0cd65ad0c5fb21197dc441fda695:
+    resolution: {integrity: sha512-lUk+CmIXNKslT6DkC9IF9rpsqhzlTiedauUCPBzepjd4XWxwBZiyVIzR6QpbAirxkAwCoAbbje+3Ho71PGLEAw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@types/ws': 8.2.0
@@ -794,8 +794,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001279
-      electron-to-chromium: 1.3.894
+      caniuse-lite: 1.0.30001280
+      electron-to-chromium: 1.3.896
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -862,8 +862,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /caniuse-lite/1.0.30001279:
-    resolution: {integrity: sha512-VfEHpzHEXj6/CxggTwSFoZBBYGQfQv9Cf42KPlO79sWXCD1QNKWKsKzFeWL7QpZHJQYAvocqV6Rty1yJMkqWLQ==}
+  /caniuse-lite/1.0.30001280:
+    resolution: {integrity: sha512-kFXwYvHe5rix25uwueBxC569o53J6TpnGu0BEEn+6Lhl2vsnAumRFWEBhDft1fwyo6m1r4i+RqA4+163FpeFcA==}
     dev: true
 
   /canvas/2.8.0:
@@ -1351,8 +1351,8 @@ packages:
     dev: false
     optional: true
 
-  /electron-to-chromium/1.3.894:
-    resolution: {integrity: sha512-WY8pA4irAZ4cm/Pr7YFPtPLVqj3nU6d0SbfoHF6M7HZNONfPdAnYAarumqQ75go2LuN72uO9wGuCEqnfya/ytg==}
+  /electron-to-chromium/1.3.896:
+    resolution: {integrity: sha512-NcGkBVXePiuUrPLV8IxP43n1EOtdg+dudVjrfVEUd/bOqpQUFZ2diL5PPYzbgEhZFEltdXV3AcyKwGnEQ5lhMA==}
     dev: true
 
   /emoji-regex/7.0.3:
