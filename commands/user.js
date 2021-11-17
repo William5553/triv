@@ -2,10 +2,10 @@ const moment = require('moment');
 const { MessageEmbed } = require('discord.js');
 const flags = {
   DISCORD_EMPLOYEE: 'Discord Employee',
-  PARTNERED_SERVER_OWNER: 'Discord Partner',
+  PARTNERED_SERVER_OWNER: 'Partnered Server Owner',
   BUGHUNTER_LEVEL_1: 'Bug Hunter (Level 1)',
   BUGHUNTER_LEVEL_2: 'Bug Hunter (Level 2)',
-  HYPESQUAD_EVENTS: 'HypeSquad Events',
+  HYPESQUAD_EVENTS: 'HypeSquad Events Coordinator',
   HOUSE_BRAVERY: 'House of Bravery',
   HOUSE_BRILLIANCE: 'House of Brilliance',
   HOUSE_BALANCE: 'House of Balance',
