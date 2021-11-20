@@ -2,7 +2,7 @@ const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const moment = require('moment');
 const { canModifyQueue, formatDate, validUrl } = require('./Util');
 const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus, NoSubscriberBehavior } = require('@discordjs/voice');
-const { raw } = require('youtube-dl-exec');
+const { exec } = require('youtube-dl-exec');
 // const { FFmpeg } = require('prism-media');
 
 require('moment-duration-format');
@@ -250,7 +250,7 @@ module.exports = {
 
 const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
   return new Promise((resolve, reject) => {
-    const rawStream = raw(url, {
+    const rawStream = exec(url, {
       preferFreeFormats: true,
       noCallHome: true,
       noCheckCertificate: true,
