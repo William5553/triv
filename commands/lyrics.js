@@ -1,7 +1,8 @@
 const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
 const { verify } = require('../util/Util');
-const { SongsClient } = require('genius-lyrics');
-const GClient = new SongsClient(process.env.genius_api_key || '');
+const { Client, SongsClient } = require('genius-lyrics');
+const clientConfig = new Client(process.env.genius_api_key || undefined);
+const GClient = new SongsClient(clientConfig);
 
 exports.run = async (client, message, args) => {
   let query, queue;
@@ -20,7 +21,7 @@ exports.run = async (client, message, args) => {
         .setDescription(`You are currently listening to [**${listening.details}** by **${listening.state.split(';')[0]}**](https://open.spotify.com/track/${listening.syncId}) in the album **${listening.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
     ]});
     const verification = await verify(message.channel, message.author);
-    if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for');
+    if (verification != true) return message.channel.send('Okay, you can also specify a song to fetch the lyrics for.');
     query = `${listening.details} ${listening.state.split(';')[0]}`;
   }
   if (!query) return message.reply("The current song is not supported or there is nothing playing. You also didn't specify a song title.");
@@ -28,7 +29,7 @@ exports.run = async (client, message, args) => {
   let lyrics, emtitle;
 
   try {
-    const search = await GClient.search(query);
+    const search = await GClient.search(query, { sanitizeQuery: true });
     lyrics = await search[0].lyrics(false);
     emtitle = search[0].fullTitle;
   } catch (error) {
@@ -40,13 +41,12 @@ exports.run = async (client, message, args) => {
     const embeds = [];
 
     for (const m of splitMessage(lyrics)) {
-      if (embeds.length < 10) {
+      if (embeds.length < 10) 
         embeds.push(new MessageEmbed()
           .setTitle(embeds.length === 0 ? emtitle : '')
           .setDescription(m)
           .setColor('#F8AA2A')
         );
-      }
     }
     message.channel.send({ embeds });
   } catch (error) {
