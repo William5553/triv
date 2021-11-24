@@ -1,4 +1,3 @@
-const moment = require('moment');
 const { MessageEmbed } = require('discord.js');
 const flags = {
   DISCORD_EMPLOYEE: 'Discord Employee',
@@ -24,7 +23,7 @@ exports.run = async (client, message, args) => {
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
     .setAuthor(user.tag)
-    .addField('❯ Discord Join Date', moment.utc(user.createdAt).format('MM/DD/YYYY h:mm A'), true)
+    .addField('❯ Discord Join Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`, true)
     .addField('❯ ID', user.id, true)
     .addField('❯ Bot', user.bot ? 'Yes' : 'No', true)
     .addField('❯ Flags', userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
@@ -37,7 +36,7 @@ exports.run = async (client, message, args) => {
         .sort((a, b) => b.position - a.position)
         .map(role => role.name);
       embed
-        .addField('❯ Server Join Date', moment.utc(member.joinedAt).format('MM/DD/YYYY h:mm A'), true)
+        .addField('❯ Server Join Date', `<t:${Math.round(member.joinedAt.getTime()/1000)}:F>`, true)
         .addField('❯ Highest Role', member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, true)
         .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist.name : 'None', true)
         .addField(`❯ Roles (${roles.length})`, roles.length > 0 ? trimArray(roles, 6).join(', ') : 'None')
