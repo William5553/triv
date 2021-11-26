@@ -120,7 +120,7 @@ exports.run = async (client, message, args) => {
     queueConstruct.songs.push(song);
 
     try {
-      const connection = await client.commands.get('join').run(client, message);
+      const connection = await client.commands.get('join').run(client, message, [channel.id]);
       if (connection instanceof Message) return;
       queueConstruct.connection = connection;
       client.queue.set(message.guild.id, queueConstruct);
