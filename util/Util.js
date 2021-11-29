@@ -35,7 +35,7 @@ module.exports = class Util {
       text = require('node:util').inspect(text, { depth: 1 });
 
     text = text
-      .replaceAll('@', `@${String.fromCharCode(8203)}`)
+      .replaceAll('@', `@${String.fromCodePoint(8203)}`)
       .replace(process.env.token, 'NO TOKEN')
       .replaceAll('```', '`\u200B``');
 

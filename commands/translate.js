@@ -2,7 +2,7 @@ const translate = require('@william5553/translate-google-api');
 const { clean, getCode } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
-  if (args.length < 3) return message.reply(`wrong format: An example would be \`${client.getPrefix(message)}${exports.help.name} en fr english text here\` which would translate \`english text here\` into french`);
+  if (args.length < 3) return message.reply(`Wrong format: An example would be \`${client.getPrefix(message)}${exports.help.name} en fr english text here\` which would translate \`english text here\` into french`);
   const text = args.slice(2).join(' ');
 
   const a1 = getCode(args[0].toProperCase());
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
   let t = await translate(text, { from: a1, to: a2 }).catch(error => message.reply(error.toString()));
   t = await clean(t[0]);
-  if (t) message.channel.send(t);
+  if (t) message.reply(t);
 };
 
 exports.conf = {
