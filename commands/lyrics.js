@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
   try {
     const embeds = [];
 
-    for (const m of splitMessage(lyrics)) {
+    for (const m of splitMessage(lyrics, { maxLength: 1900, char: '\n' })) {
       if (embeds.length < 10) 
         embeds.push(new MessageEmbed()
           .setTitle(embeds.length === 0 ? emtitle : '')
