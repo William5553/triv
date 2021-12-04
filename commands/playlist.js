@@ -109,7 +109,7 @@ exports.run = async (client, message, args) => {
 
     const playlistEmbed = new MessageEmbed()
       .setTitle(playlist.title.replace(/&#(\d+);/g, (match, dec) => {
-        return String.fromCharCode(dec);
+        return String.fromCodePoint(dec);
       }))
       .setDescription(newSongs.map((song, index) => `${index + 1}. [${song.title}](${song.url})`).join('\n'))
       .setURL(playlist.url)

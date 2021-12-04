@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
       break;
     }
     case 'list': {
-      message.channel.send(JSON.stringify(queue.filters).replace(/["{}]/g, '').replace(/false/gi, ' ' + String.fromCharCode(10_060)).replace(/true/gi, ' ' + String.fromCharCode(10_003)).replace(/,/gi, '\n'));
+      message.channel.send(JSON.stringify(queue.filters).replace(/["{}]/g, '').replace(/false/gi, ' ' + String.fromCodePoint(10_060)).replace(/true/gi, ' ' + String.fromCodePoint(10_003)).replace(/,/gi, '\n'));
       break;
     }
     default: return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
