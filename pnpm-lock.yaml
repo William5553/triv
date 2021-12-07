@@ -7,7 +7,7 @@ specifiers:
   '@william5553/translate-google-api': ^1.2.1
   bufferutil: ^4.0.5
   chalk: ^4.1.2
-  cloc: ^2.8.0
+  cloc: ^2.9.0
   discord.js: ^13.3.1
   dotenv: ^10.0.0
   enmap: ^5.8.7
@@ -39,7 +39,7 @@ dependencies:
   '@william5553/translate-google-api': 1.2.1
   bufferutil: 4.0.5
   chalk: 4.1.2
-  cloc: 2.8.0
+  cloc: 2.9.0
   discord.js: 13.3.1_5971b5a749a91823f5467a6d31a2f8b3
   dotenv: 10.0.0
   enmap: 5.8.7
@@ -794,8 +794,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001284
-      electron-to-chromium: 1.4.11
+      caniuse-lite: 1.0.30001285
+      electron-to-chromium: 1.4.12
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -862,8 +862,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /caniuse-lite/1.0.30001284:
-    resolution: {integrity: sha512-t28SKa7g6kiIQi6NHeOcKrOrGMzCRrXvlasPwWC26TH2QNdglgzQIRUuJ0cR3NeQPH+5jpuveeeSFDLm2zbkEw==}
+  /caniuse-lite/1.0.30001285:
+    resolution: {integrity: sha512-KAOkuUtcQ901MtmvxfKD+ODHH9YVDYnBt+TGYSz2KIfnq22CiArbUxXPN9067gNbgMlnNYRSwho8OPXZPALB9Q==}
     dev: true
 
   /canvas/2.8.0:
@@ -972,8 +972,8 @@ packages:
       wrap-ansi: 5.1.0
     dev: false
 
-  /cloc/2.8.0:
-    resolution: {integrity: sha512-Y2zhWNwDq7yAJ5dmbH1P7/sJ2RDDlQrzwO1fVZ2MJ2/jCRbUPQN+kgKEgHNQYxv1o7w/7hMUXiqa4u6JgIFYOQ==}
+  /cloc/2.9.0:
+    resolution: {integrity: sha512-Eo97MtQ5nozSd5CFcYgwUg5Ej7GVcdopVd5T+SGwJc3VAmu0vNxV/ZDl06QAQhCUkM2EGKl8nhhP1BZuQXGiZg==}
     hasBin: true
     dev: false
 
@@ -1351,8 +1351,8 @@ packages:
     dev: false
     optional: true
 
-  /electron-to-chromium/1.4.11:
-    resolution: {integrity: sha512-2OhsaYgsWGhWjx2et8kaUcdktPbBGjKM2X0BReUCKcSCPttEY+hz2zie820JLbttU8jwL92+JJysWwkut3wZgA==}
+  /electron-to-chromium/1.4.12:
+    resolution: {integrity: sha512-zjfhG9Us/hIy8AlQ5OzfbR/C4aBv1Dg/ak4GX35CELYlJ4tDAtoEcQivXvyBdqdNQ+R6PhlgQqV8UNPJmhkJog==}
     dev: true
 
   /emoji-regex/7.0.3:
