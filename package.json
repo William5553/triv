@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "8.4.0",
+    "eslint": "8.4.1",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-unicorn": "39.0.0"
   }
