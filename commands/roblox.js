@@ -58,7 +58,7 @@ exports.conf = {
 
 exports.help = {
   name: 'roblox',
-  description: "Attempts to get a discord user's roblox username",
+  description: "Attempts to get a Discord user's Roblox username",
   usage: 'roblox [discord user]',
   example: 'roblox @Robloxian'
 };

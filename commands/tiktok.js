@@ -18,10 +18,10 @@ exports.run = async (client, message, args) => {
       .addField('Following', formatNumber(data.stats.followingCount), true)
       .addField('Hearts', formatNumber(data.stats.heartCount), true)
       .addField('Video Count', formatNumber(data.stats.videoCount), true)
+      .addField('Registration Date', `<t:${data.user.createTime}>`)
       .setURL(`https://www.tiktok.com/@${data.user.id}`)
       .setThumbnail(data.user.avatarLarger)
-      .setFooter('Account created at')
-      .setTimestamp(data.user.createTime*1000);
+      .setTimestamp(data.user.createTime * 1000);
     if (data.user.signature)
       final.addField('Bio', data.user.signature);
     if (data.user.bioLink && data.user.bioLink.link)
