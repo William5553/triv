@@ -143,7 +143,7 @@ module.exports = {
       const member = message.guild.members.cache.get(interaction.user.id);
       const modifiable = canModifyQueue(member);
       if (modifiable != true) return interaction.reply({ content: modifiable, ephemeral: true });
-      // TODO: if you can't make the vol higher or lower, disable the button
+
       let reply = true, reply2 = true;
       switch (interaction.customId) {
         case 'skip':
