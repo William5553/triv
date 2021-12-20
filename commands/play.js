@@ -83,7 +83,6 @@ exports.run = async (client, message, args) => {
           return message.reply(`No results found for ${search}`);
       } catch (error) {
         client.logger.error(error.stack || error);
-        client.logger.error(JSON.stringify(results));
         return message.channel.send({embeds: [
           new MessageEmbed()
             .setColor('#FF0000')
