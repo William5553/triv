@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
   const { user } = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
   if (!user) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
-  const m = await message.channel.send('Getting...');
+  const m = await message.reply('Getting...');
   let data;
   const embeds = [];
   try {
@@ -44,8 +44,7 @@ exports.run = async (client, message, args) => {
       .setTitle('No account found on Bloxlink')
       .setColor('RED'));
   }
-  message.channel.send({ embeds });
-  m.delete();
+  m.edit({ content: '** **', embeds });
 };
 
 exports.conf = {
