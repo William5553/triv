@@ -70,15 +70,13 @@ module.exports = class Util {
     if (member.user === message.client.user)
       return message.reply('You are an idiot');
     if (member.user === message.author)
-      return message.reply("You can't do that to yourself, why did you try? you are an idiot.");
+      return message.reply("You can't do that to yourself, you are an idiot.");
     if (message.client.owners.includes(member.id))
-      return message.reply('No');
-    if (member && member.roles && member.roles.highest.position >= message.member.roles.highest.position && !message.client.owners.includes(message.member.id))
+      return message.reply('no.');
+    if (member?.roles?.highest.position >= message.member.roles.highest.position && !message.client.owners.includes(message.author.id))
       return message.reply('That member is higher or equal to you. L');
-    if (member && member.roles && member.roles.highest.position >= message.guild.me.roles.highest.position)
+    if (member?.roles?.highest.position >= message.guild.me.roles.highest.position || !member.manageable)
       return message.reply('That member is higher or equal to me, try moving my role higher');
-    if (!member.manageable)
-      return message.reply("I can't.");
     return true;
   }
 
@@ -87,7 +85,7 @@ module.exports = class Util {
   }
 
   static async caseNumber(client, botlog) {
-    const messages = await botlog.messages.fetch({ limit: 16 });
+    const messages = await botlog.messages.fetch({ limit: 30 });
     const log = messages
       .filter(
         m =>
@@ -107,9 +105,7 @@ module.exports = class Util {
       return false;
     if (langs[language])
       return langs[language];
-    const key = Object.keys(langs).find(item => {
-      return langs[item] === language.toLowerCase();
-    });
+    const key = Object.keys(langs).find(item => langs[item] === language.toLowerCase());
     if (key)
       return langs[key];
     return false;

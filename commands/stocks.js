@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

@@ -9,7 +9,8 @@ exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
-    let { channel } = message.member.voice, forced = false;
+    let { channel } = message.member.voice;
+    let forced = false;
     // the owner can play a video to any channel if they put the channel id in ampersands
     if (client.owners.includes(message.author.id) && /&((?:\\.|[^&\\])*)&/.test(args.join(' '))) {
       channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
@@ -71,7 +72,7 @@ exports.run = async (client, message, args) => {
       try {
         songInfo = await getInfo(search);
       } catch (error) {
-        return error.message.includes('410') ? message.reply('Video is age restricted, private or unavailable.') : message.reply(error.message);
+        return message.reply(error.message.includes('410') ? 'Video is age restricted, private or unavailable.' : error.message);
       }
     } else if (!ytRegex.test(search) && !validUrl(search)) {
       // if search query was inputted (not valid url)
@@ -82,14 +83,14 @@ exports.run = async (client, message, args) => {
         else
           return message.reply(`No results found for ${search}`);
       } catch (error) {
-        client.logger.error(error.stack || error);
+        client.logger.error(error.stack ?? error);
         return message.channel.send({embeds: [
           new MessageEmbed()
             .setColor('#FF0000')
             .setTimestamp()
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
-            .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .setDescription(`**ytdl-core failed to search:\n\nStack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
             .addField('**Command:**', message.content)
         ]});
       }
@@ -125,9 +126,9 @@ exports.run = async (client, message, args) => {
       client.queue.set(message.guild.id, queueConstruct);
       play(song, message, false);
     } catch (error) {
-      client.logger.error(error.stack || error);
+      client.logger.error(error.stack ?? error);
       await client.queue.get(message.guild.id)?.connection?.destroy();
-      return message.reply(`Could not join the voice channel: ${error.stack || error}`);
+      return message.reply(`Could not join the voice channel: ${error.stack ?? error}`);
     }
   } catch (error) {
     return message.channel.send({embeds: [
@@ -136,7 +137,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

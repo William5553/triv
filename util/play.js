@@ -60,14 +60,14 @@ module.exports = {
     if (!queue.player) {
       queue.player = createAudioPlayer({ noSubscriber: NoSubscriberBehavior.Stop });
       queue.player.on('error', error => {
-        client.logger.error(`A queue audio player encountered an error: ${error.stack || error}`);
+        client.logger.error(`A queue audio player encountered an error: ${error.stack ?? error}`);
         queue.textChannel.send({embeds: [
           new MessageEmbed()
             .setColor('#FF0000')
             .setTimestamp()
             .setTitle('Please report this on GitHub')
             .setURL('https://github.com/william5553/triv/issues')
-            .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+            .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
             .addField('**Command:**', message.content)
         ]});
         queue.songs.shift();
@@ -96,7 +96,7 @@ module.exports = {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
       queue.textChannel.send(`An error occurred while trying to play **${song.title ? song.title : song.url}**: ${error.message || error}`);
-      client.logger.error(`Error occurred while trying to play music in ${message.guild.name}: ${error.stack || error}`);
+      client.logger.error(`Error occurred while trying to play music in ${message.guild.name}: ${error.stack ?? error}`);
       queue.connection?.destroy();
       queue.collector?.stop();
       client.queue.delete(message.guild.id);

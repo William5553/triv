@@ -8,13 +8,13 @@ exports.run = async (client, message, args) => {
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args[0].toLowerCase());
     
     if (!member) return message.reply('Tell me who to warn, idiot');
-    if (reason.length === 0) return message.reply('supply a reason for the warning');
+    if (reason.length === 0) return message.reply('Supply a reason for the warning.');
     if (parseUser(message, member) !== true) return;
 
-    message.channel.send(`Warned ${member} for **${reason}**`);
+    message.channel.send(`Warned ${member.toString()} for **${reason}**`);
 
     client.infractions.ensure(message.guild.id, { [member.id]: [] });
-    client.infractions.push(message.guild.id, {'type': 'Warn', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
+    client.infractions.push(message.guild.id, {type: 'Warn', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
 
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
@@ -23,8 +23,8 @@ exports.run = async (client, message, args) => {
         new MessageEmbed()
           .setColor(0x00_AE_86)
           .setTimestamp()
-          .setFooter(`ID ${caseNum}`)
-          .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.tag}\n**Target:** ${member.user.tag}\n**Target's User ID:** ${member.user.id}\n**Reason:** ${reason}`)
+          .setFooter(`ID ${caseNum} | User ID: ${member.id}`)
+          .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.toString()}\n**Target:** ${member.user.toString()}\n**Reason:** ${reason}`)
       ]});
     }
   } catch (error) {
@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

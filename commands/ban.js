@@ -14,11 +14,11 @@ exports.run = async (client, message, args) => {
     if (!member.bannable) return message.reply("I can't ban that user");
     const reason = args.slice(1).join(' ');
     await member.user.send(`You've been banned from ${message.guild.name} by ${message.author}${reason ? ` for ${reason}` : ''}`);
-    member.ban({ days: 0, reason: reason });
-    message.channel.send(`Banned ${member.user}`);
+    member.ban({ days: 0, reason });
+    message.channel.send(`Banned ${member.toString()}`);
 
     client.infractions.ensure(message.guild.id, { [member.id]: [] });
-    client.infractions.push(message.guild.id, {'type': 'Ban', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
+    client.infractions.push(message.guild.id, {type: 'Ban', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
 
     if (client.settings.get(message.guild.id).logsID) {
       const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
         new MessageEmbed()
           .setColor(0x00_AE_86)
           .setTimestamp()
-          .setDescription(`**Action:** Ban\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**User ID:** ${member.user.id}`)
+          .setDescription(`**Action:** Ban\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}`)
           .setFooter(`ID ${caseNum} | User ID: ${member.user.id}`)
       ]});
     }
@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

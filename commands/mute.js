@@ -33,15 +33,15 @@ exports.run = async (client, message, args) => {
         .then(async () => {
           message.channel.send(`Unmuted ${member.user}`);
           client.infractions.ensure(message.guild.id, { [member.id]: [] });
-          client.infractions.push(message.guild.id, {'type': 'Mute', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, member.id);
+          client.infractions.push(message.guild.id, {type: 'Mute', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
           if (client.settings.get(message.guild.id).logsID) {
             const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
             const caseNum = await caseNumber(client, botlog);
             botlog.send({embeds: [new MessageEmbed()
               .setColor(0x00_AE_86)
               .setTimestamp()
-              .setDescription(`**Action:** Unmute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**User ID:** ${member.user.tag}`)
-              .setFooter(`ID ${caseNum}`)
+              .setDescription(`**Action:** Unmute\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}`)
+              .setFooter(`ID ${caseNum} | **User ID:** ${member.id}`)
             ]});
           }
         });
@@ -58,8 +58,8 @@ exports.run = async (client, message, args) => {
             botlog.send({embeds: [new MessageEmbed()
               .setColor(0x00_AE_86)
               .setTimestamp()
-              .setDescription(`**Action:** Mute\n**Target:** ${member.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}\n**User ID:** ${member.user.tag}`)
-              .setFooter(`ID ${caseNum}`)
+              .setDescription(`**Action:** Mute\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
+              .setFooter(`ID ${caseNum} | **User ID:** ${member.id}`)
             ]});
           }
         });
@@ -70,7 +70,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

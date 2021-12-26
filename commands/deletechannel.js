@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
         .setColor('FF0000')
       ]});
   } catch (error) {
-    return message.reply(`There was an error deleting the specified channel: ${error.stack || error}`);
+    return message.reply(`There was an error deleting the specified channel: ${error.stack ?? error}`);
   }
 };
   

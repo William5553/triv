@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
               try {
                 message.channel.send(body.queryresult.warnings[i][j][0].text);
               } catch (error) {
-                client.logger.warn(`WolframAlpha: failed displaying warning: ${error.stack || error}`);
+                client.logger.warn(`WolframAlpha: failed displaying warning: ${error.stack ?? error}`);
               }
             }
           }
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
               try {
                 message.channel.send(`Assuming ${body.queryresult.assumptions[i][j][0].word} is ${body.queryresult.assumptions[i][j][0].value[0].desc}`);
               } catch (error) {
-                client.logger.warn(`WolframAlpha: failed displaying assumption: ${error.stack || error}`);
+                client.logger.warn(`WolframAlpha: failed displaying assumption: ${error.stack ?? error}`);
               }
             }
           }
@@ -119,7 +119,7 @@ exports.run = async (client, message, args) => {
             }
             await reaction.users.remove(message.author.id);
           } catch (error) {
-            client.logger.error(error.stack || error);
+            client.logger.error(error.stack ?? error);
             return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
           }
         });
@@ -140,7 +140,7 @@ exports.run = async (client, message, args) => {
       .setTimestamp()
       .setTitle('Please report this on GitHub')
       .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
       .addField('**Command:**', message.content)
     ]});
   }

@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
           .unloadCommand(command)
           .then(() => client.loadCommand(command))
           .then(() => m.edit(`Successfully reloaded: ${command}`))
-          .catch(error => m.edit(`Command reload failed: ${command}\n\`\`\`${error.stack || error}\`\`\``));
+          .catch(error => m.edit(`Command reload failed: ${command}\n\`\`\`${error.stack ?? error}\`\`\``));
       });
   }
 };

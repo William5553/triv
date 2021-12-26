@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
       } catch (error) {
         connection.destroy();
         message.reply(`Failed to connect to ${vc.name}: ${error.message || error}`);
-        client.logger.error(`Failed to connect to ${vc.name} in ${vc.guild.name}: ${error.stack || error}`);
+        client.logger.error(`Failed to connect to ${vc.name} in ${vc.guild.name}: ${error.stack ?? error}`);
       }
     } else return message.reply('You have to be in a voice channel moron');
   } else if (message.member.voice.channelId !== message.guild.me.voice.channelId)

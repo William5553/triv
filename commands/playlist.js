@@ -131,18 +131,18 @@ exports.run = async (client, message, args) => {
       } catch (error) {
         client.logger.error(error);
         await client.queue.get(message.guild.id).connection.destroy();
-        return message.reply(`Could not join the channel: ${error.stack || error}`);
+        return message.reply(`Could not join the channel: ${error.stack ?? error}`);
       }
     }
   } catch (error) {
-    client.logger.error(`Error occurred with playlist command: ${error.stack || error}`);
+    client.logger.error(`Error occurred with playlist command: ${error.stack ?? error}`);
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('#FF0000')
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

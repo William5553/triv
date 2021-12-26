@@ -16,14 +16,14 @@ exports.run = async (client, message) => {
       connection = getVoiceConnection(message.guild.id);
     const player = createAudioPlayer();
     player.on('error', error => {
-      client.logger.error(`An audio player encountered an error: ${error.stack || error}`);
+      client.logger.error(`An audio player encountered an error: ${error.stack ?? error}`);
       message.channel.send({embeds: [
         new MessageEmbed()
           .setColor('#FF0000')
           .setTimestamp()
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
-          .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+          .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
           .addField('**Command:**', message.content)
       ]});
     });
@@ -34,7 +34,7 @@ exports.run = async (client, message) => {
         await entersState(player, AudioPlayerStatus.Playing, 5e3);
         connection.subscribe(player);
       } catch (error) {
-        client.logger.error(`Error occurred while trying to play sound: ${error.stack || error}`);
+        client.logger.error(`Error occurred while trying to play sound: ${error.stack ?? error}`);
         connection.destroy();
         player.stop();
         return message.reply(`An error occurred: ${error.message || error}`);
@@ -64,7 +64,7 @@ exports.run = async (client, message) => {
         .setTimestamp()
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
-        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack || error}\`\`\``)
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
         .addField('**Command:**', message.content)
     ]});
   }

@@ -10,14 +10,14 @@ exports.run = async (client, message, args) => {
   try {
     banned = await message.guild.bans.fetch(user);
   } catch {
-    return message.reply('they are not banned');
+    return message.reply('That user is not banned');
   }
-  if (!banned.user) return message.reply('that user is not banned');
+  if (!banned.user) return message.reply('That user is not banned');
   message.guild.bans.remove(user, reason);
   message.channel.send(`Unbanned ${banned.user}${banned.reason ? ` who was previously banned for ${banned.reason}` : ''}`);
   
   client.infractions.ensure(message.guild.id, { [user.id]: [] });
-  client.infractions.push(message.guild.id, {'type': 'Unban', 'timestamp': Date.now(), 'reason': reason, 'mod': message.author.id}, user.id);
+  client.infractions.push(message.guild.id, {type: 'Unban', timestamp: Date.now(), reason: reason, mod: message.author.id}, user.id);
 
   if (client.settings.get(message.guild.id).logsID) {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
       new MessageEmbed()
         .setColor(0x00_AE_86)
         .setTimestamp()
-        .setDescription(`**Action:** Unban\n**Target:** ${banned.user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`)
+        .setDescription(`**Action:** Unban\n**Target:** ${banned.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
         .setFooter(`User ID: ${banned.user.id}`)
     ]});
   }

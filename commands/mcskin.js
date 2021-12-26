@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   try {
     findPlayer = await nameToUUID(args[0]) || await uuidToName(args[0]);
   } catch (error) {
-    return message.channel.send(`User not found: ${error.stack || error}`);
+    return message.channel.send(`User not found: ${error.stack ?? error}`);
   }
   
   if (findPlayer.uuid) {
