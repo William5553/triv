@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   message.channel.send(`Untimedout ${member.toString()}`);
   
   client.infractions.ensure(message.guild.id, { [member.id]: [] });
-  client.infractions.push(message.guild.id, {type: 'Unban', timestamp: Date.now(), reason: reason, mod: message.author.id}, member.id);
+  client.infractions.push(message.guild.id, {type: 'Unban', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
 
   if (client.settings.get(message.guild.id).logsID) {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
       new MessageEmbed()
         .setColor(0x00_AE_86)
         .setTimestamp()
-        .setDescription(`**Action:** Unban\n**Target:** ${member.toString()}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`)
+        .setDescription(`**Action:** Untimeout\n**Target:** ${member.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
         .setFooter(`User ID: ${member.id}`)
     ]});
   }
