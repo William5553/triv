@@ -4,6 +4,6 @@ echo Starting..
 
 :main
 node index.js
-echo Restarting...
+echo Restarting in 5 seconds...
 timeout /t 5 /nobreak
 goto main

@@ -38,7 +38,7 @@ Turn on presence intent and server members intent
 Save your changes
 
 # Starting the bot
-You can run startbot.sh if you're on linux and startbot.bat if you're on Windows.
+You can run [startbot.sh](https://github.com/William5553/triv/blob/discord.js-latest/startbot.sh) if you're on Linux and [startbot.bat](https://github.com/William5553/triv/blob/discord.js-latest/startbot.bat) if you're on Windows.
 
 # Inviting your bot
-[Go to this link](https://discordapi.com/permissions.html#8589934591) and enter your application ID from earlier
+[Go to this link](https://discordapi.com/permissions.html#1099511627775) and enter your application ID from earlier
