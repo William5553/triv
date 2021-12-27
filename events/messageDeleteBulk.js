@@ -8,7 +8,7 @@ module.exports = (client, messages) => {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
       logs.send({embeds: [
         new MessageEmbed()
-          .setAuthor(guild.name, guild.iconURL())
+          .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
           .setColor(0xEB_52_34)
           .setTimestamp()
           .setDescription(`**Bulk Delete in ${messages.first().channel}, ${messages.size} messages deleted**`)

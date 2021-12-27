@@ -16,7 +16,7 @@ exports.run = async (client, message) => {
       .setColor('#FF0000');
       
     if (song.thumbnail) nowPlaying.setThumbnail(song.thumbnail.url);
-    if (song.channel) nowPlaying.setAuthor(song.channel.name, song.channel.profile_pic, song.channel.url);
+    if (song.channel) nowPlaying.setAuthor({ name: song.channel.name, iconURL: song.channel.profile_pic, url: song.channel.url });
     if (song.duration != undefined) nowPlaying.setDescription(`**${Math.floor(bar[1] * 100) / 100}% done**\n${getTime(seek)} [${bar[0]}] ${song.duration == 0 ? ' ◉ LIVE' : getTime(song.duration)}`);
     if (validUrl(song.url)) nowPlaying.setURL(song.url);
 

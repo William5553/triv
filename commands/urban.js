@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     const data = body.list[resultN];
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor(0x32_A8_F0)
-      .setAuthor('Urban Dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
+      .setAuthor({ name: 'Urban Dictionary', iconURL: 'https://i.imgur.com/Fo0nRTe.png', url: data.permalink })
       .setURL(data.permalink)
       .setTitle(data.word)
       .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))

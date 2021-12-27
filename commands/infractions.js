@@ -48,7 +48,7 @@ const genEmbeds = (message, user, infractions) => {
     const mod = message.guild.members.cache.get(infraction.mod);
     const embed = new MessageEmbed()
       .setTitle(`${user.username}'s infractions`)
-      .setAuthor(`Moderator: ${mod.user.tag}`, mod.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: `Moderator: ${mod.user.tag}`, iconURL: mod.user.displayAvatarURL({ dynamic: true }) })
       .addField('Action', infraction.type, true)
       .setColor(0x90_2B_93)
       .setFooter(formatDate(infraction.timestamp)

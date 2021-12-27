@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
     new MessageEmbed()
       .setColor(0x00_AE_86)
       .setTimestamp()
-      .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
       .setFooter(`User ID: ${message.author.id}`)
       .setDescription(args.join(' '))
   ]});

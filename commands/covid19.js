@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     return message.channel.send({embeds: [
       new MessageEmbed()
         .setColor(0xA2_D8_4E)
-        .setAuthor('Worldometers', 'https://i.imgur.com/IoaBMuK.jpg', 'https://www.worldometers.info/coronavirus/')
+        .setAuthor({ name: 'Worldometers', url: 'https://www.worldometers.info/coronavirus/', iconURL: 'https://i.imgur.com/IoaBMuK.jpg' })
         .setTitle(`Stats for ${country === 'all' ? 'the World' : data.country}`)
         .setURL(country === 'all'
           ? 'https://www.worldometers.info/coronavirus/'

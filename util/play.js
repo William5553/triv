@@ -111,7 +111,7 @@ module.exports = {
       .setDescription(seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : '');
 
     if (song.channel)
-      embed.setAuthor(song.channel?.name, song.channel?.profile_pic, song.channel?.url);
+      embed.setAuthor({ name: song.channel?.name, iconURL: song.channel?.profile_pic, url: song.channel?.url });
     if (song.thumbnail)
       embed.setThumbnail(song.thumbnail.url);
     if (song.duration != undefined && song.publishDate)

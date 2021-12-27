@@ -3,12 +3,12 @@ const { MessageEmbed, Permissions } = require('discord.js');
 exports.run = (client, message) => {
   try {
     if (!client.application.botPublic && !client.owners.includes(message.author.id)) return message.reply('The bot is private.');
-    const link = client.generateInvite({ permissions: Permissions.ALL, scopes: ['bot'] });
+    const url = client.generateInvite({ permissions: Permissions.ALL, scopes: ['bot'] });
     message.reply({embeds: [
       new MessageEmbed()
         .setColor(0x00_AE_86)
-        .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }), link)
-        .setDescription(`[Invite me](${link})`)
+        .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ dynamic: true }), url})
+        .setDescription(`[Invite me](${url})`)
     ]});
   } catch (error) {
     return message.channel.send({embeds: [

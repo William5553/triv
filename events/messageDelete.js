@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
       const embeds = [
         new MessageEmbed()
           .setTitle('**Message Deleted**')
-          .setAuthor(`@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, message.author.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
           .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
           .setTimestamp()
           .setDescription(`${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)

@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     const guild = client.guilds.resolve(args[0]);
     if (!guild) return message.channel.send('Unable to find server, please check the provided ID');
     message.channel.send({embeds: [new MessageEmbed()
-      .setAuthor(guild.name, guild.iconURL())
+      .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
       .setTimestamp()
       .setDescription(guild.channels.cache.map(c => `${c.name} - ${c.type}`).join('\n'))
       .setColor('BLURPLE')

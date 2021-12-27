@@ -17,7 +17,7 @@ module.exports = async (client, oldState, newState) => {
 
       const embed = new MessageEmbed()
         .setColor('FFCC00')
-        .setAuthor(`@${newState.member.user.tag}`, newState.member.user.displayAvatarURL({ dynamic: true }))
+        .setAuthor({ name: `@${newState.member.user.tag}`, iconURL: newState.member.user.displayAvatarURL({ dynamic: true }) })
         .setFooter(`Moderator: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
         .setTimestamp(entries.first().createdTimestamp);
     

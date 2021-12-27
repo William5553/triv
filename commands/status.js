@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
     if (user.presence.activities.length === 0) {
       return message.channel.send({embeds: [
         new MessageEmbed()
-          .setAuthor(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: user.displayName, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
           .setColor('#FF0000')
           .setTitle('**No Status**')
           .setDescription('This user does not have a custom status!')
@@ -22,14 +22,14 @@ exports.run = (client, message, args) => {
     for (const activity of user.presence.activities) {
       if (activity.type === 'CUSTOM_STATUS') {
         embeds.push(new MessageEmbed()
-          .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
           .setColor('GREEN')
           .setDescription(`**Custom Status**\n${activity.emoji || 'No Emoji'} | ${activity.state || 'No State'}`)
           .setTimestamp()
         );
       } else if (activity.type === 'PLAYING') {
         const embed = new MessageEmbed()
-          .setAuthor(`${user.displayName}'s Activity`, user.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
           .setColor('GREEN')
           .addField('**Type**', 'Playing')
           .addField('**App**', activity.name);
@@ -54,7 +54,7 @@ exports.run = (client, message, args) => {
       } else if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets) {
         embeds.push(
           new MessageEmbed()
-            .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
+            .setAuthor({ name: 'Spotify Track Info', iconURL: 'https://cdn.discordapp.com/emojis/408668371039682560.png' })
             .setColor('GREEN')
             .setTimestamp()
             .setThumbnail(`https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`)

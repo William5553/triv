@@ -16,7 +16,7 @@ module.exports = async (client, oldMember, newMember) => {
 
         const embed = new MessageEmbed()
           .setTitle(`**Nickname Updated${entry ? ` | Updated by @${entry.executor.tag}` : ''}**`)
-          .setAuthor(`@${newMember.user.tag}`, newMember.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `@${newMember.user.tag}`, iconURL: newMember.user.displayAvatarURL({ dynamic: true }) })
           .setColor('#824ED2')
           .addField('**Old Nickname**', oldMember.displayName)
           .addField('**New Nickname**', newMember.displayName)

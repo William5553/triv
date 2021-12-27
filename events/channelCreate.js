@@ -17,7 +17,7 @@ module.exports = async (client, channel) => {
         new MessageEmbed()
           .setTitle(`**Channel Created - #${channel.name}**`)
           .setDescription(`${channel}`)
-          .setAuthor(`@${guy.tag}`, guy.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `@${guy.tag}`, iconURL: guy.displayAvatarURL({ dynamic: true }) })
           .setFooter(`User ID: ${guy.id} | Channel ID: ${channel.id}`)
           .setTimestamp()
           .setColor('00FF00')

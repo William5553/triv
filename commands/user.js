@@ -22,10 +22,10 @@ exports.run = async (client, message, args) => {
   const userFlags = user.flags ? user.flags.toArray() : [];
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-    .setAuthor(user.tag)
-    .addField('❯ Discord Join Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`, true)
-    .addField('❯ ID', user.id, true)
-    .addField('❯ Bot', user.bot ? 'Yes' : 'No', true)
+    .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ dynamic: true }) })
+    .addField('❯ Discord Join Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`)
+    .addField('❯ ID', user.id)
+    .addField('❯ Bot', user.bot ? 'Yes' : 'No')
     .addField('❯ Flags', userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
   if (message.guild) {
     try {

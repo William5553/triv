@@ -5,7 +5,7 @@ exports.run = (client, message) => {
     const link = client.generateInvite({ permissions: Permissions.ALL, scopes: ['bot'] });
     message.channel.send({embeds: [new MessageEmbed()
       .setColor(0x00_FF_5C)
-      .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ dynamic: true }) })
       .setTitle(`**${client.guilds.cache.size} guild(s)**`)
       .setDescription(`${client.guilds.cache.map(g => `${g.name} - ${g.id}`).join('\n')}`)
       .setURL(client.application.botPublic ? link : 'https://github.com/william5553/triv')

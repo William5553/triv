@@ -13,11 +13,11 @@ module.exports = (client, oldMessage, newMessage) => {
       logs.send({embeds: [
         new MessageEmbed()
           .setTitle('**Message Edited**')
-          .setAuthor(`@${newMessage.author.tag} - #${newMessage.channel.name}`, newMessage.author.displayAvatarURL({ dynamic: true }))
+          .setAuthor({ name: `@${newMessage.author.tag} - #${newMessage.channel.name}`, iconURL: newMessage.author.displayAvatarURL({ dynamic: true })})
           .setFooter(`User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}`)
           .setTimestamp()
-          .addField('**Old Message**', oldMessage.content, true)
-          .addField('**New Message**', newMessage.content, true)
+          .addField('**Old Message**', oldMessage.content)
+          .addField('**New Message**', newMessage.content)
           .setColor('0xEB5234')
       ]});
     }

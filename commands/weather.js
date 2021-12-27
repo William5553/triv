@@ -2,9 +2,9 @@ const request = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-  if (!process.env.openweathermap_key) return message.reply('the bot owner has not set up this command yet');
+  if (!process.env.openweathermap_key) return message.reply('The bot owner has not set up this command yet');
   let location = args.join(' ');
-  if (!location) return message.reply('enter a location next time, fart face');
+  if (!location) return message.reply('Enter a location next time, fartface');
   location = /^\d+$/.test(location) ? { type: 'zip', data: location } : { type: 'q', data: location };
 
   try {
@@ -18,10 +18,7 @@ exports.run = async (client, message, args) => {
       });
     return message.channel.send({embeds: [new MessageEmbed()
       .setColor(0xFF_7A_09)
-      .setAuthor(
-        `${body.name}, ${body.sys.country}`,
-        `http://openweathermap.org/img/wn/${body.weather.icon}@2x.png`
-      )
+      .setAuthor({ name: `${body.name}, ${body.sys.country}`, iconURL: `http://openweathermap.org/img/wn/${body.weather.icon}@2x.png` })
       .setURL(`https://openweathermap.org/city/${body.id}`)
       .setTimestamp()
       .addField('❯ Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))

@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
     await message.channel.send({embeds: [
       new MessageEmbed()
         .setColor('GREEN')
-        .setAuthor('Spotify', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
+        .setAuthor({ name: 'Spotify', iconURL: 'https://cdn.discordapp.com/emojis/408668371039682560.png' })
         .setDescription(`You are currently listening to [**${listening.details}** by **${listening.state.split(';')[0]}**](https://open.spotify.com/track/${listening.syncId}) in the album **${listening.assets.largeText}** on Spotify, would you like to get the lyrics of that song?`)
     ]});
     const verification = await verify(message.channel, message.author);

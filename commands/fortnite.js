@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         return message.reply({
           embeds: [
             new MessageEmbed()
-              .setAuthor('400: Invalid platform', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
+              .setAuthor({ name: '400: Invalid platform', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
               .setColor('#ff3860')
               .setDescription('Valid platforms are **kbm**, **gamepad** and **touch**')
           ]});
@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
           return e.edit({
             embeds: [
               new MessageEmbed()
-                .setAuthor('404: Account not found.', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
+                .setAuthor({ name: '404: Account not found.', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
                 .setColor('#ff3860')
                 .setFooter("Make sure you've got the name correct!")
             ]});
@@ -45,7 +45,7 @@ exports.run = async (client, message, args) => {
           return e.edit({
             embeds: [
               new MessageEmbed()
-                .setAuthor('500: Something broke', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
+                .setAuthor({ name: '500: Something broke', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
                 .setColor('#ff3860')
                 .setFooter(body.error)
             ]});
@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
       return message.reply({
         embeds: [
           new MessageEmbed()
-            .setAuthor('400: Too few arguments.', 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png')
+            .setAuthor({ name: '400: Too few arguments.', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
             .setColor('#ff3860')
             .setDescription(`This command requires 2 arguments, **platform** and **epic username**. Try this **${client.getPrefix(message)}${exports.help.example}**`)
         ]});
