@@ -29,7 +29,7 @@ module.exports = async (client, message) => {
         new MessageEmbed()
           .setTitle('**Message Deleted**')
           .setAuthor({ name: `@${message.author.tag} - #${message.channel.name}${auditEntry ? ` | Deleted by @${auditEntry.executor.tag}` : ''}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-          .setFooter(`User ID: ${message.author.id} | Message ID: ${message.id}`)
+          .setFooter({ text: `User ID: ${message.author.id} | Message ID: ${message.id}` })
           .setTimestamp()
           .setDescription(`${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
           .setColor(0xEB_52_34)

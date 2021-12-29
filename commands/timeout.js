@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
           .setColor(0x00_AE_86)
           .setTimestamp()
           .setDescription(`**Action:** Timeout\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason || `Awaiting moderator's input. Use ${client.getPrefix(message)}reason ${caseNum} <reason>.`}\n**Timed out until:** <t:${Math.round(member.communicationDisabledUntilTimestamp/1000)}>\n**Length:** ${ms(timeout)}`)
-          .setFooter(`ID ${caseNum} | User ID: ${member.user.id}`)
+          .setFooter({ text: `ID ${caseNum} | User ID: ${member.user.id}` })
       ]});
     }
   } catch (error) {

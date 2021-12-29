@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { promisify } = require('node:util');
+const process = require('node:process');
 const exec = promisify(require('node:child_process').execFile);
 const path = require('node:path');
 

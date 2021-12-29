@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
               .setColor(0x00_AE_86)
               .setTimestamp()
               .setDescription(`**Action:** Unmute\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}`)
-              .setFooter(`ID ${caseNum} | **User ID:** ${member.id}`)
+              .setFooter({ text: `ID ${caseNum} | **User ID:** ${member.id}` })
             ]});
           }
         });
@@ -59,7 +59,7 @@ exports.run = async (client, message, args) => {
               .setColor(0x00_AE_86)
               .setTimestamp()
               .setDescription(`**Action:** Mute\n**Target:** ${member.user.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
-              .setFooter(`ID ${caseNum} | **User ID:** ${member.id}`)
+              .setFooter({ text: `ID ${caseNum} | **User ID:** ${member.id}` })
             ]});
           }
         });

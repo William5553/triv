@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
           ? 'https://www.worldometers.info/coronavirus/'
           : `https://www.worldometers.info/coronavirus/country/${data.countryInfo.iso2}/`)
         .setThumbnail(country === 'all' ? undefined : data.countryInfo.flag || undefined)
-        .setFooter('Last Updated')
+        .setFooter({ text: 'Last Updated' })
         .setTimestamp(data.updated)
         .addField('❯ Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, true)
         .addField('❯ Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, true)

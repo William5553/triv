@@ -14,7 +14,7 @@ module.exports = (client, oldMessage, newMessage) => {
         new MessageEmbed()
           .setTitle('**Message Edited**')
           .setAuthor({ name: `@${newMessage.author.tag} - #${newMessage.channel.name}`, iconURL: newMessage.author.displayAvatarURL({ dynamic: true })})
-          .setFooter(`User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}`)
+          .setFooter({ text: `User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}` })
           .setTimestamp()
           .addField('**Old Message**', oldMessage.content)
           .addField('**New Message**', newMessage.content)

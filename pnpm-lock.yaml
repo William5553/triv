@@ -8,7 +8,7 @@ specifiers:
   bufferutil: ^4.0.5
   chalk: ^4.1.2
   cloc: ^2.9.0
-  discord.js: ^13.4.0
+  discord.js: ^13.5.0
   dotenv: ^10.0.0
   enmap: ^5.8.7
   eslint: 8.5.0
@@ -40,7 +40,7 @@ dependencies:
   bufferutil: 4.0.5
   chalk: 4.1.2
   cloc: 2.9.0
-  discord.js: 13.4.0_5971b5a749a91823f5467a6d31a2f8b3
+  discord.js: 13.5.0_5971b5a749a91823f5467a6d31a2f8b3
   dotenv: 10.0.0
   enmap: 5.8.7
   esrever: 0.2.0
@@ -289,12 +289,12 @@ packages:
       parse-cache-control: 1.0.1
     dev: false
 
-  /@discordjs/builders/0.10.0:
-    resolution: {integrity: sha512-fTB/f/4sPFhG5YWkVJPCC1WyIwUWPrgqyYn5nQtUwT77TUIhfus3VbI4OdIqht2Rneemmw8OjtAEBY3ENB0XWQ==}
+  /@discordjs/builders/0.11.0:
+    resolution: {integrity: sha512-ZTB8yJdJKrKlq44dpWkNUrAtEJEq0gqpb7ASdv4vmq6/mZal5kOv312hQ56I/vxwMre+VIkoHquNUAfnTbiYtg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@sindresorhus/is': 4.2.0
-      discord-api-types: 0.25.2
+      discord-api-types: 0.26.0
       ts-mixer: 6.0.0
       tslib: 2.3.1
       zod: 3.11.6
@@ -512,12 +512,12 @@ packages:
       acorn-walk: 7.2.0
     dev: false
 
-  /acorn-jsx/5.3.2_acorn@8.6.0:
+  /acorn-jsx/5.3.2_acorn@8.7.0:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.6.0
+      acorn: 8.7.0
     dev: true
 
   /acorn-walk/7.2.0:
@@ -531,8 +531,8 @@ packages:
     hasBin: true
     dev: false
 
-  /acorn/8.6.0:
-    resolution: {integrity: sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==}
+  /acorn/8.7.0:
+    resolution: {integrity: sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -762,8 +762,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001292
-      electron-to-chromium: 1.4.28
+      caniuse-lite: 1.0.30001294
+      electron-to-chromium: 1.4.30
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -831,8 +831,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /caniuse-lite/1.0.30001292:
-    resolution: {integrity: sha512-jnT4Tq0Q4ma+6nncYQVe7d73kmDmE9C3OGTx3MvW7lBM/eY1S1DZTMBON7dqV481RhNiS5OxD7k9JQvmDOTirw==}
+  /caniuse-lite/1.0.30001294:
+    resolution: {integrity: sha512-LiMlrs1nSKZ8qkNhpUf5KD0Al1KCBE3zaT7OLOwEkagXMEDij98SiOovn9wxVGQpklk9vVC/pUSqgYmkmKOS8g==}
     dev: true
 
   /canvas/2.8.0:
@@ -1237,21 +1237,21 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /discord-api-types/0.25.2:
-    resolution: {integrity: sha512-O243LXxb5gLLxubu5zgoppYQuolapGVWPw3ll0acN0+O8TnPUE2kFp9Bt3sTRYodw8xFIknOVxjSeyWYBpVcEQ==}
+  /discord-api-types/0.26.0:
+    resolution: {integrity: sha512-bnUltSHpQLzTVZTMjm+iNgVhAbtm5oAKHrhtiPaZoxprbm1UtuCZCsG0yXM61NamWfeSz7xnLvgFc50YzVJ5cQ==}
     engines: {node: '>=12'}
     dev: false
 
-  /discord.js/13.4.0_5971b5a749a91823f5467a6d31a2f8b3:
-    resolution: {integrity: sha512-ELjfNsGxoihpefQWWEegpk0QBserxvuYJlZAiOY5L+LjpQD30ccNSfcbt7HHDiKJB8o9T5CmMAvA3wvzIWNpKg==}
+  /discord.js/13.5.0_5971b5a749a91823f5467a6d31a2f8b3:
+    resolution: {integrity: sha512-K+ZcB0f+wA1ZzDhz3hlaAi4Ap7jSvVEUZ+U29T4DMoiNNUv22F4vu1byrOq8GyyLLDFiZ3iSudea0MvSHu3fQA==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
     dependencies:
-      '@discordjs/builders': 0.10.0
+      '@discordjs/builders': 0.11.0
       '@discordjs/collection': 0.4.0
       '@sapphire/async-queue': 1.1.9
       '@types/node-fetch': 2.5.12
       '@types/ws': 8.2.2
-      discord-api-types: 0.25.2
+      discord-api-types: 0.26.0
       form-data: 4.0.0
       node-fetch: 2.6.6
       ws: 8.4.0_5971b5a749a91823f5467a6d31a2f8b3
@@ -1318,8 +1318,8 @@ packages:
     dev: false
     optional: true
 
-  /electron-to-chromium/1.4.28:
-    resolution: {integrity: sha512-Gzbf0wUtKfyPaqf0Plz+Ctinf9eQIzxEqBHwSvbGfeOm9GMNdLxyu1dNiCUfM+x6r4BE0xUJNh3Nmg9gfAtTmg==}
+  /electron-to-chromium/1.4.30:
+    resolution: {integrity: sha512-609z9sIMxDHg+TcR/VB3MXwH+uwtrYyeAwWc/orhnr90ixs6WVGSrt85CDLGUdNnLqCA7liv426V20EecjvflQ==}
     dev: true
 
   /emoji-regex/7.0.3:
@@ -1575,8 +1575,8 @@ packages:
     resolution: {integrity: sha512-oP3utRkynpZWF/F2x/HZJ+AGtnIclaR7z1pYPxy7NYM2fSO6LgK/Rkny8anRSPK/VwEA1eqm2squui0T7ZMOBg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.6.0
-      acorn-jsx: 5.3.2_acorn@8.6.0
+      acorn: 8.7.0
+      acorn-jsx: 5.3.2_acorn@8.7.0
       eslint-visitor-keys: 3.1.0
     dev: true
 
@@ -2258,7 +2258,7 @@ packages:
         optional: true
     dependencies:
       abab: 2.0.5
-      acorn: 8.6.0
+      acorn: 8.7.0
       acorn-globals: 6.0.0
       canvas: 2.8.0
       cssom: 0.4.4

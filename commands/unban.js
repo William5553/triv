@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
         .setColor(0x00_AE_86)
         .setTimestamp()
         .setDescription(`**Action:** Unban\n**Target:** ${banned.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
-        .setFooter(`User ID: ${banned.user.id}`)
+        .setFooter({ text: `User ID: ${banned.user.id}` })
     ]});
   }
 };

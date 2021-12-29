@@ -1,5 +1,6 @@
 const path = require('node:path');
 const { Message, MessageEmbed } = require('discord.js');
+const process = require('node:process');
 const { getVoiceConnection, createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
 const { verify } = require('../util/Util');
 const data = require('../assets/hearing-test.json');

@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
       .setURL(data.permalink)
       .setTitle(data.word)
       .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
-      .setFooter(`Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}`)
+      .setFooter({ text: `Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}` })
       .setTimestamp(new Date(data.written_on))
       .addField('❯ Example', data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None')
     ]});

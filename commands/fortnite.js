@@ -1,5 +1,6 @@
 const request = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
+const process = require('node:process');
 
 exports.run = async (client, message, args) => {
   if (!process.env.trn_api_key) return message.reply('The bot owner has not set up this command yet');
@@ -38,7 +39,7 @@ exports.run = async (client, message, args) => {
               new MessageEmbed()
                 .setAuthor({ name: '404: Account not found.', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
                 .setColor('#ff3860')
-                .setFooter("Make sure you've got the name correct!")
+                .setFooter({ text: "Make sure you've got the name correct!" })
             ]});
         } else {
           client.logger.error(body.error);
@@ -47,14 +48,14 @@ exports.run = async (client, message, args) => {
               new MessageEmbed()
                 .setAuthor({ name: '500: Something broke', iconURL: 'https://cdn.discordapp.com/attachments/423185454582464512/425761155940745239/emote.png' })
                 .setColor('#ff3860')
-                .setFooter(body.error)
+                .setFooter({ text: body.error })
             ]});
         }
       } else {
         const emb = new MessageEmbed()
           .setTitle(`[${body.platformNameLong}] ${body.epicUserHandle}`)
           .setColor('#23d160')
-          .setFooter('Epic Account ID: ' + body.accountId)
+          .setFooter({ text: `Epic Account ID: ${body.accountId}` })
           .setThumbnail('https://i.imgur.com/QDzGMB8.png')
           .setURL(`https://fortnitetracker.com/profile/${encodeURIComponent(body.platformName)}/${encodeURIComponent(body.epicUserHandle)}`);
         for (const stat of body.lifeTimeStats)

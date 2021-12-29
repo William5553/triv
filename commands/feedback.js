@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const process = require('node:process');
 
 exports.run = (client, message, args) => {
   if (args.length === 0) return message.reply("We don't accept blank feedback!");
@@ -13,7 +14,7 @@ exports.run = (client, message, args) => {
       .setColor(0x00_AE_86)
       .setTimestamp()
       .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setFooter(`User ID: ${message.author.id}`)
+      .setFooter({ text: `User ID: ${message.author.id}` })
       .setDescription(args.join(' '))
   ]});
 };

@@ -44,10 +44,10 @@ exports.run = (client, message, args) => {
         if (activity.url)
           embed.setURL(activity.url);
         if (activity.timestamps && activity.timestamps.start) {
-          embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.timestamps.start).format('hh:mm:ss')} | Started at`);
+          embed.setFooter({ text: `Time elapsed: ${moment.duration(Date.now() - activity.timestamps.start).format('hh:mm:ss')} | Started at` });
           embed.setTimestamp(activity.timestamps.start);
         } else if (activity.createdTimestamp) {
-          embed.setFooter(`Time elapsed: ${moment.duration(Date.now() - activity.createdTimestamp).format('hh:mm:ss')} | Started at`);
+          embed.setFooter({ text: `Time elapsed: ${moment.duration(Date.now() - activity.createdTimestamp).format('hh:mm:ss')} | Started at` });
           embed.setTimestamp(activity.createdTimestamp);
         }
         embeds.push(embed);
@@ -62,7 +62,7 @@ exports.run = (client, message, args) => {
             .addField('Album', activity.assets.largeText, true)
             .addField('Author', activity.state.replaceAll(';', ','), true)
             .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncId}`, false)
-            .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: user.displayName, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
         );
       }
     }

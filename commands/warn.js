@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
         new MessageEmbed()
           .setColor(0x00_AE_86)
           .setTimestamp()
-          .setFooter(`ID ${caseNum} | User ID: ${member.id}`)
+          .setFooter({ text: `ID ${caseNum} | User ID: ${member.id}` })
           .setDescription(`**Action:** Warning\n**Moderator:** ${message.author.toString()}\n**Target:** ${member.user.toString()}\n**Reason:** ${reason}`)
       ]});
     }

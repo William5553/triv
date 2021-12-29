@@ -1,6 +1,7 @@
 const request = require('node-superfetch');
 const { formatNumber } = require('../util/Util');
 const { MessageEmbed } = require('discord.js');
+const process = require('node:process');
 
 exports.run = async (client, message, args) => {
   try {
@@ -13,7 +14,7 @@ exports.run = async (client, message, args) => {
       new MessageEmbed()
         .setTitle(`Stocks for ${stocks.symbol.toUpperCase()}`)
         .setColor(0x97_97_FF)
-        .setFooter('Last Updated')
+        .setFooter({ text: 'Last Updated' })
         .setTimestamp(stocks.lastRefresh)
         .addField('❯ Open', `$${formatNumber(stocks.open)}`, true)
         .addField('❯ Close', `$${formatNumber(stocks.close)}`, true)

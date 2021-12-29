@@ -1,5 +1,6 @@
 const ms = require('ms');
 const { MessageEmbed } = require('discord.js');
+const { setTimeout } = require('node:timers');
 
 exports.run = async (client, message, args) => {
   // TODO: use the discord-giveaways npm package instead https://github.com/Androz2091/discord-giveaways
@@ -13,12 +14,13 @@ exports.run = async (client, message, args) => {
   if (prize === '') return message.reply('You have to enter a prize.');
   if (prize.length > 250) return message.reply('Shorten the prize character count');
   message.delete();
-  const msg = await message.channel.send({content: ':tada: **GIVEAWAY** :tada:', embeds: [new MessageEmbed()
-    .setTitle(`${prize}`)
-    .setColor(0x00_AE_86)
-    .setDescription(`React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`)
-    .setFooter('Ends at')
-    .setTimestamp(Date.now() + ms(time, { long: true }))
+  const msg = await message.channel.send({content: ':tada: **GIVEAWAY** :tada:', embeds: [
+    new MessageEmbed()
+      .setTitle(`${prize}`)
+      .setColor(0x00_AE_86)
+      .setDescription(`React with 🎉 to enter!\nTime duration: **${ms(ms(time), { long: true })}**\nHosted by: ${message.author}`)
+      .setFooter({ text: 'Ends at' })
+      .setTimestamp(Date.now() + ms(time, { long: true }))
   ]});
   await msg.react('🎉');
   setTimeout(() => {
@@ -26,22 +28,24 @@ exports.run = async (client, message, args) => {
     setTimeout(() => {
       const winner = msg.reactions.cache.get('🎉').users.cache.random();
       if (msg.reactions.cache.get('🎉').users.cache.size === 0) {
-        msg.edit({content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [new MessageEmbed()
-          .setTitle(`${prize}`)
-          .setColor(0x00_AE_86)
-          .setDescription(`No one entered the giveaway.\nHosted by: ${message.author}`)
-          .setFooter('Ended at')
-          .setTimestamp()
+        msg.edit({ content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [
+          new MessageEmbed()
+            .setTitle(`${prize}`)
+            .setColor(0x00_AE_86)
+            .setDescription(`No one entered the giveaway.\nHosted by: ${message.author.toString()}`)
+            .setFooter({ text: 'Ended at' })
+            .setTimestamp()
         ]});
       } else {
-        msg.edit({content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [new MessageEmbed()
-          .setTitle(`${prize}`)
-          .setColor(0x00_AE_86)
-          .setDescription(`Winner: ${winner}\nHosted by: ${message.author}`)
-          .setFooter('Ended at')
-          .setTimestamp()
+        msg.edit({ content: ':tada: **GIVEAWAY ENDED** :tada:', embeds: [
+          new MessageEmbed()
+            .setTitle(`${prize}`)
+            .setColor(0x00_AE_86)
+            .setDescription(`Winner: ${winner.toString()}\nHosted by: ${message.author.toString()}`)
+            .setFooter({ text: 'Ended at' })
+            .setTimestamp()
         ]});
-        message.channel.send(`${winner} won ${prize}!`);
+        message.channel.send(`${winner.toString()} won ${prize}!`);
         msg.reactions.removeAll();
       }
     }, 1000);

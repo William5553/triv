@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const YouTubeAPI = require('simple-youtube-api');
+const process = require('node:process');
 const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {

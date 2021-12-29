@@ -21,7 +21,7 @@ exports.run = async (client, message) => {
     if (validUrl(song.url)) nowPlaying.setURL(song.url);
 
     if (song.duration > 0)
-      nowPlaying.setFooter(`Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}`);
+      nowPlaying.setFooter({ text: `Time Remaining: ${getTime(song.duration - seek)} | Started at ${formatDate(Date.now() - seek)}` });
 
     return message.channel.send({ embeds: [ nowPlaying ] });
   } catch (error) {

@@ -1,4 +1,5 @@
 const { Permissions } = require('discord.js');
+const process = require('node:process');
 
 module.exports = async (client, guild) => {
   if (client.blacklist.get('blacklist', 'guild').includes(guild.id) || client.blacklist.get('blacklist', 'user').includes(guild.ownerId)) {

@@ -2,6 +2,7 @@ const yes = new Set(['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya
 const no = new Set(['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not']);
 const langs = require('../assets/languages.json');
 const { URL } = require('node:url');
+const process = require('node:process');
 
 module.exports = class Util {
   static async verify(channel, user, { time = 30_000, extraYes = [], extraNo = [] } = {}) {
@@ -55,6 +56,8 @@ module.exports = class Util {
     const botChan = member?.guild?.me.voice?.channelId;
     const queue = client.queue.get(member.guild.id);
     
+    if (member.isCommunicationDisabled())
+      return "You're currently timed out";
     if (queue && queue.forced && !client.owners.includes(member.id))
       return 'no.';
     if (client.blacklist.get('blacklist', 'user').includes(member.id))

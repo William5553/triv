@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
     data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
     if (!data.body.error)
       embeds.push(new MessageEmbed()
-        .setFooter(`Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}`)
+        .setFooter({ text: `Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}` })
         .setTitle('Account found on Eryn')
         .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
         .setColor(0x00_AE_86));
@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
     data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
     if (!data.body.error) 
       embeds.push(new MessageEmbed()
-        .setFooter(`User ID: ${data.body.primaryAccount}`)
+        .setFooter({ text: `User ID: ${data.body.primaryAccount}` })
         .setTitle('Account found on Bloxlink')
         .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
         .setColor(0x00_AE_86));

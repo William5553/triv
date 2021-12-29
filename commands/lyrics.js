@@ -1,6 +1,7 @@
 const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
 const { verify } = require('../util/Util');
 const { Client, SongsClient } = require('genius-lyrics');
+const process = require('node:process');
 const clientConfig = new Client(process.env.genius_api_key || undefined);
 const GClient = new SongsClient(clientConfig);
 

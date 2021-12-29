@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
         .addField(`❯ Roles (${roles.length})`, roles.length > 0 ? trimArray(roles, 6).join(', ') : 'None')
         .setColor(member.displayHexColor);
     } catch {
-      embed.setFooter('Failed to resolve member, showing basic user information instead.');
+      embed.setFooter({ text: 'Failed to resolve member, showing basic user information instead.' });
     }
   }
   return message.channel.send({ embeds: [embed] });

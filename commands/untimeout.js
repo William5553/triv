@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   const reason = args.slice(1).join(' ');
 
   if (reason.length === 0) return message.reply('You must supply a reason.');
-  if (member.communicationDisabledUntilTimestamp === null) return message.reply('That user is not timed out.');
+  if (!member.isCommunicationDisabled()) return message.reply('That user is not timed out.');
 
   // eslint-disable-next-line unicorn/no-null
   member.timeout(null, reason);
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
         .setColor(0x00_AE_86)
         .setTimestamp()
         .setDescription(`**Action:** Untimeout\n**Target:** ${member.toString()}\n**Moderator:** ${message.author.toString()}\n**Reason:** ${reason}`)
-        .setFooter(`User ID: ${member.id}`)
+        .setFooter({ text: `User ID: ${member.id}` })
     ]});
   }
 };

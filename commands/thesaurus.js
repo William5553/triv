@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const request = require('node-superfetch');
+const process = require('node:process');
 
 exports.run = async (client, message, args) => {
   if (!process.env.merriam_webster_thesaurus_key) return message.reply('The bot owner has not set up this command yet.');

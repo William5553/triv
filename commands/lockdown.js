@@ -1,4 +1,5 @@
 const ms = require('ms');
+const { setTimeout } = require('node:timers');
 
 exports.run = (client, message, args) => {
   if (!client.lockit) client.lockit = [];

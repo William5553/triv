@@ -51,8 +51,7 @@ const genEmbeds = (message, user, infractions) => {
       .setAuthor({ name: `Moderator: ${mod.user.tag}`, iconURL: mod.user.displayAvatarURL({ dynamic: true }) })
       .addField('Action', infraction.type, true)
       .setColor(0x90_2B_93)
-      .setFooter(formatDate(infraction.timestamp)
-      );
+      .setFooter({ text: formatDate(infraction.timestamp) });
     if (infraction.reason) embed.addField('Reason', infraction.reason, true);
     if (infraction.additional)
       for (const info of infraction.additional) embed.addField(info.title, info.body, true);

@@ -1,4 +1,6 @@
 const { Permissions } = require('discord.js');
+const process = require('node:process');
+const { setTimeout } = require('node:timers');
 
 module.exports = client => {
   client.loadCommand = async command => {

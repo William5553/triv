@@ -115,7 +115,7 @@ module.exports = {
     if (song.thumbnail)
       embed.setThumbnail(song.thumbnail.url);
     if (song.duration != undefined && song.publishDate)
-      embed.setFooter(`Length: ${song?.duration <= 0 ? '◉ LIVE' : moment.duration(song?.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song?.publishDate)}`);
+      embed.setFooter({ text: `Length: ${song?.duration <= 0 ? '◉ LIVE' : moment.duration(song?.duration, 'seconds').format('hh:mm:ss', { trim: false })} | Published on ${formatDate(song?.publishDate)}` });
     if (validUrl(song.url))
       embed.setURL(song.url);
 
@@ -240,6 +240,7 @@ module.exports = {
           break;
 
         default:
+          interaction.reply({ content: 'Invalid selection.', ephemeral: true });
           break;
       }
     });

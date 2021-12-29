@@ -1,5 +1,6 @@
 const fetch = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
+const process = require('node:process');
 
 exports.run = async (client, message, args) => {
   try {
@@ -17,7 +18,7 @@ exports.run = async (client, message, args) => {
         .setURL(image.link)
         .setColor('GREEN')
         .setImage(image.images[0].link)
-        .setFooter(`👁️ ${image.views} | 👍 ${image.ups} | 👎 ${image.downs}`)
+        .setFooter({ text: `👁️ ${image.views} | 👍 ${image.ups} | 👎 ${image.downs}` })
     ]});
   } catch (error) {
     return message.channel.send({embeds: [

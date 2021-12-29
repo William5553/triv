@@ -20,7 +20,7 @@ module.exports = async (client, oldMember, newMember) => {
           .setColor('#824ED2')
           .addField('**Old Nickname**', oldMember.displayName)
           .addField('**New Nickname**', newMember.displayName)
-          .setFooter(`User ID: ${newMember.id}`)
+          .setFooter({ text: `User ID: ${newMember.id}` })
           .setTimestamp(entry.createdTimestamp || Date.now());
         if (entry.reason)
           embed.addField('**Reason**', entry.reason);

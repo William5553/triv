@@ -1,4 +1,6 @@
 const { version } = require('discord.js');
+const process = require('node:process');
+const { setInterval } = require('node:timers');
 
 module.exports = async client => {
   client.logger.log(`User: ${client.user.tag} | Prefix: ${process.env.prefix} | ${client.commands.size} commands | Serving ${client.users.cache.size} users in ${client.guilds.cache.size} server${client.guilds.cache.size === 1 ? '' : 's'} | Node ${process.version} | Discord.js ${version}`, 'ready');

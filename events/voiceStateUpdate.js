@@ -18,7 +18,7 @@ module.exports = async (client, oldState, newState) => {
       const embed = new MessageEmbed()
         .setColor('FFCC00')
         .setAuthor({ name: `@${newState.member.user.tag}`, iconURL: newState.member.user.displayAvatarURL({ dynamic: true }) })
-        .setFooter(`Moderator: @${executor.tag}`, executor.displayAvatarURL({ dynamic: true }))
+        .setFooter({ text: `Moderator: @${executor.tag}`, iconURL: executor.displayAvatarURL({ dynamic: true }) })
         .setTimestamp(entries.first().createdTimestamp);
     
       if (entries.first().changes[0].key == 'deaf')
