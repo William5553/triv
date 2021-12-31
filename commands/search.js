@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const YouTubeAPI = require('simple-youtube-api');
 const process = require('node:process');
-const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {
   if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
@@ -16,6 +15,7 @@ exports.run = async (client, message, args) => {
     .setColor('#F8AA2A');
 
   try {
+    const youtube = new YouTubeAPI(process.env.google_api_key);
     const results = await youtube.searchVideos(args.join(' '), 10);
     results.map((video, index) => resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`));
 

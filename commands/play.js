@@ -4,11 +4,11 @@ const YouTubeAPI = require('simple-youtube-api');
 const process = require('node:process');
 const { validUrl } = require('../util/Util');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
-const youtube = new YouTubeAPI(process.env.google_api_key);
 
 exports.run = async (client, message, args) => {
   try {
     if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
+    const youtube = new YouTubeAPI(process.env.google_api_key);
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     let { channel } = message.member.voice;
     let forced = false;
