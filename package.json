@@ -34,7 +34,7 @@
     "dotenv": "^10.0.0",
     "enmap": "^5.8.7",
     "esrever": "^0.2.0",
-    "ffmpeg-static": "^4.4.0",
+    "ffmpeg-static": "^4.4.1",
     "genius-lyrics": "^4.3.5",
     "libsodium-wrappers": "^0.7.9",
     "md5": "^2.3.0",
