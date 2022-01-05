@@ -84,6 +84,8 @@ exports.run = async (client, message, args) => {
         else
           return message.reply(`No results found for ${search}`);
       } catch (error) {
+        if (error.message.includes('410'))
+          return message.reply('Video is age restricted, private or unavailable.');
         client.logger.error(error.stack ?? error);
         return message.channel.send({embeds: [
           new MessageEmbed()

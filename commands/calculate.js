@@ -3,11 +3,11 @@ const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
   try {
-    const embeds = await genEmbeds(message, mathsteps.simplifyExpression(args.join(' ')));
+    const embeds = await genEmbeds(mathsteps.simplifyExpression(args.join(' ')));
     if (!embeds || embeds.length === 0) return message.channel.send('A solution could not be found');
     let currPage = 0;
     
-    const emb = await message.channel.send({content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ]});
+    const emb = await message.channel.send({ content: `**Step ${currPage + 1}/${embeds.length}**`, embeds: [ embeds[currPage] ] });
     if (embeds.length < 2) return;
     await emb.react('⬅️');
     await emb.react('➡️');
@@ -47,13 +47,13 @@ exports.run = async (client, message, args) => {
   }
 };
 
-const genEmbeds = (message, steps, embeds = []) => {
+const genEmbeds = (steps, embeds = []) => {
   if (steps.length === 0) return embeds;
   for (const step of steps) {
     const embed = new MessageEmbed()
       .setTitle(`**${step.changeType.replace(/_/gi, ' ')}**`)
-      .addField('Before change', step.oldNode.toString(), true)
-      .addField('After change', step.newNode.toString(), true)
+      .addField('Before change', step.oldNode.toString())
+      .addField('After change', step.newNode.toString())
       .setColor('#FF0000')
       .setTimestamp();
     embeds.push(embed);
