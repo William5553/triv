@@ -8,7 +8,7 @@ specifiers:
   bufferutil: ^4.0.6
   chalk: ^4.1.2
   cloc: ^2.9.0
-  discord.js: ^13.5.0
+  discord.js: ^13.5.1
   dotenv: ^10.0.0
   enmap: ^5.8.7
   eslint: 8.5.0
@@ -40,7 +40,7 @@ dependencies:
   bufferutil: 4.0.6
   chalk: 4.1.2
   cloc: 2.9.0
-  discord.js: 13.5.0_bffff4271b89d628e8333ead80d3d8e8
+  discord.js: 13.5.1_bffff4271b89d628e8333ead80d3d8e8
   dotenv: 10.0.0
   enmap: 5.8.7
   esrever: 0.2.0
@@ -293,7 +293,7 @@ packages:
     resolution: {integrity: sha512-ZTB8yJdJKrKlq44dpWkNUrAtEJEq0gqpb7ASdv4vmq6/mZal5kOv312hQ56I/vxwMre+VIkoHquNUAfnTbiYtg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      '@sindresorhus/is': 4.2.0
+      '@sindresorhus/is': 4.2.1
       discord-api-types: 0.26.1
       ts-mixer: 6.0.0
       tslib: 2.3.1
@@ -406,8 +406,8 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@sindresorhus/is/4.2.0:
-    resolution: {integrity: sha512-VkE3KLBmJwcCaVARtQpfuKcKv8gcBmUubrfHGF84dXuuW6jgsRYxPtzcIhPyK9WAPpRt2/xY6zkD9MnRaJzSyw==}
+  /@sindresorhus/is/4.2.1:
+    resolution: {integrity: sha512-BrzrgtaqEre0qfvI8sMTaEvx+bayuhPmfe2rfeUGPPHYr/PLxCOqkOe4TQTDPb+qcqgNcsAtXV/Ew74mcDIE8w==}
     engines: {node: '>=10'}
     dev: false
 
@@ -762,8 +762,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001296
-      electron-to-chromium: 1.4.35
+      caniuse-lite: 1.0.30001297
+      electron-to-chromium: 1.4.38
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -831,8 +831,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /caniuse-lite/1.0.30001296:
-    resolution: {integrity: sha512-WfrtPEoNSoeATDlf4y3QvkwiELl9GyPLISV5GejTbbQRtQx4LhsXmc9IQ6XCL2d7UxCyEzToEZNMeqR79OUw8Q==}
+  /caniuse-lite/1.0.30001297:
+    resolution: {integrity: sha512-6bbIbowYG8vFs/Lk4hU9jFt7NknGDleVAciK916tp6ft1j+D//ZwwL6LbF1wXMQ32DMSjeuUV8suhh6dlmFjcA==}
     dev: true
 
   /canvas/2.8.0:
@@ -1242,8 +1242,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /discord.js/13.5.0_bffff4271b89d628e8333ead80d3d8e8:
-    resolution: {integrity: sha512-K+ZcB0f+wA1ZzDhz3hlaAi4Ap7jSvVEUZ+U29T4DMoiNNUv22F4vu1byrOq8GyyLLDFiZ3iSudea0MvSHu3fQA==}
+  /discord.js/13.5.1_bffff4271b89d628e8333ead80d3d8e8:
+    resolution: {integrity: sha512-ejEG5MXzB0eda9Nt+VzqgdvDWVO5U/GynGzq6DRPLaCH1yyn2YRU9J+vCMl77pWA1rzYGX+b/9RI31x0wt3qXA==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
     dependencies:
       '@discordjs/builders': 0.11.0
@@ -1318,8 +1318,8 @@ packages:
     dev: false
     optional: true
 
-  /electron-to-chromium/1.4.35:
-    resolution: {integrity: sha512-wzTOMh6HGFWeALMI3bif0mzgRrVGyP1BdFRx7IvWukFrSC5QVQELENuy+Fm2dCrAdQH9T3nuqr07n94nPDFBWA==}
+  /electron-to-chromium/1.4.38:
+    resolution: {integrity: sha512-WhHt3sZazKj0KK/UpgsbGQnUUoFeAHVishzHFExMxagpZgjiGYSC9S0ZlbhCfSH2L2i+2A1yyqOIliTctMx7KQ==}
     dev: true
 
   /emoji-regex/7.0.3:
@@ -1944,7 +1944,7 @@ packages:
     resolution: {integrity: sha512-7gtQ5KiPh1RtGS9/Jbv1ofDpBFuq42gyfEib+ejaRBJuj/3tQFeR5+gw57e4ipaU8c/rCjvX6fkQz2lyDlGAOg==}
     engines: {node: '>=10.19.0'}
     dependencies:
-      '@sindresorhus/is': 4.2.0
+      '@sindresorhus/is': 4.2.1
       '@szmarczak/http-timer': 4.0.6
       '@types/cacheable-request': 6.0.2
       '@types/responselike': 1.0.0
@@ -2053,7 +2053,7 @@ packages:
     dependencies:
       assert-plus: 1.0.0
       jsprim: 1.4.2
-      sshpk: 1.16.1
+      sshpk: 1.17.0
     dev: false
 
   /http2-wrapper/1.0.3:
@@ -2156,8 +2156,8 @@ packages:
       builtin-modules: 3.2.0
     dev: true
 
-  /is-core-module/2.8.0:
-    resolution: {integrity: sha512-vd15qHsaqrRL7dtH6QNuy0ndJmRDrS9HAM1CAiSifNUFv4x1a0CCVsj18hJ1mShxIG6T2i1sO78MkP56r0nYRw==}
+  /is-core-module/2.8.1:
+    resolution: {integrity: sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==}
     dependencies:
       has: 1.0.3
     dev: true
@@ -3181,7 +3181,7 @@ packages:
     resolution: {integrity: sha512-3wCbTpk5WJlyE4mSOtDLhqQmGFi0/TD9VPwmiolnk8U0wRgMEktqCXd3vy5buTO3tljvalNvKrjHEfrd2WpEKA==}
     hasBin: true
     dependencies:
-      is-core-module: 2.8.0
+      is-core-module: 2.8.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
@@ -3399,8 +3399,8 @@ packages:
     resolution: {integrity: sha512-Ctl2BrFiM0X3MANYgj3CkygxhRmr9mi6xhejbdO960nF6EDJApTYpn0BQnDKlnNBULKiCN1n3w9EBkHK8ZWg+g==}
     dev: true
 
-  /sshpk/1.16.1:
-    resolution: {integrity: sha512-HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg==}
+  /sshpk/1.17.0:
+    resolution: {integrity: sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     dependencies:
