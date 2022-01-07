@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   let m;
   try {
-    m = await message.channel.messages.fetch(args[0]);
+    m = await message.channel.messages.resolve(args[0]);
   } catch {
     return message.reply('Cannot find message.');
   }

@@ -11,13 +11,14 @@ exports.run = async (client, message, args) => {
     if (!body.gender) return message.channel.send(`I have no idea what gender ${body.name} is.`);
     return message.channel.send(`I'm ${Math.round(body.probability * 100)}% sure ${body.name} is a ${body.gender} name.`);
   } catch (error) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-      .addField('**Command:**', message.content)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
+        .addField('**Command:**', message.content)
     ]});
   }
 };
