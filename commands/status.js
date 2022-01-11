@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(ro => ro.displayName.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.member;
 
     const embeds = [];
-    if (user.presence?.clientStatus) {
+    if (user?.presence?.clientStatus) {
       const embed = new MessageEmbed()
         .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
         .setColor('GREEN')
@@ -19,7 +19,7 @@ exports.run = (client, message, args) => {
       embeds.push(embed);
     }
 
-    if (user.presence.activities.length === 0 && embeds.length === 0) {
+    if ((!user?.presence?.activities || user?.presence?.activities?.length === 0) && embeds.length === 0) {
       return message.channel.send({embeds: [
         new MessageEmbed()
           .setAuthor({ name: user.displayName, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
