@@ -7,7 +7,19 @@ exports.run = (client, message, args) => {
   try {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(ro => ro.displayName.toLowerCase() === args.join(' ').toLocaleLowerCase()) || message.member;
 
-    if (user.presence.activities.length === 0) {
+    const embeds = [];
+    if (user.presence?.clientStatus) {
+      const embed = new MessageEmbed()
+        .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
+        .setColor('GREEN')
+        .setTimestamp();
+      embed.addField('Web', user.presence.clientStatus?.web ?? 'Offline');
+      embed.addField('Mobile', user.presence.clientStatus?.mobile ?? 'Offline');
+      embed.addField('Desktop', user.presence.clientStatus?.desktop ?? 'Offline');
+      embeds.push(embed);
+    }
+
+    if (user.presence.activities.length === 0 && embeds.length === 0) {
       return message.channel.send({embeds: [
         new MessageEmbed()
           .setAuthor({ name: user.displayName, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
@@ -18,7 +30,6 @@ exports.run = (client, message, args) => {
       ]});
     }
 
-    const embeds = [];
     for (const activity of user.presence.activities) {
       if (activity.type === 'CUSTOM_STATUS') {
         embeds.push(new MessageEmbed()
