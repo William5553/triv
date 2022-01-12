@@ -47,7 +47,7 @@
     "tiktok-scraper": "^1.4.36",
     "utf-8-validate": "^5.0.8",
     "youtube-dl-exec": "^2.0.2",
-    "ytdl-core": "^4.9.2",
+    "ytdl-core": "^4.10.0",
     "zlib-sync": "^0.1.7"
   },
   "optionalDependencies": {
