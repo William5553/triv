@@ -4,9 +4,10 @@
   },
   "env": {
     "node": true,
-    "es6": true
+    "es2021": true
   },
   "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended"],
+  "plugins": ["import"],
   "rules": {
 	  "unicorn/prefer-string-replace-all": "error",
     "unicorn/prevent-abbreviations": "off",
@@ -38,6 +39,7 @@
     "no-lonely-if": "error",
     "no-extra-parens": "warn",
     "no-extra-semi": "warn",
+    "prefer-object-has-own": "error",
     "no-unreachable": "error",
     "brace-style": ["error", "1tbs"],
     "comma-dangle": ["error", "never"],
