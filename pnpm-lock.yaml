@@ -9,7 +9,7 @@ specifiers:
   chalk: ^4.1.2
   cloc: ^2.9.0
   discord.js: ^13.5.1
-  dotenv: ^10.0.0
+  dotenv: ^14.0.0
   enmap: ^5.8.7
   eslint: 8.5.0
   eslint-plugin-node: 11.1.0
@@ -41,7 +41,7 @@ dependencies:
   chalk: 4.1.2
   cloc: 2.9.0
   discord.js: 13.5.1_bffff4271b89d628e8333ead80d3d8e8
-  dotenv: 10.0.0
+  dotenv: 14.0.0
   enmap: 5.8.7
   esrever: 0.2.0
   ffmpeg-static: 4.4.1
@@ -1301,9 +1301,9 @@ packages:
       domhandler: 4.3.0
     dev: false
 
-  /dotenv/10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
+  /dotenv/14.0.0:
+    resolution: {integrity: sha512-lO8c74ruYOG0hCK6fWT7t/PVxqcLKhfOqTahXZQN2UCyfN+ZTJmu48wRUVpkBAXsUGjPOG+ndTh8rjZxyf2xqw==}
+    engines: {node: '>=12'}
     dev: false
 
   /ecc-jsbn/0.1.2:
