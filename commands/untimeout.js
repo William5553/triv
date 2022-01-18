@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   message.channel.send(`Untimedout ${member.toString()}`);
   
   client.infractions.ensure(message.guild.id, { [member.id]: [] });
-  client.infractions.push(message.guild.id, {type: 'Unban', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
+  client.infractions.push(message.guild.id, {type: 'Untimeout', timestamp: Date.now(), reason, mod: message.author.id}, member.id);
 
   if (client.settings.get(message.guild.id).logsID) {
     const botlog = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
