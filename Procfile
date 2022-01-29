@@ -1,1 +1,1 @@
-worker: node index.js
+worker: node -r dotenv/config index.js

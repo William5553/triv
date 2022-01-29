@@ -6,9 +6,10 @@
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
+  "packageManager": "pnpm@6.28.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "node -r dotenv/config index.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx"
   },
@@ -20,7 +21,7 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=16.6.x <17"
+    "node": ">=16.9.x <17"
   },
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
