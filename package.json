@@ -47,7 +47,7 @@
     "simple-youtube-api": "^5.2.1",
     "utf-8-validate": "^5.0.8",
     "youtube-dl-exec": "^2.0.2",
-    "ytdl-core": "^4.10.0",
+    "ytdl-core": "^4.10.1",
     "zlib-sync": "^0.1.7"
   },
   "optionalDependencies": {
