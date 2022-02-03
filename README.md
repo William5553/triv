@@ -5,12 +5,12 @@
 2. Run these 3 commands in a command prompt ran as administrator (press Windows + X then click PowerShell (Administrator) or Command Prompt (Administrator))
 ```shell
 npm i -g --add-python-to-path --vs2015 --production windows-build-tools
-npm i -g node-gyp@latest
+npm i -g node-gyp@latest pnpm
 ```
 
 Once that's complete, open a command prompt in the bot folder and run
 ```shell
-npm i
+pnpm i
 ```
 
 3. Rename the .env.example file to .env and modify the file with the necessary API keys (The only required ones are token and prefix)
