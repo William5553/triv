@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = async (client, message) => {
-  if (!message.guild) return;
+  if (!message.guild || message.partial) return;
 
   client.snipes.set(message.channel.id, {
     content: `${message.content}${message.attachments && message.attachments.first() ? `\n${message.attachments.first()?.url}` : ''}`,

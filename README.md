@@ -33,7 +33,7 @@ Copy the token and put it in your .env file
 
 Scroll down to priviliged intents
 
-Turn on presence intent and server members intent
+Turn on presence intent, message content intent, and server members intent
 
 Save your changes
 
