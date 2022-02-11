@@ -33,7 +33,7 @@
     "cloc": "^2.9.0",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
-    "enmap": "^5.8.7",
+    "enmap": "^5.8.8",
     "esrever": "^0.2.0",
     "ffmpeg-static": "^4.4.1",
     "genius-lyrics": "^4.3.5",
