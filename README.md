@@ -2,9 +2,8 @@
 # Installation instructions for Windows
 1. [Download and install Node.js](https://nodejs.org/en/), version 16.9.0 and up is required.
 
-2. Run these 3 commands in a command prompt ran as administrator (press Windows + X then click PowerShell (Administrator) or Command Prompt (Administrator))
+2. Run this command in a command prompt or powershell
 ```shell
-npm i -g --add-python-to-path --vs2015 --production windows-build-tools
 npm i -g node-gyp@latest pnpm
 ```
 
