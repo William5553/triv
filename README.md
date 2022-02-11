@@ -25,13 +25,13 @@ Name your bot
 
 Save your application ID for later
 
-Click Bot
+Click Bot on the left sidebar
 
 Click Add Bot
 
 Copy the token and put it in your .env file
 
-Scroll down to priviliged intents
+Scroll down to priviliged gateway intents
 
 Turn on presence intent, message content intent, and server members intent
 
@@ -41,4 +41,4 @@ Save your changes
 You can run [startbot.sh](https://github.com/William5553/triv/blob/discord.js-latest/startbot.sh) if you're on Linux and [startbot.bat](https://github.com/William5553/triv/blob/discord.js-latest/startbot.bat) if you're on Windows.
 
 # Inviting your bot
-[Go to this link](https://discordapi.com/permissions.html#1099511627775) and enter your application ID from earlier
+[Go to this link](https://discordapi.com/permissions.html#8) and enter your application ID from earlier
