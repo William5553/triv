@@ -2,7 +2,7 @@ const options = require('../assets/ping.json');
 
 exports.run = (client, message) => 
   message.channel.send('Ping?').then(msg => {
-    msg.edit(`${options.random()} (${Date.now() - message.createdTimestamp}ms)`);
+    msg.edit(`${options.random()} (${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms)`);
   });
 
 exports.conf = {

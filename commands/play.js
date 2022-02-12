@@ -5,10 +5,13 @@ const process = require('node:process');
 const { validUrl } = require('../util/Util');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
 
+let youtube;
+
+if (process.env.google_api_key)
+  youtube = new YouTubeAPI(process.env.google_api_key);
+
 exports.run = async (client, message, args) => {
   try {
-    if (!process.env.google_api_key) return message.reply('The bot owner has not set up this command yet');
-    const youtube = new YouTubeAPI(process.env.google_api_key);
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     let { channel } = message.member.voice;
     let forced = false;
@@ -75,7 +78,7 @@ exports.run = async (client, message, args) => {
       } catch (error) {
         return message.reply(error.message.includes('410') ? 'Video is age restricted, private or unavailable.' : error.message);
       }
-    } else if (!ytRegex.test(search) && !validUrl(search)) {
+    } else if (!ytRegex.test(search) && !validUrl(search) && process.env.google_api_key) {
       // if search query was inputted (not valid url)
       try {
         results = await youtube.searchVideos(search, 1);

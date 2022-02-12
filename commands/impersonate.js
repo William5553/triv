@@ -17,6 +17,6 @@ exports.conf = {
 exports.help = {
   name: 'impersonate',
   description: 'Impersonate someone',
-  usage: 'impersonate',
+  usage: 'impersonate [user] [message]',
   example: 'impersonate @joe hey everyone'
 };

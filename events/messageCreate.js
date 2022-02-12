@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
   else if (client.aliases.has(command))
     cmd = client.commands.get(client.aliases.get(command));
   if (!cmd) return;
-  if (cmd.conf.cooldown && cmd.conf.cooldown > 0) {
+  if (cmd.conf.cooldown && cmd.conf.cooldown > 0 && !client.owners.includes(message.author.id)) {
     client.cooldowns.ensure(message.author.id, {});
     const cooldownDB = client.cooldowns.get(message.author.id, cmd.help.name);
     if (cooldownDB != undefined && cmd.conf.cooldown - (Date.now() - cooldownDB) > 0) {
