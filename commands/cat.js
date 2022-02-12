@@ -25,7 +25,7 @@ exports.run = async (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['meow'],
+  aliases: ['meow', 'pussy'],
   permLevel: 0,
   cooldown: 1500
 };

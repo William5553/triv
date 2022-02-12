@@ -8,7 +8,7 @@ exports.run = (client, message) => {
     new MessageEmbed()
       .setAuthor({ name: msg.author.tag, iconURL: msg.author.displayAvatarURL({ dynamic: true }) })
       .setDescription(msg.content)
-      .setFooter(`User ID: ${msg.author.id}`)
+      .setFooter({ text: `User ID: ${msg.author.id}` })
       .setTimestamp(msg.date)
       .setColor('FF0000')
   ]});
