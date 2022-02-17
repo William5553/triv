@@ -17,4 +17,5 @@ module.exports = async (client, guild) => {
       return;
     }
   }
+  client.infractions.ensure(guild.id, {});
 };
