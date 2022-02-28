@@ -34,11 +34,13 @@ module.exports = async (client, message) => {
           .setDescription(`${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
           .setColor(0xEB_52_34)
       ];
+
       if (message.attachments.size > 0)
         embeds[0].addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
-      for (const embedd of message.embeds) {
+   
+      for (const embedd of message.embeds)
         if (embeds.length < 10) embeds.push(embedd);
-      }
+
       logs.send({ embeds });
     } else client.settings.set(message.guild.id, '', 'logsID');
   }
