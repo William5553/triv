@@ -25,9 +25,9 @@ exports.run = async (client, message) => {
         .setColor(0x00_AE_86)
         .setTitle(client.user.username)
         .setDescription('[View source code](https://github.com/William5553/triv)')
-        .addField(`❯ JavaScript: ${cloc.JavaScript.nFiles} files`, `${cloc.JavaScript.code} lines`, true)
-        .addField(`❯ JSON: ${cloc.JSON.nFiles} files`, `${cloc.JSON.code} lines`, true)
-        .addField(`❯ Total: ${cloc.SUM.nFiles} files`, `${cloc.SUM.code} lines`, true)
+        .addField(`JavaScript: ${cloc.JavaScript.nFiles} files`, `${cloc.JavaScript.code} lines`, true)
+        .addField(`JSON: ${cloc.JSON.nFiles} files`, `${cloc.JSON.code} lines`, true)
+        .addField(`Total: ${cloc.SUM.nFiles} files`, `${cloc.SUM.code} lines`, true)
     ]});
   } catch (error) {
     return message.channel.send({embeds: [

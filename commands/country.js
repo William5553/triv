@@ -14,14 +14,14 @@ exports.run = async (client, message, args) => {
         .setColor(0x00_AE_86)
         .setTitle(data.name)
         .setThumbnail(`https://www.countryflags.io/${data.alpha2Code}/flat/64.png`)
-        .addField('❯ Population', formatNumber(data.population), true)
-        .addField('❯ Capital', data.capital || 'None', true)
-        .addField('❯ Currency', data.currencies[0].symbol, true)
-        .addField('❯ Location', data.subregion || data.region, true)
-        .addField('❯ Demonym', data.demonym || 'None', true)
-        .addField('❯ Native Name', data.nativeName, true)
-        .addField('❯ Area', `${formatNumber(data.area)} km`, true)
-        .addField('❯ Languages', data.languages.map(lang => lang.name).join('/'))
+        .addField('Population', formatNumber(data.population), true)
+        .addField('Capital', data.capital || 'None', true)
+        .addField('Currency', data.currencies[0].symbol, true)
+        .addField('Location', data.subregion || data.region, true)
+        .addField('Demonym', data.demonym || 'None', true)
+        .addField('Native Name', data.nativeName, true)
+        .addField('Area', `${formatNumber(data.area)} km`, true)
+        .addField('Languages', data.languages.map(lang => lang.name).join('/'))
     ]});
   } catch (error) {
     if (error.status === 404) return message.channel.send('Could not find any results.');

@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
       .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
       .setFooter({ text: `Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}` })
       .setTimestamp(new Date(data.written_on))
-      .addField('❯ Example', data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None')
+      .addField('Example', data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None')
     ]});
   } catch (error) {
     return message.channel.send({embeds: [
