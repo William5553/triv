@@ -4,6 +4,8 @@ const { getCode } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   try {
+    if (args.length < 2)
+      return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const queue = client.queue.get(message.guild.id);
     if (queue) return message.reply("there's currently music playing");
     let connection;
