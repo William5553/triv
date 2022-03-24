@@ -5,10 +5,9 @@ exports.run = async (client, message, args) => {
   const { user } = message.mentions.members.first() || message.guild.members.cache.get(args.join(' ')) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
   if (!user) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   const m = await message.reply('Getting...');
-  let data;
   const embeds = [];
   try {
-    data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
+    const data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
     if (!data.body.error)
       embeds.push(new MessageEmbed()
         .setFooter({ text: `Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}` })
@@ -26,7 +25,7 @@ exports.run = async (client, message, args) => {
       .setColor('RED'));
   }
   try {
-    data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
+    const data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
     if (!data.body.error) 
       embeds.push(new MessageEmbed()
         .setFooter({ text: `User ID: ${data.body.primaryAccount}` })
