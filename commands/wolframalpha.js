@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!process.env.wolfram_api_key) return message.reply('the bot owner has not set up this command yet');
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const m = await message.channel.send('*Querying Wolfram Alpha...*');
-    let { body } = await fetch.get(`http://api.wolframalpha.com/v2/query?appid=${process.env.wolfram_api_key}&input=${encodeURIComponent(args.join(' '))}&output=json`);
+    let { body } = await fetch.get(`http://api.wolframalpha.com/v2/query?output=json&appid=${process.env.wolfram_api_key}&input=${encodeURIComponent(args.join(' '))}`);
     body = JSON.parse(body);
     if (body.queryresult.success == true) {
       m.delete();
