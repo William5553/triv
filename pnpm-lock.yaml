@@ -12,7 +12,7 @@ specifiers:
   dotenv: ^16.0.0
   enmap: ^5.8.13
   eslint: 8.12.0
-  eslint-plugin-import: 2.25.4
+  eslint-plugin-import: 2.26.0
   eslint-plugin-node: 11.1.0
   eslint-plugin-unicorn: 42.0.0
   esrever: ^0.2.0
@@ -64,7 +64,7 @@ optionalDependencies:
 
 devDependencies:
   eslint: 8.12.0
-  eslint-plugin-import: 2.25.4_eslint@8.12.0
+  eslint-plugin-import: 2.26.0_eslint@8.12.0
   eslint-plugin-node: 11.1.0_eslint@8.12.0
   eslint-plugin-unicorn: 42.0.0_eslint@8.12.0
 
@@ -1009,8 +1009,8 @@ packages:
       regexpp: 3.2.0
     dev: true
 
-  /eslint-plugin-import/2.25.4_eslint@8.12.0:
-    resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
+  /eslint-plugin-import/2.26.0_eslint@8.12.0:
+    resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
