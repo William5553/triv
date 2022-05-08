@@ -1,12 +1,12 @@
 {
   "name": "triv",
-  "version": "5.24.0",
+  "version": "5.24.1",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.0.0",
+  "packageManager": "pnpm@7.0.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "8.14.0",
+    "eslint": "8.15.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-unicorn": "42.0.0"
