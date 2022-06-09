@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+
 module.exports = async (client, message) => {
   if (!message.guild || message.partial) return;
 
@@ -17,21 +18,18 @@ module.exports = async (client, message) => {
       const logs = message.guild.channels.resolve(client.settings.get(message.guild.id).logsID);
       logs.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false });
       
-      await client.wait(900);
       // Fetch a couple audit logs than just one as new entries could've been added right after this event was emitted.
-      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 8, type: 'MESSAGE_DELETE', user: message.author });
-
+      const fetchedLogs = await message.guild.fetchAuditLogs();
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
-      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20_000);
+      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20_000 && log.action === 'MESSAGE_DELETE');
 
       const embeds = [
         new MessageEmbed()
-          .setDescription(`**Message Deleted in ${message.channel}${auditEntry ? ` | Deleted by ${auditEntry.executor}` : ''}**`)
+          .setDescription(`**Message Deleted in ${message.channel}${auditEntry ? ` | Deleted by ${auditEntry.executor}` : ''}**\n${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
           .setAuthor({ name: `@${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
           .setFooter({ text: `User ID: ${message.author.id} | Message ID: ${message.id}` })
           .setTimestamp()
-          .setDescription(`${message.content} ${message.embeds.length > 0 ? `\n${message.embeds.length} embed${message.embeds.length == 1 ? '' : 's'} in message found, sending` : ''}`)
           .setColor(0xEB_52_34)
       ];
 
