@@ -12,13 +12,13 @@ module.exports = (client, oldMessage, newMessage) => {
       const logs = guild.channels.resolve(client.settings.get(guild.id).logsID);
       logs.send({embeds: [
         new MessageEmbed()
-          .setTitle('**Message Edited**')
+          .setDescription(`**Message Edited in ${newMessage.channel}**`)
           .setAuthor({ name: `@${newMessage.author.tag} - #${newMessage.channel.name}`, iconURL: newMessage.author.displayAvatarURL({ dynamic: true })})
           .setFooter({ text: `User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}` })
           .setTimestamp()
-          .addField('**Old Message**', oldMessage.content)
-          .addField('**New Message**', newMessage.content)
-          .setColor('0xEB5234')
+          .addField('**Before**', oldMessage.content)
+          .addField('**After**', newMessage.content)
+          .setColor('#ffd119')
       ]});
     }
   }
