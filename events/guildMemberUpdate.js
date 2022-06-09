@@ -15,7 +15,7 @@ module.exports = async (client, oldMember, newMember) => {
         const entry = fetchedLogs.entries.find(entry => Date.now() - entry.createdTimestamp < 45_000 && entry.target.id == newMember.user.id);
 
         const embed = new MessageEmbed()
-          .setDescription(`**Nickname Changed - ${newMember}${entry ? ` | Updated by @${entry.executor}` : ''}**`)
+          .setDescription(`**Nickname Changed - ${newMember}${entry ? ` | Updated by ${entry.executor}` : ''}**`)
           .setAuthor({ name: `@${newMember.user.tag}`, iconURL: newMember.user.displayAvatarURL({ dynamic: true }) })
           .setColor('#ffd119')
           .addField('**Before**', oldMember.displayName)
