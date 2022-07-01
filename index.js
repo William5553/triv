@@ -8,7 +8,14 @@ const client = new Client({
   intents: Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0) || 32_767,
   partials: ['CHANNEL'/*, 'MESSAGE', 'REACTION', 'USER', 'GUILD_MEMBER'*/],
   allowedMentions: { parse: ['users', 'roles'], repliedUser: true },
-  waitGuildTimeout: 5000
+  waitGuildTimeout: 5000,
+  presence: {
+    status: 'online',
+    activities: [{
+      name: `${process.env.prefix}help`,
+      type: 'LISTENING'
+    }]
+  }
 });
 const { readdir } = require('node:fs');
 const Enmap = require('enmap');
