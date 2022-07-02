@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
           }
         }
       } catch (error) {
-        client.logger.error(error.stack ? error.stack : error);
+        client.logger.error(error.stack ?? error);
         return message.channel.send('**Missing Permissions - [ADD_REACTIONS, MANAGE_MESSAGES]!**');
       }
     });

@@ -11,7 +11,7 @@ exports.run = async (client, message) => {
 
     const bar = createBar(song.duration == 0 ? seek : song.duration, seek);
     const nowPlaying = new MessageEmbed()
-      .setTitle(song.title ? song.title : song.url)
+      .setTitle(song.title ?? song.url)
       .setURL(song.url)
       .setColor('#FF0000');
       

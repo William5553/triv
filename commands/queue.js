@@ -56,7 +56,7 @@ const generateQueueEmbed = (message, queue) => {
       .setTitle('Song Queue\n')
       .setThumbnail(message.guild.iconURL())
       .setColor('#F8AA2A')
-      .setDescription(`**Currently Playing - [${queue[0].title ? queue[0].title : queue[0].url}](${queue[0].url})**\n\n${current.map(track => `${++j} - [${track.title ? track.title : track.url}](${track.url}) (${track.duration != undefined ? new Date(track.duration * 1000).toISOString().slice(11, 19) : 'Unknown Length'})`).join('\n')}`)
+      .setDescription(`**Currently Playing - [${queue[0].title ?? queue[0].url}](${queue[0].url})**\n\n${current.map(track => `${++j} - [${track.title ?? track.url}](${track.url}) (${track.duration != undefined ? new Date(track.duration * 1000).toISOString().slice(11, 19) : 'Unknown Length'})`).join('\n')}`)
       .setTimestamp();
     embeds.push(embed);
   }
