@@ -6,7 +6,7 @@
   "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended"],
   "plugins": ["import"],
   "rules": {
-	  "unicorn/prefer-string-replace-all": "error",
+	"unicorn/prefer-string-replace-all": "error",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/prefer-module": "off",
     "unicorn/no-lonely-if": "off",
@@ -15,7 +15,6 @@
     "unicorn/prefer-spread": "off",
     "unicorn/no-nested-ternary": "off",
     "unicorn/consistent-destructuring": "off",
-    "unicorn/prefer-node-protocol": ["error", {"checkRequire": true}],
     "unicorn/no-process-exit": "off",
     "unicorn/consistent-function-scoping": "off",
     "unicorn/no-array-reduce": "off",
