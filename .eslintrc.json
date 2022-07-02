@@ -7,7 +7,7 @@
   "plugins": ["import"],
   "rules": {
     "unicorn/prefer-top-level-await": "off",
-	  "unicorn/prefer-string-replace-all": "error",
+    "unicorn/prefer-string-replace-all": "error",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/prefer-module": "off",
     "unicorn/no-lonely-if": "off",
