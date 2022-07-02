@@ -95,7 +95,7 @@ module.exports = {
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);
     } catch (error) {
-      queue.textChannel.send(`An error occurred while trying to play **${song.title ? song.title : song.url}**: ${error.message || error}`);
+      queue.textChannel.send(`An error occurred while trying to play **${song.title ?? song.url}**: ${error.message ?? error}`);
       client.logger.error(`Error occurred while trying to play music in ${message.guild.name}: ${error.stack ?? error}`);
       queue.connection?.destroy();
       queue.collector?.stop();
@@ -106,7 +106,7 @@ module.exports = {
       queue.additionalStreamTime = seekTime;
 
     const embed = new MessageEmbed()
-      .setTitle(song.title ? song.title : song.url)
+      .setTitle(song.title ?? song.url)
       .setColor('#FF0000')
       .setDescription(seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : '');
 
