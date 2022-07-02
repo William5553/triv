@@ -1,5 +1,6 @@
 const ms = require('ms');
-const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const { splitMessage } = require('../util/Util');
 const perm = {
   0: 'Member',
   2: 'Moderator',
@@ -17,7 +18,7 @@ exports.run = (client, message, args, perms) => {
           return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
         })
         .join('\n');
-      const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { char: '\n', prepend: '```asciidoc\n', append: '```' });
+      const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { prepend: '```asciidoc\n', append: '```' });
       for (const msg of splat)
         message.author.send(msg);
       if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');

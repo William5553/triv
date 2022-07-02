@@ -1,5 +1,5 @@
-const { MessageEmbed, Util: { splitMessage } } = require('discord.js');
-const { verify } = require('../util/Util');
+const { MessageEmbed } = require('discord.js');
+const { verify, splitMessage } = require('../util/Util');
 const { Client, SongsClient } = require('genius-lyrics');
 const process = require('node:process');
 const clientConfig = new Client(process.env.genius_api_key || undefined);
@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
   try {
     const embeds = [];
 
-    for (const m of splitMessage(lyrics, { maxLength: 1900, char: '\n' })) {
+    for (const m of splitMessage(lyrics, { maxLength: 1900 })) {
       if (embeds.length < 10) 
         embeds.push(new MessageEmbed()
           .setTitle(embeds.length === 0 ? emtitle : '')

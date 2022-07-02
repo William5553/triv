@@ -251,9 +251,9 @@ module.exports = {
 };
 
 const _createAudioResource = (client, url/*, seek = '00:00:00', filters = ''*/) => {
-  // const postprocessor = [ /*'youtube:skip=dash',*/ `ffmpeg_o:-ss ${seek}` ];
+  // const extraArgs = [ /*'youtube:skip=dash',*/ 'ffmpeg_i:-ss', seek ];
 
-  // if (filters && filters.length > 0) postprocessor.push('-af', filters);
+  // if (filters && filters.length > 0) extraArgs.push('-af', filters);
 
   return new Promise((resolve, reject) => {
     const rawStream = exec(url, {
@@ -266,7 +266,7 @@ const _createAudioResource = (client, url/*, seek = '00:00:00', filters = ''*/) 
       format: 'bestaudio+ext=webm+acodec=opus+asr=48000/bestaudio',
       limitRate: '100K',
       externalDownloader: 'ffmpeg'
-      // externalDownloaderArgs: postprocessor.join(' ')
+      // externalDownloaderArgs: extraArgs.join(' ')
     }, { stdio: ['ignore', 'pipe', 'ignore'] });
 
     if (!rawStream.stdout)
