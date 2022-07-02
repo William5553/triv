@@ -6,7 +6,7 @@
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.2.1",
+  "packageManager": "pnpm@7.4.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -31,11 +31,11 @@
     "bufferutil": "^4.0.6",
     "chalk": "^4.1.2",
     "cloc": "^2.9.0",
-    "discord.js": "^13.8.0",
+    "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
     "enmap": "^5.9.0",
     "esrever": "^0.2.0",
-    "ffmpeg-static": "^5.0.0",
+    "ffmpeg-static": "^5.0.2",
     "genius-lyrics": "^4.3.8",
     "md5": "^2.3.0",
     "moment": "^2.29.3",
@@ -58,9 +58,9 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "8.17.0",
+    "eslint": "8.18.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-unicorn": "42.0.0"
+    "eslint-plugin-unicorn": "43.0.0"
   }
 }
