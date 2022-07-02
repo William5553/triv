@@ -37,7 +37,7 @@ exports.run = async (client, message) => {
       } catch (error) {
         client.logger.error(`Error occurred while trying to play sound: ${error.stack ?? error}`);
         connection.destroy();
-        player.stop();
+        player.stop(true);
         return message.reply(`An error occurred: ${error.message || error}`);
       }
       await client.wait(3500);
@@ -52,7 +52,7 @@ exports.run = async (client, message) => {
       previousRange = khz;
     }
     connection.destroy();
-    player.stop();
+    player.stop(true);
     if (age === 'all')
       return message.channel.send('Everyone should be able to hear that. You cannot hear.');
     if (age === 'max') 

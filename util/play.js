@@ -3,11 +3,8 @@ const moment = require('moment');
 const { canModifyQueue, formatDate, validUrl } = require('./Util');
 const { createAudioPlayer, createAudioResource, entersState, getVoiceConnection, AudioPlayerStatus, NoSubscriberBehavior } = require('@discordjs/voice');
 const { exec } = require('youtube-dl-exec');
-// const { FFmpeg } = require('prism-media');
 
 require('moment-duration-format');
-
-// TODO: make play support other sites with ytdl
 
 const filters = {
   bassboost: 'bass=g=20,dynaudnorm=f=200',
@@ -35,9 +32,9 @@ module.exports = {
   async play(song, message, updFilter = false) {
     const { client } = message;
     const queue = client.queue.get(message.guild.id);
-    const seekTime = updFilter ? moment.duration(queue.resource.playbackDuration + queue.additionalStreamTime).format('hh:mm:ss') : '00:00:00';
+    const seekTime = updFilter ? new Date(queue.resource.playbackDuration + queue.additionalStreamTime).toISOString().slice(11, 19) : '00:00:00';
     if (!song) {
-      queue.player.stop();
+      queue.player?.stop(true);
       queue.connection?.destroy();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.');
@@ -54,7 +51,7 @@ module.exports = {
     let encoderArgs;
     encoderArgsFilters.length === 0 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
-    queue.resource = await _createAudioResource(song.url, seekTime, encoderArgs);
+    queue.resource = await _createAudioResource(client, song.url, seekTime, encoderArgs);
     queue.resource.volume.setVolume(queue.volume / 100);
     
     if (!queue.player) {
@@ -102,13 +99,17 @@ module.exports = {
       client.queue.delete(message.guild.id);
     }
 
-    if (seekTime) 
-      queue.additionalStreamTime = seekTime;
+    if (seekTime) {
+      const seekSplit = seekTime.split(':');
+      const seekSeconds = +seekSplit[0] * 60 * 60 + +seekSplit[1] * 60 + seekSplit[2]; 
+
+      queue.additionalStreamTime = seekSeconds * 1000;
+    }
 
     const embed = new MessageEmbed()
       .setTitle(song.title ?? song.url)
       .setColor('#FF0000')
-      .setDescription(seekTime.replace(':', '') >= 1 ? `Starting at ${seekTime}` : '');
+      .setDescription(seekTime.replace(':', '') > 0 ? `Starting at ${seekTime}` : '');
 
     if (song.channel)
       embed.setAuthor({ name: song.channel?.name, iconURL: song.channel?.profile_pic, url: song.channel?.url });
@@ -148,7 +149,7 @@ module.exports = {
       switch (interaction.customId) {
         case 'skip':
           queue.playing = true;
-          queue.player.stop();
+          queue.player?.stop(true);
           interaction.reply(`${interaction.user} ⏩ skipped the song`);
           queue.collector.stop();
           break;
@@ -227,10 +228,10 @@ module.exports = {
 
         case 'stop':
           interaction.reply(`${interaction.user} ⏹ stopped the music!`);
-          queue.player.stop();
+          queue.player?.stop(true);
           if (queue.stream) queue.stream.destroy();
           if (getVoiceConnection(message.guild.id)) getVoiceConnection(message.guild.id).destroy();
-          queue.collector.stop();
+          queue.collector?.stop();
           client.queue.delete(message.guild.id);
           break;
           
@@ -249,39 +250,34 @@ module.exports = {
   }
 };
 
-const _createAudioResource = (url/*, seek = '00:00:00', filters = ''*/) => {
+const _createAudioResource = (client, url/*, seek = '00:00:00', filters = ''*/) => {
+  // const postprocessor = [ /*'youtube:skip=dash',*/ `ffmpeg_o:-ss ${seek}` ];
+
+  // if (filters && filters.length > 0) postprocessor.push('-af', filters);
+
   return new Promise((resolve, reject) => {
     const rawStream = exec(url, {
       preferFreeFormats: true,
-      noCallHome: true,
       noCheckCertificate: true,
       youtubeSkipDashManifest: true,
       defaultSearch: 'ytsearch',
       o: '-',
-      q: '',
-      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-      r: '100K'
+      // q: '',
+      format: 'bestaudio+ext=webm+acodec=opus+asr=48000/bestaudio',
+      limitRate: '100K',
+      externalDownloader: 'ffmpeg'
+      // externalDownloaderArgs: postprocessor.join(' ')
     }, { stdio: ['ignore', 'pipe', 'ignore'] });
-    if (!rawStream.stdout) {
-      reject(new Error('No stdout'));
-      return;
-    }
-    /*const FFMPEG_ARGUMENTS = [
-      '-analyzeduration', '0',
-      '-loglevel', '0',
-      //'-f', 's16le',
-      '-acodec', 'libopus',
-      '-f', 'opus',
-      '-ar', '48000',
-      '-ac', '2'
-    ];
-  
-    if (filters) FFMPEG_ARGUMENTS.push('-af', filters.join(','));
-    const stream = new FFmpeg({
-      args: ['-ss', seek, '-i', rawStream.stdout, ...FFMPEG_ARGUMENTS]
-    });
-  
-    resolve(createAudioResource(stream, { inlineVolume: true }));*/
-    resolve(createAudioResource(rawStream.stdout, { inlineVolume: true }));
+
+    if (!rawStream.stdout)
+      return reject(new Error('No stdout'));
+
+    // client.logger.log(require('node:util').inspect(rawStream.spawnargs, { depth: 5 }));
+
+    const ar = createAudioResource(rawStream.stdout, { inlineVolume: true });
+
+    // client.logger.log(require('node:util').inspect(ar, { depth: 5 }));
+
+    resolve(ar);
   });
 };

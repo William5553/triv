@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
     });
     player.on(AudioPlayerStatus.Idle, () => {
       connection.destroy();
-      player.stop();
+      player.stop(true);
     });
     const resource = createAudioResource(Readable.from([body]), { inputType: StreamType.Arbitrary });
     player.play(resource);

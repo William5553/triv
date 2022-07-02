@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "5.24.4",
+  "version": "5.25.0",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -46,7 +46,7 @@
     "simple-youtube-api": "^5.2.1",
     "sodium-native": "^3.3.0",
     "utf-8-validate": "^5.0.9",
-    "youtube-dl-exec": "^2.0.12",
+    "youtube-dl-exec": "github:microlinkhq/youtube-dl-exec#pull/102/head",
     "ytdl-core": "^4.11.0",
     "zlib-sync": "^0.1.7"
   },
@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-unicorn": "43.0.0"

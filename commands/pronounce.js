@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
     });
     player.on(AudioPlayerStatus.Idle, () => {
       connection.destroy();
-      player.stop();
+      player.stop(true);
     });
     const resource = createAudioResource(`http://translate.google.com/translate_tts?client=tw-ob&tl=${a1}&q=${text}`, { inputType: StreamType.Arbitrary });
     player.play(resource);

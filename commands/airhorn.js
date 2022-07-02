@@ -31,7 +31,7 @@ exports.run = async (client, message) => {
   });
   player.on(AudioPlayerStatus.Idle, () => {
     connection.destroy();
-    player.stop();
+    player.stop(true);
   });
   const resource = createAudioResource(path.join(process.cwd(), 'assets', 'airhorn', airhorn.random()));
   player.play(resource);
@@ -43,7 +43,7 @@ exports.run = async (client, message) => {
   } catch (error) {
     message.reply(`An error occurred: ${error.message || error}`);
     connection.destroy();
-    player.stop();
+    player.stop(true);
     client.logger.error(`Error occurred while trying to airhorn: ${error.stack ?? error}`);
   }
 };

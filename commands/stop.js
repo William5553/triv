@@ -11,7 +11,7 @@ exports.run = (client, message) => {
     if (modifiable != true) return message.reply(modifiable);
     if (queue && queue.connection) {
       queue.songs = [];
-      queue.player.stop();
+      queue.player?.stop(true);
       queue.collector?.stop();
       queue.textChannel.send(`${message.author} ⏹ stopped the music!`);
       client.queue.delete(message.guild.id);

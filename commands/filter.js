@@ -26,7 +26,8 @@ exports.run = (client, message, args) => {
     default:
       return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
   }
-  if (args[0] === 'add' || args[0] === 'remove') play(queue.songs[0], message, true); 
+  if (args[0] === 'add' || args[0] === 'remove')
+    play(queue.songs[0], message, true); 
 };
 
 exports.conf = {
