@@ -104,15 +104,6 @@ try {
   client.logger.error(`ERROR WHILE LOGGING IN:\n${error.stack ?? error}`);
 }
 
-if (process.env.triv_web) {
-  const express = require('express');
-  const app = express();
-
-  app.get('*', (req, res) => res.send(`${client.user?.username || 'Triv'} running Node.js ${process.version}`));
-
-  app.listen(process.env.PORT ?? 8080);
-}
-
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on('uncaughtException', err => {
   client.logger.error(`UNCAUGHT EXCEPTION:\n${err.stack ?? err}`);

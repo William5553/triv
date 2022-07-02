@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     return message.reply('Please use a number between 0 - 100.');
 
   queue.volume = Number.parseInt(args[0]);
-  queue.resource.volume.setVolume(Number.parseInt(args[0]) / 100);
+  queue.resource.volume?.setVolumeLogarithmic(Number.parseInt(args[0]) / 100);
 
   return queue.textChannel.send(`Volume set to: **${args[0]}%**`);
 };

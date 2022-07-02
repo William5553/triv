@@ -52,7 +52,7 @@ module.exports = {
     encoderArgsFilters.length === 0 ? encoderArgs = '' : encoderArgs = encoderArgsFilters.join(',');
 
     queue.resource = await _createAudioResource(client, song.url, seekTime, encoderArgs);
-    queue.resource.volume.setVolume(queue.volume / 100);
+    queue.resource.volume?.setVolumeLogarithmic(queue.volume / 100);
     
     if (!queue.player) {
       queue.player = createAudioPlayer({ noSubscriber: NoSubscriberBehavior.Stop });
@@ -170,12 +170,12 @@ module.exports = {
         case 'mute':
           if (queue.volume <= 0) {
             queue.volume = 100;
-            queue.resource.volume.setVolume(1);
+            queue.resource.volume.setVolumeLogarithmic(1);
             queue.textChannel.send(`${interaction.user} 🔊 unmuted the music!`);
             interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: false }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: true }) ] }) ] });
           } else {
             queue.volume = 0;
-            queue.resource.volume.setVolume(0);
+            queue.resource.volume.setVolumeLogarithmic(0);
             queue.textChannel.send(`${interaction.user} 🔇 muted the music!`);
             interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
           }
@@ -189,7 +189,7 @@ module.exports = {
             reply2 = false;
           } else
             queue.volume = queue.volume - 10;
-          queue.resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolumeLogarithmic(queue.volume / 100);
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
@@ -209,7 +209,7 @@ module.exports = {
             reply2 = false;
           } else
             queue.volume = queue.volume + 10;
-          queue.resource.volume.setVolume(queue.volume / 100);
+          queue.resource.volume.setVolumeLogarithmic(queue.volume / 100);
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔊 increased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
