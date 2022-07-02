@@ -6,7 +6,8 @@
   "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended"],
   "plugins": ["import"],
   "rules": {
-	"unicorn/prefer-string-replace-all": "error",
+    "unicorn/prefer-top-level-await": "off",
+	  "unicorn/prefer-string-replace-all": "error",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/prefer-module": "off",
     "unicorn/no-lonely-if": "off",

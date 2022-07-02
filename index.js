@@ -69,32 +69,34 @@ readdir('./events/', (err, files) => {
   }
 });
 
-client.blacklist.ensure('blacklist', { guild: [], user: [] });
-// Make sure bot is not in any blacklisted guilds
-for (const id of client.blacklist.get('blacklist', 'user')) {
-  try {
-    const guild = await client.guilds.fetch(id, false);
-    await guild.leave();
-    client.logger.log(`[BLACKLIST] Left blacklisted guild ${id}.`);
-  } catch {
-    if (!client.guilds.cache.has(id)) continue;
-    client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${id}.`);
-  }
-}
-
-// Make sure bot is not in any guilds owned by a blacklisted user
-let guildsLeft = 0;
-for (const guild of client.guilds.cache.values()) {
-  if (client.blacklist.get('blacklist', 'user').includes(guild.ownerId)) {
+(async () => {
+  client.blacklist.ensure('blacklist', { guild: [], user: [] });
+  // Make sure bot is not in any blacklisted guilds
+  for (const id of client.blacklist.get('blacklist', 'user')) {
     try {
+      const guild = await client.guilds.fetch(id, false);
       await guild.leave();
-      guildsLeft++;
+      client.logger.log(`[BLACKLIST] Left blacklisted guild ${id}.`);
     } catch {
-      client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${guild.id} (${guild.name}).`);
+      if (!client.guilds.cache.has(id)) continue;
+      client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${id}.`);
     }
   }
-}
-client.logger.log(`[BLACKLIST] Left ${guildsLeft} guilds owned by blacklisted users.`);
+
+  // Make sure bot is not in any guilds owned by a blacklisted user
+  let guildsLeft = 0;
+  for (const guild of client.guilds.cache.values()) {
+    if (client.blacklist.get('blacklist', 'user').includes(guild.ownerId)) {
+      try {
+        await guild.leave();
+        guildsLeft++;
+      } catch {
+        client.logger.log(`[BLACKLIST] Failed to leave blacklisted guild ${guild.id} (${guild.name}).`);
+      }
+    }
+  }
+  client.logger.log(`[BLACKLIST] Left ${guildsLeft} guilds owned by blacklisted users.`);
+})();
 
 try {
   client.login(process.env.token);
