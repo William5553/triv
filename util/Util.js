@@ -1,6 +1,5 @@
 const yes = new Set(['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure']);
 const no = new Set(['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not']);
-const langs = require('../assets/languages.json');
 const { URL } = require('node:url');
 const process = require('node:process');
 
@@ -37,7 +36,7 @@ module.exports = class Util {
 
     text = text
       .replaceAll('@', `@${String.fromCodePoint(8203)}`)
-      .replace(process.env.token, 'NO TOKEN')
+      .replaceAll(process.env.token, 'NO TOKEN')
       .replaceAll('```', '`\u200B``');
 
     return text;
@@ -101,17 +100,6 @@ module.exports = class Util {
     if (!log) return 1;
     const thisCase = /ID\s(\d+)/.exec(log.embeds[0].footer.text);
     return thisCase ? Number.parseInt(thisCase[1]) + 1 : 1;
-  }
-
-  static getCode(language) {
-    if (!language)
-      return false;
-    if (langs[language])
-      return langs[language];
-    const key = Object.keys(langs).find(item => langs[item] === language.toLowerCase());
-    if (key)
-      return langs[key];
-    return false;
   }
 
   /*
