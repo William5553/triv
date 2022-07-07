@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "5.25.0",
+  "version": "5.25.1",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -24,7 +24,7 @@
     "node": ">=16.9"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
+    "@discordjs/opus": "^0.8.0",
     "@discordjs/voice": "^0.10.0",
     "@william5553/mathsteps": "^0.5.0",
     "@william5553/translate-google-api": "^1.4.0",
