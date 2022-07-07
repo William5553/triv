@@ -46,7 +46,7 @@
     "simple-youtube-api": "^5.2.1",
     "sodium-native": "^3.3.0",
     "utf-8-validate": "^5.0.9",
-    "youtube-dl-exec": "github:william5553/youtube-dl-exec",
+    "youtube-dl-exec": "^2.0.13",
     "ytdl-core": "^4.11.0",
     "zlib-sync": "^0.1.7"
   },
