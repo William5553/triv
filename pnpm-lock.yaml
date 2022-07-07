@@ -54,7 +54,7 @@ dependencies:
   simple-youtube-api: 5.2.1
   sodium-native: 3.3.0
   utf-8-validate: 5.0.9
-  youtube-dl-exec: github.com/william5553/youtube-dl-exec/5553a8b3324c12a7e5675e950612490cf135fb7f
+  youtube-dl-exec: github.com/william5553/youtube-dl-exec/61ea371ef5d00f1e40e9fdff5e106fde853fa154
   ytdl-core: 4.11.0
   zlib-sync: 0.1.7
 
@@ -2698,8 +2698,8 @@ packages:
       nan: 2.16.0
     dev: false
 
-  github.com/william5553/youtube-dl-exec/5553a8b3324c12a7e5675e950612490cf135fb7f:
-    resolution: {tarball: https://codeload.github.com/william5553/youtube-dl-exec/tar.gz/5553a8b3324c12a7e5675e950612490cf135fb7f}
+  github.com/william5553/youtube-dl-exec/61ea371ef5d00f1e40e9fdff5e106fde853fa154:
+    resolution: {tarball: https://codeload.github.com/william5553/youtube-dl-exec/tar.gz/61ea371ef5d00f1e40e9fdff5e106fde853fa154}
     name: youtube-dl-exec
     version: 2.0.12
     engines: {node: '>= 12'}
