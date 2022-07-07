@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
       const fetchedLogs = await message.guild.fetchAuditLogs();
       // Small filter function to make use of the little discord provides to narrow down the correct audit entry.
       // Ignore entries that are older than 20 seconds to reduce false positives.
-      const auditEntry = fetchedLogs.entries.find(log => log.target.id == message.author.id && log.extra?.channel.id === message.channel.id && Date.now() - log.createdTimestamp < 20_000 && log.action === 'MESSAGE_DELETE');
+      const auditEntry = fetchedLogs.entries.find(log => log.target?.id == message.author.id && log.extra?.channel?.id === message.channel.id && Date.now() - log.createdTimestamp < 20_000 && log.action === 'MESSAGE_DELETE');
 
       const embeds = [
         new MessageEmbed()
