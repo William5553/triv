@@ -27,7 +27,7 @@ specifiers:
   simple-youtube-api: ^5.2.1
   sodium-native: ^3.3.0
   utf-8-validate: ^5.0.9
-  youtube-dl-exec: github:william5553/youtube-dl-exec#ef9b4f091c1b60062e0e153192d0100f7c7c1758
+  youtube-dl-exec: ^2.0.13
   ytdl-core: ^4.11.0
   zlib-sync: ^0.1.7
 
@@ -54,7 +54,7 @@ dependencies:
   simple-youtube-api: 5.2.1
   sodium-native: 3.3.0
   utf-8-validate: 5.0.9
-  youtube-dl-exec: github.com/william5553/youtube-dl-exec/ef9b4f091c1b60062e0e153192d0100f7c7c1758
+  youtube-dl-exec: 2.0.13
   ytdl-core: 4.11.0
   zlib-sync: 0.1.7
 
@@ -2682,6 +2682,20 @@ packages:
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
+  /youtube-dl-exec/2.0.13:
+    resolution: {integrity: sha512-pDGEQBPe7Smay4JtmGtVSiufLTZzBfTRyQkzPLBak0HmmvSjCpynKljDm0mJUhDe7+Wv5Rc6aK7nkeSxeQONwA==}
+    engines: {node: '>= 12'}
+    requiresBuild: true
+    dependencies:
+      dargs: 7.0.0
+      execa: 5.1.1
+      is-unix: 2.0.7
+      mkdirp: 1.0.4
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /ytdl-core/4.11.0:
     resolution: {integrity: sha512-Q3hCLiUA9AOGQXzPvno14GN+HgF9wsO1ZBHlj0COTcyxjIyFpWvMfii0UC4/cAbVaIjEdbWB71GdcGuc4J1Lmw==}
     engines: {node: '>=12'}
@@ -2696,20 +2710,4 @@ packages:
     requiresBuild: true
     dependencies:
       nan: 2.16.0
-    dev: false
-
-  github.com/william5553/youtube-dl-exec/ef9b4f091c1b60062e0e153192d0100f7c7c1758:
-    resolution: {tarball: https://codeload.github.com/william5553/youtube-dl-exec/tar.gz/ef9b4f091c1b60062e0e153192d0100f7c7c1758}
-    name: youtube-dl-exec
-    version: 2.0.12
-    engines: {node: '>= 12'}
-    requiresBuild: true
-    dependencies:
-      dargs: 7.0.0
-      execa: 5.1.1
-      is-unix: 2.0.7
-      mkdirp: 1.0.4
-      node-fetch: 2.6.7
-    transitivePeerDependencies:
-      - encoding
     dev: false
