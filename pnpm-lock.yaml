@@ -23,11 +23,11 @@ specifiers:
   moment-duration-format: ^2.3.2
   ms: ^2.1.3
   node-superfetch: ^0.2.3
-  prism-media: ^1.3.2
+  prism-media: ^1.3.4
   simple-youtube-api: ^5.2.1
   sodium-native: ^3.3.0
   utf-8-validate: ^5.0.9
-  youtube-dl-exec: ^2.0.13
+  youtube-dl-exec: ^2.1.0
   ytdl-core: ^4.11.0
   zlib-sync: ^0.1.7
 
@@ -50,11 +50,11 @@ dependencies:
   moment-duration-format: 2.3.2
   ms: 2.1.3
   node-superfetch: 0.2.3
-  prism-media: 1.3.2_2bpuud27k56orizxpgp4t3teli
+  prism-media: 1.3.4_2bpuud27k56orizxpgp4t3teli
   simple-youtube-api: 5.2.1
   sodium-native: 3.3.0
   utf-8-validate: 5.0.9
-  youtube-dl-exec: 2.0.13
+  youtube-dl-exec: 2.1.0
   ytdl-core: 4.11.0
   zlib-sync: 0.1.7
 
@@ -150,7 +150,7 @@ packages:
     dependencies:
       '@types/ws': 8.5.3
       discord-api-types: 0.33.5
-      prism-media: 1.3.2_2bpuud27k56orizxpgp4t3teli
+      prism-media: 1.3.4_2bpuud27k56orizxpgp4t3teli
       tiny-typed-emitter: 2.1.0
       tslib: 2.4.0
       ws: 8.8.0_22kvxa7zeyivx4jp72v2w3pkvy
@@ -400,8 +400,8 @@ packages:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: false
 
-  /better-sqlite3/7.5.3:
-    resolution: {integrity: sha512-tNIrDsThpWT8j1mg+svI1pqCYROqNOWMbB2qXVg+TJqH9UR5XnbAHyRsLZoJagldGTTqJPj/sUPVOkW0GRpYqw==}
+  /better-sqlite3/7.6.0:
+    resolution: {integrity: sha512-wYckL8S8RHP+KKNsZuJGZ7z/6FFmVgwd0U8jSv6t997C+EFR1yvi8p2WIpTb10jiV5rRA5VtMdgtAZFcAnK3Iw==}
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
@@ -819,7 +819,7 @@ packages:
   /enmap/5.9.0:
     resolution: {integrity: sha512-70bJNufWO2fE1BdDuPdtgyJGz+13EN3shOIvczi2riKKWOsSvBfXXHLzqpV0wpA+IOvSNxlSO+eoBc0pMwIXMw==}
     dependencies:
-      better-sqlite3: 7.5.3
+      better-sqlite3: 7.6.0
       lodash: 4.17.21
       on-change: 2.2.3
       serialize-javascript: 6.0.0
@@ -2147,11 +2147,11 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prism-media/1.3.2_2bpuud27k56orizxpgp4t3teli:
-    resolution: {integrity: sha512-L6UsGHcT6i4wrQhFF1aPK+MNYgjRqR2tUoIqEY+CG1NqVkMjPRKzS37j9f8GiYPlD6wG9ruBj+q5Ax+bH8Ik1g==}
+  /prism-media/1.3.4_2bpuud27k56orizxpgp4t3teli:
+    resolution: {integrity: sha512-eW7LXORkTCQznZs+eqe9VjGOrLBxcBPXgNyHXMTSRVhphvd/RrxgIR7WaWt4fkLuhshcdT5KHL88LAfcvS3f5g==}
     peerDependencies:
-      '@discordjs/opus': ^0.5.0
-      ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+      '@discordjs/opus': ^0.8.0
+      ffmpeg-static: ^5.0.2 || ^4.2.7 || ^3.0.0 || ^2.4.0
       node-opus: ^0.3.3
       opusscript: ^0.0.8
     peerDependenciesMeta:
@@ -2682,8 +2682,8 @@ packages:
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
-  /youtube-dl-exec/2.0.13:
-    resolution: {integrity: sha512-pDGEQBPe7Smay4JtmGtVSiufLTZzBfTRyQkzPLBak0HmmvSjCpynKljDm0mJUhDe7+Wv5Rc6aK7nkeSxeQONwA==}
+  /youtube-dl-exec/2.1.0:
+    resolution: {integrity: sha512-gf6fB83+ZrYegexrx0MbjCkuP7dmesCAge4rNpAP5ES/zzz8008eHg24Er0RM4OwN1XA4FIFWvR6OMMoayiWYg==}
     engines: {node: '>= 12'}
     requiresBuild: true
     dependencies:
