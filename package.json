@@ -6,7 +6,7 @@
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.5.0",
+  "packageManager": "pnpm@7.5.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
