@@ -1,12 +1,12 @@
 {
   "name": "triv",
-  "version": "5.25.2",
+  "version": "5.25.3",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.5.0",
+  "packageManager": "pnpm@7.5.2",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -46,7 +46,7 @@
     "simple-youtube-api": "^5.2.1",
     "sodium-native": "^3.3.0",
     "utf-8-validate": "^5.0.9",
-    "youtube-dl-exec": "^2.1.0",
+    "youtube-dl-exec": "^2.1.2",
     "ytdl-core": "^4.11.0",
     "zlib-sync": "^0.1.7"
   },
