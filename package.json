@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "5.25.4",
+  "version": "5.26.0",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
-    "@discordjs/voice": "^0.10.0",
+    "@discordjs/voice": "^0.11.0",
     "@william5553/mathsteps": "^0.5.0",
     "@william5553/translate-google-api": "^1.4.0",
     "bufferutil": "^4.0.6",
@@ -55,9 +55,9 @@
   },
   "homepage": "https://github.com/William5553/triv",
   "devDependencies": {
-    "eslint": "8.19.0",
+    "eslint": "8.20.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-unicorn": "43.0.1"
+    "eslint-plugin-unicorn": "43.0.2"
   }
 }
