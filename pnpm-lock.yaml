@@ -4,7 +4,7 @@ specifiers:
   '@discordjs/opus': ^0.8.0
   '@discordjs/voice': ^0.11.0
   '@william5553/mathsteps': ^0.5.0
-  '@william5553/translate-google-api': ^1.4.0
+  '@william5553/translate-google-api': ^1.5.0
   bufferutil: ^4.0.6
   chalk: ^4.1.2
   cloc: ^2.10.0
@@ -35,7 +35,7 @@ dependencies:
   '@discordjs/opus': 0.8.0
   '@discordjs/voice': 0.11.0_cypuoh66rnkvryek3ho65n47bm
   '@william5553/mathsteps': 0.5.0
-  '@william5553/translate-google-api': 1.4.0
+  '@william5553/translate-google-api': 1.5.0
   bufferutil: 4.0.6
   chalk: 4.1.2
   cloc: 2.10.0
@@ -285,8 +285,8 @@ packages:
       mathjs: 3.20.2
     dev: false
 
-  /@william5553/translate-google-api/1.4.0:
-    resolution: {integrity: sha512-Wpjvac2nPdpVv4DssLYq2YyV257s9VZuN8t4RfyTUagdJ43SSk23vMGaVn+w4TjDlV+XREUs8GvAqSKk2tNwKg==}
+  /@william5553/translate-google-api/1.5.0:
+    resolution: {integrity: sha512-LUeIqJRwH83083aCV0zSu1Rfp/aygaelVbmyGMTl0l0lv3FeER+iSovhXp+gaQscmGnVrIK/VOvz8qXQASIRYA==}
     dependencies:
       axios: 0.27.2
     transitivePeerDependencies:
