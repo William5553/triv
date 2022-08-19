@@ -1,12 +1,12 @@
 {
   "name": "triv",
-  "version": "5.26.1",
+  "version": "5.26.2",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.9.0",
+  "packageManager": "pnpm@7.9.3",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -36,7 +36,7 @@
     "enmap": "^5.9.0",
     "esrever": "^0.2.0",
     "ffmpeg-static": "^5.0.2",
-    "genius-lyrics": "^4.3.8",
+    "genius-lyrics": "^4.4.0",
     "md5": "^2.3.0",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
