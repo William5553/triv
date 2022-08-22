@@ -8,7 +8,7 @@ specifiers:
   bufferutil: ^4.0.6
   chalk: ^4.1.2
   cloc: ^2.10.0
-  discord.js: ^13.10.2
+  discord.js: ^13.10.3
   dotenv: ^16.0.1
   enmap: ^5.9.0
   eslint: 8.22.0
@@ -39,7 +39,7 @@ dependencies:
   bufferutil: 4.0.6
   chalk: 4.1.2
   cloc: 2.10.0
-  discord.js: 13.10.2_22kvxa7zeyivx4jp72v2w3pkvy
+  discord.js: 13.10.3_22kvxa7zeyivx4jp72v2w3pkvy
   dotenv: 16.0.1
   enmap: 5.9.0
   esrever: 0.2.0
@@ -240,7 +240,7 @@ packages:
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 18.7.6
+      '@types/node': 18.7.9
       form-data: 3.0.1
     dev: false
 
@@ -248,8 +248,8 @@ packages:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
     dev: false
 
-  /@types/node/18.7.6:
-    resolution: {integrity: sha512-EdxgKRXgYsNITy5mjjXjVE/CS8YENSdhiagGrLqjG0pvA2owgJ6i4l7wy/PFZGC0B1/H20lWKN7ONVDNYDZm7A==}
+  /@types/node/18.7.9:
+    resolution: {integrity: sha512-0N5Y1XAdcl865nDdjbO0m3T6FdmQ4ijE89/urOHLREyTXbpMWbSafx9y7XIsgWGtwUP2iYTinLyyW3FatAxBLQ==}
     dev: false
 
   /@types/normalize-package-data/2.4.1:
@@ -259,7 +259,7 @@ packages:
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 18.7.6
+      '@types/node': 18.7.9
     dev: false
 
   /@william5553/mathsteps/0.5.0:
@@ -714,8 +714,8 @@ packages:
     resolution: {integrity: sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==}
     dev: false
 
-  /discord.js/13.10.2_22kvxa7zeyivx4jp72v2w3pkvy:
-    resolution: {integrity: sha512-zPhPaUvJRCqmsqMBmQ8gJ8k/O0rcuLj8tn/mOaJEiDPkpb5aFULHarOfqND6jRuLrKXd2to/bc0mjXTOgRW1MA==}
+  /discord.js/13.10.3_22kvxa7zeyivx4jp72v2w3pkvy:
+    resolution: {integrity: sha512-cIARuxfpQDeqA9Zw3fz4IL20xAhtMsjwJIf7/K82R3n2xROG9/fAx+7qjX8ysp9BfflYqMu2ZskyWq1EAmL5BA==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
     dependencies:
       '@discordjs/builders': 0.16.0
@@ -1213,12 +1213,12 @@ packages:
     resolution: {integrity: sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==}
     engines: {node: ^10.12.0 || >=12.0.0}
     dependencies:
-      flatted: 3.2.6
+      flatted: 3.2.7
       rimraf: 3.0.2
     dev: true
 
-  /flatted/3.2.6:
-    resolution: {integrity: sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==}
+  /flatted/3.2.7:
+    resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
 
   /follow-redirects/1.15.1:
@@ -2368,7 +2368,7 @@ packages:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}
     dependencies:
       spdx-expression-parse: 3.0.1
-      spdx-license-ids: 3.0.11
+      spdx-license-ids: 3.0.12
     dev: true
 
   /spdx-exceptions/2.3.0:
@@ -2379,11 +2379,11 @@ packages:
     resolution: {integrity: sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==}
     dependencies:
       spdx-exceptions: 2.3.0
-      spdx-license-ids: 3.0.11
+      spdx-license-ids: 3.0.12
     dev: true
 
-  /spdx-license-ids/3.0.11:
-    resolution: {integrity: sha512-Ctl2BrFiM0X3MANYgj3CkygxhRmr9mi6xhejbdO960nF6EDJApTYpn0BQnDKlnNBULKiCN1n3w9EBkHK8ZWg+g==}
+  /spdx-license-ids/3.0.12:
+    resolution: {integrity: sha512-rr+VVSXtRhO4OHbXUiAF7xW3Bo9DuuF6C5jH+q/x15j2jniycgKbxU09Hr0WqlSLUs4i4ltHGXqTe7VHclYWyA==}
     dev: true
 
   /string-width/4.2.3:
