@@ -2,9 +2,9 @@
 
 ⚠️ **The bot is currently being completely rewritten to use Discord.js v14, slash commands, and ES modules!** ⚠️
 
-[Visit the rewrite](https://github.com/William5553/quinton)
-
 Afterwards, this repository will be archived and no longer maintained.
+
+[Visit the rewrite](https://github.com/William5553/quinton)
 
 # Installation instructions for Windows
 1. [Download and install Node.js](https://nodejs.org/en/), version 16.9.0 and up is required.
