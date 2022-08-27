@@ -1,7 +1,9 @@
 ![Build Status](https://github.com/william5553/triv/workflows/lint/badge.svg?branch=discord.js-latest)
 
-⚠️ The bot is currently being completely rewritten to use Discord.js v14, slash commands, and ES modules! ⚠️
+⚠️ **The bot is currently being completely rewritten to use Discord.js v14, slash commands, and ES modules!** ⚠️
+
 [Visit the rewrite](https://github.com/William5553/quinton)
+
 Afterwards, this repository will be archived and no longer maintained.
 
 # Installation instructions for Windows
