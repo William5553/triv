@@ -1,12 +1,12 @@
 {
   "name": "triv",
-  "version": "5.26.2",
+  "version": "5.26.3",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.9.5",
+  "packageManager": "pnpm@7.11.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
