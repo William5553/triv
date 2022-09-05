@@ -32,10 +32,10 @@
     "chalk": "^4.1.2",
     "cloc": "^2.10.0",
     "discord.js": "^13.10.3",
-    "dotenv": "^16.0.1",
-    "enmap": "^5.9.0",
+    "dotenv": "^16.0.2",
+    "enmap": "^5.9.1",
     "esrever": "^0.2.0",
-    "ffmpeg-static": "^5.0.2",
+    "ffmpeg-static": "^5.1.0",
     "genius-lyrics": "^4.4.0",
     "md5": "^2.3.0",
     "moment": "^2.29.4",
@@ -47,7 +47,7 @@
     "sodium-native": "^3.4.1",
     "utf-8-validate": "^5.0.9",
     "youtube-dl-exec": "^2.1.5",
-    "ytdl-core": "^4.11.1",
+    "ytdl-core": "^4.11.2",
     "zlib-sync": "^0.1.7"
   },
   "bugs": {

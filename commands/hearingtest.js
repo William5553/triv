@@ -25,7 +25,7 @@ exports.run = async (client, message) => {
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
           .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-          .addField('**Command:**', message.content)
+          .addFields({ name: '**Command:**', value: message.content })
       ]});
     });
     for (const { age: dataAge, khz, file } of data) {
@@ -66,7 +66,7 @@ exports.run = async (client, message) => {
         .setTitle('Please report this on GitHub')
         .setURL('https://github.com/william5553/triv/issues')
         .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-        .addField('**Command:**', message.content)
+        .addFields({ name: '**Command:**', value: message.content })
     ]});
   }
 };

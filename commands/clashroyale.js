@@ -45,7 +45,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp()
         .setTitle('An error occurred whilst getting data')
         .setDescription(`\`\`\`${error.message ?? error}\`\`\``)
-        .addField('**Command:**', message.content)
+        .addFields({ name: '**Command:**', value: message.content })
     ]});
   }
 };

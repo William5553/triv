@@ -1,5 +1,5 @@
 const { Message, MessageEmbed } = require('discord.js');
-const { createAudioPlayer, createAudioResource, getVoiceConnection, StreamType, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
 
 exports.run = async (client, message, args) => {
   try {
@@ -24,14 +24,14 @@ exports.run = async (client, message, args) => {
           .setTitle('Please report this on GitHub')
           .setURL('https://github.com/william5553/triv/issues')
           .setDescription(`**The audio player encountered an error.\nStack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-          .addField('**Command:**', message.content)
+          .addFields({ name: '**Command:**', value: message.content })
       ]});
     });
     player.on(AudioPlayerStatus.Idle, () => {
       connection.destroy();
       player.stop(true);
     });
-    const resource = createAudioResource(args.join(' '), { inputType: StreamType.Arbitrary });
+    const resource = createAudioResource(args.join(' '));
     player.play(resource);
     connection.subscribe(player);
     if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
@@ -39,13 +39,14 @@ exports.run = async (client, message, args) => {
   } catch (error) {
     if (message.channel.permissionsFor(client.user).has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY']))
       message.react('⚠️');
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-      .addField('**Command:**', message.content)
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
+        .addFields({ name: '**Command:**', value: message.content })
     ]});
   }
 };
