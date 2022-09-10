@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
     .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ dynamic: true }) })
-    .addField('❯ Discord Join Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`)
+    .addField('❯ Account Creation Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`)
     .addField('❯ ID', user.id)
     .addField('❯ Bot', user.bot ? 'Yes' : 'No')
     .addField('❯ Flags', userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
