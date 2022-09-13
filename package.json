@@ -21,7 +21,7 @@
     "discord-js"
   ],
   "engines": {
-    "node": ">=16.9"
+    "node": ">=16.9 <18"
   },
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "eslint": "8.23.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-n": "15.2.5",
     "eslint-plugin-unicorn": "43.0.2"
   }
 }
