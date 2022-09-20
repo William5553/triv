@@ -47,7 +47,7 @@
     "sodium-native": "^3.4.1",
     "utf-8-validate": "^5.0.9",
     "youtube-dl-exec": "^2.1.5",
-    "ytdl-core": "^4.11.1",
+    "ytdl-core": "^4.11.2",
     "zlib-sync": "^0.1.7"
   },
   "bugs": {
