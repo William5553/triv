@@ -34,8 +34,8 @@ module.exports = {
     const queue = client.queue.get(message.guild.id);
     const seekTime = updFilter ? new Date(queue.resource.playbackDuration + queue.additionalStreamTime).toISOString().slice(11, 19) : '00:00:00';
     if (!song) {
-      queue.player?.stop(true);
-      queue.connection?.destroy();
+      queue?.player?.stop(true);
+      queue?.connection?.destroy();
       client.queue.delete(message.guild.id);
       return queue.textChannel.send('🚫 Music queue ended.');
     }
@@ -75,8 +75,7 @@ module.exports = {
         if (queue.collector && !queue.collector?.ended) queue.collector?.stop();
         queue.additionalStreamTime = 0;
         if (queue.loop) {
-        // if loop is on, push the song back at the end of the queue
-        // so it can repeat endlessly
+        // if loop is on, push the song back at the end of the queue so it can repeat endlessly
           const lastSong = queue.songs.shift();
           queue.songs.push(lastSong);
           module.exports.play(queue.songs[0], message);
