@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
   try {
     const youtube = new YouTubeAPI(process.env.google_api_key);
     const results = await youtube.searchVideos(args.join(' '), 10);
-    results.map((video, index) => resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`));
+    results.map((video, index) => resultsEmbed.addFields({ name: video.shortURL, value: `${index + 1}. ${video.title}` }));
 
     await message.channel.send({embeds: [resultsEmbed]});
 

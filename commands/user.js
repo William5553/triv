@@ -23,10 +23,15 @@ exports.run = async (client, message, args) => {
   const embed = new MessageEmbed()
     .setThumbnail(user.displayAvatarURL({ dynamic: true }))
     .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ dynamic: true }) })
-    .addField('❯ Account Creation Date', `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`)
-    .addField('❯ ID', user.id)
-    .addField('❯ Bot', user.bot ? 'Yes' : 'No')
-    .addField('❯ Flags', userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None');
+    .addFields([
+      { name: '❯ Username', value: user.username, inline: true },
+      { name: '❯ Discriminator', value: `#${user.discriminator}`, inline: true },
+      { name: '❯ Nickname', value: member.nickname ?? 'None', inline: true },
+      { name: '❯ Account Creation Date', value: `<t:${Math.round(user.createdAt.getTime()/1000)}:F>`, inline: true },
+      { name: '❯ ID', value: user.id, inline: true },
+      { name: '❯ Bot', value: user.bot ? 'Yes' : 'No', inline: true },
+      { name: '❯ Flags', value: userFlags.length > 0 ? userFlags.map(flag => flags[flag]).join(', ') : 'None', inline: true }
+    ]);
   if (message.guild) {
     try {
       const member = await message.guild.members.fetch(user.id);
@@ -36,10 +41,12 @@ exports.run = async (client, message, args) => {
         .sort((a, b) => b.position - a.position)
         .map(role => role.name);
       embed
-        .addField('❯ Server Join Date', `<t:${Math.round(member.joinedAt.getTime()/1000)}:F>`, true)
-        .addField('❯ Highest Role', member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, true)
-        .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist.name : 'None', true)
-        .addField(`❯ Roles (${roles.length})`, roles.length > 0 ? trimArray(roles, 6).join(', ') : 'None')
+        .addFields([
+          { name: '❯ Server Join Date', value: `<t:${Math.round(member.joinedAt.getTime()/1000)}:F>`, inline: true },
+          { name: '❯ Highest Role', value: member.roles.highest.id === defaultRole.id ? 'None' : member.roles.highest.name, inline: true },
+          { name: '❯ Hoist Role', value: member.roles.hoist ? member.roles.hoist.name : 'None', inline: true },
+          { name: `❯ Roles (${roles.length})`, value: roles.length > 0 ? trimArray(roles, 6).join(', ') : 'None' }
+        ])
         .setColor(member.displayHexColor);
     } catch {
       embed.setFooter({ text: 'Failed to resolve member, showing basic user information instead.' });

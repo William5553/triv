@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
   if (args.length === 0) {
     const end = new MessageEmbed().setTitle(`**${message.guild.name}'s Settings**`);
     for (const key of Object.keys(client.settings.get(message.guild.id)))
-      end.addField(`**${key}**`, client.settings.get(message.guild.id)[key] || 'No value set');
+      end.addFields({ name: `**${key}**`, value: client.settings.get(message.guild.id, key) || 'No value set' });
     return message.channel.send({ content: `To edit a value, run ${client.getPrefix(message)}${exports.help.name} [name] [value]`, embeds: [end] });
   }
   // Let's get our key and value from the arguments. 

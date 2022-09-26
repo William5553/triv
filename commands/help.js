@@ -14,9 +14,7 @@ exports.run = (client, message, args, perms) => {
     if (!args[0]) {
       const longest = [...client.commands.keys()].reduce((long, str) => Math.max(long, str.length), 0);
       const fonk = client.commands.filter(command => command.conf.permLevel < perms)
-        .map(c => {
-          return `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`;
-        })
+        .map(c => `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`)
         .join('\n');
       const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { prepend: '```asciidoc\n', append: '```' });
       for (const msg of splat)
@@ -32,12 +30,14 @@ exports.run = (client, message, args, perms) => {
       message.channel.send({embeds: [
         new MessageEmbed()
           .setTitle(`= **${command.help.name}** =`)
-          .addField('**Description**', command.help.description)
-          .addField('**Usage**', command.help.usage)
-          .addField('**Aliases**', command.conf.aliases.join(', ') || 'No aliases')
-          .addField('**Cooldown**', command.conf.cooldown ? ms(command.conf.cooldown) : '0s')
-          .addField('**Example**', command.help.example || 'No examples')
-          .addField('**Permissions**', perm[command.conf.permLevel])
+          .addFields([
+            { name: 'Description', value: command.help.description },
+            { name: 'Usage', value: command.help.usage },
+            { name: 'Aliases', value: command.conf.aliases.join(', ') || 'No aliases' },
+            { name: 'Cooldown', value: command.conf.cooldown ? ms(command.conf.cooldown) : '0s' },
+            { name: 'Example', value: command.help.example || 'No examples' },
+            { name: 'Permissions', value: perm[command.conf.permLevel] }
+          ])
       ]});
     }
   } catch (error) {

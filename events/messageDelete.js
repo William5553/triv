@@ -34,7 +34,7 @@ module.exports = async (client, message) => {
       ];
 
       if (message.attachments.size > 0)
-        embeds[0].addField('**Attachments**', message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), true);
+        embeds[0].addFields([{ name: 'Attachments', value: message.attachments.map(attachment => `[Attachment](${attachment.url})`).join('\n'), inline: true }]);
    
       for (const embedd of message.embeds)
         if (embeds.length < 10) embeds.push(embedd);

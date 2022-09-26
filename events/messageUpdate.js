@@ -16,8 +16,10 @@ module.exports = (client, oldMessage, newMessage) => {
           .setAuthor({ name: `@${newMessage.author.tag} - #${newMessage.channel.name}`, iconURL: newMessage.author.displayAvatarURL({ dynamic: true })})
           .setFooter({ text: `User ID: ${newMessage.author.id} | Message ID: ${newMessage.id}` })
           .setTimestamp()
-          .addField('**Before**', oldMessage.content)
-          .addField('**After**', newMessage.content)
+          .addFields([
+            { name: 'Before', value: oldMessage.content, inline: true },
+            { name: 'After', value: newMessage.content, inline: true }
+          ])
           .setColor('#ffd119')
       ]});
     }

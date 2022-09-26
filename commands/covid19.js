@@ -18,13 +18,14 @@ exports.run = async (client, message, args) => {
         .setThumbnail(country === 'all' ? undefined : data.countryInfo.flag || undefined)
         .setFooter({ text: 'Last Updated' })
         .setTimestamp(data.updated)
-        .addField('Total Cases', `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, true)
-        .addField('Total Deaths', `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, true)
-        .addField('Total Recoveries',
-          `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} today)`, true)
-        .addField('Active Cases', formatNumber(data.active), true)
-        .addField('Active Critical Cases', formatNumber(data.critical), true)
-        .addField('Tests', formatNumber(data.tests), true)
+        .addFields([
+          { name: 'Total Cases', value: `${formatNumber(data.cases)} (${formatNumber(data.todayCases)} today)`, inline: true },
+          { name: 'Total Deaths', value: `${formatNumber(data.deaths)} (${formatNumber(data.todayDeaths)} today)`, inline: true },
+          { name: 'Total Recoveries', value: `${formatNumber(data.recovered)} (${formatNumber(data.todayRecovered)} today)`, inline: true },
+          { name: 'Active Cases', value: formatNumber(data.active), inline: true },
+          { name: 'Active Critical Cases', value: formatNumber(data.critical), inline: true },
+          { name: 'Tests', value: formatNumber(data.tests), inline: true }
+        ])
     ]});
   } catch (error) {
     if (error.status === 404) return message.reply("Country not found or doesn't have any cases.");

@@ -59,7 +59,7 @@ exports.run = async (client, message, args) => {
           .setThumbnail('https://i.imgur.com/QDzGMB8.png')
           .setURL(`https://fortnitetracker.com/profile/${encodeURIComponent(body.platformName)}/${encodeURIComponent(body.epicUserHandle)}`);
         for (const stat of body.lifeTimeStats)
-          emb.addField(stat.key, stat.value, true);
+          emb.addFields([{ key: stat.key, value: stat.value, inline: true }]);
         return e.edit({ embeds: [emb] });
       }
     } else if (args.length < 2) {

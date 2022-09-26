@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const { formatDate } = require('../util/Util');
 
 exports.run = async (client, message, args) => {
   const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
@@ -47,14 +46,16 @@ const genEmbeds = (message, user, infractions) => {
   for (const infraction of infractions) {
     const mod = message.guild.members.cache.get(infraction.mod);
     const embed = new MessageEmbed()
-      .setTitle(`${user.username}'s infractions`)
-      .setAuthor({ name: `Moderator: ${mod.user.tag}`, iconURL: mod.user.displayAvatarURL({ dynamic: true }) })
-      .addField('Action', infraction.type, true)
-      .setColor(0x90_2B_93)
-      .setFooter({ text: formatDate(infraction.timestamp) });
-    if (infraction.reason) embed.addField('Reason', infraction.reason, true);
+      .setAuthor({ name: `${user.username}'s infractions`, iconURL: user.displayAvatarURL({ dynamic: true }) })
+      .setFooter({ text: `Moderator: ${mod.user.tag}`, iconURL: mod.user.displayAvatarURL({ dynamic: true }) })
+      .addFields([
+        { name: 'Action', value: `${infraction.type ?? 'None'}`, inline: true },
+        { name: 'Date', value: `<t:${Math.round(infraction.timestamp / 1000)}:f>`, inline: true }
+      ])
+      .setColor(0x90_2B_93);
+    if (infraction.reason) embed.addFields([{ name: 'Reason', value: infraction.reason, inline: true }]);
     if (infraction.additional)
-      for (const info of infraction.additional) embed.addField(info.title, info.body, true);
+      for (const info of infraction.additional) embed.addFields([{ name: info.name, value: info.value, inline: true }]);
     embeds.push(embed);
   }
   return embeds;

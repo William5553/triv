@@ -18,12 +18,14 @@ module.exports = async (client, oldMember, newMember) => {
           .setDescription(`**Nickname Changed - ${newMember}${entry ? ` | Updated by ${entry.executor}` : ''}**`)
           .setAuthor({ name: `@${newMember.user.tag}`, iconURL: newMember.user.displayAvatarURL({ dynamic: true }) })
           .setColor('#ffd119')
-          .addField('**Before**', oldMember.displayName)
-          .addField('**After**', newMember.displayName)
+          .addFields([
+            { name: '**Before**', value: oldMember.displayName, inline: true },
+            { name: '**After**', value: newMember.displayName, inline: true }
+          ])
           .setFooter({ text: `User ID: ${newMember.id}` })
           .setTimestamp(entry.createdTimestamp || Date.now());
         if (entry.reason)
-          embed.addField('**Reason**', entry.reason);
+          embed.addFields({ name: '**Reason**', value: entry.reason });
         logs.send({embeds: [embed]});
       } else client.settings.set(guild.id, '', 'logsID');
     }

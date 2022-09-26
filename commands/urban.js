@@ -12,15 +12,16 @@ exports.run = async (client, message, args) => {
       .query({ term: word });
     if (body.list.length === 0) return message.channel.send('Could not find any results');
     const data = body.list[resultN];
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor(0x32_A8_F0)
-      .setAuthor({ name: 'Urban Dictionary', iconURL: 'https://i.imgur.com/Fo0nRTe.png', url: data.permalink })
-      .setURL(data.permalink)
-      .setTitle(data.word)
-      .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
-      .setFooter({ text: `Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}` })
-      .setTimestamp(new Date(data.written_on))
-      .addField('Example', data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None')
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor(0x32_A8_F0)
+        .setAuthor({ name: 'Urban Dictionary', iconURL: 'https://i.imgur.com/Fo0nRTe.png', url: data.permalink })
+        .setURL(data.permalink)
+        .setTitle(data.word)
+        .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
+        .setFooter({ text: `Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}` })
+        .setTimestamp(new Date(data.written_on))
+        .addFields([{ name: 'Example', value: data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None' }])
     ]});
   } catch (error) {
     return message.channel.send({embeds: [

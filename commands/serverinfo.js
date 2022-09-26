@@ -9,12 +9,14 @@ exports.run = async (client, message) => {
       new MessageEmbed()
         .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
         .setFooter({ iconURL: owner.displayAvatarURL({ dynamic: true }), text: `Owner: ${owner.user.tag} | ID: ${message.guild.id}` })
-        .addField('Server Created', `<t:${Math.round(message.guild.createdTimestamp / 1000)}:f>`, true)
-        .addField('Member Count', `${message.guild.memberCount ?? message.guild.approximateMemberCount}`, true)
-        .addField('Ban Count', `${message.guild.bans.cache.size}`, true)
-        .addField('Text Channels', `${message.guild.channels.cache.filter(channel => channel.isText() && !channel.isThread()).size}`, true)
-        .addField('Voice Channels', `${message.guild.channels.cache.filter(channel => channel.isVoice()).size}`, true)
-        .addField('Roles', `${message.guild.roles.cache.size}`, true)
+        .addFields([
+          { name: 'Server Created', value: `<t:${Math.round(message.guild.createdTimestamp / 1000)}:f>`, inline: true },
+          { name: 'Member Count', value: `${message.guild.memberCount ?? message.guild.approximateMemberCount}`, inline: true },
+          { name: 'Ban Count', value: `${message.guild.bans.cache.size}`, inline: true },
+          { name: 'Text Channels', value: `${message.guild.channels.cache.filter(channel => channel.isText() && !channel.isThread()).size}`, inline: true },
+          { name: 'Voice Channels', value: `${message.guild.channels.cache.filter(channel => channel.isVoice()).size}`, inline: true },
+          { name: 'Roles', value: `${message.guild.roles.cache.size}`, inline: true }
+        ])
     ]});
   } catch (error) {
     return message.channel.send({embeds: [

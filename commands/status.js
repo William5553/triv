@@ -12,10 +12,12 @@ exports.run = (client, message, args) => {
       const embed = new MessageEmbed()
         .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
         .setColor('GREEN')
-        .setTimestamp();
-      embed.addField('Web', user.presence.clientStatus?.web ?? 'Offline');
-      embed.addField('Mobile', user.presence.clientStatus?.mobile ?? 'Offline');
-      embed.addField('Desktop', user.presence.clientStatus?.desktop ?? 'Offline');
+        .setTimestamp()
+        .addFields([
+          { name: 'Web', value: user.presence.clientStatus?.web ?? 'Offline' },
+          { name: 'Mobile', value: user.presence.clientStatus?.mobile ?? 'Offline' },
+          { name: 'Desktop', value: user.presence.clientStatus?.desktop ?? 'Offline' }
+        ]);
       embeds.push(embed);
     }
 
@@ -42,16 +44,18 @@ exports.run = (client, message, args) => {
         const embed = new MessageEmbed()
           .setAuthor({ name: `${user.displayName}'s Activity`, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
           .setColor('GREEN')
-          .addField('**Type**', 'Playing')
-          .addField('**App**', activity.name);
+          .addFields([
+            { name: '**Type**', value: 'Playing' },
+            { name: '**App**', value: activity.name }
+          ]);
         if (activity.details)
-          embed.addField('**Details**', activity.details);
+          embed.addFields({ name: '**Details**', value: activity.details });
         if (activity.state)
-          embed.addField('**State**', activity.state);
+          embed.addFields([{ name: '**State**', value: activity.state }]);
         if (activity.assets && activity.assets.largeText)
-          embed.addField('**Large Text**', activity.assets.largeText);
+          embed.addFields([{ name: '**Large Text**', value: activity.assets.largeText }]);
         if (activity.assets && activity.assets.smallText)
-          embed.addField('**Small Text**', activity.assets.smallText);
+          embed.addFields([{ name: '**Small Text**', value: activity.assets.smallText }]);
         if (activity.url)
           embed.setURL(activity.url);
         if (activity.timestamps && activity.timestamps.start) {
@@ -69,10 +73,12 @@ exports.run = (client, message, args) => {
             .setColor('GREEN')
             .setTimestamp()
             .setThumbnail(`https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`)
-            .addField('Song Name', activity.details, true)
-            .addField('Album', activity.assets.largeText, true)
-            .addField('Author', activity.state.replaceAll(';', ','), true)
-            .addField('Listen to Track', `https://open.spotify.com/track/${activity.syncId}`, false)
+            .addFields(
+              { name: 'Song Name', value: activity.details, inline: true },
+              { name: 'Album', value: activity.assets.largeText, inline: true },
+              { name: 'Author', value: activity.state.replaceAll(';', ','), inline: true },
+              { name: 'Listen to Track', value: `https://open.spotify.com/track/${activity.syncId}`, inline: false }
+            )
             .setFooter({ text: user.displayName, iconURL: user.user.displayAvatarURL({ dynamic: true }) })
         );
       }

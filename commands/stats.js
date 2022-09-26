@@ -4,18 +4,21 @@ const moment = require('moment');
 require('moment-duration-format');
 
 exports.run = (client, message) => 
-  message.channel.send({embeds: [new MessageEmbed()
-    .setTitle('= **STATISTICS** =')
-    .addField('Triv Version', require('../package.json').version)
-    .addField('Memory Usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
-    .addField('Uptime', moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]'))
-    .addField('Commands', client.commands.size.toLocaleString())
-    .addField('Aliases', client.aliases.size.toLocaleString())
-    .addField('Users', client.users.cache.size.toLocaleString())
-    .addField('Guilds', client.guilds.cache.size.toLocaleString())
-    .addField('Channels', client.channels.cache.size.toLocaleString())
-    .addField('Discord.js', `v${version}`)
-    .addField('Node.js', process.version)
+  message.channel.send({embeds: [
+    new MessageEmbed()
+      .setTitle('= **STATISTICS** =')
+      .addFields([
+        { name: 'Triv Version', value: require('../package.json').version },
+        { name: 'Memory Usage', value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB` },
+        { name: 'Uptime', value: moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]') },
+        { name: 'Commands', value: client.commands.size.toLocaleString() },
+        { name: 'Aliases', value: client.aliases.size.toLocaleString() },
+        { name: 'Users', value: client.users.cache.size.toLocaleString() },
+        { name: 'Guilds', value: client.guilds.cache.size.toLocaleString() },
+        { name: 'Channels', value: client.channels.cache.size.toLocaleString() },
+        { name: 'Discord.js', value: `v${version}` },
+        { name: 'Node.js', value: process.version }
+      ])
   ]});
 
 exports.conf = {

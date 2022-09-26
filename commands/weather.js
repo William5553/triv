@@ -22,15 +22,17 @@ exports.run = async (client, message, args) => {
       .setAuthor({ name: `${body.name}, ${body.sys.country}`, iconURL: `http://openweathermap.org/img/wn/${body.weather.icon}@2x.png` })
       .setURL(`https://openweathermap.org/city/${body.id}`)
       .setTimestamp()
-      .addField('Condition', body.weather.map(data => `${data.main} (${data.description})`).join('\n'))
-      .addField('Temperature', `${body.main.temp}° C`, true)
-      .addField('Feels Like', `${body.main.feels_like}° C`, true)
-      .addField('High', `${body.main.temp_max}° C`, true)
-      .addField('Low', `${body.main.temp_min}° C`, true)
-      .addField('Atmospheric Pressure (sea level)', `${body.main.sea_level} hPa`, true)
-      .addField('Humidity', `${body.main.humidity}%`, true)
-      .addField('Wind Speed', `${body.wind.speed} meters/sec`, true)
-      .addField('Cloudiness', `${body.clouds.all}%`, true)
+      .addFields([
+        { name: 'Condition', value: body.weather.map(data => `${data.main} (${data.description})`).join('\n') },
+        { name: 'Temperature', value: `${body.main.temp}° C`, inline: true },
+        { name: 'Feels Like', value: `${body.main.feels_like}° C`, inline: true },
+        { name: 'High', value: `${body.main.temp_max}° C`, inline: true },
+        { name: 'Low', value: `${body.main.temp_min}° C`, inline: true },
+        { name: 'Atmospheric Pressure (sea level)', value: `${body.main.sea_level} hPa`, inline: true },
+        { name: 'Humidity', value: `${body.main.humidity}%`, inline: true },
+        { name: 'Wind Speed', value: `${body.wind.speed} meters/sec`, inline: true },
+        { name: 'Cloudiness', value: `${body.clouds.all}%`, inline: true }
+      ])
     ]});
   } catch (error) {
     if (error.status === 404) return message.channel.send('Could not find any results.');

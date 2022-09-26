@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     if (args.length === 0) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
     const { body } = await request
       .get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${args.join(' ')}`)
-      .query({key: process.env.merriam_webster_thesaurus_key});
+      .query({ key: process.env.merriam_webster_thesaurus_key });
 
     const embeds = await genEmbeds(body);
     if (!embeds || embeds.length === 0) return message.reply(`Word not found, related words: **${body.join(', ')}**`);
@@ -42,13 +42,15 @@ exports.run = async (client, message, args) => {
       }
     });
   } catch (error) {
-    return message.channel.send({embeds: [new MessageEmbed()
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setTitle('Please report this on GitHub')
-      .setURL('https://github.com/william5553/triv/issues')
-      .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
-      .addFields({ name: '**Command:**', value: message.content })
+    client.logger.error(error.stack ?? error);
+    return message.channel.send({embeds: [
+      new MessageEmbed()
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setTitle('Please report this on GitHub')
+        .setURL('https://github.com/william5553/triv/issues')
+        .setDescription(`**Stack Trace:**\n\`\`\`${error.stack ?? error}\`\`\``)
+        .addFields({ name: '**Command:**', value: message.content })
     ]});
   }
 };
@@ -59,10 +61,12 @@ const genEmbeds = body => {
   for (const word of body) {
     const embed = new MessageEmbed()
       .setTitle(`${word.meta.id} - ${word.fl}`)
-      .addField('Offensive', word.meta.offensive ? 'Yes' : 'No')
-      .addField('Definition', word.shortdef)
-      .addField('Synonyms', word.meta.syns.length > 0 ? word.meta.syns[0].join('\n') : 'No synonyms found')
-      .addField('Antonyms', word.meta.ants.length > 0 ? word.meta.ants[0].join('\n') : 'No antonyms found');
+      .addFields([
+        { name: '**Definition**', value: `${word.shortdef}` },
+        { name: '**Offensive**', value: `${word.meta.offensive ? 'Yes' : 'No'}` },
+        { name: '**Synonyms**', value: `${word.meta.syns.length > 0 ? word.meta.syns[0].join('\n') : 'Unknown'}` },
+        { name: '**Antonyms**', value: `${word.meta.ants.length > 0 ? word.meta.ants[0].join('\n') : 'Unknown'}` }
+      ]);
     embeds.push(embed);
   }
   return embeds;

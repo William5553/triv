@@ -52,8 +52,10 @@ const genEmbeds = (steps, embeds = []) => {
   for (const step of steps) {
     const embed = new MessageEmbed()
       .setTitle(`**${step.changeType.replace(/_/gi, ' ')}**`)
-      .addField('Before change', step.oldNode.toString())
-      .addField('After change', step.newNode.toString())
+      .addFields([
+        { name: 'Before change', value: step.oldNode.toString() },
+        { name: 'After change', value: step.newNode.toString() }
+      ])
       .setColor('#FF0000')
       .setTimestamp();
     embeds.push(embed);

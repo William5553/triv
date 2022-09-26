@@ -16,12 +16,13 @@ exports.run = async (client, message, args) => {
         .setColor(0x97_97_FF)
         .setFooter({ text: 'Last Updated' })
         .setTimestamp(stocks.lastRefresh)
-        .addField('Open', `$${formatNumber(stocks.open)}`, true)
-        .addField('Close', `$${formatNumber(stocks.close)}`, true)
-        .addField('Volume', formatNumber(stocks.volume), true)
-        .addField('High', `$${formatNumber(stocks.high)}`, true)
-        .addField('Low', `$${formatNumber(stocks.low)}`, true)
-        .addField('\u200B', '\u200B', true)
+        .addFields([
+          { name: 'Volume', value: formatNumber(stocks.volume), inline: true },
+          { name: 'High', value: `$${formatNumber(stocks.high)}`, inline: true },
+          { name: 'Low', value: `$${formatNumber(stocks.low)}`, inline: true },
+          { name: 'Open', value: `$${formatNumber(stocks.open)}`, inline: true },
+          { name: 'Close', value: `$${formatNumber(stocks.close)}`, inline: true }
+        ])
     ]});
   } catch (error) {
     return message.channel.send({embeds: [
