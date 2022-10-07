@@ -14,7 +14,7 @@ specifiers:
   eslint: 8.24.0
   eslint-plugin-import: 2.26.0
   eslint-plugin-n: 15.3.0
-  eslint-plugin-unicorn: 43.0.2
+  eslint-plugin-unicorn: 44.0.2
   esrever: ^0.2.0
   ffmpeg-static: ^5.1.0
   genius-lyrics: ^4.4.0
@@ -62,7 +62,7 @@ devDependencies:
   eslint: 8.24.0
   eslint-plugin-import: 2.26.0_eslint@8.24.0
   eslint-plugin-n: 15.3.0_eslint@8.24.0
-  eslint-plugin-unicorn: 43.0.2_eslint@8.24.0
+  eslint-plugin-unicorn: 44.0.2_eslint@8.24.0
 
 packages:
 
@@ -979,11 +979,11 @@ packages:
       semver: 7.3.7
     dev: true
 
-  /eslint-plugin-unicorn/43.0.2_eslint@8.24.0:
-    resolution: {integrity: sha512-DtqZ5mf/GMlfWoz1abIjq5jZfaFuHzGBZYIeuJfEoKKGWRHr2JiJR+ea+BF7Wx2N1PPRoT/2fwgiK1NnmNE3Hg==}
+  /eslint-plugin-unicorn/44.0.2_eslint@8.24.0:
+    resolution: {integrity: sha512-GLIDX1wmeEqpGaKcnMcqRvMVsoabeF0Ton0EX4Th5u6Kmf7RM9WBl705AXFEsns56ESkEs0uyelLuUTvz9Tr0w==}
     engines: {node: '>=14.18'}
     peerDependencies:
-      eslint: '>=8.18.0'
+      eslint: '>=8.23.1'
     dependencies:
       '@babel/helper-validator-identifier': 7.19.1
       ci-info: 3.4.0
