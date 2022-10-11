@@ -146,14 +146,15 @@ module.exports = {
 
       let reply = true, reply2 = true;
       switch (interaction.customId) {
-        case 'skip':
+        case 'skip': {
           queue.playing = true;
           queue.player?.stop(true);
           interaction.reply(`${interaction.user} ⏩ skipped the song`);
           queue.collector.stop();
           break;
+        }
 
-        case 'pause':
+        case 'pause': {
           if (queue.playing) {
             queue.player.pause();
             queue.textChannel.send(`${interaction.user} ⏸ paused the music.`);
@@ -165,8 +166,9 @@ module.exports = {
           }
           queue.playing = !queue.playing;
           break;
+        }
 
-        case 'mute':
+        case 'mute': {
           if (queue.volume <= 0) {
             queue.volume = 100;
             queue.resource.volume.setVolumeLogarithmic(1);
@@ -179,8 +181,9 @@ module.exports = {
             interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
           }
           break;
+        }
 
-        case 'voldown':
+        case 'voldown': {
           if (queue.volume === 100)
             reply = false;
           if (queue.volume - 10 <= 0) {
@@ -192,15 +195,23 @@ module.exports = {
           if (reply && reply2)
             interaction.reply(`${interaction.user} 🔉 decreased the volume, the volume is now ${queue.volume}%`);
           else if (!reply) {
-            interaction.update({ components: [ playingMessage.components[0], playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ]) ] });
+            interaction.update({ components: [
+              playingMessage.components[0],
+              playingMessage.components[1].spliceComponents(2, 1, [ new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ])
+            ]});
             queue.textChannel.send(`${interaction.user} 🔊 decreased the volume, the volume is now 90%`);
           } else if (!reply2) {
-            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [ new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }), new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }), new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false }) ] }) ] });
+            interaction.update({ components: [ playingMessage.components[0], new MessageActionRow({ components: [
+              new MessageButton({ label: 'UNMUTE', customId: 'mute', style: 'PRIMARY' }),
+              new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY', disabled: true }),
+              new MessageButton({ emoji: '🔊', customId: 'volup', style: 'PRIMARY', disabled: false })
+            ]})]});
             queue.textChannel.send(`${interaction.user} 🔉 decreased the volume, the volume is now 0%`);
           }
           break;
+        }
 
-        case 'volup':
+        case 'volup': {
           if (queue.volume === 0)
             reply = false;
           if (queue.volume + 10 >= 100) {
@@ -219,13 +230,15 @@ module.exports = {
             queue.textChannel.send(`${interaction.user} 🔊 increased the volume, the volume is now 100%`);
           }
           break;
+        }
 
-        case 'loop':
+        case 'loop': {
           queue.loop = !queue.loop;
           interaction.reply(`${interaction.user} has ${queue.loop ? '**enabled**' : '**disabled**'} loop`);
           break;
+        }
 
-        case 'stop':
+        case 'stop': {
           interaction.reply(`${interaction.user} ⏹ stopped the music!`);
           queue.player?.stop(true);
           if (queue.stream) queue.stream.destroy();
@@ -233,15 +246,18 @@ module.exports = {
           queue.collector?.stop();
           client.queue.delete(message.guild.id);
           break;
+        }
           
-        case 'lyrics':
+        case 'lyrics': {
           interaction.update({ components: [ playingMessage.components[0].spliceComponents(4, 1), playingMessage.components[1] ] });
           client.commands.get('lyrics').run(client, message);
           break;
+        }
 
-        default:
+        default: {
           interaction.reply({ content: 'Invalid selection.', ephemeral: true });
           break;
+        }
       }
     });
 

@@ -14,17 +14,21 @@ exports.run = (client, message, args) => {
   if (modifiable != true) return message.reply(modifiable);
   if (args[0] !== 'list' && !filters.includes(args[1].toLowerCase())) return message.reply(`${args[1]} is not a valid filter. Valid filters are: ${filters.join(', ')}.`);
   switch (args[0]) {
-    case 'add':
+    case 'add': {
       queue.filters[args[1].toLowerCase()] = true;
       break;
-    case 'remove':
+    }
+    case 'remove': {
       queue.filters[args[1].toLowerCase()] = false;
       break;
-    case 'list':
+    }
+    case 'list': {
       message.channel.send(JSON.stringify(queue.filters).replace(/["{}]/g, '').replace(/false/gi, ' ' + String.fromCodePoint(10_060)).replace(/true/gi, ' ' + String.fromCodePoint(10_003)).replace(/,/gi, '\n'));
       break;
-    default:
+    }
+    default: {
       return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+    }
   }
   if (args[0] === 'add' || args[0] === 'remove')
     play(queue.songs[0], message, true); 
