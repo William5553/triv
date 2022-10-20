@@ -24,7 +24,7 @@
     "node": ">=16.9 <18"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.8.0",
+    "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.13.0",
     "@william5553/mathsteps": "^0.5.0",
     "@william5553/translate-google-api": "^1.5.0",
