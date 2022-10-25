@@ -129,6 +129,7 @@ module.exports = {
           new MessageButton({ label: 'STOP', customId: 'stop', style: 'DANGER' }),
           new MessageButton({ label: 'LYRICS', customId: 'lyrics', style: 'PRIMARY' })
         ]}),
+        
         new MessageActionRow({components: [
           new MessageButton({ label: 'MUTE', customId: 'mute', style: 'PRIMARY' }),
           new MessageButton({ emoji: '🔉', customId: 'voldown', style: 'PRIMARY' }),
