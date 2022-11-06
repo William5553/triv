@@ -13,7 +13,7 @@ specifiers:
   enmap: ^5.9.2
   eslint: 8.25.0
   eslint-plugin-import: 2.26.0
-  eslint-plugin-n: 15.3.0
+  eslint-plugin-n: 15.5.0
   eslint-plugin-unicorn: 44.0.2
   esrever: ^0.2.0
   ffmpeg-static: ^5.1.0
@@ -61,7 +61,7 @@ dependencies:
 devDependencies:
   eslint: 8.25.0
   eslint-plugin-import: 2.26.0_eslint@8.25.0
-  eslint-plugin-n: 15.3.0_eslint@8.25.0
+  eslint-plugin-n: 15.5.0_eslint@8.25.0
   eslint-plugin-unicorn: 44.0.2_eslint@8.25.0
 
 packages:
@@ -969,8 +969,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-n/15.3.0_eslint@8.25.0:
-    resolution: {integrity: sha512-IyzPnEWHypCWasDpxeJnim60jhlumbmq0pubL6IOcnk8u2y53s5QfT8JnXy7skjHJ44yWHRb11PLtDHuu1kg/Q==}
+  /eslint-plugin-n/15.5.0_eslint@8.25.0:
+    resolution: {integrity: sha512-VCqQiZDpdm1Q9grnvy+XsENZoXDgTLqPHRQwgl9qFNNgTKR4YEnQOMN0pFB/9TbmrQ88jdeTnqTcNwRvjqMOtg==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       eslint: '>=7.0.0'
