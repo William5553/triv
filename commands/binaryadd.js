@@ -20,9 +20,7 @@ const fullAdder = (a, b, carry) => {
   
 const padZeroes = (a, b) => {
   const lengthDifference = a.length - b.length;
-  if (lengthDifference === 0)
-    return;
-  else {
+  if (lengthDifference !== 0) {
     const zeroes = Array.from(Array(Math.abs(lengthDifference)), () => String(0));
     if (lengthDifference > 0)
       // if a is longer than b then we pad b with zeroes
