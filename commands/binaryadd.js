@@ -41,17 +41,16 @@ const fullAdder = (a, b, carry) => {
   
 const padZeroes = (a, b) => {
   const lengthDifference = a.length - b.length;
-  switch (lengthDifference) {
-    case 0:
-      break;
-    default:
-      const zeroes = Array.from(Array(Math.abs(lengthDifference)), () => String(0));
-      if (lengthDifference > 0)
-        // if a is longer than b then we pad b with zeroes
-        b = `${zeroes.join('')}${b}`;
-      else
-        // if b is longer than a then we pad a with zeroes
-        a = `${zeroes.join('')}${a}`;
+  if (lengthDifference === 0)
+    return
+  else {
+    const zeroes = Array.from(new Array(Math.abs(lengthDifference)), () => String(0));
+    if (lengthDifference > 0)
+      // if a is longer than b then we pad b with zeroes
+      b = `${zeroes.join('')}${b}`;
+    else
+      // if b is longer than a then we pad a with zeroes
+      a = `${zeroes.join('')}${a}`;
   }
   return [a, b];
 };
