@@ -1,24 +1,3 @@
-exports.run = (client, message, args) => {
-  if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
-  return message.reply(addBinary(args[0], args[1]));
-};
-  
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['badd'],
-  permLevel: 0,
-  cooldown: 0
-};
-  
-exports.help = {
-  name: 'binaryadd',
-  description: 'Adds two binary numbers',
-  usage: 'binaryadd [binary] [binary]',
-  example: 'binaryadd 10011101 10110110'
-};
-
-// logic gates
 const xor = (a, b) => a === b ? 0 : 1;
   
 const and = (a, b) => a == 1 && b == 1 ? 1 : 0;
@@ -77,4 +56,24 @@ const addBinary = (a, b) => {
     }
   }
   return carry ? carry + sum : sum;
+};
+
+exports.run = (client, message, args) => {
+  if (args.length < 2) return message.reply(`Usage: ${client.getPrefix(message)}${exports.help.usage}`);
+  return message.reply(addBinary(args[0], args[1]));
+};
+  
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['badd'],
+  permLevel: 0,
+  cooldown: 0
+};
+  
+exports.help = {
+  name: 'binaryadd',
+  description: 'Adds two binary numbers',
+  usage: 'binaryadd [binary] [binary]',
+  example: 'binaryadd 10011101 10110110'
 };
