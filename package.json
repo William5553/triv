@@ -1,6 +1,6 @@
 {
   "name": "triv",
-  "version": "5.27.1",
+  "version": "5.28.0",
   "main": "index.js",
   "license": "MIT",
   "author": "William5553 <contact@williamk.ga>",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "eslint": "8.27.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-n": "15.5.0",
+    "eslint-plugin-n": "15.5.1",
     "eslint-plugin-unicorn": "44.0.2"
   }
 }
