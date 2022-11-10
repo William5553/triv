@@ -1,7 +1,7 @@
 const { play } = require('../util/play');
 const { getInfo } = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
-const process = require('node:process');
+
 const { validUrl } = require('../util/Util');
 const { MessageEmbed, Permissions, Message } = require('discord.js');
 

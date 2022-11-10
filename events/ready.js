@@ -1,5 +1,5 @@
 const { version } = require('discord.js');
-const process = require('node:process');
+
 const { setInterval } = require('node:timers');
 
 module.exports = async client => {

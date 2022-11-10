@@ -1,5 +1,4 @@
 const path = require('node:path');
-const process = require('node:process');
 
 exports.run = (client, message, args) => {
   if (args.length === 0) return message.reply('Ask me a question, moron');

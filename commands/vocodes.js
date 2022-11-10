@@ -1,6 +1,5 @@
 const request = require('node-superfetch');
 const { Readable } = require('node:stream');
-const { Buffer } = require('node:buffer');
 const { MessageEmbed, Message, Permissions } = require('discord.js');
 const { createAudioPlayer, createAudioResource, getVoiceConnection, StreamType, AudioPlayerStatus } = require('@discordjs/voice');
 const voices = require('../assets/vocodes.json');

@@ -1,7 +1,7 @@
 const path = require('node:path');
 const { Message, MessageEmbed, Permissions } = require('discord.js');
 const fs = require('node:fs');
-const process = require('node:process');
+
 const { getVoiceConnection, createAudioPlayer, createAudioResource, entersState, AudioPlayerStatus } = require('@discordjs/voice');
 const airhorn = fs.readdirSync(path.join(process.cwd(), 'assets', 'airhorn'));
 

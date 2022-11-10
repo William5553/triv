@@ -1,4 +1,4 @@
-const process = require('node:process');
+
 if (Number(process.version.slice(1).split('.')[0]) < 16) throw new Error('Node 16.9.0 or higher is required. Update Node on your system.');
 
 if (!process.env.token) throw new Error('No token provided');

@@ -1,7 +1,6 @@
 const yes = new Set(['true', 'yes', 'y', 'да', 'ye', 'yeah', 'yup', 'yea', 'ya', 'yas', 'yuh', 'yee', 'i guess', 'fosho', 'yis', 'hai', 'da', 'si', 'sí', 'oui', 'はい', 'correct', 'perhaps', 'absolutely', 'sure']);
 const no = new Set(['false', 'no', 'n', 'nah', 'eat shit', 'nah foo', 'nope', 'nop', 'die', 'いいえ', 'non', 'fuck off', 'absolutely not']);
-const { URL } = require('node:url');
-const process = require('node:process');
+
 
 module.exports = class Util {
   static async verify(channel, user, { time = 30_000, extraYes = [], extraNo = [] } = {}) {

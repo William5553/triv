@@ -1,5 +1,5 @@
 const texts = require('../assets/shutdown.json');
-const process = require('node:process');
+
 const { verify } = require('../util/Util');
 
 exports.run = async (client, message) => {

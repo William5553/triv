@@ -1,7 +1,7 @@
 const request = require('node-superfetch');
 const { formatNumber } = require('../util/Util');
 const { MessageEmbed } = require('discord.js');
-const process = require('node:process');
+
 
 exports.run = async (client, message, args) => {
   try {
