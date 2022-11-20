@@ -13,9 +13,9 @@ exports.run = async (client, message, args) => {
     if (!translate.language.getCode(a1)) return message.reply(`${args[0]} isn't a supported language`);
     if (!translate.language.getCode(a2)) return message.reply(`${args[1]} isn't a supported language`);
 
-    let t = await translate(text, { from: a1, to: a2 });
-    t = await clean(t[0]);
-    if (t) message.reply(t);
+    translate(text, { from: a1, to: a2 })
+      .then(clean)
+      .then(cleaned => message.reply(cleaned));
   } catch (error) {
     client.logger.error(error.stack ?? error);
     return message.channel.send({embeds: [
