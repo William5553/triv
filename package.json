@@ -6,7 +6,7 @@
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.16.1",
+  "packageManager": "pnpm@7.17.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -27,7 +27,7 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.13.0",
     "@william5553/mathsteps": "^0.5.0",
-    "@william5553/translate-google-api": "^2.0.0",
+    "@william5553/translate-google-api": "^3.0.0",
     "bufferutil": "^4.0.7",
     "chalk": "^4.1.2",
     "cloc": "^2.10.0",
@@ -58,6 +58,6 @@
     "eslint": "8.28.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.5.1",
-    "eslint-plugin-unicorn": "44.0.2"
+    "eslint-plugin-unicorn": "45.0.0"
   }
 }

@@ -1,6 +1,10 @@
 const { Message, MessageEmbed, Permissions } = require('discord.js');
 const { createAudioPlayer, createAudioResource, getVoiceConnection, StreamType, AudioPlayerStatus } = require('@discordjs/voice');
-const translate = require('@william5553/translate-google-api');
+let getCode;
+
+(async () => {
+  ({ getCode } = await import('@william5553/translate-google-api'));
+})();
 
 exports.run = async (client, message, args) => {
   try {
@@ -16,9 +20,9 @@ exports.run = async (client, message, args) => {
       return message.reply("I'm already in a voice channel");
       
     const text = args.slice(1).join(' ');
-    const a1 = translate.language.getCode(args[0].toProperCase());
+    const a1 = getCode(args[0].toProperCase());
 
-    if (!translate.language.getCode(a1)) return message.reply(`${args[0]} isn't a supported language`);
+    if (!getCode(a1)) return message.reply(`${args[0]} isn't a supported language`);
 
     if (!connection)
       connection = getVoiceConnection(message.guild.id);

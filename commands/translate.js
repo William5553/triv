@@ -1,4 +1,9 @@
-const translate = require('@william5553/translate-google-api');
+let translate, isSupported;
+
+(async () => {
+  ({ translate, isSupported } = await import('@william5553/translate-google-api'));
+})();
+
 const { MessageEmbed } = require('discord.js');
 const { clean } = require('../util/Util');
 
@@ -7,13 +12,11 @@ exports.run = async (client, message, args) => {
     if (args.length < 3) return message.reply(`Wrong format: An example would be \`${client.getPrefix(message)}${exports.help.name} en fr english text here\` which would translate \`english text here\` into french`);
     const text = args.slice(2).join(' ');
 
-    const a1 = translate.language.getCode(args[0].toProperCase());
-    const a2 = translate.language.getCode(args[1].toProperCase());
+    if (!isSupported(args[0])) return message.reply(`${args[0]} isn't a supported language`);
+    if (!isSupported(args[1])) return message.reply(`${args[1]} isn't a supported language`);
 
-    if (!translate.language.getCode(a1)) return message.reply(`${args[0]} isn't a supported language`);
-    if (!translate.language.getCode(a2)) return message.reply(`${args[1]} isn't a supported language`);
-
-    translate(text, { from: a1, to: a2 })
+    translate(text, { from: args[0], to: args[1] })
+      .then(res => res.text)
       .then(clean)
       .then(cleaned => message.reply(cleaned));
   } catch (error) {
