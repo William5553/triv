@@ -27,7 +27,7 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.13.0",
     "@william5553/mathsteps": "^0.5.0",
-    "@william5553/translate-google-api": "^3.0.0",
+    "@william5553/translate-google-api": "^3.0.4",
     "bufferutil": "^4.0.7",
     "chalk": "^4.1.2",
     "cloc": "^2.10.0",
