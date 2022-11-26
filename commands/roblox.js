@@ -8,17 +8,16 @@ exports.run = async (client, message, args) => {
   const embeds = [];
   try {
     const data = await fetch.get(`https://verify.eryn.io/api/user/${user.id}`);
-    if (!data.body.error)
-      embeds.push(new MessageEmbed()
+    data.body.error
+      ? embeds.push(new MessageEmbed()
+        .setTitle('No account found on Eryn')
+        .setColor('RED')
+        .setDescription(data.body.error))
+      : embeds.push(new MessageEmbed()
         .setFooter({ text: `Username: ${data.body.robloxUsername} | User ID: ${data.body.robloxId}` })
         .setTitle('Account found on Eryn')
         .setDescription(`https://roblox.com/users/${data.body.robloxId}/profile`)
         .setColor(0x00_AE_86));
-    else
-      embeds.push(new MessageEmbed()
-        .setTitle('No account found on Eryn')
-        .setColor('RED')
-        .setDescription(data.body.error));
   } catch {
     embeds.push(new MessageEmbed()
       .setTitle('No account found on Eryn')
@@ -26,18 +25,16 @@ exports.run = async (client, message, args) => {
   }
   try {
     const data = await fetch.get(`https://api.blox.link/v1/user/${user.id}`);
-    if (!data.body.error) 
-      embeds.push(new MessageEmbed()
+    data.body.error
+      ? embeds.push(new MessageEmbed()
+        .setTitle('No account found on Bloxlink')
+        .setDescription(data.body.error)
+        .setColor('RED'))
+      : embeds.push(new MessageEmbed()
         .setFooter({ text: `User ID: ${data.body.primaryAccount}` })
         .setTitle('Account found on Bloxlink')
         .setDescription(`https://roblox.com/users/${data.body.primaryAccount}/profile`)
         .setColor(0x00_AE_86));
-    else {
-      embeds.push(new MessageEmbed()
-        .setTitle('No account found on Bloxlink')
-        .setDescription(data.body.error)
-        .setColor('RED'));
-    }
   } catch {
     embeds.push(new MessageEmbed()
       .setTitle('No account found on Bloxlink')

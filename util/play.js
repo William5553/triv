@@ -54,7 +54,9 @@ module.exports = {
     queue.resource = await _createAudioResource(client, song.url, seekTime, encoderArgs);
     queue.resource.volume?.setVolumeLogarithmic(queue.volume / 100);
     
-    if (!queue.player) {
+    if (queue.player)
+      queue.player.play(queue.resource);
+    else {
       queue.player = createAudioPlayer({ noSubscriber: NoSubscriberBehavior.Stop });
       queue.player.on('error', error => {
         client.logger.error(`A queue audio player encountered an error: ${error.stack ?? error}`);
@@ -85,8 +87,7 @@ module.exports = {
           module.exports.play(queue.songs[0], message);
         }
       });
-    } else 
-      queue.player.play(queue.resource);
+    }
     queue.connection.subscribe(queue.player);
     try {
       await entersState(queue.player, AudioPlayerStatus.Playing, 5e3);

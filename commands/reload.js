@@ -23,9 +23,7 @@ exports.run = async (client, message, args) => {
       command = args[0];
     else if (client.aliases.has(args[0]))
       command = client.aliases.get(args[0]);
-    if (!command)
-      return message.channel.send(`I cannot find the command: ${args[0]}`);
-    else
+    if (command) {
       message.channel.send(`Reloading: ${command}`).then(m => {
         client
           .unloadCommand(command)
@@ -33,6 +31,8 @@ exports.run = async (client, message, args) => {
           .then(() => m.edit(`Successfully reloaded: ${command}`))
           .catch(error => m.edit(`Command reload failed: ${command}\n\`\`\`${error.stack ?? error}\`\`\``));
       });
+    } else
+      return message.channel.send(`I cannot find the command: ${args[0]}`);
   }
 };
 

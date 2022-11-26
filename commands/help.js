@@ -11,16 +11,7 @@ const perm = {
 
 exports.run = (client, message, args, perms) => {
   try {
-    if (!args[0]) {
-      const longest = [...client.commands.keys()].reduce((long, str) => Math.max(long, str.length), 0);
-      const fonk = client.commands.filter(command => command.conf.permLevel < perms)
-        .map(c => `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`)
-        .join('\n');
-      const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { prepend: '```asciidoc\n', append: '```' });
-      for (const msg of splat)
-        message.author.send(msg);
-      if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
-    } else {
+    if (args[0]) {
       let command;
       if (client.commands.has(args[0]))
         command = client.commands.get(args[0]);
@@ -39,6 +30,15 @@ exports.run = (client, message, args, perms) => {
             { name: 'Permissions', value: perm[command.conf.permLevel] }
           ])
       ]});
+    } else {
+      const longest = [...client.commands.keys()].reduce((long, str) => Math.max(long, str.length), 0);
+      const fonk = client.commands.filter(command => command.conf.permLevel < perms)
+        .map(c => `${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`)
+        .join('\n');
+      const splat = splitMessage(`\`\`\`asciidoc\n= Command List =\n\n[Use help <commandname> for details]\n\n${fonk}\`\`\``, { prepend: '```asciidoc\n', append: '```' });
+      for (const msg of splat)
+        message.author.send(msg);
+      if (message.guild) message.channel.send('Help sent to your DMs! :mailbox_with_mail:');
     }
   } catch (error) {
     return message.channel.send({embeds: [

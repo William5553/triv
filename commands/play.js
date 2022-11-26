@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
     let forced = false;
     // the owner can play a video to any channel if they put the channel id in ampersands
     if (client.owners.includes(message.author.id) && /&((?:\\.|[^&\\])*)&/.test(args.join(' '))) {
-      channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replace(/( |)&( |)/g, ''));
+      channel = await client.channels.fetch(args.join(' ').match(/&((?:\\.|[^&\\])*)&/)[0].replaceAll(/( |)&( |)/g, ''));
       forced = true;
     }
     if (!channel) return message.reply('You need to join a voice channel first!');
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
     if (!permissions.has(Permissions.FLAGS.SPEAK))
       return message.reply('I cannot speak in this voice channel, make sure I have the **SPEAK** permission!');
 
-    const search = args.join(' ').replace(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
+    const search = args.join(' ').replaceAll(/( |)&((?:\\.|[^&\\])*)&( |)/g, '');
     const ytRegex = /^(https?:\/\/|http?:\/\/)?(www\.)?(m\.|music\.)?(youtube\.com|youtu\.?be)\/.+$/i;
 
     // Start the playlist if playlist url was provided

@@ -32,8 +32,8 @@ exports.run = async (client, message) => {
     client.games.delete(message.channel.id);
     let finished = lib.text;
     for (let i = 0; i < choices.length; i++) {
-      finished = finished.replace(/{(\d+)}/g, (match, number) => { 
-        return typeof choices[number] != 'undefined' ? `**${choices[number]}**` : match;
+      finished = finished.replaceAll(/{(\d+)}/g, (match, number) => { 
+        return choices[number] === undefined ? match : `**${choices[number]}**`;
       });
     }
     return message.channel.send(finished);

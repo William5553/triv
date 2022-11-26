@@ -19,8 +19,10 @@ const months = [
 exports.run = (client, message, args) => {
   if (args.length < 2) return message.reply(`${client.getPrefix(message)}${exports.help.usage}`);
   let month = args[0];
-  if (!validate(month)) return message.reply(`${month} is not a valid month`);
-  else month = parse(month);
+  if (validate(month)) 
+    month = parse(month);
+  else 
+    return message.reply(`${month} is not a valid month`);
   const day = args[1];
   if (Number.isNaN(day) || day > 31 || day < 1) return message.reply(`${day} is not a valid day`);
   const now = new Date();

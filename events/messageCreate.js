@@ -24,16 +24,7 @@ module.exports = async (client, message) => {
       return message.reply(`You must wait **${ms(time)}** before using this command again!`);
     }
   }
-  if (!message.guild) {
-    if (!cmd.conf.guildOnly) {
-      if (cmd.conf.permLevel >= 10 && !client.owners.includes(message.author.id))
-        return message.reply("You don't have the perms for that");
-      if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
-        client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
-      return cmd.run(client, message, args, 9);
-    } else if (cmd.conf.guildOnly)
-      return message.reply('That command can only be used in a guild, get some friends.');
-  } else {
+  if (message.guild) {
     client.guildData.ensure(message.guild.id);
     const perms = client.elevation(message.member);
     if (perms < cmd.conf.permLevel)
@@ -43,5 +34,12 @@ module.exports = async (client, message) => {
     if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
       client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
     return cmd.run(client, message, args, perms);
-  }
+  } else if (!cmd.conf.guildOnly) {
+    if (cmd.conf.permLevel >= 10 && !client.owners.includes(message.author.id))
+      return message.reply("You don't have the perms for that");
+    if (cmd.conf.cooldown && cmd.conf.cooldown > 0)
+      client.cooldowns.set(message.author.id, Date.now(), cmd.help.name);
+    return cmd.run(client, message, args, 9);
+  } else if (cmd.conf.guildOnly)
+    return message.reply('That command can only be used in a guild, get some friends.');
 };

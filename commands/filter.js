@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
       break;
     }
     case 'list': {
-      message.channel.send(JSON.stringify(queue.filters).replace(/["{}]/g, '').replace(/false/gi, ' ' + String.fromCodePoint(10_060)).replace(/true/gi, ' ' + String.fromCodePoint(10_003)).replace(/,/gi, '\n'));
+      message.channel.send(JSON.stringify(queue.filters).replaceAll(/["{}]/g, '').replaceAll(/false/gi, ' ' + String.fromCodePoint(10_060)).replaceAll(/true/gi, ' ' + String.fromCodePoint(10_003)).replaceAll(/,/gi, '\n'));
       break;
     }
     default: {

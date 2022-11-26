@@ -3,7 +3,7 @@ const { joinVoiceChannel, entersState, VoiceConnectionStatus, getVoiceConnection
 
 exports.run = async (client, message, args) => {
   if (!getVoiceConnection(message.guild.id)) {
-    const vc = message.member.voice.channel || (!Number.isNaN(args[0]) ? await message.guild.channels.resolve(args[0]) : undefined);
+    const vc = message.member.voice.channel || (Number.isNaN(args[0]) ? undefined : await message.guild.channels.resolve(args[0]));
 
     if (vc) {
       if (!vc.joinable) return message.reply('I cannot join the vc, check my permissions.');

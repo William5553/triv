@@ -1,6 +1,6 @@
 const fetch = require('node-superfetch');
 const { MessageEmbed } = require('discord.js');
-const EscapeMarkdown = (text) => text.replace(/(\*|~+|`)/g, '');
+const EscapeMarkdown = (text) => text.replaceAll(/(\*|~+|`)/g, '');
 
 exports.run = async (client, message, args) => {
   try {

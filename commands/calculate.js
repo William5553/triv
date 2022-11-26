@@ -51,7 +51,7 @@ const genEmbeds = (steps, embeds = []) => {
   if (steps.length === 0) return embeds;
   for (const step of steps) {
     const embed = new MessageEmbed()
-      .setTitle(`**${step.changeType.replace(/_/gi, ' ')}**`)
+      .setTitle(`**${step.changeType.replaceAll(/_/gi, ' ')}**`)
       .addFields([
         { name: 'Before change', value: step.oldNode.toString() },
         { name: 'After change', value: step.newNode.toString() }
