@@ -18,10 +18,10 @@ exports.run = async (client, message, args) => {
         .setAuthor({ name: 'Urban Dictionary', iconURL: 'https://i.imgur.com/Fo0nRTe.png', url: data.permalink })
         .setURL(data.permalink)
         .setTitle(data.word)
-        .setDescription(data.definition.replaceAll('[|]', '').slice(0, 1200))
+        .setDescription(data.definition.slice(0, 1200))
         .setFooter({ text: `Author: ${data.author} | 👍 ${data.thumbs_up} 👎 ${data.thumbs_down}` })
         .setTimestamp(new Date(data.written_on))
-        .addFields([{ name: 'Example', value: data.example ? data.example.replaceAll('[|]', '').slice(0, 800) : 'None' }])
+        .addFields([{ name: 'Example', value: data.example ? data.example.slice(0, 800) : 'None' }])
     ]});
   } catch (error) {
     return message.channel.send({embeds: [
