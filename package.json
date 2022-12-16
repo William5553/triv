@@ -6,7 +6,7 @@
   "author": "William5553 <contact@williamk.ga>",
   "description": "Discord bot",
   "repository": "github:William5553/triv",
-  "packageManager": "pnpm@7.18.1",
+  "packageManager": "pnpm@7.18.2",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config index.js",
@@ -58,6 +58,6 @@
     "eslint": "8.29.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.6.0",
-    "eslint-plugin-unicorn": "45.0.1"
+    "eslint-plugin-unicorn": "45.0.2"
   }
 }
