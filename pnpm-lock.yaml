@@ -25,7 +25,7 @@ specifiers:
   node-superfetch: ^0.2.3
   prism-media: ^1.3.4
   simple-youtube-api: ^5.2.1
-  sodium-native: ^3.4.1
+  sodium-native: ^4.0.0
   utf-8-validate: ^6.0.0
   youtube-dl-exec: ^2.1.10
   ytdl-core: ^4.11.2
@@ -52,7 +52,7 @@ dependencies:
   node-superfetch: 0.2.3
   prism-media: 1.3.4_bfd7ybjr4u3cxk5yt76u2mrpt4
   simple-youtube-api: 5.2.1
-  sodium-native: 3.4.1
+  sodium-native: 4.0.1
   utf-8-validate: 6.0.0
   youtube-dl-exec: 2.1.10
   ytdl-core: 4.11.2
@@ -2355,8 +2355,8 @@ packages:
       - encoding
     dev: false
 
-  /sodium-native/3.4.1:
-    resolution: {integrity: sha512-PaNN/roiFWzVVTL6OqjzYct38NSXewdl2wz8SRB51Br/MLIJPrbM3XexhVWkq7D3UWMysfrhKVf1v1phZq6MeQ==}
+  /sodium-native/4.0.1:
+    resolution: {integrity: sha512-OQTaxrVLtMvrnfcwZVsOTHe58MfDApJiHJNoOwcmmrhwvlYkfaUt2WuzRio8PgEMOd96R5aDHY49DCtock1zsA==}
     requiresBuild: true
     dependencies:
       node-gyp-build: 4.5.0
