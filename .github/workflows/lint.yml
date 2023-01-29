@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 16, 17, 18 ]
+        node-version: [ 16, 17, 18, 19 ]
 
     steps:
       - name: Checkout repository
@@ -19,7 +19,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-         version: 7.18.2
+         version: 7.26.2
          
       - name: Install Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
