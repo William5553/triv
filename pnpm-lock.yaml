@@ -85,8 +85,8 @@ devDependencies:
     specifier: 2.27.5
     version: 2.27.5(eslint@8.33.0)
   eslint-plugin-n:
-    specifier: 15.6.1
-    version: 15.6.1(eslint@8.33.0)
+    specifier: 15.7.0
+    version: 15.7.0(eslint@8.33.0)
   eslint-plugin-unicorn:
     specifier: 45.0.2
     version: 45.0.2(eslint@8.33.0)
@@ -1033,8 +1033,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-n@15.6.1(eslint@8.33.0):
-    resolution: {integrity: sha512-R9xw9OtCRxxaxaszTQmQAlPgM+RdGjaL1akWuY/Fv9fRAi8Wj4CUKc6iYVG8QNRjRuo8/BqVYIpfqberJUEacA==}
+  /eslint-plugin-n@15.7.0(eslint@8.33.0):
+    resolution: {integrity: sha512-jDex9s7D/Qial8AGVIHq4W7NswpUD5DPDL2RH8Lzd9EloWUuvUkHfv4FRLMipH5q2UtyurorBkPeNi1wVWNh3Q==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       eslint: '>=7.0.0'
