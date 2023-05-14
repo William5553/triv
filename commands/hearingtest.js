@@ -43,7 +43,7 @@ exports.run = async (client, message) => {
       await client.wait(3500);
       message.channel.send('Did you hear that sound? Reply with **[y]es** or **[n]o**.');
       const heard = await verify(message.channel, message.author);
-      if (heard != true || file === data[data.length - 1].file) {
+      if (heard != true || file === data.at(-1).file) {
         age = previousAge;
         range = previousRange;
         break;
