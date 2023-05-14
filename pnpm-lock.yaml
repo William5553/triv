@@ -5,8 +5,8 @@ dependencies:
     specifier: ^0.9.0
     version: 0.9.0
   '@discordjs/voice':
-    specifier: ^0.14.0
-    version: 0.14.0(@discordjs/opus@0.9.0)(bufferutil@4.0.7)(ffmpeg-static@5.1.0)(utf-8-validate@6.0.3)
+    specifier: ^0.16.0
+    version: 0.16.0(@discordjs/opus@0.9.0)(bufferutil@4.0.7)(ffmpeg-static@5.1.0)(utf-8-validate@6.0.3)
   '@william5553/mathsteps':
     specifier: ^0.5.0
     version: 0.5.0
@@ -172,8 +172,8 @@ packages:
       - supports-color
     dev: false
 
-  /@discordjs/voice@0.14.0(@discordjs/opus@0.9.0)(bufferutil@4.0.7)(ffmpeg-static@5.1.0)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-/LV8LSFuJ1c4OEW1ubPg3al2QNpUpwX8ZL+KL+LORmnUFVCtehSaEh+38uDfWg1O/TgiGI5vOLj4ZKql43drcw==}
+  /@discordjs/voice@0.16.0(@discordjs/opus@0.9.0)(bufferutil@4.0.7)(ffmpeg-static@5.1.0)(utf-8-validate@6.0.3):
+    resolution: {integrity: sha512-ToGCvHD1cBscuW3p+C7zOF5+L7MJmU4GjdOARfNk9mkHyFFZq4grK+Sxr3QXKbp27DtfDBc9uqD4GUOYgxngfA==}
     engines: {node: '>=16.9.0'}
     dependencies:
       '@types/ws': 8.5.4
